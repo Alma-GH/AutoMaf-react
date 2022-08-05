@@ -1,0 +1,24 @@
+
+
+.parent{
+  height: 54px;
+  width: 325px;
+
+  padding: 10px;
+  border: 2px solid black;
+
+  background-color: #B7B7B7;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+
+  &::placeholder{
+    color: #DEDEDE;
+
+  }
+
+  &:focus{
+    background-color: red;
+  }
+
+}

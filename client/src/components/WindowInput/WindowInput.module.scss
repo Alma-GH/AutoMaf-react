@@ -1,0 +1,13 @@
+@import "./../../style/variables";
+
+.parent{
+  height: 540px;
+  width: 485px;
+
+  //@extend %column;
+
+  border: 5px solid #0066FF;
+  border-radius: 30px;
+  background-color: rgba(0,0,0,0);
+  box-shadow: 10px 10px 3px 3px rgba(0, 0, 0, 0.25);
+}

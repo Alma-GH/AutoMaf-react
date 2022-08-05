@@ -1,0 +1,74 @@
+@import "./variables";
+
+//defaults
+
+html{
+  font-size: 25px;
+  background-color: $colBack_white;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+//MAIN
+.App{
+
+  height: 100vh;
+  width: 100vw;
+
+  background-color: $colBack_white;
+}
+
+
+
+
+//PAGES
+%page{
+  height: 100%;
+  width: 100%;
+}
+
+.enterPage{
+
+  @extend %page;
+  @extend %center;
+
+  .inputCont{
+    height: 150px;
+    @extend %column;
+    align-items: center;
+  }
+
+}
+
+.startPage{
+
+  @extend %page;
+  @extend %center;
+
+  .btnCont{
+    height: 300px;
+    @extend %column;
+  }
+}
+
+.findPage{
+
+  @extend %page;
+  @extend %center;
+
+  .inputCont{
+
+  }
+
+  .btnCont{
+
+  }
+
+}
+
+
+
+

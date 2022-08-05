@@ -1,0 +1,21 @@
+$colBtn_green: #33FF00;
+$colBtn_red: #FF0000;
+$colBtn_yellow: #FAFF00;
+$colBtn_grey: #C7C7C7;
+
+$colBack_white: #D9D9D9;
+
+$colBorder_blue: #0066FF;
+
+%center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+%column{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
