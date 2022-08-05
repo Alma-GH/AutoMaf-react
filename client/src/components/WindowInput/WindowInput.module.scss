@@ -4,10 +4,120 @@
   height: 540px;
   width: 485px;
 
-  //@extend %column;
+  position: relative;
 
   border: 5px solid #0066FF;
   border-radius: 30px;
   background-color: rgba(0,0,0,0);
   box-shadow: 10px 10px 3px 3px rgba(0, 0, 0, 0.25);
+
+
+
+  .inputCont{
+    $top: 30px;
+
+    width: 100%;
+    height: calc(100% - #{$hBtn*2 + $top});
+
+    margin-top:$top;
+
+    @extend %center;
+    @extend %column;
+    justify-content: space-around;
+
+    //border: 3px solid red;
+
+    //for find page
+    &>.thinCont{
+      width: 100%;
+      height: $hInp*2 + 20px;
+
+      @extend %column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    //for create page
+    &>.settingsBtn{
+      height: $hInp;
+      width: $wInp;
+
+      position: relative;
+
+      padding-left: 10px;
+      background-color: $colBtn_yellow;
+      border: 3.5px solid black;
+      @extend %font;
+      font-size: 0.9rem;
+      letter-spacing: -1px;
+      text-align: left;
+
+      .imgCont{
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        height: 100%;
+        aspect-ratio: 1/1;
+
+        @extend %center;
+
+        img{
+          height: 80%;
+        }
+      }
+
+    }
+
+    //for prepare page
+    &>.count{
+      width: 85%;
+      height: 65px;
+
+      padding: 20px;
+      display: flex;
+      align-items: center;
+
+      border: 1px solid black;
+      box-shadow: 0 8px 7px -5px rgba(34, 60, 80, 0.7);
+    }
+    &>.players{
+      width: 85%;
+      height: 280px;
+
+      @extend %column;
+      align-items: center;
+      justify-content: start;
+
+
+      border: 1px solid black;
+      box-shadow: 0 8px 7px -5px rgba(34, 60, 80, 0.7);
+
+      &>*:first-child{
+        margin-top: 15px;
+      }
+      &>*{
+        margin-bottom: 15px;
+      }
+
+    }
+
+  }
+
+  .btnCont{
+    width: 100%;
+    height: $hBtn*2;
+    position: absolute;
+    bottom: 0;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+
+    //border: 3px solid red;
+
+  }
+
 }

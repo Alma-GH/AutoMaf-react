@@ -1,23 +1,25 @@
 @import "../../../style/variables";
 
 .parent{
-  height: 50px;
-  width: 175px;
+  height: $hBtn;
+  width: $wBtn;
 
+  position: relative;
   border-radius: 30px;
   border: 0;
 
   box-shadow:  0 7px 5px -3px rgba(0, 0, 0, 0.5);;
   background-color: $colBtn_green;
-  color: white;
-  font-size: 1rem;
-  font-weight: 1000;
-  letter-spacing: 3px;
-  font-family: 'Inter', sans-serif;
-  -webkit-text-stroke: 1px #000000;
+
+  //font
+  @extend %font;
+  @extend %fontBtn;
 
   &:disabled{
     background-color: $colBtn_grey;
+  }
+  &:hover{
+    bottom: 8px;
   }
 
 }

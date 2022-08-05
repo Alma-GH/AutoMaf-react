@@ -1,0 +1,29 @@
+@import "./../../../style/variables";
+
+.radio{
+
+  height: $hInp - 10px;
+  width: $wInp;
+
+  @extend %font;
+  font-size: 0.9rem;
+  //border: 1px solid red;
+
+  @extend %column;
+  .choice{
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    label{
+      position: absolute;
+      right: 20px;
+    }
+
+    input{
+      height: 30px;
+      aspect-ratio: 1/1;
+      margin-right: 10px;
+    }
+  }
+}

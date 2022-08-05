@@ -1,11 +1,11 @@
-
+@import "./../../../style/variables";
 
 .parent{
-  height: 54px;
-  width: 325px;
+  height: $hInp;
+  width: $wInp;
 
   padding: 10px;
-  border: 2px solid black;
+  border: 3px solid black;
 
   background-color: #B7B7B7;
   font-size: 1rem;

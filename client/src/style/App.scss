@@ -12,6 +12,14 @@ html{
   box-sizing: border-box;
 }
 
+button{
+  cursor: pointer;
+}
+
+//h1{
+//  font-size: 1.5rem;
+//}
+
 //MAIN
 .App{
 
@@ -54,20 +62,58 @@ html{
   }
 }
 
+.prepPage{
+  @extend %page;
+  @extend %center;
+  @extend %column;
+
+  h1{
+    position: relative;
+    top:30px;
+    @extend %font;
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+    color:black;
+    -webkit-text-stroke: 0 black;
+  }
+}
+
 .findPage{
 
   @extend %page;
   @extend %center;
+  @extend %column;
 
-  .inputCont{
-
+  h1{
+    position: relative;
+    top:30px;
+    @extend %font;
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+    color:black;
+    -webkit-text-stroke: 0 black;
   }
-
-  .btnCont{
-
-  }
-
 }
+
+
+.createPage{
+
+  @extend %page;
+  @extend %center;
+  @extend %column;
+
+  h1{
+    position: relative;
+    top:30px;
+    @extend %font;
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+    color:black;
+    -webkit-text-stroke: 0 black;
+  }
+}
+
+
 
 
 
