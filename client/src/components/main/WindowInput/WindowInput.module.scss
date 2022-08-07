@@ -1,4 +1,4 @@
-@import "./../../style/variables";
+@import "../../../style/variables";
 
 .parent{
   height: 540px;
@@ -76,10 +76,19 @@
 
       padding: 20px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
+
 
       border: 1px solid black;
       box-shadow: 0 8px 7px -5px rgba(34, 60, 80, 0.7);
+      @extend %font;
+      font-size: 0.8rem;
+      letter-spacing: -1px;
+      color:black;
+      -webkit-text-stroke: 0 black;
+
+
     }
     &>.players{
       width: 85%;

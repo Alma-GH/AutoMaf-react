@@ -1,0 +1,57 @@
+@import "../../../style/variables";
+
+.parent{
+
+  height: 100%;
+  width: 370px;
+
+  position: relative;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid black;
+  box-shadow: 20px 0px 5px -5px rgba(0, 0, 0, 0.3);
+  @extend %font;
+
+
+  .info,.log{
+    height: 50%;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .info{
+    border-bottom: 4px solid black;
+    li{
+      margin-bottom: 40px;
+    }
+  }
+
+  .log{
+    border-top: 4px solid black;
+  }
+
+  .vote{
+    $border: 4px;
+    aspect-ratio: 1/1;
+
+    position: absolute;
+    right: calc(-50px - #{$border*2});
+    top: -1px;
+
+    border: $border solid black;
+    background-color: $colBtn_yellow !important;
+
+
+    button{
+      background-color: $colBtn_yellow !important;
+      img{
+        height: 90%;
+      }
+      &:active img{
+        height: 50%;
+      }
+    }
+  }
+
+
+}

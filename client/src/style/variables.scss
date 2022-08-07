@@ -19,9 +19,13 @@ $wInp: 325px;
 
 
 //Other
+$DEV_border: 1px solid red;
+
 $colBack_white: #D9D9D9;
 
 $colBorder_blue: #0066FF;
+
+$colCard_blue: #00FFF0;
 
 %font{
   color: white;
@@ -36,11 +40,28 @@ $colBorder_blue: #0066FF;
   align-items: center;
 }
 
+%centerPos{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 %column{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
+
+//color
+@mixin transBGC($time){
+  transition: background-color $time ease-in-out;
+}
+
+//size
+@mixin transSize($time){
+  transition: height $time ease-in-out, width $time ease-in-out;
+}
 
 

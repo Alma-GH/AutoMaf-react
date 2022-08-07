@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import WindowInput from "../WindowInput/WindowInput";
-import clsWin from "../WindowInput/WindowInput.module.scss";
+import WindowInput from "../main/WindowInput/WindowInput";
+import clsWin from "../main/WindowInput/WindowInput.module.scss";
 import InputC from "../UI/InputC/InputC";
 import BtnText from "../UI/BtnText/BtnText";
 import imgS from "./../../assets/imgs/spanner.png"

@@ -78,42 +78,46 @@ button{
   }
 }
 
-.findPage{
-
+.gamePage{
   @extend %page;
-  @extend %center;
-  @extend %column;
+  position: relative;
+  overflow: hidden;
 
-  h1{
-    position: relative;
-    top:30px;
-    @extend %font;
-    font-size: 1.3rem;
-    letter-spacing: -1px;
-    color:black;
-    -webkit-text-stroke: 0 black;
+  &>*{
+    position: absolute;
+  }
+
+  .gameTable{
+    $margin: 40px;
+    right: $margin;
+    top: $margin;
+  }
+
+  .btnCont{
+    bottom: 15px;
+    left: 450px;
+
+    &>button:first-child{
+      position: relative;
+      z-index: 2;
+    }
+
+    &>*{
+      margin-right: 70px;
+    }
+  }
+
+  .gameLog{
+    height: 100vh;
+    left: 0;
+  }
+
+  .gameBack{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.7);
   }
 }
-
-
-.createPage{
-
-  @extend %page;
-  @extend %center;
-  @extend %column;
-
-  h1{
-    position: relative;
-    top:30px;
-    @extend %font;
-    font-size: 1.3rem;
-    letter-spacing: -1px;
-    color:black;
-    -webkit-text-stroke: 0 black;
-  }
-}
-
-
 
 
 

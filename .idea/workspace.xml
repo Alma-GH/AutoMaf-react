@@ -3,13 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="376f938c-31b4-4f39-a3c2-75ab9df54628" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/PlayerSlot/PlayerSlot.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PlayerSlot/PlayerSlot.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/PlayerSlot/PlayerSlot.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PlayerSlot/PlayerSlot.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/WindowInput/WindowInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/WindowInput/WindowInput.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/WindowInput/WindowInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/WindowInput/WindowInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/style/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/variables.scss" afterDir="false" />
     </list>
@@ -37,6 +43,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="2Chwzy9ulAo4aGZovxW540mM0gG" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -47,20 +56,27 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.18.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="14.18.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TEMPLATE" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/assets/imgs" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\GameLog" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\CardViewer" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\UI\BtnIco" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\GameTable" />
       <recent name="C:\Forall\F_VSC\react_automaf" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\WindowInput" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\Pages" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -71,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659268391207</updated>
-      <workItem from="1659268393690" duration="46161000" />
+      <workItem from="1659268393690" duration="71825000" />
     </task>
     <servers />
   </component>

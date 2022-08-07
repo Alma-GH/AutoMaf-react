@@ -1,0 +1,48 @@
+@import "../../../style/variables";
+
+.parent{
+  $hCard: 570px;
+  $hBtn: 50px;
+
+  bottom: -$hCard;
+  right: 200px;
+  z-index: 2;
+
+  width: 380px;
+  height: $hCard + $hBtn;
+
+  @extend %column;
+  @extend %center;
+
+  transition: bottom 0.5s;
+
+  &.vis{
+    bottom:0;
+
+    button img{
+      transition: transform 0.3s;
+      transform: rotate(180deg) translate(50%, 50%);
+    }
+  }
+
+  &.disable button{
+    background-color: black !important;
+    cursor: initial;
+  }
+
+  button{
+    width: 100px;
+    aspect-ratio: 2/1;
+    background-color: white;
+    border: 3px solid black;
+    img{
+      transition: transform 0.3s !important;
+    }
+  }
+
+  .myCard{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+  }
+}

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import WindowInput from "../WindowInput/WindowInput";
+import WindowInput from "../main/WindowInput/WindowInput";
 import BtnText from "../UI/BtnText/BtnText";
 import InputC from "../UI/InputC/InputC";
-import clsWin from "./../WindowInput/WindowInput.module.scss"
+import clsWin from "../main/WindowInput/WindowInput.module.scss"
 
 const FindPage = () => {
 
