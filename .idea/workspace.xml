@@ -1,114 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="376f938c-31b4-4f39-a3c2-75ab9df54628" name="Changes" comment="">
+    <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/react_automaf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/react_automaf.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameCardViewer/CardViewer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameCardViewer/CardViewer.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/style/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="SCSS File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/client/src/App.js" root0="FORCE_HIGHLIGHTING" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
-  </component>
-  <component name="ProjectId" id="2Chwzy9ulAo4aGZovxW540mM0gG" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectId" id="2D5gpzDjLTWzrZ90ifjkpiO03FP" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="14.18.0" />
-    <property name="javascript.nodejs.core.library.typings.version" value="14.18.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components/main/GameTimer" />
-    <property name="list.type.of.created.stylesheet" value="SCSS" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.2.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameTimer" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameTableCard" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameVote" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\GameLog" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\GameTable" />
-      <recent name="C:\Forall\F_VSC\react_automaf" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\WindowInput" />
-    </key>
+  <component name="RunManager">
+    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/index.js" working-dir="$PROJECT_DIR$/server">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.index.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="376f938c-31b4-4f39-a3c2-75ab9df54628" name="Changes" comment="" />
-      <created>1659268391207</created>
+      <changelist id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="" />
+      <created>1659994549395</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1659268391207</updated>
-      <workItem from="1659268393690" duration="72390000" />
-      <workItem from="1659962665479" duration="394000" />
-      <workItem from="1659963115441" duration="58000" />
-      <workItem from="1659963176888" duration="15694000" />
+      <updated>1659994549395</updated>
+      <workItem from="1659994551587" duration="5066000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
