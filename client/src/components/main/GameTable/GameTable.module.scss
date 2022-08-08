@@ -22,17 +22,3 @@
   }
 
 }
-
-
-.card{
-  height:150px;
-  width: 100px;
-
-  @extend %column;
-  align-items: center;
-
-  background-color: #00FFF0;
-  border: 3px solid #007A73;
-}
-
-//800 140 70

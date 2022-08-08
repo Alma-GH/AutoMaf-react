@@ -34,6 +34,11 @@ $colCard_blue: #00FFF0;
   -webkit-text-stroke: 1px #000000;
 }
 
+%allIN{
+  height: 100%;
+  width: 100%;
+}
+
 %center{
   display: flex;
   justify-content: center;

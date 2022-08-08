@@ -3,21 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="376f938c-31b4-4f39-a3c2-75ab9df54628" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/PlayerSlot/PlayerSlot.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PlayerSlot/PlayerSlot.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/PlayerSlot/PlayerSlot.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PlayerSlot/PlayerSlot.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/WindowInput/WindowInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/WindowInput/WindowInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameCardViewer/CardViewer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameCardViewer/CardViewer.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/style/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +36,12 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/client/src/App.js" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="2Chwzy9ulAo4aGZovxW540mM0gG" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -56,20 +56,22 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.18.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="14.18.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/assets/imgs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components/main/GameTimer" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.2.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameTimer" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameTableCard" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameVote" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\GameLog" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\CardViewer" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\UI\BtnIco" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main" />
@@ -87,7 +89,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659268391207</updated>
-      <workItem from="1659268393690" duration="71825000" />
+      <workItem from="1659268393690" duration="72390000" />
+      <workItem from="1659962665479" duration="394000" />
+      <workItem from="1659963115441" duration="58000" />
+      <workItem from="1659963176888" duration="15694000" />
     </task>
     <servers />
   </component>
@@ -104,5 +109,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
