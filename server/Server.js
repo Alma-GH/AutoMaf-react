@@ -5,6 +5,13 @@ class Server {
 
   rooms = []
 
+  getRooms(){
+    return this.rooms
+  }
+  getRoomsNames(){
+    return this.rooms.map(room=>room.getName())
+  }
+
   addRoom(room){
     //TODO: change check type
 

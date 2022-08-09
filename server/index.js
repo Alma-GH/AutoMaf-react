@@ -2,32 +2,94 @@ import Player from "./Player.js";
 import Room from "./Room.js";
 import Server from "./Server.js";
 
+function log(name, arr){
+  console.group(name)
+  arr.forEach(el=>console.log(el.toString()))
+  console.log(Server)
+  console.groupEnd()
+}
 
-const player1 = new Player("Roman")
-const player2 = new Player("Artur")
-const player3 = new Player("Nikita")
-const player4 = new Player("Darya")
+//Game process
 
-const players = [
-  player1,
-  player2,
-  player3,
-  player4,
-]
+//1)Create room
 
-console.log(players.map(player=>player.toString()))
+//GET DATA FROM CLIENT
+const dataCR = {
+  event: "create_room",
 
-const room1 = new Room(player1)
+  nameCreator: "Roman",
 
-players.forEach((player,ind)=>{
-  if(ind!==0)
-    room1.addPlayer(player)
-})
+  nameRoom: "For my friends",
+  existPassword: false,
+  password: "",
+  numPlayers: 4,
 
-console.log(room1.toString())
+  gameOptions:{}
+}
 
-Server.addRoom(room1)
+//EVENT ON SERVER
+try{
+  const leader = new Player(dataCR.nameCreator)
+  const newRoom = new Room(
+    leader,
+    dataCR.numPlayers,
+    dataCR.nameRoom,
+    dataCR.existPassword ? dataCR.password : null
+  )
+  Server.addRoom(newRoom)
 
-console.log(Server)
+  log("CREATE ROOM:", [leader,newRoom])
+}catch (e){
+  console.log(e.message)
+}
 
+
+//TODO:POST DATA TO CLIENT
+
+
+
+//2)Find room
+
+
+//GET DATA FROM CLIENT
+const dataFR = {
+  event: "find_room",
+
+  nameFinder: "Artur",
+  nameRoom: "For my friends",
+  passRoom: ""
+}
+
+//EVENT ON SERVER
+try{
+  const finder        = new Player(dataFR.nameFinder)
+  const needRoom      = Server.getRooms().find(room=>room.getName()===dataFR.nameRoom)
+  const isConnectable = needRoom.getPass() ? needRoom.getPass() === dataFR.passRoom : true
+
+  if(isConnectable){
+    needRoom.addPlayer(finder)
+  }
+
+  log("FIND ROOM:", [finder,needRoom])
+}catch (e){
+  console.log(e.message)
+}
+
+//TODO:POST DATA TO CLIENT
+
+
+//3)Start game
+
+
+//GET DATA FROM CLIENT
+//EVENT ON SERVER
+//POST DATA TO CLIENT
+
+
+//4)In game
+
+
+//GET DATA FROM CLIENT
+//EVENT ON SERVER
+//POST DATA TO CLIENT
 
