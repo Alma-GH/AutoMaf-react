@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/server/src/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/websocket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Game.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/tests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,20 +40,49 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\server\src\test" />
+      <recent name="C:\Forall\F_VSC\react_automaf\server\src" />
+    </key>
+  </component>
   <component name="RunManager" selected="Node.js.index.js">
-    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/index.js" working-dir="$PROJECT_DIR$/server">
+    <configuration name="Test class 'Game':" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/server/src/test/Game.test.js" />
+      <test-names>
+        <test-name value="Test class 'Game':" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="websocket.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/websocket.js" working-dir="$PROJECT_DIR$/server">
+    <configuration name="Game.test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/test/Game.test.js" working-dir="$PROJECT_DIR$/server/src/test">
+      <method v="2" />
+    </configuration>
+    <configuration name="classU.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/utils/classU.js" working-dir="$PROJECT_DIR$/server/src/utils">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/index.js" working-dir="$PROJECT_DIR$/server">
+      <method v="2" />
+    </configuration>
+    <configuration name="websocket.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/websocket.js" working-dir="$PROJECT_DIR$/server">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.index.js" />
+        <item itemvalue="Node.js.classU.js" />
+        <item itemvalue="Node.js.Game.test.js" />
+        <item itemvalue="Jest.Test class 'Game':" />
         <item itemvalue="Node.js.websocket.js" />
       </list>
     </recent_temporary>
@@ -63,12 +96,26 @@
       <option name="presentableId" value="Default" />
       <updated>1659994549395</updated>
       <workItem from="1659994551587" duration="6689000" />
-      <workItem from="1660060481532" duration="12391000" />
+      <workItem from="1660060481532" duration="13223000" />
+      <workItem from="1660132189587" duration="1254000" />
+      <workItem from="1660133487226" duration="16150000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

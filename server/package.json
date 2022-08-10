@@ -3,9 +3,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon websocket.js"
+    "start": "nodemon src/websocket.js",
+    "test": "node src/test/Game.test.js"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +14,6 @@
   "dependencies": {
     "nodemon": "^2.0.19",
     "ws": "^8.8.1"
-  }
+  },
+  "devDependencies": {}
 }

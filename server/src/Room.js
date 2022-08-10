@@ -1,5 +1,6 @@
 import Player from "./Player.js";
 import Server from "./Server.js";
+import Game from "./Game.js";
 
 const DEF_MAX_PLAYERS = 4
 
@@ -105,7 +106,13 @@ class Room {
     this.inGame = !this.inGame
   }
 
-
+  getGame(){
+    return this.game
+  }
+  startGame(){
+    const newGame = new Game(this.players)
+    this.game = newGame
+  }
 
   toString(){
     return JSON.stringify({

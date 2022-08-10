@@ -82,11 +82,30 @@ try{
 
 
 //GET DATA FROM CLIENT
+const dataSG = {
+  event: "start_game",
+
+  roomID: 0
+}
 //EVENT ON SERVER
-//POST DATA TO CLIENT
+try{
+  const roomInGame = Server.getRooms().find(room=>room.getID()===dataSG.roomID)
+
+  //find room ->
+  const player3 = new Player("Darya")
+  const player4 = new Player("Nikita")
+  roomInGame.addPlayer(player3); roomInGame.addPlayer(player4)
+
+  roomInGame.startGame()
+
+  log("START_GAME:",[roomInGame,roomInGame.getGame()])
+}catch (e){
+  console.log(e.message)
+}
+//TODO:POST DATA TO CLIENT
 
 
-//4)In game
+//4)In game(readiness)
 
 
 //GET DATA FROM CLIENT
