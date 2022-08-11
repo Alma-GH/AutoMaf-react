@@ -38,7 +38,7 @@ try{
   )
   Server.addRoom(newRoom)
 
-  log("CREATE ROOM:", [leader,newRoom])
+  // log("CREATE ROOM:", [leader,newRoom])
 }catch (e){
   console.log(e.message)
 }
@@ -63,14 +63,14 @@ const dataFR = {
 //EVENT ON SERVER
 try{
   const finder        = new Player(dataFR.nameFinder)
-  const needRoom      = Server.getRooms().find(room=>room.getName()===dataFR.nameRoom)
+  const needRoom      = Server.getRoomByName(dataFR.nameRoom)
   const isConnectable = needRoom.getPass() ? needRoom.getPass() === dataFR.passRoom : true
 
   if(isConnectable){
     needRoom.addPlayer(finder)
   }
 
-  log("FIND ROOM:", [finder,needRoom])
+  // log("FIND ROOM:", [finder,needRoom])
 }catch (e){
   console.log(e.message)
 }
@@ -89,7 +89,7 @@ const dataSG = {
 }
 //EVENT ON SERVER
 try{
-  const roomInGame = Server.getRooms().find(room=>room.getID()===dataSG.roomID)
+  const roomInGame = Server.getRoomByID(dataSG.roomID)
 
   //find room ->
   const player3 = new Player("Darya")
@@ -98,7 +98,7 @@ try{
 
   roomInGame.startGame()
 
-  log("START_GAME:",[roomInGame,roomInGame.getGame()])
+  // log("START_GAME:",[roomInGame,roomInGame.getGame()])
 }catch (e){
   console.log(e.message)
 }
@@ -109,6 +109,35 @@ try{
 
 
 //GET DATA FROM CLIENT
-//EVENT ON SERVER
-//POST DATA TO CLIENT
+const dataIG = {
+  event: "prepare_readiness",
 
+  roomID: 0,
+
+  idPlayer: 3,
+  cardIndex: 2,
+}
+
+//EVENT ON SERVER
+try{
+  const needRoom = Server.getRoomByID(dataIG.roomID)
+  const player = needRoom.getPlayerByID(dataIG.idPlayer)
+  const gameInRoom = needRoom.getGame()
+  gameInRoom.addReadyPlayer(player)
+  gameInRoom.addMapping(player,dataIG.cardIndex)
+
+  log("IN GAME(READINESS):", [needRoom,player,gameInRoom])
+}catch (e){
+  console.log(e.message)
+}
+
+//TODO:POST DATA TO CLIENT
+
+
+
+//4)In game(readiness)
+
+
+//GET DATA FROM CLIENT
+//EVENT ON SERVER
+//TODO:POST DATA TO CLIENT

@@ -86,6 +86,9 @@ class Room {
   getPlayers(){
     return this.players
   }
+  getPlayerByID(id){
+    return this.getPlayers().find(player=>player.getID()===id)
+  }
   addPlayer(player){
     //TODO: change check type
 
@@ -110,8 +113,7 @@ class Room {
     return this.game
   }
   startGame(){
-    const newGame = new Game(this.players)
-    this.game = newGame
+    this.game = new Game(this.players)
   }
 
   toString(){
@@ -119,6 +121,7 @@ class Room {
       s_newID: Room.newID,
 
       roomID: this.roomID,
+
       players: this.players.map(player=>player.toString()),
       newPlayerID: this.newPlayerID
     },null,2)

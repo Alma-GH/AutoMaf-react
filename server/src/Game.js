@@ -37,9 +37,7 @@ class Game {
     this.createCards(this.livePlayers.length)
     this.initReadiness()
     this.initVotes()
-
-
-    this.mapping = new Map()
+    this.initMapping()
   }
 
   getPhase(){
@@ -103,8 +101,35 @@ class Game {
       cards.push(mafInds.includes(i) ? CARD_MAFIA : CARD_CIVIL)
     }
 
-    return cards
+    this.cards = cards
   }
+
+  getMapping(){
+    return this.mapping
+  }
+  addMapping(player,cardIndex){
+
+    //validate conditions
+    const isPlayer  = player instanceof Player
+    const isNotSetted = isPlayer ? this.mapping.get(player)===null : false
+
+    const isNum     = typeof cardIndex === "number"
+    const isInt     = Number.isInteger(cardIndex)
+    const isInd     = (cardIndex >= 0) && (cardIndex < this.cards.length)
+
+    //result
+    if(isPlayer && isNum && isInt && isInd && isNotSetted)
+      this.mapping.set(player,cardIndex)
+    else
+      throw new Error("Type error: mapping in Game")
+  }
+  initMapping(){
+    this.mapping = new Map()
+    for(let player of this.livePlayers){
+      this.mapping.set(player,null)
+    }
+  }
+
 
   getReadiness(){
     return this.readiness
@@ -146,7 +171,8 @@ class Game {
       livePlayers:this.livePlayers,
       cards:this.cards,
       readiness:this.readiness,
-      votes:this.votes
+      votes:Array.from(this.votes.entries()),
+      mapping:Array.from(this.mapping.entries())
     }, null, 2)
   }
 

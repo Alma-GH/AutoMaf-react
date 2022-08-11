@@ -12,6 +12,12 @@ class Server {
     return this.rooms.map(room=>room.getName())
   }
 
+  getRoomByID(id){
+    return this.getRooms().find(room=>room.getID()===id)
+  }
+  getRoomByName(name){
+    return this.getRooms().find(room=>room.getName()===name)
+  }
   addRoom(room){
     //TODO: change check type
 

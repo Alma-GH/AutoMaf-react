@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/src/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/Game.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/tests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/tests.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,16 +70,16 @@
     <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/index.js" working-dir="$PROJECT_DIR$/server">
       <method v="2" />
     </configuration>
-    <configuration name="websocket.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/websocket.js" working-dir="$PROJECT_DIR$/server">
+    <configuration name="tests.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/test/tests.js" working-dir="$PROJECT_DIR$/server/src/test">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.index.js" />
+        <item itemvalue="Node.js.tests.js" />
         <item itemvalue="Node.js.classU.js" />
         <item itemvalue="Node.js.Game.test.js" />
         <item itemvalue="Jest.Test class 'Game':" />
-        <item itemvalue="Node.js.websocket.js" />
       </list>
     </recent_temporary>
   </component>
@@ -98,7 +94,9 @@
       <workItem from="1659994551587" duration="6689000" />
       <workItem from="1660060481532" duration="13223000" />
       <workItem from="1660132189587" duration="1254000" />
-      <workItem from="1660133487226" duration="16150000" />
+      <workItem from="1660133487226" duration="16941000" />
+      <workItem from="1660218132049" duration="3766000" />
+      <workItem from="1660233283646" duration="422000" />
     </task>
     <servers />
   </component>

@@ -1,6 +1,7 @@
 import Player from "../Player.js";
 import Room from "../Room.js";
 import Server from "../Server.js";
+import Game from "../Game.js";
 
 
 const player1 = new Player("Roman")
@@ -17,7 +18,7 @@ const players = [
 
 console.log(players.map(player=>player.toString()))
 
-const room1 = new Room(player1)
+const room1 = new Room(player1,4,"fff")
 
 players.forEach((player,ind)=>{
   if(ind!==0)
