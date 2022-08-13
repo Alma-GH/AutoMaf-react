@@ -4,10 +4,8 @@
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/tests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/Game.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/Game.test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +36,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -96,7 +94,8 @@
       <workItem from="1660132189587" duration="1254000" />
       <workItem from="1660133487226" duration="16941000" />
       <workItem from="1660218132049" duration="3766000" />
-      <workItem from="1660233283646" duration="422000" />
+      <workItem from="1660233283646" duration="551000" />
+      <workItem from="1660338900834" duration="12542000" />
     </task>
     <servers />
   </component>

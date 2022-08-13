@@ -105,7 +105,7 @@ try{
 //TODO:POST DATA TO CLIENT
 
 
-//4)In game(readiness)
+//4)In game(prep readiness)
 
 
 //GET DATA FROM CLIENT
@@ -121,12 +121,14 @@ const dataIG = {
 //EVENT ON SERVER
 try{
   const needRoom = Server.getRoomByID(dataIG.roomID)
-  const player = needRoom.getPlayerByID(dataIG.idPlayer)
   const gameInRoom = needRoom.getGame()
+
+  const player = needRoom.getPlayerByID(dataIG.idPlayer)
+
   gameInRoom.addReadyPlayer(player)
   gameInRoom.addMapping(player,dataIG.cardIndex)
 
-  log("IN GAME(READINESS):", [needRoom,player,gameInRoom])
+  // log("IN GAME(PREP READINESS):", [needRoom,player,gameInRoom])
 }catch (e){
   console.log(e.message)
 }
@@ -135,9 +137,43 @@ try{
 
 
 
-//4)In game(readiness)
+//5)In game(readiness)
 
 
 //GET DATA FROM CLIENT
+const dataIG2 = {
+  event: "readiness",
+
+  roomID: 0,
+
+  idPlayer: 1,
+}
+
 //EVENT ON SERVER
+try{
+  const needRoom = Server.getRoomByID(dataIG2.roomID)
+  const gameInRoom = needRoom.getGame()
+
+  //prep readiness ->
+  const player1 = needRoom.getPlayerByID(0)
+  const player2 = needRoom.getPlayerByID(1)
+  const player3 = needRoom.getPlayerByID(2)
+  gameInRoom.addReadyPlayer(player1)
+  gameInRoom.addMapping(player1,0)
+  gameInRoom.addReadyPlayer(player2)
+  gameInRoom.addMapping(player2,1)
+  gameInRoom.addReadyPlayer(player3)
+  gameInRoom.addMapping(player3,3)
+
+  const player = needRoom.getPlayerByID(dataIG2.idPlayer)
+  gameInRoom.addReadyPlayer(player)
+
+  log("IN GAME(READINESS):", [needRoom,player,gameInRoom])
+
+}catch (e){
+  console.log(e.message)
+}
+
+
+
 //TODO:POST DATA TO CLIENT

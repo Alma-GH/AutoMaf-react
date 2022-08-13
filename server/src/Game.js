@@ -13,8 +13,32 @@ class Game {
   static PHASE_DAY_SUBTOTAL   = "PHASE_DAY_SUBTOTAL"
   static PHASE_DAY_TOTAL      = "PHASE_DAY_TOTAL"
 
+  static START_PATH = [
+    Game.PHASE_PREPARE,
+    Game.PHASE_DAY_DISCUSSION,
+    Game.PHASE_NIGHT_MAFIA,
+    Game.PHASE_DAY_DISCUSSION,
+    Game.PHASE_DAY_SUBTOTAL,
+    Game.PHASE_DAY_DISCUSSION,
+    Game.PHASE_DAY_TOTAL
+  ]
 
-  phase
+  static ADD_NEXT_DAY = [
+    Game.PHASE_NIGHT_MAFIA,
+    Game.PHASE_DAY_DISCUSSION,
+    Game.PHASE_DAY_SUBTOTAL,
+    Game.PHASE_DAY_DISCUSSION,
+    Game.PHASE_DAY_TOTAL
+  ]
+
+  static ADD_NEXT_VOTE = [
+    Game.PHASE_DAY_DISCUSSION,
+    Game.PHASE_DAY_TOTAL
+  ]
+
+
+  phasePath
+  phaseIndex
   numDay
   //[Player, Player, ...]
   livePlayers
@@ -31,44 +55,69 @@ class Game {
   options
 
   constructor(players) {
-    this.phase = Game.PHASE_PREPARE
-    this.initDay()
-    this.setPlayers(players)
-    this.createCards(this.livePlayers.length)
-    this.initReadiness()
-    this.initVotes()
-    this.initMapping()
+    this._initPhase()
+    this._initDay()
+    this._setPlayers(players)
+    this._createCards(this.livePlayers.length)
+    this._initReadiness()
+    this._initVotes()
+    this._initMapping()
   }
 
   getPhase(){
-    return this.phase
+    return this.phasePath[this.phaseIndex]
   }
-  setPhase(phase){
-    if(!([
-      Game.PHASE_PREPARE,
-      Game.PHASE_DAY_DISCUSSION,
-      Game.PHASE_NIGHT_MAFIA,
-      Game.PHASE_DAY_SUBTOTAL,
-      Game.PHASE_DAY_TOTAL
-    ].includes(phase))) return false
+  // setPhase(phase){
+  //   if(!([
+  //     Game.PHASE_PREPARE,
+  //     Game.PHASE_DAY_DISCUSSION,
+  //     Game.PHASE_NIGHT_MAFIA,
+  //     Game.PHASE_DAY_SUBTOTAL,
+  //     Game.PHASE_DAY_TOTAL
+  //   ].includes(phase))) return false
+  //
+  //   // this.phase = phase
+  // }
+  _nextPhase(){
+    //TODO
+    //temp
+    const nobodyWin = false
+    const repeatVote = false
 
-    this.phase = phase
+    const isLastPhase = (this.phaseIndex === this.phasePath.length-1)
+
+    if(isLastPhase){
+      if(repeatVote)
+        this.phasePath = this.phasePath.concat(Game.ADD_NEXT_VOTE)
+      else if(nobodyWin)
+        this.phasePath = this.phasePath.concat(Game.ADD_NEXT_DAY)
+    }
+
+    //TODO: change day other way if will some night phases
+    if(this.getPhase() === Game.PHASE_NIGHT_MAFIA || this.numDay === 0)
+      this._nextDay()
+
+    this.phaseIndex++
+  }
+  _initPhase(){
+    this.phasePath = [...Game.START_PATH]
+    this.phaseIndex = 0
   }
 
   getDay(){
     return this.numDay
   }
-  nextDay(){
+  _nextDay(){
     this.numDay +=  1
   }
-  initDay(){
+  _initDay(){
     this.numDay = 0
   }
 
   getPlayers(){
     return this.livePlayers
   }
-  setPlayers(players){
+  _setPlayers(players){
     const isArr         = Array.isArray(players)
     const havePlayers   = isArr ? players.every(player=>(player instanceof Player)) : false
     const enoughPlayers = isArr ? players.length >= MIN_PLAYERS  : false
@@ -76,14 +125,21 @@ class Game {
     if(isArr && havePlayers && enoughPlayers)   this.livePlayers = [...players]
     else                                        throw new Error("Type error: players in Game")
   }
-  killPlayer(player){
-    //TODO
-  }
+  killPlayer(victim){
+
+    if(victim instanceof Player)
+      this.livePlayers = this.livePlayers.filter(player=>player.getID()!==victim.getID())
+    else
+      throw new Error("Type error: victim in Game")
+
+    //TODO check on win
+
+  } //*
 
   getCards(){
     return this.cards
   }
-  createCards(numPlayers){
+  _createCards(numPlayers){
 
     //validate
     if(numPlayers<MIN_PLAYERS) numPlayers = MIN_PLAYERS
@@ -108,7 +164,6 @@ class Game {
     return this.mapping
   }
   addMapping(player,cardIndex){
-
     //validate conditions
     const isPlayer  = player instanceof Player
     const isNotSetted = isPlayer ? this.mapping.get(player)===null : false
@@ -122,8 +177,8 @@ class Game {
       this.mapping.set(player,cardIndex)
     else
       throw new Error("Type error: mapping in Game")
-  }
-  initMapping(){
+  } //*
+  _initMapping(){
     this.mapping = new Map()
     for(let player of this.livePlayers){
       this.mapping.set(player,null)
@@ -134,11 +189,22 @@ class Game {
   getReadiness(){
     return this.readiness
   }
-  addReadyPlayer(player){
-    if(player instanceof Player)
-      this.readiness.push(player)
+  _allPlayersReady(){
+    return this.readiness.length === this.livePlayers.length
   }
-  initReadiness(){
+  addReadyPlayer(player){
+    if(player instanceof Player && !this.getReadiness().includes(player))
+      this.readiness.push(player)
+    else
+      throw new Error("Type error: ready player in Game")
+
+    if(this._allPlayersReady()){
+      this._nextPhase()
+      this._initReadiness()
+    }
+
+  } //*
+  _initReadiness(){
     this.readiness = []
   }
 
@@ -155,8 +221,11 @@ class Game {
       this.votes.set(player,val)
     else
       throw new Error("Type error: vote in Game")
-  }
-  initVotes(){
+
+    //TODO: if(all players vote) do something -> clear votes
+
+  } //*
+  _initVotes(){
     this.votes = new Map()
     for(let player of this.livePlayers){
       this.votes.set(player,null)
@@ -166,7 +235,8 @@ class Game {
 
   toString(){
     return JSON.stringify({
-      phase:this.phase,
+      phase:this.phasePath[this.phaseIndex],
+      phasePath:this.phasePath,
       numDay:this.numDay,
       livePlayers:this.livePlayers,
       cards:this.cards,
