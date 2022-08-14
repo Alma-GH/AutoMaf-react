@@ -114,6 +114,7 @@ class Room {
   }
   startGame(){
     this.game = new Game(this.players)
+    this.toggleStatus()
   }
 
   toString(){
