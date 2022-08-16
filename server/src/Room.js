@@ -93,7 +93,7 @@ class Room {
     //TODO: change check type
 
     //check type
-    if(!(player instanceof Player))
+    if(!(player instanceof Player) || this.getPlayers().some(pl=>pl.getID() === player.getID()))
       throw new Error("Type error: Room.addPlayer(player)")
 
     //add id in room for player
@@ -105,7 +105,7 @@ class Room {
   getStatus(){
     return this.inGame
   }
-  toggleStatus(){
+  _toggleStatus(){
     this.inGame = !this.inGame
   }
 
@@ -113,8 +113,8 @@ class Room {
     return this.game
   }
   startGame(){
-    this.game = new Game(this.players)
-    this.toggleStatus()
+    this.game = new Game(this)
+    this._toggleStatus()
   }
 
   toString(){

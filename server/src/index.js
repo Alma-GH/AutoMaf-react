@@ -218,3 +218,13 @@ try{
 
 //TODO:POST DATA TO CLIENT
 
+
+//7)In game(vote for kill)
+
+//GET DATA FROM CLIENT
+const dataIG4 = {
+
+}
+//EVENT ON SERVER
+//TODO:POST DATA TO CLIENT
+
