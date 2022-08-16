@@ -1,6 +1,7 @@
 import Game from "../Game.js";
 import Player from "../Player.js";
 import Room from "../Room.js";
+import Onside from "../Onside.js";
 
 const MAX_PLAYERS = 4
 
@@ -26,19 +27,33 @@ const game = room.getGame()
 //GAME PROCESS
 
 //players take cards
-const onside = []
+const onsides = []
 for (let i = 0; i < MAX_PLAYERS; i++) {
   const player = players[i]
   const onside = game.createRole(player,i)
-  players[i] = onside
+  onsides.push(onside)
   if(i>=0) game.addReadyPlayer(onside)
 }
 
 //players skip day discussion
 for (let i = 0; i < MAX_PLAYERS; i++) {
-  const onside = players[i]
+  const onside = onsides[i]
   game.addReadyPlayer(onside)
 }
+
+//night kill
+for (let i = 0; i < MAX_PLAYERS; i++) {
+  const onside = onsides[i]
+  if(onside.getRole()===Onside.CARD_MAFIA)
+    game.setVoteNight(onside,onsides.find(player=>player.getRole()!==Onside.CARD_MAFIA))
+}
+
+//players skip day discussion
+for (let i = 0; i < MAX_PLAYERS; i++) {
+  const onside = onsides[i]
+  game.addReadyPlayer(onside)
+}
+
 
 
 

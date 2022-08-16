@@ -6,9 +6,6 @@ class Onside extends Player{
   static CARD_CIVIL = "CARD_CIVIL"
   static CARD_MAFIA = "CARD_MAFIA"
 
-  //special roles
-  static SPEC_ROLES = [Onside.CARD_MAFIA]
-
   //(CARD_MAFIA,CARD_CIVIL) - card
   role
 
@@ -79,7 +76,7 @@ class Onside extends Player{
   setVoteNight(vote){
     const valIsNull   = (vote === null)
     const valIsPlayer = (vote instanceof Onside)
-    const isSpecRole  = Onside.SPEC_ROLES.includes(this.role)
+    const isSpecRole  = (this.role !== Onside.CARD_CIVIL)
 
     if((valIsPlayer || valIsNull) && isSpecRole)
       this.voteNight = vote

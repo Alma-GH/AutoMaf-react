@@ -47,8 +47,6 @@ class Game {
   static NIGHT_PHASES = [
     Game.PHASE_NIGHT_MAFIA
   ]
-  //special cards
-  static SPEC_CARDS = [CARD_MAFIA]
 
   //[Onside,Onside,...]
   players = []
@@ -63,12 +61,8 @@ class Game {
   //[CARD_MAFIA,CARD_CIVIL, null, ...]
   cards
 
-  //player to cardInd
-  mapping
   //player to (player,false,null) - votes for court
   votes
-  //player to (player,null) - votes for special role (mafia, doctor, commissar)
-  votesNight
 
   //TODO: options
   options
@@ -173,23 +167,22 @@ class Game {
   getPlayers(){
     return this.players
   }
-  getPlayersReadiness(){
-    return this.players.filter(player=>player.isReady())
-  }
   getPlayersAlive(){
     return this.players.filter(player=>player.isLive())
   }
-  //TODO: fix
+  getPlayersReadiness(){
+    return this.players.filter(player=>player.isReady())
+  }
+  getPlayersVotesNight(){
+    return this.players.filter(player=>player.getVoteNight())
+  }
   _killPlayer(victim){
+    //TODO: mb add validate
+    //TODO: mb add clear all votes(for court)
 
-    if(victim instanceof Player)
-      //TODO: mb add clear all votes
-      this.livePlayers = this.livePlayers.filter(player=>player.getID()!==victim.getID())
-    else
-      throw new Error("Type error: victim in Game")
+    victim.kill()
 
     //TODO check on win
-
   }
 
   addReadyPlayer(player){
@@ -214,8 +207,48 @@ class Game {
     this.players.forEach(player=>{player.unready()})
   }
 
+  setVoteNight(player,val){
+    this.Checker.check_setVoteNight(player,val)
 
+    player.setVoteNight(val)
 
+    if(this._allPlayersVoteNight())
+      this._actionOnVotesNight()
+
+  } //*
+  _allPlayersVoteNight(){
+    //TODO: check only alive players
+
+    //who vote
+    let role = Onside.CARD_MAFIA
+    this._runFunctionsByPhase([
+      ()=>{role = Onside.CARD_MAFIA}
+    ])
+
+    const whoVoted      = this.getPlayersVotesNight()
+    const whoShouldVote = this.players.filter(player=>player.getRole() === role)
+    return  whoVoted.length === whoShouldVote.length
+  }
+  _actionOnVotesNight(){
+    const choice = this._choiceVotesNight()
+
+    this._runFunctionsByPhase([
+      ()=>{this._killPlayer(choice)}
+    ])
+
+    this._initVotesNight()
+    this._nextPhase()
+  }
+  _choiceVotesNight(){
+    if(this._allPlayersVoteNight())
+      return this.getPlayersVotesNight()[0].getVoteNight()
+    return null
+  }
+  _initVotesNight(){
+    this.getPlayers()
+      .filter(player=>player.getRole()!==Onside.CARD_CIVIL)
+      .forEach(player=>player.setVoteNight(null))
+  }
 
 
 
@@ -242,70 +275,17 @@ class Game {
     }
   }
 
-  getVotesNight(){
-    return this.votesNight
-  }
-  _choiceVotesNight(){
-    if(this._allPlayersVoteNight())
-      return Array.from(this.getVotesNight().values())[0]
-    return null
-  }
-  _allPlayersVoteNight(){
-    const votes = Array.from(this.votesNight.values())
-    return votes.every(vote=>vote!==null) && votes.every(vote=>vote===votes[0])
-  }
-  _actionOnVotesNight(){
-    const choice = this._choiceVotesNight()
-
-    switch (this.getPhase()){
-      case Game.PHASE_NIGHT_MAFIA:
-        this._killPlayer(choice)
-        this._initVotesNight(CARD_MAFIA)
-        break
-      //add other night phases
-    }
-
-    this._nextPhase()
-
-  }
-  setVoteNight(player,val){
-    const valIsNull   = (val === null)
-    const valIsPlayer = (val instanceof Player)
-    const keyIsPlayer = (player instanceof Player)
-    const isNightPhase= (Game.NIGHT_PHASES.includes(this.getPhase()))
-
-    if( (valIsPlayer || valIsNull) && keyIsPlayer && isNightPhase && this.votesNight.has(player))
-      this.votesNight.set(player,val)
-    else
-      throw new Error("Type error: voteNight in Game")
-
-
-    if(this._allPlayersVoteNight())
-      this._actionOnVotesNight()
-
-  } //*
-  _initVotesNight(card){
-
-    if(!Game.SPEC_CARDS.includes(card)) throw new Error("Type error: card in Game")
-
-    this.votesNight = new Map()
-
-    for(let player of this.livePlayers){
-      const cardIndex = this.mapping.get(player)
-      const haveSpecCard = (this.cards[cardIndex] === card)
-
-      if(haveSpecCard) this.votesNight.set(player,null)
-    }
-  }
-
-
-
+  //call only on night phases
   _runFunctionsByPhase(functions){
     const map = {
       [Game.PHASE_NIGHT_MAFIA]:functions[0],
       //TODO: add other night phases
     }
-    map[this.getPhase()]()
+
+    const isNightPhase = (typeof map[this.getPhase()] === "function")
+
+    if(isNightPhase)  map[this.getPhase()]()
+    else              throw new Error("Access error: other phase in Game")
   }
 
 
@@ -360,16 +340,16 @@ class TypeChecker{
   check_createRole(...args){
     //TODO: change error messages
     if(!this.checkArgs_createRole(...args))
-      throw new Error("Type error: addMapping in Game")
+      throw new Error("Type error: createRole in Game")
 
     const player = args[0]
     const cardIndex = args[1]
 
     if(this.game.players.some(onside=>onside.getID()===player.getID()))
-      throw new Error("Type error: addMapping in Game")
+      throw new Error("Type error: createRole in Game")
 
     if(this.game.getCards()[cardIndex] === null)
-      throw new Error("Type error: addMapping in Game")
+      throw new Error("Type error: createRole in Game")
   }
 
   checkArgs_getPlayersByID(...args){
@@ -414,9 +394,7 @@ class TypeChecker{
     //TODO: check on phase discussion(or prepare) + check on alive(mb set readiness all dead player)
   }
 
-
-
-  checkArgs_voteNight(...args){
+  checkArgs_setVoteNight(...args){
     if(args.length!==2) return false
 
     const player  = args[0]
@@ -428,23 +406,27 @@ class TypeChecker{
 
     return (valIsPlayer || valIsNull) && keyIsPlayer
   }
-  check_voteNight(...args){
+  check_setVoteNight(...args){
     //TODO: change error messages
-    if(!this.checkArgs_voteNight(...args))
+    if(!this.checkArgs_setVoteNight(...args))
       throw new Error("Type error: voteNight in Game")
 
     const voter = args[0]
     const val = args[1]
 
-    //TODO: CONTINUE
-    let voters
+    let voters = []
     this.game._runFunctionsByPhase([
       ()=>{voters = this.game.getPlayers().filter(player=>player.getRole() === Onside.CARD_MAFIA)}
     ])
-    //val not includes in voters
+
     //voter should have role corresponding to phase
+    if(!voters.includes(voter))
+      throw new Error("Type error: voteNight in Game")
+    //val not includes in voters
+    if(voters.includes(val))
+      throw new Error("Type error: voteNight in Game")
 
-
+    //TODO: mb add check on val is not dead
   }
 
 }
