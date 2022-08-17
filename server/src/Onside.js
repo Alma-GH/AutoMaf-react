@@ -11,6 +11,8 @@ class Onside extends Player{
 
   alive
   readiness
+  speak
+  judged
 
   //(player,false,null) - votes for court
   vote
@@ -19,12 +21,15 @@ class Onside extends Player{
   voteNight
 
   constructor(player,role) {
+    //copy name and id
     super(player.getName());
     this.setID(player.getID())
 
     this.setRole(role)
     this.alive = true
     this.readiness = false
+    this.speak = false
+    this.judged = false
     this.setVote(null)
   }
 
@@ -55,6 +60,26 @@ class Onside extends Player{
   }
   unready(){
     this.readiness = false
+  }
+
+  isSpeak(){
+    return this.speak
+  }
+  speakOn(){
+    this.speak = true
+  }
+  speakOff(){
+    this.speak = false
+  }
+
+  isJudged(){
+    return this.judged
+  }
+  judgedOn(){
+    this.judged = true
+  }
+  judgedOff(){
+    this.judged = false
   }
 
   getVote(){

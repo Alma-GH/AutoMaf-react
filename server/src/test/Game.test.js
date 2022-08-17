@@ -54,6 +54,15 @@ for (let i = 0; i < MAX_PLAYERS; i++) {
   game.addReadyPlayer(onside)
 }
 
+//subtotal
+game.startSubTotal()
+const sus = game.getPlayers().find(player=>player.isLive())
+for (let i = 0; i < MAX_PLAYERS; i++) {
+  const onside = game.getPlayers().find(player=>player.isSpeak())
+  if(onside)
+    game.setVote(onside,sus===onside ? false : sus)
+}
+
 
 
 

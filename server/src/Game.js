@@ -55,14 +55,11 @@ class Game {
   phaseIndex
   numDay
 
-  //[Player, Player, ...]
-  livePlayers
-
   //[CARD_MAFIA,CARD_CIVIL, null, ...]
   cards
 
   //player to (player,false,null) - votes for court
-  votes
+  tableVotes
 
   //TODO: options
   options
@@ -173,7 +170,10 @@ class Game {
   getPlayersReadiness(){
     return this.players.filter(player=>player.isReady())
   }
-  getPlayersVotesNight(){
+  getPlayersVoted(){
+    return this.players.filter(player=>player.getVote() !== null)
+  }
+  getPlayersVotedNight(){
     return this.players.filter(player=>player.getVoteNight())
   }
   _killPlayer(victim){
@@ -225,7 +225,7 @@ class Game {
       ()=>{role = Onside.CARD_MAFIA}
     ])
 
-    const whoVoted      = this.getPlayersVotesNight()
+    const whoVoted      = this.getPlayersVotedNight()
     const whoShouldVote = this.players.filter(player=>player.getRole() === role)
     return  whoVoted.length === whoShouldVote.length
   }
@@ -241,7 +241,7 @@ class Game {
   }
   _choiceVotesNight(){
     if(this._allPlayersVoteNight())
-      return this.getPlayersVotesNight()[0].getVoteNight()
+      return this.getPlayersVotedNight()[0].getVoteNight()
     return null
   }
   _initVotesNight(){
@@ -252,27 +252,76 @@ class Game {
 
 
 
-  getVotes(){
-    return this.votes
+  startSubTotal(){
+    //TODO: TypeChecker
+    if(this.getPhase() !== Game.PHASE_DAY_SUBTOTAL) return
+
+    const first = this.getPlayersAlive()[0]
+    first.speakOn()
   }
+  _nextSpeaker(){
+    //TODO: TypeChecker
+    if(this.getPhase() !== Game.PHASE_DAY_SUBTOTAL) return
+    //TODO: check speakerInd != -1
+
+    const alive       = this.getPlayersAlive()
+    const speakerInd  = alive.findIndex(player=>player.isSpeak())
+    const next        = alive[speakerInd+1]
+
+    alive[speakerInd].speakOff()
+
+
+    if(next)
+      next.speakOn()
+  }
+  startTotal(){
+    //TODO: TypeChecker
+    if(this.getPhase() !== Game.PHASE_DAY_TOTAL) return
+
+    const first = this.getPlayersAlive()[0]
+    first.judgedOn()
+  }
+  _nextJudged(){
+    //TODO: TypeChecker
+    if(this.getPhase() !== Game.PHASE_DAY_TOTAL) return
+    //TODO: check judgedInd != -1
+
+    const alive       = this.getPlayersAlive()
+    const judgedInd   = alive.findIndex(player=>player.isJudged())
+    const next        = alive[judgedInd+1]
+
+    alive[judgedInd].judgedOff()
+
+
+    if(next)
+      next.judgedOn()
+  }
+
   setVote(player,val){
-    const valIsNull   = [false,null].includes(val)
-    const valIsPlayer = val instanceof Player
-    const keyIsPlayer = player instanceof Player
+    this.Checker.check_setVote(player,val)
 
-    if( (valIsPlayer || valIsNull) && keyIsPlayer && this.votes.has(player))
-      this.votes.set(player,val)
-    else
-      throw new Error("Type error: vote in Game")
+    player.setVote(val)
+    this._nextSpeaker()
+    //TODO: CONTINUE
+    //TODO: change tableVotes
+    //TODO: nextJudged by timer
 
-    //TODO: if(all players vote) do something -> clear votes
-
+    if(this._allPlayersVote())
+      this._actionOnVotes()
   } //*
+  _allPlayersVote(){
+    const whoVoted      = this.getPlayersVoted()
+    const whoShouldVote = this.getPlayersAlive()
+    return  whoVoted.length === whoShouldVote.length
+  }
+  _actionOnVotes(){
+    //TODO: if phase total -> kill
+    this._initVotes()
+    this._nextPhase()
+  }
   _initVotes(){
-    this.votes = new Map()
-    for(let player of this.livePlayers){
-      this.votes.set(player,null)
-    }
+    this.getPlayers()
+      .forEach(player=>player.setVote(null))
   }
 
   //call only on night phases
@@ -426,7 +475,55 @@ class TypeChecker{
     if(voters.includes(val))
       throw new Error("Type error: voteNight in Game")
 
-    //TODO: mb add check on val is not dead
+    //TODO: mb add check on val and voter is not dead
+  }
+
+  checkArgs_setVote(...args){
+    if(args.length!==2) return false
+
+    const player  = args[0]
+    const val     = args[1]
+
+    const valIsNull   = [false,null].includes(val)
+    const valIsPlayer = (val instanceof Onside)
+    const keyIsPlayer = (player instanceof Onside)
+
+    return (valIsPlayer || valIsNull) && keyIsPlayer
+  }
+  check_setVote(...args){
+    //TODO: change error messages
+    if(!this.checkArgs_setVote(...args))
+      throw new Error("Type error: setVote in Game")
+
+    const voter = args[0]
+    const val = args[1]
+
+    //phase: subtotal
+    //voter should be speaker
+    //val shouldn't be speaker
+
+    //phase: total
+    //voter shouldn't be judged
+    //val should be judged
+
+    //voter can vote one time on phase -> implemented with .nextVoter()
+
+
+    if(this.game.getPhase() === Game.PHASE_DAY_SUBTOTAL){
+      if(!voter.isSpeak())
+        throw new Error("Type error: setVote in Game")
+      if(val && val.isSpeak())
+        throw new Error("Type error: setVote in Game")
+    }else if(this.game.getPhase() === Game.PHASE_DAY_TOTAL){
+      if(voter.isJudged())
+        throw new Error("Type error: setVote in Game")
+      if(val && !val.isJudged())
+        throw new Error("Type error: setVote in Game")
+    }else{
+      throw new Error("Type error: setVote in Game")
+    }
+
+    //TODO: mb add check on val and voter is not dead
   }
 
 }
