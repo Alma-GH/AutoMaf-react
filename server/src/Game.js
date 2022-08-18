@@ -49,7 +49,7 @@ class Game {
   ]
 
   //[Onside,Onside,...]
-  players = []
+  players
 
   phasePath
   phaseIndex
@@ -60,6 +60,8 @@ class Game {
 
   //player to (player,false,null) - votes for court
   tableVotes
+  //[id,id,id,...]  - path of players for court
+  pathIdVote
 
   //TODO: options
   options
@@ -67,12 +69,13 @@ class Game {
   constructor(room) {
     const players = room.getPlayers()
 
+    this.players = []
     this._initPhase()
     this._initDay()
     this._createCards(players.length)
 
-    this._initReadiness()
-    // this._initVotes()
+    this._initTable()
+    this.pathIdVote = []
   }
 
   getPhase(){
@@ -99,7 +102,6 @@ class Game {
         Game.PHASE_PREPARE,
         Game.NIGHT_PHASES[Game.NIGHT_PHASES.length-1]
       ].includes(this.getPhase())){
-      // this._initVotesNight(CARD_MAFIA)
       this._nextDay()
     }
 
@@ -278,6 +280,9 @@ class Game {
     //TODO: TypeChecker
     if(this.getPhase() !== Game.PHASE_DAY_TOTAL) return
 
+    //TODO: CONTINUE (add createPathId)
+    this._initTable()
+
     const first = this.getPlayersAlive()[0]
     first.judgedOn()
   }
@@ -301,9 +306,8 @@ class Game {
     this.Checker.check_setVote(player,val)
 
     player.setVote(val)
+    this.tableVotes.set(player,val)
     this._nextSpeaker()
-    //TODO: CONTINUE
-    //TODO: change tableVotes
     //TODO: nextJudged by timer
 
     if(this._allPlayersVote())
@@ -324,6 +328,48 @@ class Game {
       .forEach(player=>player.setVote(null))
   }
 
+
+  getTable(){
+    return this.tableVotes
+  }
+  getPathId(){
+    return this.pathIdVote
+  }
+  _createPathIdFromTable(isSubTotal){
+
+    //init map
+    const map = new Map()
+    const aliveIDs = this.getPlayersAlive().map(player=>player.getID())
+    for(let id of aliveIDs){
+      map.set(id,0)
+    }
+
+    //score
+    const voteIDs = Array.from(this.tableVotes.values())
+      .filter(isPl=>![false,null].includes(isPl))
+      .map(player=>player.getID())
+    for(let id of voteIDs){
+      map.set(id,map.get(id) + 1)
+    }
+
+    //result
+    let sortEntryByScore = Array.from(map.entries())
+      .sort((a,b)=>a[1]-b[1])
+
+    if(!isSubTotal){
+      const scores = sortEntryByScore.map(entry=>entry[1])
+      const maxScore = Math.max(...scores)
+      sortEntryByScore = sortEntryByScore
+        .filter(entry=>entry[1] === maxScore)
+    }
+
+    this.pathIdVote = sortEntryByScore
+      .map(entry=>entry[0])
+  }
+  _initTable(){
+    this.tableVotes = new Map()
+  }
+
   //call only on night phases
   _runFunctionsByPhase(functions){
     const map = {
@@ -341,17 +387,20 @@ class Game {
 
   toString(){
     return JSON.stringify({
+      path:this.phasePath,
+      index:this.phaseIndex,
       phase:this.getPhase(),
-      phasePath:this.phasePath,
       numDay:this.getDay(),
+
       cards:this.getCards(),
-      readiness:this.getPlayersReadiness(),
-      // votes:Array.from(this.votes.entries()),
-      // mapping:Array.from(this.mapping.entries()),
-      // votesNight:Array.from(this.votesNight.entries())
 
+      players:this.getPlayers(),
+      table:Array.from(this.tableVotes.entries())
+        .map(row=>[row[0].getName(),row[1] ? row[1].getName():row[1]]),
 
-      players:this.getPlayers()
+      alive:this.getPlayersAlive().map(player=>player.getName()),
+      readiness:this.getPlayersReadiness().map(player=>player.getName()),
+      voters:this.getPlayersVoted().map(player=>player.getName()),
     }, null, 2)
   }
 

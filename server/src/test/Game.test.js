@@ -63,6 +63,12 @@ for (let i = 0; i < MAX_PLAYERS; i++) {
     game.setVote(onside,sus===onside ? false : sus)
 }
 
+//players skip day discussion
+for (let i = 0; i < MAX_PLAYERS; i++) {
+  const onside = onsides[i]
+  game.addReadyPlayer(onside)
+}
+
 
 
 
