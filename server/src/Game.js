@@ -3,13 +3,15 @@ import {getSomeRandomInt, numPossibleVotes} from "./utils/classU.js";
 import Onside from "./Onside.js";
 
 const MIN_PLAYERS = 4
-const CARD_MAFIA = Onside.CARD_MAFIA
-const CARD_CIVIL = Onside.CARD_CIVIL
 
 class Game {
 
   Checker = new TypeChecker(this)
   // Room
+
+  //possible ends
+  static CIVIL_WIN            = "CIVIL_WIN"
+  static MAFIA_WIN            = "MAFIA_WIN"
 
   //possible phases
   static PHASE_PREPARE        = "PHASE_PREPARE"
@@ -48,6 +50,9 @@ class Game {
     Game.PHASE_NIGHT_MAFIA
   ]
 
+  //(CIVIL_WIN, MAFIA_WIN)
+  end
+
   //[Onside,Onside,...]
   players
 
@@ -69,6 +74,7 @@ class Game {
   constructor(room) {
     const players = room.getPlayers()
 
+    this.end = null
     this.players = []
     this._initPhase()
     this._initDay()
@@ -78,18 +84,24 @@ class Game {
     this.pathIdVote = []
   }
 
+  /**
+   *      //* - methods that are called by requests
+   **/
+
   getPhase(){
     return this.phasePath[this.phaseIndex]
   }
   _nextPhase(){
-    //TODO
-    //temp
-    const nobodyWin = false
-    const repeatVote = false
+
 
     const isLastPhase = (this.phaseIndex === this.phasePath.length-1)
 
     if(isLastPhase){
+      //TODO
+      //temp
+      const nobodyWin = (this.end === null)
+      const repeatVote = (this.pathIdVote.length !== 1)
+
       if(repeatVote)
         this.phasePath = this.phasePath.concat(Game.ADD_NEXT_VOTE)
       else if(nobodyWin)
@@ -107,6 +119,12 @@ class Game {
 
 
     this.phaseIndex++
+
+    //event on new phase
+    if(this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
+      this._startSubTotal()
+    else if(this.getPhase() === Game.PHASE_DAY_TOTAL)
+      this._startTotal()
   }
   _initPhase(){
     this.phasePath = [...Game.START_PATH]
@@ -141,7 +159,7 @@ class Game {
     //create cards
     const cards = []
     for(let i = 1; i<numPlayers+1; i++){
-      cards.push(mafInds.includes(i) ? CARD_MAFIA : CARD_CIVIL)
+      cards.push(mafInds.includes(i) ? Onside.CARD_MAFIA : Onside.CARD_CIVIL)
     }
 
     this.cards = cards
@@ -180,11 +198,11 @@ class Game {
   }
   _killPlayer(victim){
     //TODO: mb add validate
-    //TODO: mb add clear all votes(for court)
 
     victim.kill()
 
-    //TODO check on win
+    if(this._isMafiaWin())        this.end = Game.MAFIA_WIN
+    else if(this._isCivilWin())   this.end = Game.CIVIL_WIN
   }
 
   addReadyPlayer(player){
@@ -199,11 +217,10 @@ class Game {
 
   } //*
   _allPlayersReady(){
-    //TODO: check only alive players
     const isPreparePhase = (this.getPhase() === Game.PHASE_PREPARE)
     return  (this.players.filter(player=>player.isReady()).length)
               ===
-            (isPreparePhase ? this.getCards().length : this.players.length)
+            (isPreparePhase ? this.getCards().length : this.getPlayersAlive().length)
   }
   _initReadiness(){
     this.players.forEach(player=>{player.unready()})
@@ -219,7 +236,6 @@ class Game {
 
   } //*
   _allPlayersVoteNight(){
-    //TODO: check only alive players
 
     //who vote
     let role = Onside.CARD_MAFIA
@@ -228,7 +244,7 @@ class Game {
     ])
 
     const whoVoted      = this.getPlayersVotedNight()
-    const whoShouldVote = this.players.filter(player=>player.getRole() === role)
+    const whoShouldVote = this.getPlayersAlive().filter(player=>player.getRole() === role)
     return  whoVoted.length === whoShouldVote.length
   }
   _actionOnVotesNight(){
@@ -253,8 +269,7 @@ class Game {
   }
 
 
-
-  startSubTotal(){
+  _startSubTotal(){
     //TODO: TypeChecker
     if(this.getPhase() !== Game.PHASE_DAY_SUBTOTAL) return
 
@@ -276,31 +291,32 @@ class Game {
     if(next)
       next.speakOn()
   }
-  startTotal(){
+  _startTotal(){
     //TODO: TypeChecker
     if(this.getPhase() !== Game.PHASE_DAY_TOTAL) return
 
-    //TODO: CONTINUE (add createPathId)
     this._initTable()
 
-    const first = this.getPlayersAlive()[0]
+    const first = this.getPlayerByID(this.pathIdVote[0])
     first.judgedOn()
   }
-  _nextJudged(){
+  nextJudged(){
     //TODO: TypeChecker
     if(this.getPhase() !== Game.PHASE_DAY_TOTAL) return
     //TODO: check judgedInd != -1
 
-    const alive       = this.getPlayersAlive()
-    const judgedInd   = alive.findIndex(player=>player.isJudged())
-    const next        = alive[judgedInd+1]
+    const path        = this.pathIdVote
+    const judgedInd   = path.findIndex(id=>this.getPlayerByID(id).isJudged())
+    const nextID      = path[judgedInd+1]
+    const next        = nextID!==undefined ? this.getPlayerByID(nextID) : null
 
-    alive[judgedInd].judgedOff()
+
+    this.getPlayerByID(path[judgedInd]).judgedOff()
 
 
     if(next)
       next.judgedOn()
-  }
+  }   //*
 
   setVote(player,val){
     this.Checker.check_setVote(player,val)
@@ -310,6 +326,7 @@ class Game {
     this._nextSpeaker()
     //TODO: nextJudged by timer
 
+    //TODO: check pathID
     if(this._allPlayersVote())
       this._actionOnVotes()
   } //*
@@ -319,7 +336,26 @@ class Game {
     return  whoVoted.length === whoShouldVote.length
   }
   _actionOnVotes(){
-    //TODO: if phase total -> kill
+    //todo: clear table votes
+
+    const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
+    this._createPathIdFromTable(isSubTotal)
+
+    //decision is made
+    if((this.pathIdVote.length === 1) && (this.getPhase() === Game.PHASE_DAY_TOTAL)){
+      const suspectID = this.pathIdVote[0]
+      const suspect   = this.getPlayerByID(suspectID)
+      this._killPlayer(suspect)
+
+      this._initTable()
+    }
+
+    //clear
+    this.players.forEach(player=>{
+      player.judgedOff();
+      player.speakOff()
+    })
+
     this._initVotes()
     this._nextPhase()
   }
@@ -335,7 +371,7 @@ class Game {
   getPathId(){
     return this.pathIdVote
   }
-  _createPathIdFromTable(isSubTotal){
+  _createPathIdFromTable(firstTotal){
 
     //init map
     const map = new Map()
@@ -356,7 +392,7 @@ class Game {
     let sortEntryByScore = Array.from(map.entries())
       .sort((a,b)=>a[1]-b[1])
 
-    if(!isSubTotal){
+    if(!firstTotal){
       const scores = sortEntryByScore.map(entry=>entry[1])
       const maxScore = Math.max(...scores)
       sortEntryByScore = sortEntryByScore
@@ -368,6 +404,23 @@ class Game {
   }
   _initTable(){
     this.tableVotes = new Map()
+  }
+
+  _isMafiaWin(){
+    const alive     = this.getPlayersAlive()
+    const aliveNum  = alive.length
+
+    const mafia     = alive.filter(player=>player.getRole() === Onside.CARD_MAFIA)
+    const mafiaNum  = mafia.length
+
+    return mafiaNum*2 >= aliveNum
+  }
+  _isCivilWin(){
+    const alive     = this.getPlayersAlive()
+    const mafia     = alive.filter(player=>player.getRole() === Onside.CARD_MAFIA)
+    const mafiaNum  = mafia.length
+
+    return mafiaNum === 0
   }
 
   //call only on night phases
@@ -395,12 +448,15 @@ class Game {
       cards:this.getCards(),
 
       players:this.getPlayers(),
-      table:Array.from(this.tableVotes.entries())
+      table:Array.from(this.getTable().entries())
         .map(row=>[row[0].getName(),row[1] ? row[1].getName():row[1]]),
+      pathID:this.getPathId(),
 
       alive:this.getPlayersAlive().map(player=>player.getName()),
       readiness:this.getPlayersReadiness().map(player=>player.getName()),
       voters:this.getPlayersVoted().map(player=>player.getName()),
+
+      end: this.end
     }, null, 2)
   }
 
@@ -412,15 +468,26 @@ export default Game
 
 
 
-//TODO: TypeChecker for game
 class TypeChecker{
 
+  static PREFIX_TYPE      = "Type arg-s error"
+  static PREFIX_INVALID   = "Invalid data error"
+
+  static NAME_CLS = "Game"
   game
 
   constructor(game) {
     this.game = game
   }
 
+  _getErrorArg(functionName){
+    return new Error(`${TypeChecker.PREFIX_TYPE}: .${functionName}() in ${TypeChecker.NAME_CLS}`)
+  }
+  _getError(functionName, description){
+    return new Error(`${TypeChecker.PREFIX_INVALID}: .${functionName}() in ${TypeChecker.NAME_CLS} - ${description}`)
+  }
+
+  //client setters
   checkArgs_createRole(...args){
     if(args.length!==2) return false
 
@@ -436,38 +503,19 @@ class TypeChecker{
     return (isPlayer && isNum && isInt && isInd)
   }
   check_createRole(...args){
-    //TODO: change error messages
+    const nameF = this.check_createRole.name
+
     if(!this.checkArgs_createRole(...args))
-      throw new Error("Type error: createRole in Game")
+      throw this._getErrorArg(nameF)
 
     const player = args[0]
     const cardIndex = args[1]
 
     if(this.game.players.some(onside=>onside.getID()===player.getID()))
-      throw new Error("Type error: createRole in Game")
+      throw this._getError(nameF, "this player has already drawn a card")
 
     if(this.game.getCards()[cardIndex] === null)
-      throw new Error("Type error: createRole in Game")
-  }
-
-  checkArgs_getPlayersByID(...args){
-    if(args.length!==1) return false
-
-    const id = args[0]
-
-    const isInt     = Number.isInteger(id)
-
-    return isInt
-  }
-  check_getPlayersByID(...args){
-    //TODO: change error messages
-    if(!this.checkArgs_getPlayersByID(...args))
-      throw new Error("Type error: getPlayersByID in Game")
-
-    const id = args[0]
-
-    if(this.game.players.find(player=>player.getID() === id) === undefined)
-      throw new Error("Type error: getPlayersByID in Game")
+      throw this._getError(nameF, "this card has already been taken")
   }
 
   checkArgs_addReadyPlayer(...args){
@@ -489,7 +537,11 @@ class TypeChecker{
     if(this.game.getPlayersReadiness().includes(player))
       throw new Error("Type error: addReadyPlayer in Game")
 
-    //TODO: check on phase discussion(or prepare) + check on alive(mb set readiness all dead player)
+    if(!this.game.getPlayersAlive().includes(player))
+      throw new Error("Type error: addReadyPlayer in Game")
+
+    if(![Game.PHASE_DAY_DISCUSSION,Game.PHASE_PREPARE].includes(this.game.getPhase()))
+      throw new Error("Type error: addReadyPlayer in Game")
   }
 
   checkArgs_setVoteNight(...args){
@@ -555,8 +607,9 @@ class TypeChecker{
     //voter shouldn't be judged
     //val should be judged
 
-    //voter can vote one time on phase -> implemented with .nextVoter()
-
+    //voter can vote one time on phase -> implemented with .nextVoter() for subTotal
+    if(voter.getVote() !== null)
+      throw new Error("Type error: setVote in Game")
 
     if(this.game.getPhase() === Game.PHASE_DAY_SUBTOTAL){
       if(!voter.isSpeak())
@@ -573,6 +626,28 @@ class TypeChecker{
     }
 
     //TODO: mb add check on val and voter is not dead
+  }
+
+
+
+  checkArgs_getPlayersByID(...args){
+    if(args.length!==1) return false
+
+    const id = args[0]
+
+    const isInt     = Number.isInteger(id)
+
+    return isInt
+  }
+  check_getPlayersByID(...args){
+    //TODO: change error messages
+    if(!this.checkArgs_getPlayersByID(...args))
+      throw new Error("Type error: getPlayersByID in Game")
+
+    const id = args[0]
+
+    if(this.game.players.find(player=>player.getID() === id) === undefined)
+      throw new Error("Type error: getPlayersByID in Game")
   }
 
 }

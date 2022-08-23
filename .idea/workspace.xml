@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/test/Game.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/Game.test.js" afterDir="false" />
@@ -32,6 +31,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../react_todo" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
@@ -75,7 +75,9 @@
       <workItem from="1660565280501" duration="12523000" />
       <workItem from="1660605315973" duration="11814000" />
       <workItem from="1660654557003" duration="24189000" />
-      <workItem from="1660750535447" duration="12014000" />
+      <workItem from="1660750535447" duration="36602000" />
+      <workItem from="1661170649782" duration="3109000" />
+      <workItem from="1661181759706" duration="10263000" />
     </task>
     <servers />
   </component>
