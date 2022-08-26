@@ -316,6 +316,9 @@ class Game {
 
     if(next)
       next.judgedOn()
+    else{
+      //TODO: add auto vote or next phase
+    }
   }   //*
 
   setVote(player,val){
@@ -503,7 +506,7 @@ class TypeChecker{
     return (isPlayer && isNum && isInt && isInd)
   }
   check_createRole(...args){
-    const nameF = this.check_createRole.name
+    const nameF = this.game.createRole.name
 
     if(!this.checkArgs_createRole(...args))
       throw this._getErrorArg(nameF)
@@ -528,20 +531,21 @@ class TypeChecker{
     return isOnside
   }
   check_addReadyPlayer(...args){
-    //TODO: change error messages
+    const nameF = this.game.addReadyPlayer.name
+
     if(!this.checkArgs_addReadyPlayer(...args))
-      throw new Error("Type error: addReadyPlayer in Game")
+      throw this._getErrorArg(nameF)
 
     const player = args[0]
 
     if(this.game.getPlayersReadiness().includes(player))
-      throw new Error("Type error: addReadyPlayer in Game")
+      throw this._getError(nameF, "this player already ready")
 
     if(!this.game.getPlayersAlive().includes(player))
-      throw new Error("Type error: addReadyPlayer in Game")
+      throw this._getError(nameF, "this player not alive")
 
     if(![Game.PHASE_DAY_DISCUSSION,Game.PHASE_PREPARE].includes(this.game.getPhase()))
-      throw new Error("Type error: addReadyPlayer in Game")
+      throw this._getError(nameF,"not allowed in this phase.")
   }
 
   checkArgs_setVoteNight(...args){
@@ -557,26 +561,34 @@ class TypeChecker{
     return (valIsPlayer || valIsNull) && keyIsPlayer
   }
   check_setVoteNight(...args){
-    //TODO: change error messages
+    const nameF = this.game.setVoteNight.name
+
     if(!this.checkArgs_setVoteNight(...args))
-      throw new Error("Type error: voteNight in Game")
+      throw this._getErrorArg(nameF)
 
     const voter = args[0]
     const val = args[1]
 
-    let voters = []
+    let voters = null
     this.game._runFunctionsByPhase([
       ()=>{voters = this.game.getPlayers().filter(player=>player.getRole() === Onside.CARD_MAFIA)}
     ])
 
-    //voter should have role corresponding to phase
-    if(!voters.includes(voter))
-      throw new Error("Type error: voteNight in Game")
-    //val not includes in voters
-    if(voters.includes(val))
-      throw new Error("Type error: voteNight in Game")
 
-    //TODO: mb add check on val and voter is not dead
+    if(voters === null)
+      throw this._getError(nameF, "not allowed in this phase")
+
+    if(
+      !this.game.getPlayersAlive().includes(voter) ||
+      (val ? !this.game.getPlayersAlive().includes(val) : false)
+    )
+      throw this._getError(nameF, "val and voter must not be dead")
+
+    if(!voters.includes(voter))
+      throw this._getError(nameF, "voter should have role corresponding to phase")
+
+    if(voters.includes(val))
+      throw this._getError(nameF, "val not includes in voters")
   }
 
   checkArgs_setVote(...args){
@@ -592,9 +604,10 @@ class TypeChecker{
     return (valIsPlayer || valIsNull) && keyIsPlayer
   }
   check_setVote(...args){
-    //TODO: change error messages
+    const nameF = this.game.setVote.name
+
     if(!this.checkArgs_setVote(...args))
-      throw new Error("Type error: setVote in Game")
+      throw this._getErrorArg(nameF)
 
     const voter = args[0]
     const val = args[1]
@@ -607,29 +620,36 @@ class TypeChecker{
     //voter shouldn't be judged
     //val should be judged
 
-    //voter can vote one time on phase -> implemented with .nextVoter() for subTotal
+
+    if(
+      !this.game.getPlayersAlive().includes(voter) ||
+      (val ? !this.game.getPlayersAlive().includes(val) : false)
+    )
+      throw this._getError(nameF, "val and voter must not be dead")
+
+    //implemented with .nextVoter() for subTotal
     if(voter.getVote() !== null)
-      throw new Error("Type error: setVote in Game")
+      throw this._getError(nameF, "voter can vote one time on phase ")
 
     if(this.game.getPhase() === Game.PHASE_DAY_SUBTOTAL){
       if(!voter.isSpeak())
-        throw new Error("Type error: setVote in Game")
+        throw this._getError(nameF, "voter must be speaker")
       if(val && val.isSpeak())
-        throw new Error("Type error: setVote in Game")
+        throw this._getError(nameF, "val mustn't be speaker")
     }else if(this.game.getPhase() === Game.PHASE_DAY_TOTAL){
       if(voter.isJudged())
-        throw new Error("Type error: setVote in Game")
+        throw this._getError(nameF, "voter mustn't be judged")
       if(val && !val.isJudged())
-        throw new Error("Type error: setVote in Game")
+        throw this._getError(nameF, "val must be judged")
     }else{
-      throw new Error("Type error: setVote in Game")
+      throw this._getError(nameF, "not allowed in this phase")
     }
 
-    //TODO: mb add check on val and voter is not dead
   }
 
 
 
+  //class methods
   checkArgs_getPlayersByID(...args){
     if(args.length!==1) return false
 

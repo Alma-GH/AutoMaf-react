@@ -1,6 +1,7 @@
 import Player from "./Player.js";
 import Room from "./Room.js";
 import Server from "./Server.js";
+import {skip_discussion} from "./utils/classU.js";
 
 function log(name, arr){
   console.group(name)
@@ -125,8 +126,7 @@ try{
 
   const player = needRoom.getPlayerByID(dataIG.idPlayer)
 
-  gameInRoom.addMapping(player,dataIG.cardIndex)
-  gameInRoom.addReadyPlayer(player)
+  gameInRoom.addReadyPlayer(gameInRoom.createRole(player,dataIG.cardIndex))
 
 
   // log("IN GAME(CHOOSE CARD):", [needRoom,player,gameInRoom])
@@ -159,14 +159,11 @@ try{
   const player1 = needRoom.getPlayerByID(0)
   const player2 = needRoom.getPlayerByID(1)
   const player3 = needRoom.getPlayerByID(2)
-  gameInRoom.addMapping(player1,0)
-  gameInRoom.addReadyPlayer(player1)
-  gameInRoom.addMapping(player2,1)
-  gameInRoom.addReadyPlayer(player2)
-  gameInRoom.addMapping(player3,3)
-  gameInRoom.addReadyPlayer(player3)
+  gameInRoom.addReadyPlayer(gameInRoom.createRole(player1,0))
+  gameInRoom.addReadyPlayer(gameInRoom.createRole(player2,1))
+  gameInRoom.addReadyPlayer(gameInRoom.createRole(player3,3))
 
-  const player = needRoom.getPlayerByID(dataIG2.idPlayer)
+  const player = gameInRoom.getPlayerByID(dataIG2.idPlayer)
   gameInRoom.addReadyPlayer(player)
 
   // log("IN GAME(READINESS):", [needRoom,player,gameInRoom])
@@ -199,18 +196,18 @@ try{
   const gameInRoom = needRoom.getGame()
 
   // readiness ->
-  const player1 = needRoom.getPlayerByID(0)
-  const player2 = needRoom.getPlayerByID(2)
-  const player3 = needRoom.getPlayerByID(3)
+  const player1 = gameInRoom.getPlayerByID(0)
+  const player2 = gameInRoom.getPlayerByID(2)
+  const player3 = gameInRoom.getPlayerByID(3)
   gameInRoom.addReadyPlayer(player1)
   gameInRoom.addReadyPlayer(player2)
   gameInRoom.addReadyPlayer(player3)
 
-  const mafia = needRoom.getPlayerByID(dataIG3.idVoter)
-  const player = needRoom.getPlayerByID(dataIG3.idChosen)
+  const mafia = gameInRoom.getPlayerByID(dataIG3.idVoter)
+  const player = gameInRoom.getPlayerByID(dataIG3.idChosen)
   gameInRoom.setVoteNight(mafia,player)
 
-  log("IN GAME(VOTE FOR KILL):", [mafia, player,needRoom,gameInRoom])
+  // log("IN GAME(VOTE FOR KILL):", [mafia, player,needRoom,gameInRoom])
 
 }catch (e){
   console.log(e)
@@ -219,12 +216,66 @@ try{
 //TODO:POST DATA TO CLIENT
 
 
-//7)In game(vote for kill)
+//7)In game(vote)
 
 //GET DATA FROM CLIENT
 const dataIG4 = {
+  event: "vote",
 
+  roomID: 0,
+
+  idVoter: 3,
+  idChosen: 1,
 }
 //EVENT ON SERVER
+try{
+  const needRoom = Server.getRoomByID(dataIG4.roomID)
+  const gameInRoom = needRoom.getGame()
+
+  // readiness ->
+  skip_discussion(gameInRoom)
+
+  const voter = gameInRoom.getPlayerByID(dataIG4.idVoter)
+  const player = gameInRoom.getPlayerByID(dataIG4.idChosen)
+  gameInRoom.setVote(voter,player)
+
+  // log("IN GAME(VOTE):", [voter, player,needRoom,gameInRoom])
+
+}catch (e){
+  console.log(e)
+}
 //TODO:POST DATA TO CLIENT
 
+
+//7)In game(next judged)
+
+//GET DATA FROM CLIENT
+const dataIG5 = {
+  event: "next_judged",
+
+  roomID: 0,
+}
+//EVENT ON SERVER
+try{
+  const needRoom = Server.getRoomByID(dataIG5.roomID)
+  const gameInRoom = needRoom.getGame()
+
+  // vote ->
+  const voter1 = gameInRoom.getPlayerByID(0)
+  const voter2 = gameInRoom.getPlayerByID(1)
+  const val1 = gameInRoom.getPlayerByID(1)
+  const val2 = false
+  gameInRoom.setVote(voter1,val1)
+  gameInRoom.setVote(voter2,val2)
+
+  // readiness ->
+  skip_discussion(gameInRoom)
+
+  gameInRoom.nextJudged()
+
+  log("IN GAME(NEXT JUDGED):", [gameInRoom])
+
+}catch (e){
+  console.log(e)
+}
+//TODO:POST DATA TO CLIENT
