@@ -1,5 +1,5 @@
 import Player from "./Player.js";
-import {getSomeRandomInt, numPossibleVotes} from "./utils/classU.js";
+import {getSomeRandomInt, numPossibleVotes} from "../utils/classU.js";
 import Onside from "./Onside.js";
 
 const MIN_PLAYERS = 4
@@ -145,7 +145,7 @@ class Game {
     return this.cards
   }
   _createCards(numPlayers){
-
+    //TODO: TypeChecker
     //validate
     if(numPlayers<MIN_PLAYERS) numPlayers = MIN_PLAYERS
 

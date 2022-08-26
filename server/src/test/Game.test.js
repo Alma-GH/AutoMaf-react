@@ -1,7 +1,7 @@
-import Game from "../Game.js";
-import Player from "../Player.js";
-import Room from "../Room.js";
-import Onside from "../Onside.js";
+import Game from "../class/Game.js";
+import Player from "../class/Player.js";
+import Room from "../class/Room.js";
+import Onside from "../class/Onside.js";
 import {getVotes, night_kill, skip_discussion, subtotal2, total2} from "../utils/classU.js";
 
 const MAX_PLAYERS = 5

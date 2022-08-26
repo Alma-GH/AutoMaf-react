@@ -1,7 +1,7 @@
-import Player from "../Player.js";
-import Room from "../Room.js";
-import Server from "../Server.js";
-import Game from "../Game.js";
+import Player from "../class/Player.js";
+import Room from "../class/Room.js";
+import Server from "../class/Server.js";
+import Game from "../class/Game.js";
 
 
 const player1 = new Player("Roman")

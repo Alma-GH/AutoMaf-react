@@ -1,6 +1,6 @@
-import Player from "./Player.js";
-import Room from "./Room.js";
-import Server from "./Server.js";
+import Player from "./class/Player.js";
+import Room from "./class/Room.js";
+import Server from "./class/Server.js";
 import {skip_discussion} from "./utils/classU.js";
 
 function log(name, arr){

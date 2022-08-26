@@ -3,10 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Onside.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Onside.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/test/Game.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/Game.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/tests.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/utils/classU.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/classU.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,12 +50,13 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\server\src\class" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src\mb" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.Game.test.js">
+  <component name="RunManager" selected="Node.js.index.js">
     <configuration name="Game.test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="Game.test.js" working-dir="$PROJECT_DIR$/server/src/test">
       <method v="2" />
     </configuration>
@@ -57,8 +65,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.Game.test.js" />
         <item itemvalue="Node.js.index.js" />
+        <item itemvalue="Node.js.Game.test.js" />
       </list>
     </recent_temporary>
   </component>
@@ -83,7 +91,7 @@
       <workItem from="1660654557003" duration="24189000" />
       <workItem from="1660750535447" duration="36602000" />
       <workItem from="1661170649782" duration="3109000" />
-      <workItem from="1661181759706" duration="30350000" />
+      <workItem from="1661181759706" duration="49856000" />
     </task>
     <servers />
   </component>

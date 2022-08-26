@@ -1,4 +1,4 @@
-import Onside from "../Onside.js";
+import Onside from "../class/Onside.js";
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -11,8 +11,10 @@ function numPossibleVotes(all, maf){
   return Math.floor((all - maf*2)/2)
 }
 
-//1 to max
+
 function getSomeRandomInt(max,nRand){
+  /** 1 to max **/
+
   let arrNum      = [...Array(max).keys()]
   let arrRandNum  = []
 
@@ -134,6 +136,8 @@ function total2(game,table){
 
 
 }
+
+
 
 export {numPossibleVotes, getSomeRandomInt,
 getVotes,skip_discussion,night_kill,night_kill2,subtotal,subtotal2,total,total2}
