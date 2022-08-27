@@ -121,6 +121,29 @@ function App() {
     socket.current.send(JSON.stringify(message))
   }
 
+  function vote(){
+    const message = {
+      event: "vote",
+
+      roomID: 0,
+
+      idVoter: player._id,
+      idChosen: +inp,
+    }
+
+    socket.current.send(JSON.stringify(message))
+  }
+
+  function nextJudged(){
+    const message = {
+      event: "next_judged",
+
+      roomID: 0,
+    }
+
+    socket.current.send(JSON.stringify(message))
+  }
+
   useEffect(()=>{
     connect()
   }, [])
@@ -133,6 +156,8 @@ function App() {
       <button onClick={chooseCard}>choose card</button>
       <button onClick={readiness}>ready</button>
       <button onClick={voteKill}>vote kill</button>
+      <button onClick={vote}>vote</button>
+      <button onClick={nextJudged}>next judged</button>
       <input type="text" onChange={e=>setInp(e.target.value)} value={inp}/>
       <EnterPage/>
       <StartPage/>

@@ -4,15 +4,6 @@
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Onside.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Onside.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/Game.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/Game.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/tests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/classU.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/classU.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +82,7 @@
       <workItem from="1660654557003" duration="24189000" />
       <workItem from="1660750535447" duration="36602000" />
       <workItem from="1661170649782" duration="3109000" />
-      <workItem from="1661181759706" duration="49856000" />
+      <workItem from="1661181759706" duration="53023000" />
     </task>
     <servers />
   </component>

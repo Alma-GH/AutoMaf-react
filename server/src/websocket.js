@@ -2,7 +2,15 @@ import {WebSocketServer} from "ws";
 import Player from "./class/Player.js";
 import Room from "./class/Room.js";
 import Server from "./class/Server.js";
-import {E_CHOOSE_CARD, E_CREATE_ROOM, E_FIND_ROOM, E_READINESS, E_START_GAME, E_VOTE_NIGHT} from "./utils/const.js";
+import {
+  E_CHOOSE_CARD,
+  E_CREATE_ROOM,
+  E_FIND_ROOM, E_NEXT_JUDGED,
+  E_READINESS,
+  E_START_GAME,
+  E_VOTE,
+  E_VOTE_NIGHT
+} from "./utils/const.js";
 
 
 const wss = new WebSocketServer({
@@ -16,7 +24,6 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function (message) {
     try{
       //TODO: check event
-      //TODO: try catch
       message = JSON.parse(message)
 
       let room
@@ -46,6 +53,14 @@ wss.on('connection', function connection(ws) {
           break;
         case E_VOTE_NIGHT:
           room = vote_night(message)
+          broadcastClear(room)
+          break;
+        case E_VOTE:
+          room = vote(message)
+          broadcastClear(room)
+          break;
+        case E_NEXT_JUDGED:
+          room = nextJudged(message)
           broadcastClear(room)
           break;
       }
@@ -159,4 +174,27 @@ function vote_night(data){
   return needRoom
 }
 
+function vote(data){
+  const dataIG4 = data
+
+  const needRoom = Server.getRoomByID(dataIG4.roomID)
+  const gameInRoom = needRoom.getGame()
+
+  const voter = gameInRoom.getPlayerByID(dataIG4.idVoter)
+  const player = gameInRoom.getPlayerByID(dataIG4.idChosen)
+  gameInRoom.setVote(voter,player)
+
+  return needRoom
+}
+
+function nextJudged(data){
+  const dataIG5 = data
+
+  const needRoom = Server.getRoomByID(dataIG5.roomID)
+  const gameInRoom = needRoom.getGame()
+
+  gameInRoom.nextJudged()
+
+  return needRoom
+}
 
