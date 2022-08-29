@@ -8,3 +8,5 @@ export const E_READINESS    = "readiness"
 export const E_VOTE_NIGHT   = "vote_night"
 export const E_VOTE         = "vote"
 export const E_NEXT_JUDGED  = "next_judged"
+
+export const E_QUIT         = "quit_player"

@@ -310,15 +310,25 @@ class Game {
     const nextID      = path[judgedInd+1]
     const next        = nextID!==undefined ? this.getPlayerByID(nextID) : null
 
+    const judgedPl    = this.getPlayerByID(path[judgedInd])
+    judgedPl.judgedOff()
 
-    this.getPlayerByID(path[judgedInd]).judgedOff()
-
-
+    //TODO: mb auto vote
     if(next)
       next.judgedOn()
     else{
-      //TODO: add auto vote or next phase
+      const unvotes = this.getPlayersAlive()
+        .filter(player=>player.getVote()===null)
+      // unvotes.forEach(player=>{
+      //   if(player!==judgedPl)
+      //     this.setVote(player,judgedPl)
+      // })
+      if(unvotes.length)
+        this.getPlayerByID(path[0]).judgedOn()
     }
+
+    // if(judgedPl.getVote()===null &&  !next)
+    //   this.setVote(judgedPl, false)
   }   //*
 
   setVote(player,val){

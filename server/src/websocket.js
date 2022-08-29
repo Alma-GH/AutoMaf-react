@@ -5,12 +5,14 @@ import Server from "./class/Server.js";
 import {
   E_CHOOSE_CARD,
   E_CREATE_ROOM,
-  E_FIND_ROOM, E_NEXT_JUDGED,
+  E_FIND_ROOM, E_NEXT_JUDGED, E_QUIT,
   E_READINESS,
   E_START_GAME,
   E_VOTE,
   E_VOTE_NIGHT
 } from "./utils/const.js";
+import Onside from "./class/Onside.js";
+import Game from "./class/Game.js";
 
 
 const wss = new WebSocketServer({
@@ -18,12 +20,12 @@ const wss = new WebSocketServer({
 }, ()=>console.log("Server started on port 5000"))
 
 wss.on('connection', function connection(ws) {
-  // ws.id = Date.now()
   console.log("Подключение к wss установлено")
 
   ws.on('message', function (message) {
     try{
       //TODO: check event
+      //TODO: add reconnect
       message = JSON.parse(message)
 
       let room
@@ -31,42 +33,56 @@ wss.on('connection', function connection(ws) {
       switch (message.event) {
         case E_CREATE_ROOM:
           [room,player] = create_room(message)
+          ws.id = room.roomID
           single(ws, {event:E_CREATE_ROOM, player})
           single(ws, room)
           break;
         case E_FIND_ROOM:
           [room,player] = find_room(message)
+          ws.id = room.roomID
           single(ws, {event:E_FIND_ROOM, player})
-          broadcast(room)
+          broadcast(room,room.roomID)
           break;
         case E_START_GAME:
           room = start_game(message)
-          broadcastClear(room)
+          broadcastClear(room, room.roomID)
           break;
         case E_CHOOSE_CARD:
           room = choose_card(message)
-          broadcastClear(room)
+          broadcastClear(room, room.roomID)
           break;
         case E_READINESS:
           room = readiness(message)
-          broadcastClear(room)
+          broadcastClear(room, room.roomID)
+
+          if(room.game?.getPhase() === Game.PHASE_DAY_TOTAL)
+            startTimer(ws,room)
           break;
         case E_VOTE_NIGHT:
           room = vote_night(message)
-          broadcastClear(room)
+          broadcastClear(room, room.roomID)
           break;
         case E_VOTE:
           room = vote(message)
-          broadcastClear(room)
+          broadcastClear(room, room.roomID)
           break;
+        case E_QUIT:
+          room = quit(message)
+          if(room.game)
+            broadcastClear(room, room.roomID)
+          else
+            broadcast(room,room.roomID)
+          break;
+
+        //no need
         case E_NEXT_JUDGED:
           room = nextJudged(message)
-          broadcastClear(room)
+          broadcastClear(room, room.roomID)
           break;
       }
     }catch (e){
       console.log(e.message)
-      broadcast(e.message)
+      single(ws,{event: "error",message: e.message})
     }
 
   })
@@ -87,11 +103,25 @@ function broadcast(message, id) {
 }
 
 function broadcastClear(room,id){
-  let game = room.getGame()
-  let checker = game.Checker
+  const game = room.getGame()
+
+  //tmp and clear
+  const checker = game.Checker
   game.Checker = undefined
+  //TODO: crutch - after make voting by id
+  const votes = game.players.map(player=>player.vote)
+  game.players.forEach(player=>{
+    if(player.vote instanceof Onside)
+      player.vote = player.vote._id
+  })
+
   broadcast(room,id)
+
+  //return values
   game.Checker = checker
+  game.players.forEach((player,ind)=> {
+    player.vote = votes[ind]
+  })
 }
 
 
@@ -187,6 +217,20 @@ function vote(data){
   return needRoom
 }
 
+
+function quit(data){
+  const dataIG6 = data
+
+  const needRoom = Server.getRoomByID(dataIG6.roomID)
+
+  const player = needRoom.getPlayerByID(dataIG6.idPlayer)
+  needRoom.quitPlayer(player)
+
+  return needRoom
+}
+
+
+//no need
 function nextJudged(data){
   const dataIG5 = data
 
@@ -197,4 +241,19 @@ function nextJudged(data){
 
   return needRoom
 }
+
+
+
+function startTimer(client, room){
+  const time = 10000
+  const game = room.game
+  const tm = setInterval(()=>{
+    game.nextJudged()
+    console.log({players: game.players})
+    broadcastClear(room, room.roomID)
+    if(!game.getPlayers().some(player=>player.isJudged()))
+      clearInterval(tm)
+  },time)
+}
+
 

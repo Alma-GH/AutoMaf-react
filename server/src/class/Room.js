@@ -91,6 +91,7 @@ class Room {
   }
   addPlayer(player){
     //TODO: change check type
+    //TODO: check max player
 
     //check type
     if(!(player instanceof Player) || this.getPlayers().some(pl=>pl.getID() === player.getID()))
@@ -100,6 +101,26 @@ class Room {
     player.setID(this.newPlayerID++)
     //add player in room
     this.players.push(player)
+  }
+  quitPlayer(player){
+    //TODO: validate
+    if(player.getID() === 0)
+      Server.closeRoom(this.roomID)
+
+    this.players = this.players
+      .filter(pl=>pl.getID()!==player.getID())
+
+    /*
+    TODO: after kill if no end
+     prepare phase - restart game
+     discussion phase - check ready players
+     night(maf) phase - check night votes
+     (sub)total phase - check votes
+    */
+    // this.game._killPlayer(//player from game//)
+
+    //temp
+    this.inGame = false
   }
 
   getStatus(){
@@ -114,8 +135,9 @@ class Room {
   }
   startGame(){
     this.game = new Game(this)
-    this._toggleStatus()
+    this.inGame = true
   }
+
 
   toString(){
     return JSON.stringify({

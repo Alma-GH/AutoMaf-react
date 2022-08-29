@@ -1,19 +1,26 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import cls from "./GameLog.module.scss"
 import Loader from "../../Notification/Loader";
 import BtnIco from "../../UI/BtnIco/BtnIco";
 import imgVote from "./../../../assets/imgs/megaphone.png"
 import imgCross from "./../../../assets/imgs/cancel.png"
 import GameVote from "./../GameVote/GameVote"
+import {RoomContext} from "../../../context/room";
 
 const GameLog = () => {
 
+  const game = useContext(RoomContext).room.game
+
+  const info = game
+    ? {
+        phase: game.phasePath[game.phaseIndex],
+        day: game.numDay,
+        prepare: game.players.filter(player=>player.readiness).length,
+        all: game.players.filter(player=>player.alive).length,
+      }
+      :null
+
   //temp data
-  const info = {
-    phase: "Подготовка",
-    day: 0,
-    prepare: "1/4"
-  }
   const log = [
     {from:"Log", text: "Лобби создано"},
     {from:"Log", text: "Игрок Роман присоединился"},
@@ -30,17 +37,17 @@ const GameLog = () => {
 
         <li>
           Фаза:
-          <br/> {info?.phase ? info.phase : <Loader/>}
+          <br/> {info?.phase}
         </li>
         <li>
           Номер дня:
-          <br/> {info?.day !== undefined ? info.day : <Loader/>}
+          <br/> {info?.day}
         </li>
 
 
         <li>
           Готовность:
-          <br/> {info?.prepare ? info.prepare : <Loader/>}
+          <br/> {info?.prepare}/{info?.all}
         </li>
 
       </ul>

@@ -11,6 +11,10 @@
   background-color: #00FFF0;
   border: 3px solid #007A73;
 
+  &.invis{
+    visibility: hidden;
+  }
+
   .avatar{
     //height: 50%;
     //aspect-ratio: 1/1;
@@ -23,6 +27,12 @@
     &>*{
       background-color: #D9D9D9;
       border: 1px solid black;
+    }
+    &>img{
+      background-color: initial;
+      border: none;
+      width: 70%;
+      aspect-ratio: 7/9;
     }
 
     //normal

@@ -1,13 +1,43 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import BtnText from "../UI/BtnText/BtnText";
 import InputC from "../UI/InputC/InputC";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
+import Socket from "../../tools/Services/Socket";
+import {RoomContext} from "../../context/room";
 
 const FindPage = () => {
 
   const [room, setRoom] = useState("")
   const [pass, setPass] = useState("")
+
+  const roomControl = useContext(RoomContext)
+  function connect(){
+    if(!Socket.getState(true))
+      Socket.connect(findRoom, data=>{
+        if(!data.event)
+          roomControl.setRoom(data)
+        if(["create_room","find_room"].includes(data.event))
+          roomControl.setPlayer(data.player)
+      })
+    else{
+      findRoom()
+      console.log("Подключение уже существует")
+    }
+
+  }
+
+  function findRoom(){
+    const message = {
+      event: "find_room",
+
+      nameFinder: localStorage.getItem("nick"),
+      nameRoom: room,
+      passRoom: pass
+    }
+    Socket.send(JSON.stringify(message));
+    setRoom("")
+  }
 
   return (
     <div className="prepPage">
@@ -33,7 +63,7 @@ const FindPage = () => {
 
         <div className={clsWin.btnCont}>
           <BtnText text="Назад" color="red"/>
-          <BtnText text="Войти"/>
+          <BtnText text="Войти" cb={connect}/>
         </div>
 
       </WindowInput>

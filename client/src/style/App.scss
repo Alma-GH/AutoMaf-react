@@ -10,6 +10,8 @@ html{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  list-style: none;
 }
 
 button{
@@ -36,6 +38,8 @@ h4{
   width: 100vw;
 
   background-color: $colBack_white;
+
+  position: relative;
 }
 
 

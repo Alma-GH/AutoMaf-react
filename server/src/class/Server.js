@@ -18,6 +18,7 @@ class Server {
   getRoomByName(name){
     return this.getRooms().find(room=>room.getName()===name)
   }
+
   addRoom(room){
     //TODO: change check type
 
@@ -25,6 +26,9 @@ class Server {
       throw new Error("Type error: Server.addRoom(room)")
 
     this.rooms.push(room)
+  }
+  closeRoom(id){
+    this.rooms = this.rooms.filter(room=>room.roomID !== id)
   }
 
 }

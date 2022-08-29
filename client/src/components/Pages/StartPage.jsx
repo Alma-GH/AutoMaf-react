@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import BtnText from "../UI/BtnText/BtnText";
+import {RoomContext} from "../../context/room";
+import Socket from "../../tools/Services/Socket";
 
 const StartPage = () => {
+
+
   return (
     <div className="startPage">
       <div className="btnCont">
