@@ -236,7 +236,7 @@ class Game {
 
   } //*
   _allPlayersVoteNight(){
-
+    //TODO: rewrite (all vote for one or most)
     //who vote
     let role = Onside.CARD_MAFIA
     this._runFunctionsByPhase([

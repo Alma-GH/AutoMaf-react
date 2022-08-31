@@ -1,6 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {RoomContext} from "../context/room";
 import Socket from "../tools/Services/Socket";
+import {useNavigate} from "react-router-dom";
+import {LINK_CREATE, LINK_ENTER, LINK_FIND, LINK_GAME, LINK_PREPARE, LINK_START} from "../tools/const";
 
 const Debug = () => {
 
@@ -8,6 +10,8 @@ const Debug = () => {
 
   const [create, setCreate] = useState("room")
   const [find, setFind] = useState("room")
+
+  const nav = useNavigate()
 
   const context = useContext(RoomContext)
   const room    = context.room
@@ -153,11 +157,13 @@ const Debug = () => {
 
       <div style={styleBody}>
 
+        {/*DATA*/}
         <div style={{display:"flex"}}>
           <div >
             <h5>ROOM:</h5>
             <textarea
               value={getRoomData()}
+              readOnly
               style={{fontSize:"12px"}}
               cols="30"
               rows="20"
@@ -168,32 +174,62 @@ const Debug = () => {
             <h5>PLAYER:</h5>
             <textarea
               value={JSON.stringify(player)}
+              readOnly
               cols="30"
               rows="1"
             />
           </div>
-
         </div>
 
-        <ul>
-          <li>
-            <input type="text" value={create} onChange={e=>setCreate(e.target.value)}/>
-            <button onClick={connect}>create</button>
-          </li>
-          <li>
-            <input type="text" value={find} onChange={e=>setFind(e.target.value)}/>
-            <button onClick={connect2}>find</button>
-          </li>
-          <li>
-            <button onClick={startGame}>start</button>
-          </li>
-          <li>
-            <button onClick={allChoose}>all choose</button>
-          </li>
-          <li>
-            <button onClick={allReady}>all ready</button>
-          </li>
-        </ul>
+        {/*POST*/}
+        <div>
+          <h5>POST:</h5>
+          <ul>
+            <li>
+              <input type="text" value={create} onChange={e=>setCreate(e.target.value)}/>
+              <button onClick={connect}>create</button>
+            </li>
+            <li>
+              <input type="text" value={find} onChange={e=>setFind(e.target.value)}/>
+              <button onClick={connect2}>find</button>
+            </li>
+            <li>
+              <button onClick={startGame}>start</button>
+            </li>
+            <li>
+              <button onClick={allChoose}>all choose</button>
+            </li>
+            <li>
+              <button onClick={allReady}>all ready</button>
+            </li>
+          </ul>
+        </div>
+
+        {/*ROUTES*/}
+        <div>
+          <h5>ROUTES:</h5>
+          <ul>
+            <li>
+              <button onClick={()=>nav(LINK_ENTER)}>enter</button>
+            </li>
+            <li>
+              <button onClick={()=>nav(LINK_START)}>start</button>
+            </li>
+            <li>
+              <button onClick={()=>nav(LINK_CREATE)}>create</button>
+            </li>
+            <li>
+              <button onClick={()=>nav(LINK_FIND)}>find</button>
+            </li>
+            <li>
+              <button onClick={()=>nav(LINK_PREPARE)}>prepare</button>
+            </li>
+            <li>
+              <button onClick={()=>nav(LINK_GAME)}>game</button>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </div>
   );

@@ -29,6 +29,7 @@ class Socket{
     }
     this.websocket.onclose= () => {
       console.log('Socket закрыт')
+      this.websocket = null
     }
     this.websocket.onerror = () => {
       console.log('Socket произошла ошибка')

@@ -104,9 +104,6 @@ class Room {
   }
   quitPlayer(player){
     //TODO: validate
-    if(player.getID() === 0)
-      Server.closeRoom(this.roomID)
-
     this.players = this.players
       .filter(pl=>pl.getID()!==player.getID())
 
@@ -119,6 +116,8 @@ class Room {
     */
     // this.game._killPlayer(//player from game//)
 
+    if(!this.players.length)
+      Server.closeRoom(this.roomID)
     //temp
     this.inGame = false
   }

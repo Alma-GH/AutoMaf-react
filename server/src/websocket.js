@@ -41,7 +41,10 @@ wss.on('connection', function connection(ws) {
           [room,player] = find_room(message)
           ws.id = room.roomID
           single(ws, {event:E_FIND_ROOM, player})
-          broadcast(room,room.roomID)
+          if(room.game)
+            broadcastClear(room, room.roomID)
+          else
+            broadcast(room,room.roomID)
           break;
         case E_START_GAME:
           room = start_game(message)
@@ -68,6 +71,7 @@ wss.on('connection', function connection(ws) {
           break;
         case E_QUIT:
           room = quit(message)
+          delete ws.id
           if(room.game)
             broadcastClear(room, room.roomID)
           else

@@ -5,8 +5,12 @@ import InputC from "../UI/InputC/InputC";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import Socket from "../../tools/Services/Socket";
 import {RoomContext} from "../../context/room";
+import {LINK_PREPARE, LINK_START} from "../../tools/const";
+import {useNavigate} from "react-router-dom";
 
 const FindPage = () => {
+
+  const nav = useNavigate()
 
   const [room, setRoom] = useState("")
   const [pass, setPass] = useState("")
@@ -37,6 +41,11 @@ const FindPage = () => {
     }
     Socket.send(JSON.stringify(message));
     setRoom("")
+    nav(LINK_PREPARE)
+  }
+
+  function back(){
+    nav(LINK_START)
   }
 
   return (
@@ -62,7 +71,7 @@ const FindPage = () => {
         </div>
 
         <div className={clsWin.btnCont}>
-          <BtnText text="Назад" color="red"/>
+          <BtnText text="Назад" color="red" cb={back}/>
           <BtnText text="Войти" cb={connect}/>
         </div>
 

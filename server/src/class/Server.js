@@ -1,6 +1,7 @@
 import Room from "./Room.js";
 
 
+//TODO: if room live more 1day closeRoom
 class Server {
 
   rooms = []

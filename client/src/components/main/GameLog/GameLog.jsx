@@ -9,7 +9,7 @@ import {RoomContext} from "../../../context/room";
 
 const GameLog = () => {
 
-  const game = useContext(RoomContext).room.game
+  const game = useContext(RoomContext).room?.game
 
   const info = game
     ? {

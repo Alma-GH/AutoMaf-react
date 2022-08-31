@@ -1,16 +1,25 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import GameTable from "../main/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
 import CardViewer from "../main/GameCardViewer/CardViewer";
 import GameTimer from "../main/GameTimer/GameTimer"
 import GameLog from "../main/GameLog/GameLog";
-import {CARD_MAFIA, CARD_CIVIL, PHASE_PREPARE, PHASE_DAY_DISCUSSION, PHASE_NIGHT_MAFIA} from "../../tools/const"
+import {
+  CARD_MAFIA,
+  CARD_CIVIL,
+  PHASE_PREPARE,
+  PHASE_DAY_DISCUSSION,
+  PHASE_NIGHT_MAFIA,
+  LINK_GAME, LINK_PREPARE, LINK_START
+} from "../../tools/const"
 import {RoomContext} from "../../context/room";
 import Socket from "../../tools/Services/Socket";
+import {useNavigate} from "react-router-dom";
 
 const GamePage = () => {
   //TODO: if end game btns dont work
 
+  const nav = useNavigate()
 
   //server data
   const context = useContext(RoomContext)
@@ -18,7 +27,7 @@ const GamePage = () => {
   const room = context.room
   const player = context.player
 
-  const game = room.game
+  const game = room?.game
   const cards = game?.cards
   const players = game?.players
   const end = game?.end
@@ -68,7 +77,17 @@ const GamePage = () => {
     }
 
     Socket.send(JSON.stringify(message))
+    context.setRoom(null)
+    context.setPlayer(null)
+    nav(LINK_START)
   }
+
+
+  useEffect(()=>{
+    //TODO: messages
+    if(!room?.inGame)
+      nav(LINK_PREPARE)
+  },[room])
 
   return (
     <div className="gamePage">

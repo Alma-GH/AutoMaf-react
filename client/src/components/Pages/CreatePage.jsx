@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss";
 import InputC from "../UI/InputC/InputC";
@@ -7,6 +7,8 @@ import imgS from "./../../assets/imgs/spanner.png"
 import CheckboxC from "../UI/CheckboxC/CheckboxC";
 import Socket from "../../tools/Services/Socket";
 import {RoomContext} from "../../context/room";
+import {useNavigate} from "react-router-dom";
+import {LINK_PREPARE, LINK_START} from "../../tools/const";
 
 const Settings = ({setOpenSettings}) => {
 
@@ -30,6 +32,8 @@ const Settings = ({setOpenSettings}) => {
 }
 
 const CreatePage = () => {
+
+  const nav = useNavigate()
 
   const [openSettings, setOpenSettings] = useState(false)
 
@@ -73,6 +77,11 @@ const CreatePage = () => {
     }
     Socket.send(JSON.stringify(message));
     setRoom("")
+    nav(LINK_PREPARE)
+  }
+
+  function back(){
+    nav(LINK_START)
   }
 
 
@@ -117,7 +126,7 @@ const CreatePage = () => {
         </div>
 
         <div className={clsWin.btnCont}>
-          <BtnText text="Назад" color="red"/>
+          <BtnText text="Назад" color="red" cb={back}/>
           <BtnText text="Создать" cb={connect}/>
         </div>
 

@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import BtnText from "../UI/BtnText/BtnText";
 import InputC from "../UI/InputC/InputC";
+import {useNavigate} from "react-router-dom";
+import {LINK_START} from "../../tools/const";
 
 const EnterPage = () => {
 
+  const nav = useNavigate()
   const [name, setName] = useState("")
 
   function enter(){
@@ -15,6 +18,7 @@ const EnterPage = () => {
     //TODO: "nick" - constant key
     localStorage.setItem("nick", name)
     setName("")
+    nav(LINK_START)
   }
 
   useEffect(()=>{
