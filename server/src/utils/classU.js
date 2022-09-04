@@ -26,8 +26,16 @@ function getSomeRandomInt(max,nRand){
   return arrRandNum
 }
 
+//class TypeChecker
+function isInd(ind, length){
+  const isInt     = Number.isInteger(ind)
+  const interval  = (ind >= 0) && (ind < length)
 
-//For tests
+  return interval && isInt
+}
+
+
+//For game tests
 
 function getVotes(game, aliveInds){
   const alive = game.getPlayersAlive()
@@ -90,8 +98,8 @@ function subtotal2(game,table){
     game.setVote(voter,val)
   }
 
-  console.log(Array.from(game.getTable().entries())
-    .map(row=>[row[0].getName(),row[1] ? row[1].getName():row[1]]))
+  // console.log(Array.from(game.getTable().entries())
+  //   .map(row=>[row[0].getName(),row[1] ? row[1].getName():row[1]]))
 }
 
 function total(game){
@@ -126,7 +134,7 @@ function total2(game,table){
 
   let judged
   while(judged = game.getPlayers().find(player=>player.isJudged())){
-    console.log({judged: judged.getName()})
+    // console.log({judged: judged.getName()})
     alive.forEach((player,ind)=>{
       if(judged === table[ind])
         game.setVote(player,judged)

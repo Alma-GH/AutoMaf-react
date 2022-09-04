@@ -1,8 +1,16 @@
 import Player from "./Player.js";
 import Server from "./Server.js";
 import Game from "./Game.js";
+import {
+  DEF_MAX_PLAYERS,
+  DEF_MIN_PLAYERS,
+  EM_MAX_PLAYERS,
+  EM_NULL_NAME_ROOM, EM_PASS_ROOM,
+  EM_SET_PLAYERS_HIGH,
+  EM_SET_PLAYERS_LOW, EM_START_GAME,
+  EM_UNIQUE_NAME
+} from "../utils/const.js";
 
-const DEF_MAX_PLAYERS = 4
 
 class Room {
 
@@ -29,9 +37,11 @@ class Room {
     this.roomID = Room.newID++
     this.players = []
     this.newPlayerID = 0
-    this.setMaxPlayers(maxP)
+    this.isSetPass = false
     this.setName(name)
-    this.setPass(pass)
+    this.setMaxPlayers(maxP)
+    if(pass !== null)
+      this.setPass(pass)
     this.inGame = false
 
     this.addPlayer(leader)
@@ -45,12 +55,9 @@ class Room {
     return this.name
   }
   setName(name){
-    const isStr = (typeof name === "string")
-    const isGT  = isStr ? (name.length > 0) : false
-    const isUni = (!Server.getRoomsNames().includes(name))
+    Checker.check_setName(name)
 
-    if(isStr && isGT && isUni)  this.name = name
-    else                        throw new Error("Room: name error")
+    this.name = name
   }
 
   getPass(){
@@ -58,44 +65,31 @@ class Room {
     else               return null
   }
   setPass(pass){
-    const isStr      = (typeof pass === "string")
-    const isNotShort = isStr ? (pass.length>2) : false
+    Checker.check_setPass(pass)
 
-    if(isStr && isNotShort){
-      this.password = pass
-      this.isSetPass = true
-    }else{
-      this.isSetPass = false
-    }
+    this.password = pass
+    this.isSetPass = true
   }
 
   getMaxPlayers(){
     return this.maxPlayers
   }
   setMaxPlayers(num){
-    const isNum = (typeof num === "number")
-    const isGT  = (num >= DEF_MAX_PLAYERS)
+    Checker.check_setMaxPlayers(num)
 
-    if(isNum && isGT)   this.maxPlayers = num
-    else{
-      this.maxPlayers = DEF_MAX_PLAYERS
-      console.log("ERROR: MAX PLAYERS IN ROOM")
-    }
+    this.maxPlayers = num
   }
 
   getPlayers(){
     return this.players
   }
   getPlayerByID(id){
+    Checker.check_getPlayerByID(this,id)
+
     return this.getPlayers().find(player=>player.getID()===id)
   }
   addPlayer(player){
-    //TODO: change check type
-    //TODO: check max player
-
-    //check type
-    if(!(player instanceof Player) || this.getPlayers().some(pl=>pl.getID() === player.getID()))
-      throw new Error("Type error: Room.addPlayer(player)")
+    Checker.check_addPlayer(this,player)
 
     //add id in room for player
     player.setID(this.newPlayerID++)
@@ -103,16 +97,17 @@ class Room {
     this.players.push(player)
   }
   quitPlayer(player){
-    //TODO: validate
+    Checker.check_quitPlayer(this,player)
+
     this.players = this.players
       .filter(pl=>pl.getID()!==player.getID())
 
     /*
-    TODO: after kill if no end
-     prepare phase - restart game
-     discussion phase - check ready players
-     night(maf) phase - check night votes
-     (sub)total phase - check votes
+      TODO: after kill if no end
+       prepare phase - restart game
+       discussion phase - check ready players
+       night(maf) phase - check night votes
+       (sub)total phase - check votes
     */
     // this.game._killPlayer(//player from game//)
 
@@ -133,6 +128,8 @@ class Room {
     return this.game
   }
   startGame(){
+    Checker.check_startGame(this)
+
     this.game = new Game(this)
     this.inGame = true
   }
@@ -151,3 +148,145 @@ class Room {
 }
 
 export default Room
+
+
+class TypeChecker{
+
+  //client setters
+  checkArgs_addPlayer(...args){
+    if(args.length!==1) return false
+
+    const player = args[0]
+
+    const isPlayer  = (player instanceof Player)
+
+    return isPlayer
+  }
+  check_addPlayer(room,...args){
+    if(!this.checkArgs_addPlayer(...args))
+      throw new Error("is not a Player")
+
+    const player = args[0]
+
+    if(room.getPlayers().some(pl=>pl.getID() === player.getID()))
+      throw new Error("this player already in room")
+
+    if(room.players.length+1 > room.maxPlayers)
+      throw new Error(EM_MAX_PLAYERS)
+  }
+
+  checkArgs_setMaxPlayers(...args){
+    if(args.length!==1) return false
+
+    const num = args[0]
+
+    const isNum = (typeof num === "number")
+    const isInt = Number.isInteger(num)
+
+    return isNum && isInt
+  }
+  check_setMaxPlayers(...args){
+    if(!this.checkArgs_setMaxPlayers(...args))
+      throw new Error("incorrect set max players")
+
+    const num = args[0]
+
+    if(num < DEF_MIN_PLAYERS)
+      throw new Error(EM_SET_PLAYERS_LOW)
+    if(num > DEF_MAX_PLAYERS)
+      throw new Error(EM_SET_PLAYERS_HIGH)
+
+  }
+
+  checkArgs_setName(...args){
+    if(args.length!==1) return false
+
+    const name = args[0]
+
+    const isStr = (typeof name === "string")
+
+    return isStr
+  }
+  check_setName(...args){
+    if(!this.checkArgs_setName(...args))
+      throw new Error("incorrect set name room")
+
+    const name = args[0]
+
+    if(!name.length)
+      throw new Error(EM_NULL_NAME_ROOM)
+    //TODO: in Server
+    if(Server.getRoomsNames().includes(name))
+      throw new Error(EM_UNIQUE_NAME)
+  }
+
+  checkArgs_setPass(...args){
+    if(args.length!==1) return false
+
+    const pass = args[0]
+
+    const isStr = (typeof pass === "string")
+
+    return isStr
+  }
+  check_setPass(...args){
+    if(!this.checkArgs_setPass(...args))
+      throw new Error("incorrect set pass room")
+
+    const pass = args[0]
+
+    if(pass.length <= 2)
+      throw new Error(EM_PASS_ROOM)
+  }
+
+  check_startGame(room){
+    if(room.getPlayers().length < DEF_MIN_PLAYERS)
+      throw new Error(EM_START_GAME)
+  }
+
+  checkArgs_quitPlayer(...args){
+    if(args.length!==1) return false
+
+    const player = args[0]
+
+    const isPlayer  = (player instanceof Player)
+
+    return isPlayer
+  }
+  check_quitPlayer(room,...args){
+    if(!this.checkArgs_quitPlayer(...args))
+      throw new Error("is not a Player")
+
+    const player = args[0]
+
+    if(!room.getPlayers().find(pl=>pl.getID()===player.getID()))
+      throw new Error("this player not exist")
+  }
+
+
+  //client getters
+  checkArgs_getPlayerByID(...args){
+    if(args.length!==1) return false
+
+    const id = args[0]
+
+    const isNum  = (typeof id === "number")
+    const isInt  = Number.isInteger(id)
+
+    return isNum && isInt
+  }
+  check_getPlayerByID(room,...args){
+    if(!this.checkArgs_getPlayerByID(...args))
+      throw new Error("incorrect request Player by id")
+
+    const id = args[0]
+
+    if(!room.getPlayers().find(player=>player.getID()===id))
+      throw new Error("this player not exist")
+  }
+
+
+  //class methods
+}
+
+const Checker = new TypeChecker()

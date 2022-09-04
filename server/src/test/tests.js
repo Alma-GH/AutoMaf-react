@@ -1,8 +1,11 @@
 
-let time = Date.now()
+let arr = [0,1]
 
-const tm = setInterval(()=>{
-  const dif = Date.now() - time
-  console.log(`ms = ${dif}`)
-  if(dif>10000) clearInterval(tm)
-},1000)
+try {
+  arr.push(3)
+  throw new Error("mess")
+}catch (e){
+  console.log(e.message)
+}
+
+console.log(arr)

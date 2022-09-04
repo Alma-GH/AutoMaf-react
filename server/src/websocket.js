@@ -87,6 +87,8 @@ wss.on('connection', function connection(ws) {
     }catch (e){
       console.log(e.message)
       single(ws,{event: "error",message: e.message})
+
+
     }
 
   })
@@ -152,6 +154,7 @@ function find_room(data){
 
   const finder        = new Player(dataFR.nameFinder)
   const needRoom      = Server.getRoomByName(dataFR.nameRoom)
+  //TODO: Room.tryConnect()
   const isConnectable = needRoom.getPass() ? needRoom.getPass() === dataFR.passRoom : true
 
   if(isConnectable){
@@ -253,7 +256,6 @@ function startTimer(client, room){
   const game = room.game
   const tm = setInterval(()=>{
     game.nextJudged()
-    console.log({players: game.players})
     broadcastClear(room, room.roomID)
     if(!game.getPlayers().some(player=>player.isJudged()))
       clearInterval(tm)
