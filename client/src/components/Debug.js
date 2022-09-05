@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {RoomContext} from "../context/room";
+import {RoomContext} from "../context/contexts";
 import Socket from "../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
 import {LINK_CREATE, LINK_ENTER, LINK_FIND, LINK_GAME, LINK_PREPARE, LINK_START} from "../tools/const";

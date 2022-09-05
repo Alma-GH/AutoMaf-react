@@ -23,7 +23,6 @@ export const LINK_GAME    = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_GAME}`
 
 
 
-
 //roles
 export const CARD_MAFIA = "CARD_MAFIA"
 export const CARD_CIVIL = "CARD_CIVIL"
@@ -40,4 +39,6 @@ export const AVATAR_DEAD    = "AVATAR_DEAD"
 export const AVATAR_SPEAK   = "AVATAR_SPEAK"
 export const AVATAR_JUDGED  = "AVATAR_JUDGED"
 
+//storage keys
+export const S_NICK = "nick"
 

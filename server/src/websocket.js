@@ -34,17 +34,17 @@ wss.on('connection', function connection(ws) {
         case E_CREATE_ROOM:
           [room,player] = create_room(message)
           ws.id = room.roomID
-          single(ws, {event:E_CREATE_ROOM, player})
           single(ws, room)
+          single(ws, {event:E_CREATE_ROOM, player})
           break;
         case E_FIND_ROOM:
           [room,player] = find_room(message)
           ws.id = room.roomID
-          single(ws, {event:E_FIND_ROOM, player})
           if(room.game)
             broadcastClear(room, room.roomID)
           else
             broadcast(room,room.roomID)
+          single(ws, {event:E_FIND_ROOM, player})
           break;
         case E_START_GAME:
           room = start_game(message)
@@ -87,7 +87,6 @@ wss.on('connection', function connection(ws) {
     }catch (e){
       console.log(e.message)
       single(ws,{event: "error",message: e.message})
-
 
     }
 

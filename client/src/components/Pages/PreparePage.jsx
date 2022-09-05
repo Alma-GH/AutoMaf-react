@@ -3,7 +3,7 @@ import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import BtnText from "../UI/BtnText/BtnText";
 import PlayerSlot from "../main/PlayerSlot/PlayerSlot";
-import {RoomContext} from "../../context/room";
+import {RoomContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
 import {LINK_GAME, LINK_START} from "../../tools/const";
@@ -14,14 +14,6 @@ const PreparePage = () => {
 
   const nav = useNavigate()
 
-  //temp data
-  // const players = [
-  //   {name: "Roman", color: "red", isLead: true},
-  //   {name: "Artur", color: "#00c509", isLead: false},
-  //   {name: "Darya", color: "pink", isLead: false},
-  //   {name: "Nikita", color: "#ff6200", isLead: false},
-  // ];
-  // const numPlayers = 4
 
   const context = useContext(RoomContext)
 
@@ -42,8 +34,6 @@ const PreparePage = () => {
     }
 
     Socket.send(JSON.stringify(message))
-
-    nav(LINK_GAME)
   }
 
   function quit(){

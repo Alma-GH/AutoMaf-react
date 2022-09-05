@@ -5,7 +5,7 @@ import BtnIco from "../../UI/BtnIco/BtnIco";
 import imgVote from "./../../../assets/imgs/megaphone.png"
 import imgCross from "./../../../assets/imgs/cancel.png"
 import GameVote from "./../GameVote/GameVote"
-import {RoomContext} from "../../../context/room";
+import {RoomContext} from "../../../context/contexts";
 
 const GameLog = () => {
 

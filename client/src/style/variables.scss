@@ -27,6 +27,8 @@ $colBorder_blue: #0066FF;
 
 $colCard_blue: #00FFF0;
 
+$colError_red: #FF3737;
+
 %font{
   color: white;
   font-weight: 1000;
@@ -67,6 +69,11 @@ $colCard_blue: #00FFF0;
 //size
 @mixin transSize($time){
   transition: height $time ease-in-out, width $time ease-in-out;
+}
+
+//position
+@mixin transPos($time) {
+  transition: top $time cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 

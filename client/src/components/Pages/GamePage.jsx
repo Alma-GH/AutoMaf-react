@@ -12,7 +12,7 @@ import {
   PHASE_NIGHT_MAFIA,
   LINK_GAME, LINK_PREPARE, LINK_START
 } from "../../tools/const"
-import {RoomContext} from "../../context/room";
+import {RoomContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
 

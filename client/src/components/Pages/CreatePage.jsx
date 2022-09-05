@@ -6,9 +6,11 @@ import BtnText from "../UI/BtnText/BtnText";
 import imgS from "./../../assets/imgs/spanner.png"
 import CheckboxC from "../UI/CheckboxC/CheckboxC";
 import Socket from "../../tools/Services/Socket";
-import {RoomContext} from "../../context/room";
+import {MessageContext, RoomContext} from "../../context/contexts";
 import {useNavigate} from "react-router-dom";
-import {LINK_PREPARE, LINK_START} from "../../tools/const";
+import {LINK_PREPARE, LINK_START, S_NICK} from "../../tools/const";
+import {errorByTimer, setConnection} from "../../tools/func";
+import Timer from "../../tools/Services/Timer";
 
 const Settings = ({setOpenSettings}) => {
 
@@ -47,26 +49,28 @@ const CreatePage = () => {
 
   const op = addPass[0].value
 
+  const mContext = useContext(MessageContext)
   const roomControl = useContext(RoomContext)
   function connect() {
-    if(!Socket.getState(true))
-      Socket.connect(create, data=>{
-        if(!data.event)
-          roomControl.setRoom(data)
-        if(["create_room","find_room"].includes(data.event))
-          roomControl.setPlayer(data.player)
-      })
-    else{
-      create()
-      console.log("Подключение уже существует")
-    }
+    setConnection(
+      create,
+      roomControl.setRoom,
+      player=>{
+        roomControl.setPlayer(player)
+        nav(LINK_PREPARE)
+      },
+      message=>{
+        errorByTimer(mContext.setError, message,
+          "leader", 3000)
+      }
+    )
   }
 
   function create(){
     const message = {
       event: "create_room",
 
-      nameCreator: localStorage.getItem("nick"),
+      nameCreator: localStorage.getItem(S_NICK),
 
       nameRoom: room,
       existPassword: false,
@@ -76,8 +80,6 @@ const CreatePage = () => {
       gameOptions:{}
     }
     Socket.send(JSON.stringify(message));
-    setRoom("")
-    nav(LINK_PREPARE)
   }
 
   function back(){

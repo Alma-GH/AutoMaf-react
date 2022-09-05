@@ -4,9 +4,11 @@ import BtnText from "../UI/BtnText/BtnText";
 import InputC from "../UI/InputC/InputC";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import Socket from "../../tools/Services/Socket";
-import {RoomContext} from "../../context/room";
-import {LINK_PREPARE, LINK_START} from "../../tools/const";
+import {MessageContext, RoomContext} from "../../context/contexts";
+import {LINK_PREPARE, LINK_START, S_NICK} from "../../tools/const";
 import {useNavigate} from "react-router-dom";
+import {errorByTimer, setConnection} from "../../tools/func";
+import Timer from "../../tools/Services/Timer";
 
 const FindPage = () => {
 
@@ -15,33 +17,32 @@ const FindPage = () => {
   const [room, setRoom] = useState("")
   const [pass, setPass] = useState("")
 
+  const mContext = useContext(MessageContext)
   const roomControl = useContext(RoomContext)
   function connect(){
-    if(!Socket.getState(true))
-      Socket.connect(findRoom, data=>{
-        if(!data.event)
-          roomControl.setRoom(data)
-        if(["create_room","find_room"].includes(data.event))
-          roomControl.setPlayer(data.player)
-      })
-    else{
-      findRoom()
-      console.log("Подключение уже существует")
-    }
-
+    setConnection(
+      findRoom,
+      roomControl.setRoom,
+      player=>{
+        roomControl.setPlayer(player)
+        nav(LINK_PREPARE)
+      },
+      message=>{
+        errorByTimer(mContext.setError, message,
+          "finder", 3000)
+      }
+    )
   }
 
   function findRoom(){
     const message = {
       event: "find_room",
 
-      nameFinder: localStorage.getItem("nick"),
+      nameFinder: localStorage.getItem(S_NICK),
       nameRoom: room,
       passRoom: pass
     }
     Socket.send(JSON.stringify(message));
-    setRoom("")
-    nav(LINK_PREPARE)
   }
 
   function back(){

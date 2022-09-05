@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import BtnText from "../UI/BtnText/BtnText";
-import {RoomContext} from "../../context/room";
+import {RoomContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
 import {LINK_CREATE, LINK_ENTER, LINK_FIND} from "../../tools/const";

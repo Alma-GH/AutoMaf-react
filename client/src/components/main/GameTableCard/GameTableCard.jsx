@@ -10,8 +10,9 @@ import {
   PHASE_DAY_TOTAL, AVATAR_JUDGED
 } from "../../../tools/const"
 import cls from "./GameTableCard.module.scss"
-import {RoomContext} from "../../../context/room";
+import {MessageContext, RoomContext} from "../../../context/contexts";
 import Socket from "../../../tools/Services/Socket";
+import Timer from "../../../tools/Services/Timer";
 
 
 
@@ -48,6 +49,7 @@ const GameTableCard = ({card,player}) => {
   // const votes = 5
   // const name = "Roman"
 
+  const mContext = useContext(MessageContext)
   const context = useContext(RoomContext)
   const me = context.player
   const room = context.room
@@ -58,7 +60,6 @@ const GameTableCard = ({card,player}) => {
   const avatar = getAvatar(player)
   const name = player?._name
 
-  //TODO: cant take if already have card
   //click card events
   function chooseCard(){
     if(card.role === null)
@@ -100,22 +101,16 @@ const GameTableCard = ({card,player}) => {
 
     Socket.send(JSON.stringify(message))
   }
-  function message(){
-    //TODO: set error message
-    console.log("Need other phase")
-  }
 
   function getFunction(phase){
     if(!phase)
-      return message
+      return vote
 
     const map = {
       [PHASE_NIGHT_MAFIA]: voteKill,
-      [PHASE_DAY_SUBTOTAL]: vote,
-      [PHASE_DAY_TOTAL]: vote
     }
     const func = map[phase]
-    return func ? func : message
+    return func ? func : vote
   }
 
   function getAvatar(player){

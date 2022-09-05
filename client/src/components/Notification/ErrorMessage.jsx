@@ -1,9 +1,16 @@
 import React from 'react';
+import cls from "./ErrorMessage.module.scss"
 
-const ErrorMessage = () => {
+const ErrorMessage = ({message, visible}) => {
+
+  const style = []
+  style.push(cls.error)
+  if(visible)
+    style.push(cls.vis)
+
   return (
-    <div>
-      !!!ERROR!!!
+    <div className={style.join(" ")}>
+      {message}
     </div>
   );
 };
