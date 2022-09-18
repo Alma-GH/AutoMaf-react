@@ -1,4 +1,9 @@
 
+//server
+export const SERVER_LINK = 'ws://localhost:5000'
+
+
+
 //paths
 export const PATH_ROOT_APP = "/app"
 
@@ -34,6 +39,11 @@ export const PHASE_NIGHT_MAFIA    = "PHASE_NIGHT_MAFIA"
 export const PHASE_DAY_SUBTOTAL   = "PHASE_DAY_SUBTOTAL"
 export const PHASE_DAY_TOTAL      = "PHASE_DAY_TOTAL"
 
+//ends
+export const CIVIL_WIN            = "CIVIL_WIN"
+export const MAFIA_WIN            = "MAFIA_WIN"
+
+//avatars
 export const AVATAR_NORMAL  = "AVATAR_NORMAL"
 export const AVATAR_DEAD    = "AVATAR_DEAD"
 export const AVATAR_SPEAK   = "AVATAR_SPEAK"
@@ -42,3 +52,10 @@ export const AVATAR_JUDGED  = "AVATAR_JUDGED"
 //storage keys
 export const S_NICK = "nick"
 
+
+//default name
+export const DEFAULT_NAME = "Unknown"
+
+//debug
+export const DEBUG_SERVER_COMMANDS = false
+export const DEBUG_LOG             = true

@@ -74,6 +74,16 @@ function night_kill2(game,victim){
   const mafia = players.filter(player=>player.getRole()===Onside.CARD_MAFIA)
   mafia.forEach(member=>game.setVoteNight(member,victim))
 }
+function night_kill3(game,table){
+  if(game.end !== null) return console.log("GAME END")
+
+  const players = game.getPlayersAlive()
+
+  const mafia = players.filter(player=>player.getRole()===Onside.CARD_MAFIA)
+  mafia.forEach((member,i)=>{
+    game.setVoteNight(member,table[i])
+  })
+}
 
 function subtotal(game){
   if(game.end !== null) return console.log("GAME END")
@@ -148,4 +158,4 @@ function total2(game,table){
 
 
 export {numPossibleVotes, getSomeRandomInt,
-getVotes,skip_discussion,night_kill,night_kill2,subtotal,subtotal2,total,total2}
+getVotes,skip_discussion,night_kill,night_kill2,night_kill3, subtotal,subtotal2,total,total2}

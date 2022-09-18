@@ -1,37 +1,18 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss";
 import InputC from "../UI/InputC/InputC";
 import BtnText from "../UI/BtnText/BtnText";
-import imgS from "./../../assets/imgs/spanner.png"
-import CheckboxC from "../UI/CheckboxC/CheckboxC";
 import Socket from "../../tools/Services/Socket";
 import {MessageContext, RoomContext} from "../../context/contexts";
 import {useNavigate} from "react-router-dom";
-import {LINK_PREPARE, LINK_START, S_NICK} from "../../tools/const";
+import {DEFAULT_NAME, LINK_PREPARE, LINK_START, S_NICK} from "../../tools/const";
 import {errorByTimer, setConnection} from "../../tools/func";
-import Timer from "../../tools/Services/Timer";
+import MessageCreator from "../../tools/Services/MessageCreator";
+import CreateAddPass from "../main/CreateComps/CreateAddPass";
+import CreateBtnSettings from "../main/CreateComps/CreateBtnSettings";
+import CreateSettings from "../main/CreateComps/CreateSettings";
 
-const Settings = ({setOpenSettings}) => {
-
-  return (
-    <div className="prepPage">
-      <h1>Создать комнату</h1>
-
-      <WindowInput>
-
-        <div className={clsWin.inputCont}>
-          SETTINGS
-        </div>
-
-        <div className={clsWin.btnCont}>
-          <BtnText text="Назад" color="red" cb={()=>setOpenSettings(false)}/>
-        </div>
-
-      </WindowInput>
-    </div>
-  );
-}
 
 const CreatePage = () => {
 
@@ -51,6 +32,8 @@ const CreatePage = () => {
 
   const mContext = useContext(MessageContext)
   const roomControl = useContext(RoomContext)
+
+
   function connect() {
     setConnection(
       create,
@@ -67,18 +50,10 @@ const CreatePage = () => {
   }
 
   function create(){
-    const message = {
-      event: "create_room",
 
-      nameCreator: localStorage.getItem(S_NICK),
+    const name = localStorage.getItem(S_NICK) || DEFAULT_NAME
+    const message = MessageCreator.createRoom(name, room, +numPlayers, op, pass, {})
 
-      nameRoom: room,
-      existPassword: false,
-      password: "",
-      numPlayers: +numPlayers,
-
-      gameOptions:{}
-    }
     Socket.send(JSON.stringify(message));
   }
 
@@ -88,14 +63,13 @@ const CreatePage = () => {
 
 
   if(openSettings)
-    return <Settings setOpenSettings={setOpenSettings}/>
+    return <CreateSettings setOpenSettings={setOpenSettings}/>
 
   return (
     <div className="prepPage">
       <h1>Создать комнату</h1>
 
       <WindowInput>
-
         <div className={clsWin.inputCont}>
           <InputC
             placeholder="Название комнаты"
@@ -103,15 +77,13 @@ const CreatePage = () => {
             setVal={setRoom}
           />
 
-          {/*union in component*/}
-          <CheckboxC choices={addPass} setChoices={setAddPass}/>
-          <div style={{ visibility: (op ? "visible" : "hidden") }}>
-            <InputC
-              placeholder="Пароль"
-              val={pass}
-              setVal={setPass}
-            />
-          </div>
+          <CreateAddPass
+            pass={pass}
+            setPass={setPass}
+            addPass={addPass}
+            setAddPass={setAddPass}
+            op={op}
+          />
 
           <InputC
             placeholder="Игроков"
@@ -119,19 +91,13 @@ const CreatePage = () => {
             setVal={setNumPlayers}
           />
 
-          <button onClick={()=>setOpenSettings(true)} className={clsWin.settingsBtn}>
-            Настройки игры
-            <div className={clsWin.imgCont}>
-              <img src={imgS} alt="Settings"/>
-            </div>
-          </button>
+          <CreateBtnSettings setOpenSettings={setOpenSettings}/>
         </div>
 
         <div className={clsWin.btnCont}>
           <BtnText text="Назад" color="red" cb={back}/>
           <BtnText text="Создать" cb={connect}/>
         </div>
-
       </WindowInput>
     </div>
   );

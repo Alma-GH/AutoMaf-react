@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
+import MessageCreator from "../tools/Services/MessageCreator";
 
 const WebSocketTest = () => {
   const socket = useRef()
@@ -35,92 +36,46 @@ const WebSocketTest = () => {
   }
 
   function createRoom(){
-    const message = {
-      event: "create_room",
+    const message = MessageCreator.createRoom(inp,"For my friends",4,false)
 
-      nameCreator: inp,
-
-      nameRoom: "For my friends",
-      existPassword: false,
-      password: "",
-      numPlayers: 4,
-
-      gameOptions:{}
-    }
     socket.current.send(JSON.stringify(message));
     setInp("")
   }
 
   function findRoom(){
-    const message = {
-      event: "find_room",
+    const message = MessageCreator.findRoom(inp, "For my friends",)
 
-      nameFinder: inp,
-      nameRoom: "For my friends",
-      passRoom: ""
-    }
     socket.current.send(JSON.stringify(message));
     setInp("")
   }
 
   function startGame(){
-    const message = {
-      event: "start_game",
-
-      roomID: 0
-    }
+    const message = MessageCreator.startGame(0)
 
     socket.current.send(JSON.stringify(message))
   }
 
   function chooseCard(){
-    const message = {
-      event: "choose_card",
-
-      roomID: 0,
-
-      idPlayer: player._id,
-      cardIndex: +inp,
-    }
+    const message = MessageCreator.chooseCard(0, player._id, +inp)
 
     socket.current.send(JSON.stringify(message))
     setInp("")
   }
 
   function readiness(){
-    const message = {
-      event: "readiness",
-
-      roomID: 0,
-
-      idPlayer: player._id,
-    }
+    const message = MessageCreator.readiness(0, player._id)
 
     socket.current.send(JSON.stringify(message))
   }
 
   function voteKill(){
-    const message = {
-      event: "vote_night",
-
-      roomID: 0,
-
-      idVoter: player._id,
-      idChosen: +inp,
-    }
+    const message = MessageCreator.voteNight(0,player._id,+inp)
 
     socket.current.send(JSON.stringify(message))
   }
 
   function vote(){
-    const message = {
-      event: "vote",
-
-      roomID: 0,
-
-      idVoter: player._id,
-      idChosen: +inp,
-    }
+    const message = MessageCreator.vote(0,player._id,+inp)
 
     socket.current.send(JSON.stringify(message))
   }
@@ -131,6 +86,12 @@ const WebSocketTest = () => {
 
       roomID: 0,
     }
+
+    socket.current.send(JSON.stringify(message))
+  }
+
+  function quit(){
+    const message = MessageCreator.quit(0,player._id)
 
     socket.current.send(JSON.stringify(message))
   }
@@ -149,6 +110,7 @@ const WebSocketTest = () => {
       <button onClick={voteKill}>vote kill</button>
       <button onClick={vote}>vote</button>
       <button onClick={nextJudged}>next judged</button>
+      <button onClick={quit}>quit</button>
       <input type="text" onChange={e=>setInp(e.target.value)} value={inp}/>
     </div>
   )

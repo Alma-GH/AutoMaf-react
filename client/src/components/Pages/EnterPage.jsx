@@ -4,7 +4,6 @@ import InputC from "../UI/InputC/InputC";
 import {useNavigate} from "react-router-dom";
 import {LINK_START, S_NICK} from "../../tools/const";
 import {MessageContext} from "../../context/contexts";
-import Timer from "../../tools/Services/Timer";
 import {errorByTimer} from "../../tools/func";
 
 const EnterPage = () => {
@@ -33,6 +32,7 @@ const EnterPage = () => {
       setName(nick)
   }, [])
 
+
   return (
     <div className="enterPage">
       <div className="inputCont">
@@ -40,6 +40,7 @@ const EnterPage = () => {
                 placeholder="Ваше имя"
                 val={name}
                 setVal={setName}
+                enterCB={enter}
         />
         <BtnText text="Войти" cb={enter}/>
       </div>

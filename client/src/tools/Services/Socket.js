@@ -1,29 +1,39 @@
+import {SERVER_LINK} from "../const";
+
+const log = true
 
 class Socket{
 
   websocket = null
 
   connect(onopen,onmessage){
-    //TODO: url - constant
-    this.websocket = new WebSocket('ws://localhost:5000')
+
+    this.websocket = new WebSocket(SERVER_LINK)
 
     this.websocket.onopen = () => {
-      const message = {
-        data: "onopen",
-        id: Date.now()
+
+      if(log){
+        const message = {
+          data: "onopen",
+          id: Date.now()
+        }
+        this.websocket.send(JSON.stringify(message))
+        console.group("ONOPEN")
+        console.log({message})
+        console.groupEnd()
       }
-      this.websocket.send(JSON.stringify(message))
-      console.group("ONOPEN")
-      console.log({message})
-      console.groupEnd()
 
       onopen()
     }
     this.websocket.onmessage = (event) => {
+
       const message = JSON.parse(event.data)
-      console.group("ONMESSAGE")
-      console.log({message,game:message.game,players:message.game?.players})
-      console.groupEnd()
+
+      if(log){
+        console.group("ONMESSAGE")
+        console.log({message,game:message.game,players:message.game?.players})
+        console.groupEnd()
+      }
 
       onmessage(message)
     }
@@ -56,5 +66,7 @@ class Socket{
       return state
   }
 }
+
+
 
 export default new Socket()

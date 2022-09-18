@@ -9,7 +9,7 @@ import {
   E_READINESS,
   E_START_GAME,
   E_VOTE,
-  E_VOTE_NIGHT
+  E_VOTE_NIGHT, EM_WRONG_PASS
 } from "./utils/const.js";
 import Onside from "./class/Onside.js";
 import Game from "./class/Game.js";
@@ -26,6 +26,7 @@ wss.on('connection', function connection(ws) {
     try{
       //TODO: check event
       //TODO: add reconnect
+      //TODO: add event for all messages
       message = JSON.parse(message)
 
       let room
@@ -85,7 +86,7 @@ wss.on('connection', function connection(ws) {
           break;
       }
     }catch (e){
-      console.log(e.message)
+      console.log(e)
       single(ws,{event: "error",message: e.message})
 
     }
@@ -111,8 +112,14 @@ function broadcastClear(room,id){
   const game = room.getGame()
 
   //tmp and clear
-  const checker = game.Checker
-  game.Checker = undefined
+  const table = game.tableVotes
+  game.tableVotes = Array.from(game.getTable().entries())
+    .map(row=>{
+      const voter = row[0]
+      const vote = row[1]
+      return [voter.getID(), vote instanceof Onside ? vote.getID() : vote]
+    })
+
   //TODO: crutch - after make voting by id
   const votes = game.players.map(player=>player.vote)
   game.players.forEach(player=>{
@@ -123,7 +130,7 @@ function broadcastClear(room,id){
   broadcast(room,id)
 
   //return values
-  game.Checker = checker
+  game.tableVotes = table
   game.players.forEach((player,ind)=> {
     player.vote = votes[ind]
   })
@@ -159,6 +166,8 @@ function find_room(data){
   if(isConnectable){
     needRoom.addPlayer(finder)
     return [needRoom,finder]
+  }else{
+    throw new Error(EM_WRONG_PASS)
   }
 
 }
@@ -251,6 +260,7 @@ function nextJudged(data){
 
 
 function startTimer(client, room){
+  //TODO: FIX BUG
   const time = 10000
   const game = room.game
   const tm = setInterval(()=>{

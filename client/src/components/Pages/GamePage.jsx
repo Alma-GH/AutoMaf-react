@@ -1,119 +1,101 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import GameTable from "../main/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
 import CardViewer from "../main/GameCardViewer/CardViewer";
-import GameTimer from "../main/GameTimer/GameTimer"
 import GameLog from "../main/GameLog/GameLog";
-import {
-  CARD_MAFIA,
-  CARD_CIVIL,
-  PHASE_PREPARE,
-  PHASE_DAY_DISCUSSION,
-  PHASE_NIGHT_MAFIA,
-  LINK_GAME, LINK_PREPARE, LINK_START
-} from "../../tools/const"
-import {RoomContext} from "../../context/contexts";
+import {LINK_PREPARE, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
+import {MessageContext, RoomContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
-import {useNavigate} from "react-router-dom";
+import MessageCreator from "../../tools/Services/MessageCreator";
+import {errorByTimer} from "../../tools/func";
+import GameService from "../../tools/Services/GameService";
+import ModalQuit from "../UI/Modal/ModalQuit";
+import {useModal} from "../../hooks/useModal";
+import {useRedirect} from "../../hooks/useRedirect";
 
 const GamePage = () => {
-  //TODO: if end game btns dont work
 
-  const nav = useNavigate()
+  const [modal,openModal, closeModal] = useModal()
 
   //server data
   const context = useContext(RoomContext)
+  const mContext = useContext(MessageContext)
 
   const room = context.room
   const player = context.player
 
-  const game = room?.game
-  const cards = game?.cards
-  const players = game?.players
-  const end = game?.end
-  const phase = game ? game.phasePath[game.phaseIndex] : null
+  const rID     = GameService.getRoomID(room)
+  const myID    = GameService.getID(player)
+
+  //TODO: union in method .getAllGame()
+  const members = GameService.getMembers(room)
+  const game    = GameService.getGame(room)
+  const cards   = GameService.getCards(game)
+  const players = GameService.getPlayers(game)
+  const end     = GameService.getEnd(game)
+  const phase   = GameService.getPhase(game)
 
 
   //vars
   const disabledBtnReady =
-    !players?.map(player=>player._id).includes(player._id) ||
-    ![PHASE_DAY_DISCUSSION,PHASE_PREPARE].includes(phase)
+    !GameService.isPlayer(player,game) ||
+    GameService.getPlayerByID(myID,game).readiness ||
+    !GameService.getPlayerByID(myID,game).alive ||
+    ![PHASE_DAY_DISCUSSION,PHASE_PREPARE].includes(phase) ||
+    end
   //TODO: add night phases
   const sleep =
-    [PHASE_NIGHT_MAFIA].includes(phase) &&
-    players?.find(pl=>pl._id === player._id).role !== CARD_MAFIA
+    GameService.isNight(game) &&
+    GameService.getPlayerByID(myID,game).alive &&
+    !GameService.isPlayerToMatchNightPhase(player,game)
 
 
   function readiness(){
-    const message = {
-      event: "readiness",
-
-      roomID: context.room.roomID,
-
-      idPlayer: player._id,
-    }
+    const message = MessageCreator.readiness(rID, myID)
 
     Socket.send(JSON.stringify(message))
   }
 
   function restart(){
-
-    const message = {
-      event: "start_game",
-
-      roomID: room.roomID
-    }
+    const message = MessageCreator.startGame(rID)
 
     Socket.send(JSON.stringify(message))
   }
 
-  function quit(){
-    const message = {
-      event: "quit_player",
-
-      roomID: room.roomID,
-
-      idPlayer: player._id
+  useRedirect(
+    !GameService.getRoomStatus(room),
+    room,
+    LINK_PREPARE,
+    ()=>{
+      //tmp
+      const mess = "Кто-то вышел из игры"
+      errorByTimer(mContext.setError, mess, "out", 3000)
     }
-
-    Socket.send(JSON.stringify(message))
-    context.setRoom(null)
-    context.setPlayer(null)
-    nav(LINK_START)
-  }
-
-
-  useEffect(()=>{
-    //TODO: messages
-    if(!room?.inGame)
-      nav(LINK_PREPARE)
-  },[room])
+  )
 
   return (
     <div className="gamePage">
 
       <div className="gameTable">
         <GameTable
-          cards={ (phase===PHASE_PREPARE
-            ? cards
-            : players ) ?? []}
+          cards={cards ?? []}
+          players={players ?? []}
           phase={phase}
         />
       </div>
 
       <div className="btnCont">
-        <BtnText text="Выйти" color="red" cb={quit}/>
-        <BtnText text="Готов" disabled={disabledBtnReady} cb={readiness}/>
-        {end
+        <BtnText text="Выйти" color="red" cb={openModal}/>
+        {end && GameService.isLeader(player, members)
           ? <BtnText text="Новая игра" color="yellow" cb={restart}/>
-          : <GameTimer/>
+          : <BtnText text="Готов" disabled={disabledBtnReady} cb={readiness}/>
         }
       </div>
 
-      <CardViewer enabled={true}/>
+      <CardViewer enabled={true} role={GameService.getRole(player,game)}/>
 
       <div className="gameTimer">
-
+        {/*<GameTimer/>*/}
       </div>
 
 
@@ -122,6 +104,8 @@ const GamePage = () => {
       </div>
 
       {sleep && <div className="gameBack"/>}
+
+      <ModalQuit isOpen={modal} onClose={closeModal}/>
     </div>
   );
 };

@@ -1,8 +1,11 @@
 import React, {useContext, useState} from 'react';
-import {RoomContext} from "../context/contexts";
+import {MessageContext, RoomContext} from "../context/contexts";
 import Socket from "../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
 import {LINK_CREATE, LINK_ENTER, LINK_FIND, LINK_GAME, LINK_PREPARE, LINK_START} from "../tools/const";
+import {errorByTimer, setConnection} from "../tools/func";
+import GameService from "../tools/Services/GameService";
+import MessageCreator from "../tools/Services/MessageCreator";
 
 const Debug = () => {
 
@@ -13,6 +16,7 @@ const Debug = () => {
 
   const nav = useNavigate()
 
+  const mContext = useContext(MessageContext)
   const context = useContext(RoomContext)
   const room    = context.room
   const player  = context.player
@@ -23,6 +27,7 @@ const Debug = () => {
     position:"fixed",
     right: vis ? "0" : "-30vw",
     top: "0",
+    zIndex: 1000,
     border:"1px solid red"
   }
   const styleBody = {
@@ -45,19 +50,20 @@ const Debug = () => {
 
 
   //test
-  const max = 4
+  const max = 8
   function connect() {
-    if(!Socket.getState(true))
-      Socket.connect(createRoom, data=>{
-        if(!data.event)
-          context.setRoom(data)
-        if(["create_room","find_room"].includes(data.event))
-          context.setPlayer(data.player)
-      })
-    else{
-      createRoom()
-      console.log("Подключение уже существует")
-    }
+    setConnection(
+      createRoom,
+      context.setRoom,
+      player=>{
+        context.setPlayer(player)
+        nav(LINK_PREPARE)
+      },
+      message=>{
+        errorByTimer(mContext.setError, message,
+          "finder", 3000)
+      }
+    )
   }
   function createRoom(){
     const message = {
@@ -76,17 +82,18 @@ const Debug = () => {
   }
 
   function connect2(){
-    if(!Socket.getState(true))
-      Socket.connect(findRoom, data=>{
-        if(!data.event)
-          context.setRoom(data)
-        if(["create_room","find_room"].includes(data.event))
-          context.setPlayer(data.player)
-      })
-    else{
-      findRoom()
-      console.log("Подключение уже существует")
-    }
+    setConnection(
+      findRoom,
+      context.setRoom,
+      player=>{
+        context.setPlayer(player)
+        nav(LINK_PREPARE)
+      },
+      message=>{
+        errorByTimer(mContext.setError, message,
+          "finder", 3000)
+      }
+    )
 
   }
   function findRoom(){
@@ -101,7 +108,6 @@ const Debug = () => {
   }
 
   function startGame(){
-    //TODO: message creator in Socket
     const message = {
       event: "start_game",
 
@@ -150,6 +156,57 @@ const Debug = () => {
     })
   }
 
+  function autoSubVote(){
+
+    const game = GameService.getGame(room)
+
+    const players = GameService.getPlayersAlive(game)
+    const sus = players[0]
+    const nextSus = players.find(pl=>pl._id!==sus._id)
+
+    const speaker = GameService.getPlayers(game).find(player=>player.speak)
+
+    const message = MessageCreator
+        .vote(room.roomID,speaker._id, sus===speaker ? nextSus._id : sus._id)
+
+    Socket.send(JSON.stringify(message))
+  }
+
+  function autoVote(){
+
+    const game = GameService.getGame(room)
+
+    const alive = GameService.getPlayersAlive(game)
+    const voters = alive
+      .filter(pl=>(!pl.judged && pl.vote===null))
+    const sus = alive.find(pl=>pl.judged)
+
+    voters.forEach(voter=>{
+      const message = MessageCreator
+        .vote(room.roomID,voter._id, sus._id)
+
+      Socket.send(JSON.stringify(message))
+    })
+  }
+
+  function autoNightVote(){
+
+    const game = GameService.getGame(room)
+
+    const alive = GameService.getPlayersAlive(game)
+    const voters = alive
+      .filter(pl=>GameService.isPlayerToMatchNightPhase(pl,game))
+    const sus = alive
+      .find(pl=>!GameService.isPlayerToMatchNightPhase(pl,game))
+
+    voters.forEach(voter=>{
+      const message = MessageCreator
+        .voteNight(room.roomID,voter._id, sus._id)
+
+      Socket.send(JSON.stringify(message))
+    })
+  }
+
   return (
     <div style={styleCont}>
 
@@ -194,13 +251,14 @@ const Debug = () => {
               <button onClick={connect2}>find</button>
             </li>
             <li>
-              <button onClick={startGame}>start</button>
-            </li>
-            <li>
-              <button onClick={allChoose}>all choose</button>
-            </li>
-            <li>
-              <button onClick={allReady}>all ready</button>
+              <ul style={{display:"flex"}}>
+                <li><button onClick={startGame}>start</button></li>
+                <li><button onClick={allChoose}>all choose</button></li>
+                <li><button onClick={allReady}>all ready</button></li>
+                <li><button onClick={autoSubVote}>auto sub vote</button></li>
+                <li><button onClick={autoVote}>auto vote</button></li>
+                <li><button onClick={autoNightVote}>auto night vote</button></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -208,7 +266,7 @@ const Debug = () => {
         {/*ROUTES*/}
         <div>
           <h5>ROUTES:</h5>
-          <ul>
+          <ul style={{display:"flex"}}>
             <li>
               <button onClick={()=>nav(LINK_ENTER)}>enter</button>
             </li>

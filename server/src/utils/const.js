@@ -18,6 +18,7 @@ export const E_QUIT         = "quit_player"
 
 
 //error messages to client
+export const EM_WRONG_PASS        = "Неправильный пароль или название"
 //Player
 export const EM_NULL_NAME_PLAYER  = "Пустое имя игрока"
 

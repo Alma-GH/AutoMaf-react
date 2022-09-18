@@ -5,10 +5,11 @@ import InputC from "../UI/InputC/InputC";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import Socket from "../../tools/Services/Socket";
 import {MessageContext, RoomContext} from "../../context/contexts";
-import {LINK_PREPARE, LINK_START, S_NICK} from "../../tools/const";
+import {DEFAULT_NAME, LINK_PREPARE, LINK_START, S_NICK} from "../../tools/const";
 import {useNavigate} from "react-router-dom";
 import {errorByTimer, setConnection} from "../../tools/func";
 import Timer from "../../tools/Services/Timer";
+import MessageCreator from "../../tools/Services/MessageCreator";
 
 const FindPage = () => {
 
@@ -19,6 +20,8 @@ const FindPage = () => {
 
   const mContext = useContext(MessageContext)
   const roomControl = useContext(RoomContext)
+
+
   function connect(){
     setConnection(
       findRoom,
@@ -35,14 +38,11 @@ const FindPage = () => {
   }
 
   function findRoom(){
-    const message = {
-      event: "find_room",
+    const name = localStorage.getItem(S_NICK) || DEFAULT_NAME
+    const message = MessageCreator.findRoom(name, room, pass)
 
-      nameFinder: localStorage.getItem(S_NICK),
-      nameRoom: room,
-      passRoom: pass
-    }
     Socket.send(JSON.stringify(message));
+    setPass("")
   }
 
   function back(){
@@ -55,7 +55,6 @@ const FindPage = () => {
       <h1>Найти комнату</h1>
 
       <WindowInput>
-
         <div className={clsWin.inputCont}>
           <div className={clsWin.thinCont}>
             <InputC
@@ -63,6 +62,7 @@ const FindPage = () => {
               val={room}
               setVal={setRoom}
             />
+
             <InputC
               placeholder="Пароль"
               val={pass}
@@ -75,7 +75,6 @@ const FindPage = () => {
           <BtnText text="Назад" color="red" cb={back}/>
           <BtnText text="Войти" cb={connect}/>
         </div>
-
       </WindowInput>
     </div>
   );

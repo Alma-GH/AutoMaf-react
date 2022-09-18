@@ -40,6 +40,8 @@ h4{
   background-color: $colBack_white;
 
   position: relative;
+
+  overflow: hidden;
 }
 
 
@@ -55,6 +57,15 @@ h4{
 
   @extend %page;
   @extend %center;
+
+  //@include transPosRight(1s);
+  //position: relative;
+  //right: 0;
+  //
+  //&.out{
+  //  right: -100vw;
+  //  @include transPosRight(1s);
+  //}
 
   .inputCont{
     height: 150px;
@@ -119,12 +130,12 @@ h4{
       z-index: 2;
     }
 
-    &>button:last-child{
-      position: relative;
-      z-index: 3;
-      font-size: 0.95rem;
-      line-height: 15px;
-    }
+    //&>button:last-child{
+    //  position: relative;
+    //  z-index: 3;
+    //  font-size: 0.95rem;
+    //  line-height: 15px;
+    //}
 
     &>*{
       margin-right: 70px;

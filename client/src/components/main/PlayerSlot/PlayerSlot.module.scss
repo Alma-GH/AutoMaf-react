@@ -9,6 +9,13 @@
   border: 3px solid black;
   //background-color: red;
 
+  &.you{
+
+    .circles .avatar{
+      background-color: #FAFF00;
+    }
+  }
+
   .circles{
 
     height: 100%;
@@ -26,6 +33,7 @@
 
       background-color: black;
       border-radius: 50%;
+      border: 1px solid black;
     }
 
     .leader{

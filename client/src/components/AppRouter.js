@@ -20,7 +20,6 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route path={PATH_ROOT_APP}>
-
         <Route path={PATH_ENTER} element={<EnterPage/>}/>
         <Route path={PATH_START} element={<StartPage/>}/>
         <Route path={PATH_CREATE} element={<CreatePage/>}/>
@@ -30,8 +29,9 @@ const AppRouter = () => {
           <Route path={PATH_PREPARE} element={<PreparePage/>}/>
           <Route path={PATH_GAME} element={<GamePage/>}/>
         </Route>
-
       </Route>
+
+      <Route path="*" element={<StartPage/>}/>
     </Routes>
   );
 };

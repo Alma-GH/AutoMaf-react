@@ -2,29 +2,55 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/AppRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/AppRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Debug.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Debug.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Notification/ErrorMessage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Notification/ErrorMessage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/EnterPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/EnterPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/StartPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/StartPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/WebSocketTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/WebSocketTest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameCardViewer/CardViewer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameCardViewer/CardViewer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameCardViewer/CardViewer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameCardViewer/CardViewer.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameTableCard/GameTableCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameTableCard/GameTableCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/context/room.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/contexts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameTable/GameTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameTableCard/GameTableCard.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameTableCard/GameTableCard.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameTableCard/GameTableCard.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameVote/GameVote.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameVote/GameVote.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/PlayerSlot/PlayerSlot.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PlayerSlot/PlayerSlot.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/PlayerSlot/PlayerSlot.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PlayerSlot/PlayerSlot.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/style/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/func.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/TypeChecker.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/TypeChecker.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/class/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/Game.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/Game.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/tests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/utils/classU.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/classU.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/utils/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/const.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,6 +64,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="2D5gpzDjLTWzrZ90ifjkpiO03FP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -48,7 +77,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components/Notification" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components/UI/Modal" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
@@ -57,17 +87,20 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\UI\Modal" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameTableCard" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\Notification" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src\class" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src\mb" />
-      <recent name="C:\Forall\F_VSC\react_automaf\server\src\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.TypeChecker.test.js">
+  <component name="RunManager" selected="Node.js.Game.test.js">
     <configuration name="Game.test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="Game.test.js" working-dir="$PROJECT_DIR$/server/src/test">
       <method v="2" />
     </configuration>
@@ -82,10 +115,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.TypeChecker.test.js" />
-        <item itemvalue="Node.js.tests.js" />
-        <item itemvalue="Node.js.index.js" />
         <item itemvalue="Node.js.Game.test.js" />
+        <item itemvalue="Node.js.tests.js" />
+        <item itemvalue="Node.js.TypeChecker.test.js" />
+        <item itemvalue="Node.js.index.js" />
       </list>
     </recent_temporary>
   </component>
@@ -110,7 +143,11 @@
       <workItem from="1660654557003" duration="24189000" />
       <workItem from="1660750535447" duration="36602000" />
       <workItem from="1661170649782" duration="3109000" />
-      <workItem from="1661181759706" duration="174633000" />
+      <workItem from="1661181759706" duration="190836000" />
+      <workItem from="1663075376919" duration="2244000" />
+      <workItem from="1663173490208" duration="59732000" />
+      <workItem from="1663415970761" duration="466000" />
+      <workItem from="1663449607933" duration="21362000" />
     </task>
     <servers />
   </component>
@@ -128,18 +165,6 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/src/components/WebSocketTest.js</url>
-          <line>128</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

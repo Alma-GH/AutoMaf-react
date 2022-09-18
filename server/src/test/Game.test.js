@@ -2,9 +2,9 @@ import Game from "../class/Game.js";
 import Player from "../class/Player.js";
 import Room from "../class/Room.js";
 import Onside from "../class/Onside.js";
-import {getVotes, night_kill, skip_discussion, subtotal2, total2} from "../utils/classU.js";
+import {getVotes, night_kill, night_kill3, skip_discussion, subtotal2, total2} from "../utils/classU.js";
 
-const MAX_PLAYERS = 5
+const MAX_PLAYERS = 12
 
 //init players
 const players = []
@@ -14,7 +14,7 @@ for (let i = 0; i < MAX_PLAYERS; i++) {
 }
 
 //init room
-const room = new Room(players[0],MAX_PLAYERS,"MYROOM")
+const room = new Room(players[0],MAX_PLAYERS,"MYROOM",null)
 for (let i = 1; i < MAX_PLAYERS; i++) {
   let player = players[i]
   room.addPlayer(player)
@@ -38,17 +38,17 @@ for (let i = 0; i < MAX_PLAYERS; i++) {
 
 
 skip_discussion(game)
-night_kill(game)
+night_kill3(game,getVotes(game,[0,0,0,0]))
 skip_discussion(game)
-subtotal2(game,getVotes(game,[2,0,1,1]))
-skip_discussion(game)
+// subtotal2(game,getVotes(game,[2,0,1,1,1,0,1]))
+// skip_discussion(game)
+//
+// //total 1
+// total2(game,getVotes(game,[1,0,1,0,1,0,1]))
+// skip_discussion(game)
+// total2(game,getVotes(game,[1,0,1,1,1,0,1]))
 
-//total 1
-total2(game,getVotes(game,[1,0,1,0]))
-skip_discussion(game)
-total2(game,getVotes(game,[1,0,1,1]))
-
-night_kill(game)
+// night_kill(game)
 // skip_discussion()
 // subtotal()
 // skip_discussion()
@@ -60,8 +60,6 @@ night_kill(game)
 
 
 console.group("Test class 'Game':")
-// console.log(players)
-// console.log(room.toString())
 console.log(game.toString())
 console.groupEnd()
 

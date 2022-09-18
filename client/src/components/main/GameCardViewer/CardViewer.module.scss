@@ -1,7 +1,7 @@
 @import "../../../style/variables";
 
 .parent{
-  $hCard: 570px;
+  $hCard: 575px;
   $hBtn: 50px;
 
   bottom: -$hCard;
@@ -40,8 +40,28 @@
   }
 
   .myCard{
+    position: relative;
     height: 100%;
     width: 100%;
     background-color: black;
+    color: white;
+    img{
+      @extend %allIN;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+    .description{
+      position: absolute;
+      bottom: 0;
+
+      padding: 10px;
+      text-align: center;
+      text-shadow: 1px 1px 1px black;
+      font-family: monospace;
+      p{
+        font-size: 0.7rem;
+      }
+    }
+
   }
 }

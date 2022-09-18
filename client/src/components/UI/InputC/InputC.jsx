@@ -1,9 +1,14 @@
 import React from 'react';
 import cls from "./InputC.module.scss"
 
-const InputC = ({val,setVal,placeholder}) => {
+const InputC = ({val,setVal,placeholder,enterCB}) => {
 
-
+  function pressEnter(e){
+    const isEnter     = e.key === "Enter"
+    const isFunction  = typeof enterCB === "function"
+    if(isEnter && isFunction)
+      enterCB()
+  }
 
   return (
     <input type="text"
@@ -11,6 +16,7 @@ const InputC = ({val,setVal,placeholder}) => {
            value={val}
            onChange={e => setVal(e.target.value)}
            className={cls.parent}
+           onKeyDown={pressEnter}
     />
   );
 };

@@ -233,7 +233,6 @@ class Game {
 
   } //*
   _allPlayersVoteNight(){
-    //TODO: rewrite (all vote for one or most)
     //who vote
     let role = Onside.CARD_MAFIA
     this._runFunctionsByPhase([
@@ -242,7 +241,9 @@ class Game {
 
     const whoVoted      = this.getPlayersVotedNight()
     const whoShouldVote = this.getPlayersAlive().filter(player=>player.getRole() === role)
-    return  whoVoted.length === whoShouldVote.length
+    const votes         = whoVoted.map(player=>player.getVoteNight())
+    return  ((whoVoted.length === whoShouldVote.length)
+      && votes.every(vote=>vote===votes[0]))
   }
   _actionOnVotesNight(){
     const choice = this._choiceVotesNight()

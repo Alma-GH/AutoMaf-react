@@ -6,11 +6,12 @@ import {BrowserRouter} from "react-router-dom";
 import Socket from "./tools/Services/Socket";
 import ErrorMessage from "./components/Notification/ErrorMessage";
 import AppRouter from "./components/AppRouter";
+import MessageCreator from "./tools/Services/MessageCreator";
+import GameService from "./tools/Services/GameService";
+import {DEBUG_LOG} from "./tools/const";
 
 
 function App() {
-
-  const debug = true
 
   const [room, setRoom] = useState(null)
   const [player, setPlayer] = useState(null)
@@ -23,13 +24,9 @@ function App() {
   useEffect(()=>{
 
     function quit(){
-      const message = {
-        event: "quit_player",
-
-        roomID: room.roomID,
-
-        idPlayer: player._id
-      }
+      const rID = GameService.getRoomID(room)
+      const pID = GameService.getID(player)
+      const message = MessageCreator.quit(rID, pID)
 
       Socket.send(JSON.stringify(message))
     }
@@ -44,7 +41,7 @@ function App() {
         quit()
     }
 
-  },[room])
+  },[room, player])
 
 
   return (
@@ -53,7 +50,7 @@ function App() {
         <MessageContext.Provider value={{error,setError}}>
           <div className="App">
             <AppRouter/>
-            {debug && <Debug/>}
+            {DEBUG_LOG && <Debug/>}
             <ErrorMessage {...error}/>
           </div>
         </MessageContext.Provider>
@@ -63,5 +60,3 @@ function App() {
 }
 
 export default App;
-
-
