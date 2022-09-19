@@ -4,10 +4,10 @@ import Room from "./class/Room.js";
 import Server from "./class/Server.js";
 import {
   E_CHOOSE_CARD,
-  E_CREATE_ROOM,
+  E_CREATE_ROOM, E_ERROR,
   E_FIND_ROOM, E_NEXT_JUDGED, E_QUIT,
   E_READINESS,
-  E_START_GAME,
+  E_START_GAME, E_TIMER,
   E_VOTE,
   E_VOTE_NIGHT, EM_WRONG_PASS
 } from "./utils/const.js";
@@ -20,7 +20,6 @@ const wss = new WebSocketServer({
 }, ()=>console.log("Server started on port 5000"))
 
 wss.on('connection', function connection(ws) {
-  console.log("Подключение к wss установлено")
 
   ws.on('message', function (message) {
     try{
@@ -59,8 +58,9 @@ wss.on('connection', function connection(ws) {
           room = readiness(message)
           broadcastClear(room, room.roomID)
 
-          if(room.game?.getPhase() === Game.PHASE_DAY_TOTAL)
-            startTimer(ws,room)
+          if(room.getGame()._allPlayersReady())
+            startTimerToNextPhase(room)
+
           break;
         case E_VOTE_NIGHT:
           room = vote_night(message)
@@ -87,8 +87,7 @@ wss.on('connection', function connection(ws) {
       }
     }catch (e){
       console.log(e)
-      single(ws,{event: "error",message: e.message})
-
+      single(ws,{event: E_ERROR,message: e.message})
     }
 
   })
@@ -201,7 +200,7 @@ function readiness(data){
   const gameInRoom = needRoom.getGame()
 
   const player = gameInRoom.getPlayerByID(dataIG2.idPlayer)
-  gameInRoom.addReadyPlayer(player)
+  gameInRoom.addReadyPlayerWithoutNextPhase(player)
 
   return needRoom
 }
@@ -259,7 +258,27 @@ function nextJudged(data){
 
 
 
-function startTimer(client, room){
+function startTimerToNextPhase(room){
+  const timeout = 1000
+  let time = 5
+  function func(){
+    if(time===0){
+      clearInterval(tm)
+      room.getGame().nextPhaseByReadyPlayers()
+      broadcastClear(room, room.roomID)
+
+      if(room.game?.getPhase() === Game.PHASE_DAY_TOTAL)
+        startTimerToJudgedPath(room)
+    }else{
+      broadcast({event:E_TIMER, time}, room.roomID)
+      time -= 1
+    }
+  }
+  func()
+  const tm = setInterval(func, timeout)
+}
+
+function startTimerToJudgedPath(room){
   //TODO: FIX BUG
   const time = 10000
   const game = room.game
@@ -270,5 +289,7 @@ function startTimer(client, room){
       clearInterval(tm)
   },time)
 }
+
+
 
 

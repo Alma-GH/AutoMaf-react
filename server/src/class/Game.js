@@ -447,6 +447,27 @@ class Game {
     else              throw new Error("Access error: other phase in Game")
   }
 
+  //separation for timer
+  addReadyPlayerWithoutNextPhase(player){
+    Checker.check_addReadyPlayer(this,player)
+
+    player.ready()
+  } //*
+  nextPhaseByReadyPlayers(){
+    if(this._allPlayersReady()){
+      this._nextPhase()
+      this._initReadiness()
+    }
+  }
+  setVoteNightWithoutNextPhase(player,val){
+    Checker.check_setVoteNight(this,player,val)
+
+    player.setVoteNight(val)
+  } //*
+  nextPhaseByNightVote(){
+    if(this._allPlayersVoteNight())
+      this._actionOnVotesNight()
+  }
 
 
   toString(){

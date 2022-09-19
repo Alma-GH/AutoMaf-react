@@ -1,5 +1,7 @@
 import Socket from "./Services/Socket";
 import Timer from "./Services/Timer";
+import {MessageContext} from "../context/contexts";
+import MessageCreator from "./Services/MessageCreator";
 
 
 export const setConnection = (cb,setRoom,setPlayer,setError)=>{
@@ -11,6 +13,8 @@ export const setConnection = (cb,setRoom,setPlayer,setError)=>{
         setPlayer(data.player)
       if(data.event === "error")
         setError(data.message)
+      if(data.event === "get_timer")
+        console.log({timer: data.time})
     })
   else{
     cb()

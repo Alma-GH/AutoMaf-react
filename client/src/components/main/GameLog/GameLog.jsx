@@ -131,7 +131,15 @@ const GameLog = () => {
     {from:"Log", text: "Игрок Дарья присоединился"},
   ]
   const [visVote, setVisVote] = useState(false);
-
+  /*TODO: const [visObjective, setVisObjective] = useState(false)
+      <BtnIco
+        cb={()=>setVisObjective(prev=>!prev)}
+        img={visObjective?imgCross:imgQuestion}
+        disabled={false}
+        isAnimStyle={true}
+      />
+      <GameObjective vis={visObjective}/>
+  * */
 
   return (
     <div className={cls.parent}>

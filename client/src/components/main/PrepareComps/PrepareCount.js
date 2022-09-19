@@ -1,7 +1,7 @@
 import React from 'react';
 import clsWin from "../WindowInput/WindowInput.module.scss";
 
-const PrepareCount = ({max,num}) => {
+const PrepareCount = ({max,num, stage=0}) => {
 
   function getColorNum(){
     if(num<4)
@@ -13,12 +13,37 @@ const PrepareCount = ({max,num}) => {
 
   return (
     <div className={clsWin.count}>
-      Игроков
-      <span style={{color: getColorNum()}}>
-        {num}/{max}
-      </span>
+      {(stage===0) &&
+        <>
+          Игроков
+          <span style={{color: getColorNum()}}>
+            {num}/{max}
+          </span>
+        </>
+      }
+
+      <StartLoader stage={stage}/>
     </div>
   );
 };
 
 export default PrepareCount;
+
+
+const StartLoader = ({stage})=>{
+
+  const list = [...Array(5).keys()]
+
+  if(stage===0)
+    return
+  return (
+    <div className={clsWin.load}>
+      <ul>
+        {list.map(ind=>{
+          if(ind+1<=stage)  return <li key={ind} style={{opacity: 1}}/>
+          else              return <li key={ind}/>
+        })}
+      </ul>
+    </div>
+  );
+}

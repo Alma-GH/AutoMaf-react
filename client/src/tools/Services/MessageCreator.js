@@ -11,6 +11,9 @@ class MessageCreator{
   // static E_NEXT_JUDGED  = "next_judged"
   static E_QUIT         = "quit_player"
 
+  static E_ERROR        = "error"
+  static E_PLAYER_DATA  = "get_player"
+
   startGame(roomID){
     return {
       event: MessageCreator.E_START_GAME,
