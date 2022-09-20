@@ -10,6 +10,7 @@ import {
   EM_SET_PLAYERS_LOW, EM_START_GAME,
   EM_UNIQUE_NAME
 } from "../utils/const.js";
+import ChatLog from "./ChatLog.js";
 
 
 class Room {
@@ -27,6 +28,7 @@ class Room {
 
   inGame
   game
+  log
 
   //TODO: options
   gameOptions
@@ -45,6 +47,8 @@ class Room {
     this.inGame = false
 
     this.addPlayer(leader)
+
+    this.log = new ChatLog()
   }
 
   getID(){
@@ -132,6 +136,12 @@ class Room {
 
     this.game = new Game(this)
     this.inGame = true
+
+    this.log.setLog(ChatLog.WHO_LOG, "Игра запущена")
+  }
+
+  getLog(){
+    return this.log
   }
 
 

@@ -7,12 +7,13 @@ import {
   E_CREATE_ROOM, E_ERROR,
   E_FIND_ROOM, E_NEXT_JUDGED, E_QUIT,
   E_READINESS,
-  E_START_GAME, E_TIMER,
+  E_START_GAME,
   E_VOTE,
   E_VOTE_NIGHT, EM_WRONG_PASS
 } from "./utils/const.js";
 import Onside from "./class/Onside.js";
 import Game from "./class/Game.js";
+import ChatLog from "./class/ChatLog.js";
 
 
 const wss = new WebSocketServer({
@@ -59,16 +60,22 @@ wss.on('connection', function connection(ws) {
           broadcastClear(room, room.roomID)
 
           if(room.getGame()._allPlayersReady())
-            startTimerToNextPhase(room)
+            startTimerToNextPhaseOnReadiness(room,3,1000)
 
           break;
         case E_VOTE_NIGHT:
           room = vote_night(message)
           broadcastClear(room, room.roomID)
+
+          if(room.getGame()._allPlayersVoteNight())
+            startTimerToNextPhaseOnVoteNight(room,3,1000)
           break;
         case E_VOTE:
           room = vote(message)
           broadcastClear(room, room.roomID)
+
+          if(room.getGame()._allPlayersVote())
+            startTimerToNextPhaseOnVote(room,3,1000)
           break;
         case E_QUIT:
           room = quit(message)
@@ -177,6 +184,8 @@ function start_game(data){
   const roomInGame = Server.getRoomByID(dataSG.roomID)
   roomInGame.startGame()
 
+  roomInGame.getLog().setLog(ChatLog.WHO_HOST, "Выберите карты")
+
   return roomInGame
 }
 
@@ -213,7 +222,7 @@ function vote_night(data){
 
   const mafia = gameInRoom.getPlayerByID(dataIG3.idVoter)
   const player = gameInRoom.getPlayerByID(dataIG3.idChosen)
-  gameInRoom.setVoteNight(mafia,player)
+  gameInRoom.setVoteNightWithoutNextPhase(mafia,player)
 
   return needRoom
 }
@@ -226,7 +235,13 @@ function vote(data){
 
   const voter = gameInRoom.getPlayerByID(dataIG4.idVoter)
   const player = gameInRoom.getPlayerByID(dataIG4.idChosen)
-  gameInRoom.setVote(voter,player)
+  gameInRoom.setVoteWithoutNextPhase(voter,player)
+
+  const log = needRoom.getLog()
+  const newSpeaker = gameInRoom.getPlayerSpeaker()
+  log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByVote(voter,player))
+  if(newSpeaker)
+    log.setLog(ChatLog.WHO_HOST, log.getHostPhraseBySpeaker(newSpeaker))
 
   return needRoom
 }
@@ -258,38 +273,150 @@ function nextJudged(data){
 
 
 
-function startTimerToNextPhase(room){
-  const timeout = 1000
-  let time = 5
+
+//timers
+function startTimerToJudgedPath(room){
+  //TODO: FIX BUG
+  const log = room.getLog()
+  const time = 10000
+  const game = room.getGame()
+
+  function questionJudged(){
+    const newJudged = game.getPlayerJudged()
+    if(newJudged)
+      log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByJudged(newJudged))
+    return newJudged
+  }
+
+  function func(){
+    const judged    = game.getPlayerJudged()
+    const numVotes  = game.getPlayersVoted().filter(player=>player.vote === judged).length
+    const all       = game.getPlayersAlive() - 1
+    log.setLog(ChatLog.WHO_HOST, `${numVotes} из ${all}`)
+
+    game.nextJudged()
+
+    if(!questionJudged())
+      clearInterval(tm)
+
+    broadcastClear(room, room.roomID)
+  }
+
+  questionJudged()
+
+  const tm = setInterval(func,time)
+}
+
+function startTimerToNextPhase(room,time,timeout, startLog,endLog,nextPhase){
+  const log = room.getLog()
+  const game = room.getGame()
+  startLog(log)
+
+
   function func(){
     if(time===0){
       clearInterval(tm)
-      room.getGame().nextPhaseByReadyPlayers()
-      broadcastClear(room, room.roomID)
+      log.setLog(ChatLog.WHO_HOST, time)
+      endLog(log)
 
-      if(room.game?.getPhase() === Game.PHASE_DAY_TOTAL)
-        startTimerToJudgedPath(room)
+      nextPhase(game)
+
+      broadcastClear(room, room.roomID)
     }else{
-      broadcast({event:E_TIMER, time}, room.roomID)
+      log.setLog(ChatLog.WHO_HOST, time)
       time -= 1
+      broadcastClear(room, room.roomID)
     }
   }
+
   func()
   const tm = setInterval(func, timeout)
 }
 
-function startTimerToJudgedPath(room){
-  //TODO: FIX BUG
-  const time = 10000
-  const game = room.game
-  const tm = setInterval(()=>{
-    game.nextJudged()
-    broadcastClear(room, room.roomID)
-    if(!game.getPlayers().some(player=>player.isJudged()))
-      clearInterval(tm)
-  },time)
+
+function newPhaseLog(room){
+  if(!room)
+    return
+
+  const log = room.getLog()
+  const game = room.getGame()
+  const phase = game.getPhase()
+
+  log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByPhase(phase))
+  if(phase === Game.PHASE_DAY_SUBTOTAL){
+    const speaker = game.getPlayerSpeaker()
+    log.setLog(ChatLog.WHO_HOST, log.getHostPhraseBySpeaker(speaker))
+  }
+}
+function gameEndLog(room){
+  if(!room)
+    return
+
+  const log = room.getLog()
+  const game = room.getGame()
+
+  if(game.end === Game.MAFIA_WIN)
+    log.gameEnd("Мафия одерживает победу")
+  else if(game.end === Game.CIVIL_WIN)
+    log.gameEnd("Мирные одерживают победу")
 }
 
+
+function startTimerToNextPhaseOnVote(room,time,timeout){
+  const choice = room.getGame()._choiceVotes()
+
+  const startLog = log=>{
+    log.setLog(ChatLog.WHO_HOST, "Голосование окончено")
+    if(choice)
+      log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByJailed(choice))
+  }
+  const endLog = log=>{
+    if(!choice)
+      log.setLog(ChatLog.WHO_HOST,
+        "Продолжайте обсуждение. Я подожду когда вы будете готовы к окончательному голосованию")
+  }
+  const nextPhase = game=>{
+    game.nextPhaseByVote()
+    gameEndLog(room)
+  }
+
+  startTimerToNextPhase(room,time,timeout, startLog, endLog, nextPhase)
+}
+
+function startTimerToNextPhaseOnVoteNight(room,time,timeout){
+  const choice = room.getGame()._choiceVotes()
+
+  const startLog = log=>{
+    log.setLog(ChatLog.WHO_HOST, "Мафия сделала свой выбор")
+    log.setLog(ChatLog.WHO_HOST, "К сожаление город просыпается без ...")
+  }
+  const endLog = log=>{
+    log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByDeadPlayer(choice))
+  }
+  const nextPhase = game=>{
+    game.nextPhaseByNightVote()
+    gameEndLog(room)
+  }
+
+  startTimerToNextPhase(room,time,timeout, startLog, endLog, nextPhase)
+}
+
+function startTimerToNextPhaseOnReadiness(room,time,timeout){
+
+  const startLog = log=>{
+    log.setLog(ChatLog.WHO_HOST, "Полная готовность")
+  }
+  const endLog = log=>{}
+  const nextPhase = game=>{
+    game.nextPhaseByReadyPlayers()
+    const phase = game.getPhase()
+    newPhaseLog(room)
+    if(phase === Game.PHASE_DAY_TOTAL)
+      startTimerToJudgedPath(room)
+  }
+
+  startTimerToNextPhase(room,time,timeout, startLog, endLog, nextPhase)
+}
 
 
 

@@ -72,6 +72,8 @@ class Game {
   //[id,id,id,...]  - path of players for court
   pathIdVote
 
+  log
+
   //TODO: options
   options
 
@@ -86,6 +88,8 @@ class Game {
 
     this._initTable()
     this.pathIdVote = []
+
+    this.log = room.getLog()
   }
 
   /**
@@ -177,6 +181,12 @@ class Game {
     Checker.check_getPlayersByID(this,id)
 
     return this.players.find(player=>player.getID() === id)
+  }
+  getPlayerSpeaker(){
+    return this.getPlayers().find(player=>player.isSpeak())
+  }
+  getPlayerJudged(){
+    return this.getPlayers().find(player=>player.isJudged())
   }
   getPlayers(){
     return this.players
@@ -353,11 +363,9 @@ class Game {
     this._createPathIdFromTable(isSubTotal)
 
     //decision is made
-    if((this.pathIdVote.length === 1) && (this.getPhase() === Game.PHASE_DAY_TOTAL)){
-      const suspectID = this.pathIdVote[0]
-      const suspect   = this.getPlayerByID(suspectID)
-      this._killPlayer(suspect)
-
+    let choice = this._choiceVotes()
+    if(choice){
+      this._killPlayer(choice)
       this._initTable()
     }
 
@@ -369,6 +377,14 @@ class Game {
 
     this._initVotes()
     this._nextPhase()
+  }
+  _choiceVotes(){
+    if((this.pathIdVote.length === 1) && (this.getPhase() === Game.PHASE_DAY_TOTAL)){
+      const suspectID = this.pathIdVote[0]
+      return this.getPlayerByID(suspectID)
+    }
+
+    return null
   }
   _initVotes(){
     this.getPlayers()
@@ -468,6 +484,19 @@ class Game {
     if(this._allPlayersVoteNight())
       this._actionOnVotesNight()
   }
+  setVoteWithoutNextPhase(player,val){
+    Checker.check_setVote(this,player,val)
+
+    player.setVote(val)
+    this.tableVotes.set(player,val)
+    this._nextSpeaker()
+    //nextJudged by timer
+  } //*
+  nextPhaseByVote(){
+    if(this._allPlayersVote())
+      this._actionOnVotes()
+  }
+
 
 
   toString(){
@@ -680,208 +709,6 @@ class TypeChecker{
 
 const Checker = new TypeChecker()
 
-/*
-class TypeCheckerOld{
-
-  static PREFIX_TYPE      = "Type arg-s error"
-  static PREFIX_INVALID   = "Invalid data error"
-
-  static NAME_CLS = "Game"
-  game
-
-  constructor(game) {
-    this.game = game
-  }
-
-  _getErrorArg(functionName){
-    return new Error(`${TypeCheckerOld.PREFIX_TYPE}: .${functionName}() in ${TypeCheckerOld.NAME_CLS}`)
-  }
-  _getError(functionName, description){
-    return new Error(`${TypeCheckerOld.PREFIX_INVALID}: .${functionName}() in ${TypeCheckerOld.NAME_CLS} - ${description}`)
-  }
-
-  //client setters
-  checkArgs_createRole(...args){
-    if(args.length!==2) return false
-
-    const player = args[0]
-    const cardIndex = args[1]
-
-    const isPlayer  = (player instanceof Player) && !(player instanceof Onside)
-
-    const isNum     = typeof cardIndex === "number"
-    const isInt     = Number.isInteger(cardIndex)
-    const isInd     = (cardIndex >= 0) && (cardIndex < this.game.cards.length)
-
-    return (isPlayer && isNum && isInt && isInd)
-  }
-  check_createRole(...args){
-    const nameF = this.game.createRole.name
-
-    if(!this.checkArgs_createRole(...args))
-      throw this._getErrorArg(nameF)
-
-    const player = args[0]
-    const cardIndex = args[1]
-
-    if(this.game.players.some(onside=>onside.getID()===player.getID()))
-      throw this._getError(nameF, "this player has already drawn a card")
-
-    if(this.game.getCards()[cardIndex] === null)
-      throw this._getError(nameF, "this card has already been taken")
-  }
-
-  checkArgs_addReadyPlayer(...args){
-    if(args.length!==1) return false
-
-    const player = args[0]
-
-    const isOnside  = (player instanceof Onside)
-
-    return isOnside
-  }
-  check_addReadyPlayer(...args){
-    const nameF = this.game.addReadyPlayer.name
-
-    if(!this.checkArgs_addReadyPlayer(...args))
-      throw this._getErrorArg(nameF)
-
-    const player = args[0]
-
-    if(this.game.getPlayersReadiness().includes(player))
-      throw this._getError(nameF, "this player already ready")
-
-    if(!this.game.getPlayersAlive().includes(player))
-      throw this._getError(nameF, "this player not alive")
-
-    if(![Game.PHASE_DAY_DISCUSSION,Game.PHASE_PREPARE].includes(this.game.getPhase()))
-      throw this._getError(nameF,"not allowed in this phase.")
-  }
-
-  checkArgs_setVoteNight(...args){
-    if(args.length!==2) return false
-
-    const player  = args[0]
-    const val     = args[1]
-
-    const valIsNull   = (val === null)
-    const valIsPlayer = (val instanceof Onside)
-    const keyIsPlayer = (player instanceof Onside)
-
-    return (valIsPlayer || valIsNull) && keyIsPlayer
-  }
-  check_setVoteNight(...args){
-    const nameF = this.game.setVoteNight.name
-
-    if(!this.checkArgs_setVoteNight(...args))
-      throw this._getErrorArg(nameF)
-
-    const voter = args[0]
-    const val = args[1]
-
-    let voters = null
-    this.game._runFunctionsByPhase([
-      ()=>{voters = this.game.getPlayers().filter(player=>player.getRole() === Onside.CARD_MAFIA)}
-    ])
-
-
-    if(voters === null)
-      throw this._getError(nameF, "not allowed in this phase")
-
-    if(
-      !this.game.getPlayersAlive().includes(voter) ||
-      (val ? !this.game.getPlayersAlive().includes(val) : false)
-    )
-      throw this._getError(nameF, "val and voter must not be dead")
-
-    if(!voters.includes(voter))
-      throw this._getError(nameF, "voter should have role corresponding to phase")
-
-    if(voters.includes(val))
-      throw this._getError(nameF, "val not includes in voters")
-  }
-
-  checkArgs_setVote(...args){
-    if(args.length!==2) return false
-
-    const player  = args[0]
-    const val     = args[1]
-
-    const valIsNull   = [false,null].includes(val)
-    const valIsPlayer = (val instanceof Onside)
-    const keyIsPlayer = (player instanceof Onside)
-
-    return (valIsPlayer || valIsNull) && keyIsPlayer
-  }
-  check_setVote(...args){
-    const nameF = this.game.setVote.name
-
-    if(!this.checkArgs_setVote(...args))
-      throw this._getErrorArg(nameF)
-
-    const voter = args[0]
-    const val = args[1]
-
-    //phase: subtotal
-    //voter should be speaker
-    //val shouldn't be speaker
-
-    //phase: total
-    //voter shouldn't be judged
-    //val should be judged
-
-
-    if(
-      !this.game.getPlayersAlive().includes(voter) ||
-      (val ? !this.game.getPlayersAlive().includes(val) : false)
-    )
-      throw this._getError(nameF, "val and voter must not be dead")
-
-    //implemented with .nextVoter() for subTotal
-    if(voter.getVote() !== null)
-      throw this._getError(nameF, "voter can vote one time on phase ")
-
-    if(this.game.getPhase() === Game.PHASE_DAY_SUBTOTAL){
-      if(!voter.isSpeak())
-        throw this._getError(nameF, "voter must be speaker")
-      if(val && val.isSpeak())
-        throw this._getError(nameF, "val mustn't be speaker")
-    }else if(this.game.getPhase() === Game.PHASE_DAY_TOTAL){
-      if(voter.isJudged())
-        throw this._getError(nameF, "voter mustn't be judged")
-      if(val && !val.isJudged())
-        throw this._getError(nameF, "val must be judged")
-    }else{
-      throw this._getError(nameF, "not allowed in this phase")
-    }
-
-  }
-
-
-
-  //class methods
-  checkArgs_getPlayersByID(...args){
-    if(args.length!==1) return false
-
-    const id = args[0]
-
-    const isInt     = Number.isInteger(id)
-
-    return isInt
-  }
-  check_getPlayersByID(...args){
-    //TODO: change error messages
-    if(!this.checkArgs_getPlayersByID(...args))
-      throw new Error("Type error: getPlayersByID in Game")
-
-    const id = args[0]
-
-    if(this.game.players.find(player=>player.getID() === id) === undefined)
-      throw new Error("Type error: getPlayersByID in Game")
-  }
-
-}
-*/
 
 
 

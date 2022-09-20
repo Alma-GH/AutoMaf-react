@@ -3,15 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameLog/GameLog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PrepareCount.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PrepareCount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/Timer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/Timer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/func.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/class/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/class/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Room.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/utils/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/const.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
@@ -123,7 +116,8 @@
       <workItem from="1663075376919" duration="2244000" />
       <workItem from="1663173490208" duration="59732000" />
       <workItem from="1663415970761" duration="466000" />
-      <workItem from="1663449607933" duration="39023000" />
+      <workItem from="1663449607933" duration="39561000" />
+      <workItem from="1663674540140" duration="17805000" />
     </task>
     <servers />
   </component>
