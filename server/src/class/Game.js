@@ -9,6 +9,7 @@ import {
   EM_VOTE_AGAIN,
   EM_VOTE_PHASE
 } from "../utils/const.js";
+import ChatLog from "./ChatLog.js";
 
 
 class Game {
@@ -123,6 +124,7 @@ class Game {
 
 
     this.phaseIndex++
+    this.log.setLog(ChatLog.WHO_LOG, this.log.getLogPhraseByPhase(this.getPhase()))
 
     //event on new phase
     if(this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
@@ -207,6 +209,7 @@ class Game {
     //TODO: mb add validate
 
     victim.kill()
+    this.log.setLog(ChatLog.WHO_LOG, this.log.getLogPhraseByDeadPlayer(victim))
 
     if(this._isMafiaWin())        this.end = Game.MAFIA_WIN
     else if(this._isCivilWin())   this.end = Game.CIVIL_WIN

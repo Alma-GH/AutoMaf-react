@@ -1,18 +1,20 @@
 import {useEffect, useState} from "react";
 import Timer from "../tools/Services/Timer";
 
+const KEY_LOADER = "timer stage"
+
 export const useTimerStage = (time, endStage,endCB, stopCondition,stopCB)=>{
 
   const [stage, setStage] = useState(0)
 
   function timer(){
     setStage(0)
-    Timer.interval("start loader", ()=>{
+    Timer.interval(KEY_LOADER, ()=>{
       setStage(prevState => prevState+1)
     }, time, true)
   }
   function stopTimer(cb){
-    Timer.stopInterval("start loader")
+    Timer.stopInterval(KEY_LOADER)
     cb()
     setStage(0)
   }

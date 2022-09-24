@@ -6,11 +6,18 @@ class ChatLog{
   static WHO_HOST = "Ведущий"
 
   //TODO: add other night phases
-  static MAP_PHRASES = {
+  static MAP_PHRASES_BY_START_PHASE = {
     [Game.PHASE_DAY_DISCUSSION]: "Итак начнем. Можете пока представиться друг другу",
     [Game.PHASE_NIGHT_MAFIA]: "Город засыпает... Просыпается мафия. И делает свой выбор",
     [Game.PHASE_DAY_SUBTOTAL]: "Начнем промежуточные итоги",
     [Game.PHASE_DAY_TOTAL]: "Начнем итоговое голосование",
+  }
+
+  static MAP_PHRASES_RUS = {
+    [Game.PHASE_DAY_DISCUSSION]: "День(Обсуждение)",
+    [Game.PHASE_NIGHT_MAFIA]: "Ночь(Мафия)",
+    [Game.PHASE_DAY_SUBTOTAL]: "День(Промежуточный итог)",
+    [Game.PHASE_DAY_TOTAL]: "День(Голосование)",
   }
 
   chat = []
@@ -43,7 +50,7 @@ class ChatLog{
   }
 
   getHostPhraseByPhase(phase){
-    return ChatLog.MAP_PHRASES[phase]
+    return ChatLog.MAP_PHRASES_BY_START_PHASE[phase]
   }
   getHostPhraseByDeadPlayer(player){
     return `... игрока ${player.getName()}. Он может дать последнее слово.
@@ -61,6 +68,13 @@ class ChatLog{
   getHostPhraseByVote(voter, vote){
     //TODO: if vote not player return other phrase
     return `Игрок ${voter.getName()} проголосовал за ${vote.getName()}`
+  }
+
+  getLogPhraseByPhase(phase){
+    return `Смена фазы на ${ChatLog.MAP_PHRASES_RUS[phase]}`
+  }
+  getLogPhraseByDeadPlayer(player){
+    return `Игрок ${player.getName()} вне игры`
   }
 
 }

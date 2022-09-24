@@ -7,7 +7,7 @@ import {
   E_CREATE_ROOM, E_ERROR,
   E_FIND_ROOM, E_NEXT_JUDGED, E_QUIT,
   E_READINESS,
-  E_START_GAME,
+  E_START_GAME, E_TIMER,
   E_VOTE,
   E_VOTE_NIGHT, EM_WRONG_PASS
 } from "./utils/const.js";
@@ -49,7 +49,7 @@ wss.on('connection', function connection(ws) {
           break;
         case E_START_GAME:
           room = start_game(message)
-          broadcastClear(room, room.roomID)
+          startTimerToGame(5,1000,room)
           break;
         case E_CHOOSE_CARD:
           room = choose_card(message)
@@ -275,11 +275,27 @@ function nextJudged(data){
 
 
 //timers
+function startTimerToGame(time, timeout, room){
+
+  function func(){
+    if(time===0){
+      clearInterval(tm)
+      broadcastClear(room, room.roomID)
+    }else{
+      broadcast({event:E_TIMER, time}, room.roomID)
+      time-=1
+    }
+  }
+
+  const tm = setInterval(func, timeout)
+}
+
 function startTimerToJudgedPath(room){
   //TODO: FIX BUG
-  const log = room.getLog()
   const time = 10000
+  const log = room.getLog()
   const game = room.getGame()
+
 
   function questionJudged(){
     const newJudged = game.getPlayerJudged()

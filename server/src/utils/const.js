@@ -16,7 +16,9 @@ export const E_NEXT_JUDGED  = "next_judged"
 
 export const E_QUIT         = "quit_player"
 export const E_PLAYER_DATA  = "get_player"
+export const E_TIMER        = "get_timer"
 export const E_ERROR        = "error"
+
 
 
 //error messages to client
