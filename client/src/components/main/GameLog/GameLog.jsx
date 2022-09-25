@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import cls from "./GameLog.module.scss"
 import BtnIco from "../../UI/BtnIco/BtnIco";
 import imgVote from "./../../../assets/imgs/megaphone.png"
@@ -108,12 +108,23 @@ const LogInfo = ()=>{
 
 const LogMessages = ({log})=>{
 
+  const ref = useRef()
+
+  useEffect(()=>{
+
+    ref.current.scrollTo({
+      top: ref.current.scrollHeight,
+      behavior: "smooth"
+    });
+
+  }, [log])
+
   return (
-    <ul className={cls.log}>
-      {log.map((message,ind)=>(
+    <ul className={cls.log} ref={ref}>
+      {log?.map((message,ind)=>(
         //TODO: change key-index on key-id(time)
         <li key={ind}>
-          {message.from}: {message.text}
+          {message.who}: {message.message}
         </li>
       ))}
     </ul>
@@ -122,14 +133,11 @@ const LogMessages = ({log})=>{
 
 const GameLog = () => {
 
-  //temp data
-  const log = [
-    {from:"Log", text: "Лобби создано"},
-    {from:"Log", text: "Игрок Роман присоединился"},
-    {from:"Log", text: "Игрок Никита присоединился"},
-    {from:"Log", text: "Игрок Артур присоединился"},
-    {from:"Log", text: "Игрок Дарья присоединился"},
-  ]
+  const context = useContext(RoomContext)
+  const room = context.room
+
+  const log = GameService.getLog(room)
+
   const [visVote, setVisVote] = useState(false);
   /*TODO: const [visObjective, setVisObjective] = useState(false)
       <BtnIco

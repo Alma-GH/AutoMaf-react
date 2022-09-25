@@ -115,6 +115,7 @@ function broadcast(message, id) {
 }
 
 function broadcastClear(room,id){
+  //TODO: clear log in game
   const game = room.getGame()
 
   //tmp and clear
@@ -133,6 +134,9 @@ function broadcastClear(room,id){
       player.vote = player.vote._id
   })
 
+  const log = game.log
+  game.log = undefined
+
   broadcast(room,id)
 
   //return values
@@ -140,6 +144,7 @@ function broadcastClear(room,id){
   game.players.forEach((player,ind)=> {
     player.vote = votes[ind]
   })
+  game.log = log
 }
 
 
@@ -286,7 +291,7 @@ function startTimerToGame(time, timeout, room){
       time-=1
     }
   }
-
+  func()
   const tm = setInterval(func, timeout)
 }
 
@@ -307,7 +312,7 @@ function startTimerToJudgedPath(room){
   function func(){
     const judged    = game.getPlayerJudged()
     const numVotes  = game.getPlayersVoted().filter(player=>player.vote === judged).length
-    const all       = game.getPlayersAlive() - 1
+    const all       = game.getPlayersAlive().length - 1
     log.setLog(ChatLog.WHO_HOST, `${numVotes} из ${all}`)
 
     game.nextJudged()
@@ -379,6 +384,7 @@ function gameEndLog(room){
 
 
 function startTimerToNextPhaseOnVote(room,time,timeout){
+  //TODO: condition on some suspects
   const choice = room.getGame()._choiceVotes()
 
   const startLog = log=>{
@@ -400,11 +406,11 @@ function startTimerToNextPhaseOnVote(room,time,timeout){
 }
 
 function startTimerToNextPhaseOnVoteNight(room,time,timeout){
-  const choice = room.getGame()._choiceVotes()
+  const choice = room.getGame()._choiceVotesNight()
 
   const startLog = log=>{
     log.setLog(ChatLog.WHO_HOST, "Мафия сделала свой выбор")
-    log.setLog(ChatLog.WHO_HOST, "К сожаление город просыпается без ...")
+    log.setLog(ChatLog.WHO_HOST, "К сожалению город просыпается без ...")
   }
   const endLog = log=>{
     log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByDeadPlayer(choice))

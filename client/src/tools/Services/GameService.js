@@ -25,7 +25,7 @@ class GameService {
 
   NIGHT_PHASES = [PHASE_NIGHT_MAFIA]
 
-
+  //room methods
   getRoomID(room){
     return room?.roomID
   }
@@ -37,6 +37,9 @@ class GameService {
   }
   getRoomStatus(room){
     return room?.inGame
+  }
+  getLog(room){
+    return room?.log?.chat
   }
 
   getName(player){
@@ -51,7 +54,7 @@ class GameService {
   }
 
 
-
+  //game methods
   getGame(room){
     return room?.game
   }

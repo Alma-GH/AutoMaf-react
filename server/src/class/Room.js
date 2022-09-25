@@ -137,6 +137,7 @@ class Room {
     this.game = new Game(this)
     this.inGame = true
 
+    this.log.clear()
     this.log.setLog(ChatLog.WHO_LOG, "Игра запущена")
   }
 

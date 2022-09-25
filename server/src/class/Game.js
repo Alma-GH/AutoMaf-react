@@ -9,7 +9,6 @@ import {
   EM_VOTE_AGAIN,
   EM_VOTE_PHASE
 } from "../utils/const.js";
-import ChatLog from "./ChatLog.js";
 
 
 class Game {
@@ -124,12 +123,16 @@ class Game {
 
 
     this.phaseIndex++
-    this.log.setLog(ChatLog.WHO_LOG, this.log.getLogPhraseByPhase(this.getPhase()))
+    const phaseNow = this.getPhase()
+    const l = this.log
+
+    if(phaseNow)
+      l.setLog(l.constructor.WHO_LOG, l.getLogPhraseByPhase(this.getPhase()))
 
     //event on new phase
-    if(this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
+    if(phaseNow === Game.PHASE_DAY_SUBTOTAL)
       this._startSubTotal()
-    else if(this.getPhase() === Game.PHASE_DAY_TOTAL)
+    else if(phaseNow === Game.PHASE_DAY_TOTAL)
       this._startTotal()
   }
   _initPhase(){
@@ -209,7 +212,8 @@ class Game {
     //TODO: mb add validate
 
     victim.kill()
-    this.log.setLog(ChatLog.WHO_LOG, this.log.getLogPhraseByDeadPlayer(victim))
+    const l = this.log
+    l.setLog(l.constructor.WHO_LOG, l.getLogPhraseByDeadPlayer(victim))
 
     if(this._isMafiaWin())        this.end = Game.MAFIA_WIN
     else if(this._isCivilWin())   this.end = Game.CIVIL_WIN
@@ -362,8 +366,8 @@ class Game {
   _actionOnVotes(){
     //todo: clear table votes
 
-    const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
-    this._createPathIdFromTable(isSubTotal)
+    // const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
+    // this._createPathIdFromTable(isSubTotal)
 
     //decision is made
     let choice = this._choiceVotes()
@@ -494,6 +498,12 @@ class Game {
     this.tableVotes.set(player,val)
     this._nextSpeaker()
     //nextJudged by timer
+
+    if(this._allPlayersVote()){
+      const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
+      this._createPathIdFromTable(isSubTotal)
+    }
+
   } //*
   nextPhaseByVote(){
     if(this._allPlayersVote())
