@@ -1,7 +1,7 @@
-import {AVATAR_DEAD, AVATAR_JUDGED, AVATAR_NORMAL, AVATAR_SPEAK} from "../../../tools/const";
+import {AVATAR_DEAD, AVATAR_JUDGED, AVATAR_NORMAL, AVATAR_SPEAK} from "../../../../tools/const";
 import cls from "./GameTableCard.module.scss";
-import imgCross from "../../../assets/imgs/cancel.png";
-import imgBalance from "../../../assets/imgs/balance.png";
+import imgCross from "../../../../assets/imgs/cancel.png";
+import imgBalance from "../../../../assets/imgs/balance.png";
 import React from "react";
 
 const Avatar = ({state=AVATAR_NORMAL})=>{

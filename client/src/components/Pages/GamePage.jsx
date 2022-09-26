@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
-import GameTable from "../main/GameTable/GameTable";
+import GameTable from "../main/GameComps/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
-import CardViewer from "../main/GameCardViewer/CardViewer";
-import GameLog from "../main/GameLog/GameLog";
+import CardViewer from "../main/GameComps/GameCardViewer/CardViewer";
+import GameLog from "../main/GameComps/GameLog/GameLog";
 import {LINK_PREPARE, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
 import {MessageContext, RoomContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
@@ -63,7 +63,8 @@ const GamePage = () => {
   }
 
   useRedirect(
-    !GameService.getRoomStatus(room),
+    // !GameService.getRoomStatus(room),
+    false,
     room,
     LINK_PREPARE,
     ()=>{

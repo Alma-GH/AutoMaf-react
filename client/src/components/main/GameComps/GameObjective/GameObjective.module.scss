@@ -1,0 +1,31 @@
+@import "./src/style/variables";
+
+.parent{
+  position: absolute;
+  top: -100%;
+  left: 0;
+  @extend %allIN;
+  width: calc(100% + 1px);
+  height: 50%;
+
+  border: 1px solid black;
+  background-color: orange;
+  @extend %font;
+
+  transition: top 0.5s, background-color 0s 0.5s;
+
+  &.vis{
+    transition: top 0.5s, background-color 0.5s 0.5s;
+    top: 0;
+    background-color: #6C6C6C;
+  }
+
+  .head{
+    text-align: center;
+    border-bottom: 2px solid black;
+  }
+  p{
+    padding: 10px;
+  }
+
+}

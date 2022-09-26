@@ -1,6 +1,6 @@
 import React from 'react';
 import clsWin from "../WindowInput/WindowInput.module.scss";
-import PlayerSlot from "../PlayerSlot/PlayerSlot";
+import PlayerSlot from "./PlayerSlot/PlayerSlot";
 import GameService from "../../../tools/Services/GameService";
 
 const colors = ["red", "#00c509", "pink", "#ff6200", "#0f2fff"]

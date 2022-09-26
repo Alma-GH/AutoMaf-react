@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import cls from "./GameVote.module.scss"
-import {RoomContext} from "../../../context/contexts";
-import GameService from "../../../tools/Services/GameService";
-import {PHASE_DAY_SUBTOTAL, PHASE_DAY_TOTAL} from "../../../tools/const";
+import {RoomContext} from "../../../../context/contexts";
+import GameService from "../../../../tools/Services/GameService";
+import {PHASE_DAY_SUBTOTAL, PHASE_DAY_TOTAL} from "../../../../tools/const";
 
 
 const GameVote = ({vis}) => {

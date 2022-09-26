@@ -1,10 +1,13 @@
-@import "../../../style/variables";
+@use "sass:math";
+@import "../../../../style/variables";
+
 
 .parent{
 
   @extend %allIN;
 
   position: relative;
+  z-index: 2;
 
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid black;
@@ -19,7 +22,8 @@
   }
 
   .info{
-    border-bottom: 4px solid black;
+    border-bottom: 2px solid black;
+    //width: calc(100% + 1px);
     li{
       margin-bottom: 40px;
     }
@@ -34,20 +38,27 @@
     }
   }
 
-  .vote{
-    $border: 4px;
-    aspect-ratio: 1/1;
+  .btns{
+    $borderBtn: 4px;
+    aspect-ratio: 1/2;
 
     position: absolute;
-    right: calc(-50px - #{$border*2});
+    right: -51px;
     top: -1px;
 
-    border: $border solid black;
-    background-color: $colBtn_yellow !important;
-
+    @extend %column;
 
     button{
+      border: $borderBtn solid black;
       background-color: $colBtn_yellow !important;
+
+      &:first-child{
+        border-bottom-width: math.div($borderBtn, 2);
+      }
+      &:last-child{
+        border-top-width: math.div($borderBtn, 2);
+      }
+
       img{
         height: 90%;
       }
@@ -55,7 +66,8 @@
         height: 50%;
       }
     }
-  }
 
+
+  }
 
 }

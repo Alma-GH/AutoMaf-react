@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import BtnIco from "../../UI/BtnIco/BtnIco";
-import imgUP from "../../../assets/imgs/up-chevron.png";
+import BtnIco from "../../../UI/BtnIco/BtnIco";
+import imgUP from "../../../../assets/imgs/up-chevron.png";
 import cls from './CardViewer.module.scss'
-import {CARD_CIVIL, CARD_MAFIA} from "../../../tools/const";
-import imgCivil from "./../../../assets/imgs/civil-card.png"
-import imgMafia from "./../../../assets/imgs/mafia-card.png"
+import {CARD_CIVIL, CARD_MAFIA} from "../../../../tools/const";
+import imgCivil from "../../../../assets/imgs/civil-card.png"
+import imgMafia from "../../../../assets/imgs/mafia-card.png"
 
 const CardViewer = ({enabled=true, role}) => {
 

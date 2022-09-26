@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
-import {AVATAR_NORMAL} from "../../../tools/const"
+import {AVATAR_NORMAL} from "../../../../tools/const"
 import cls from "./GameTableCard.module.scss"
-import {RoomContext} from "../../../context/contexts";
-import Socket from "../../../tools/Services/Socket";
-import MessageCreator from "../../../tools/Services/MessageCreator";
+import {RoomContext} from "../../../../context/contexts";
+import Socket from "../../../../tools/Services/Socket";
+import MessageCreator from "../../../../tools/Services/MessageCreator";
 import Avatar from "./Avatar";
-import GameService from "../../../tools/Services/GameService";
+import GameService from "../../../../tools/Services/GameService";
 
 
 const GameTableCardRole = ({card}) => {

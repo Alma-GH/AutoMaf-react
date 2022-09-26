@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from "./GameTable.module.scss"
-import {PHASE_PREPARE} from "../../../tools/const";
+import {PHASE_PREPARE} from "../../../../tools/const";
 import GameTableCardRole from "../GameTableCard/GameTableCard.Role";
 import GameTableCardPlayer from "../GameTableCard/GameTableCard.Player";
 
