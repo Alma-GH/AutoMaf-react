@@ -1,15 +1,13 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import BtnText from "../UI/BtnText/BtnText";
 import InputC from "../UI/InputC/InputC";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import Socket from "../../tools/Services/Socket";
-import {MessageContext, RoomContext} from "../../context/contexts";
-import {DEFAULT_NAME, LINK_PREPARE, LINK_START, S_NICK} from "../../tools/const";
+import {DEFAULT_NAME, LINK_START, S_NICK} from "../../tools/const";
 import {useNavigate} from "react-router-dom";
-import {errorByTimer, setConnection} from "../../tools/func";
-import Timer from "../../tools/Services/Timer";
 import MessageCreator from "../../tools/Services/MessageCreator";
+import {useConnection} from "../../hooks/useConnection";
 
 const FindPage = () => {
 
@@ -18,24 +16,7 @@ const FindPage = () => {
   const [room, setRoom] = useState("")
   const [pass, setPass] = useState("")
 
-  const mContext = useContext(MessageContext)
-  const roomControl = useContext(RoomContext)
-
-
-  function connect(){
-    setConnection(
-      findRoom,
-      roomControl.setRoom,
-      player=>{
-        roomControl.setPlayer(player)
-        nav(LINK_PREPARE)
-      },
-      message=>{
-        errorByTimer(mContext.setError, message,
-          "finder", 3000)
-      }
-    )
-  }
+  const connect = useConnection(findRoom, "finder")
 
   function findRoom(){
     const name = localStorage.getItem(S_NICK) || DEFAULT_NAME

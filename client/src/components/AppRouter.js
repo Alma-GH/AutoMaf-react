@@ -17,6 +17,10 @@ import PreparePage from "./Pages/PreparePage";
 import GamePage from "./Pages/GamePage";
 
 const AppRouter = () => {
+
+  const nick = localStorage.getItem("nick")
+  const Redirect = nick ? <StartPage/> : <EnterPage/>
+
   return (
     <Routes>
       <Route path={PATH_ROOT_APP}>
@@ -31,7 +35,7 @@ const AppRouter = () => {
         </Route>
       </Route>
 
-      <Route path="*" element={<StartPage/>}/>
+      <Route path="*" element={Redirect}/>
     </Routes>
   );
 };

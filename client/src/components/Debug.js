@@ -1,11 +1,33 @@
 import React, {useContext, useState} from 'react';
-import {MessageContext, RoomContext} from "../context/contexts";
+import {MessageContext, RoomContext, ServerTimerContext} from "../context/contexts";
 import Socket from "../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
 import {LINK_CREATE, LINK_ENTER, LINK_FIND, LINK_GAME, LINK_PREPARE, LINK_START} from "../tools/const";
 import {errorByTimer, setConnection} from "../tools/func";
 import GameService from "../tools/Services/GameService";
 import MessageCreator from "../tools/Services/MessageCreator";
+import {useConnection} from "../hooks/useConnection";
+
+const styleCont = {
+  height: "100vh",
+  width: "calc(30vw + 30px)",
+  position:"fixed",
+  top: "0",
+  zIndex: 1000,
+  border:"1px solid red"
+}
+const styleBody = {
+  height: "100vh",
+  width: "30vw",
+  position:"absolute",
+  right:"0",
+  top:"0",
+  backgroundColor: "white",
+}
+const styleBtn = {
+  height: "30px",
+  width: "30px"
+}
 
 const Debug = () => {
 
@@ -16,56 +38,26 @@ const Debug = () => {
 
   const nav = useNavigate()
 
-  const mContext = useContext(MessageContext)
   const context = useContext(RoomContext)
+  const timer = useContext(ServerTimerContext).timer
   const room    = context.room
   const player  = context.player
 
-  const styleCont = {
-    height: "100vh",
-    width: "calc(30vw + 30px)",
-    position:"fixed",
-    right: vis ? "0" : "-30vw",
-    top: "0",
-    zIndex: 1000,
-    border:"1px solid red"
-  }
-  const styleBody = {
-    height: "100vh",
-    width: "30vw",
-    position:"absolute",
-    right:"0",
-    top:"0",
-    backgroundColor: "white",
-  }
-  const styleBtn = {
-    height: "30px",
-    width: "30px"
-  }
 
   function getRoomData(){
     return JSON.stringify(room,null,2)
   }
 
-
+  const connect1 = useConnection(createRoom, "finder")
+  const connect2 = useConnection(findRoom, "finder")
 
   //test
   const max = 8
-  function connect() {
-    setConnection(
-      createRoom,
-      context.setRoom,
-      player=>{
-        context.setPlayer(player)
-        nav(LINK_PREPARE)
-      },
-      message=>{
-        errorByTimer(mContext.setError, message,
-          "finder", 3000)
-      }
-    )
-  }
+
   function createRoom(){
+    if(room)
+      return
+
     const message = {
       event: "create_room",
 
@@ -81,22 +73,10 @@ const Debug = () => {
     Socket.send(JSON.stringify(message));
   }
 
-  function connect2(){
-    setConnection(
-      findRoom,
-      context.setRoom,
-      player=>{
-        context.setPlayer(player)
-        nav(LINK_PREPARE)
-      },
-      message=>{
-        errorByTimer(mContext.setError, message,
-          "finder", 3000)
-      }
-    )
-
-  }
   function findRoom(){
+    if(room)
+      return
+
     const message = {
       event: "find_room",
 
@@ -207,8 +187,12 @@ const Debug = () => {
     })
   }
 
+
+  const roomDATA = getRoomData()
+  const playerDATA = JSON.stringify(player)
+  const timerDATA = timer
   return (
-    <div style={styleCont}>
+    <div style={{...styleCont, right: vis ? "0" : "-30vw",}}>
 
       <button style={styleBtn} onClick={()=>setVis(prev=>!prev)}>X</button>
 
@@ -219,7 +203,7 @@ const Debug = () => {
           <div >
             <h5>ROOM:</h5>
             <textarea
-              value={getRoomData()}
+              value={roomDATA ? roomDATA : "null"}
               readOnly
               style={{fontSize:"12px"}}
               cols="30"
@@ -230,7 +214,15 @@ const Debug = () => {
           <div>
             <h5>PLAYER:</h5>
             <textarea
-              value={JSON.stringify(player)}
+              value={playerDATA ? playerDATA : "null"}
+              readOnly
+              cols="30"
+              rows="1"
+            />
+
+            <h5>TIMER:</h5>
+            <textarea
+              value={timerDATA!==null ? timerDATA : "null"}
               readOnly
               cols="30"
               rows="1"
@@ -244,7 +236,7 @@ const Debug = () => {
           <ul>
             <li>
               <input type="text" value={create} onChange={e=>setCreate(e.target.value)}/>
-              <button onClick={connect}>create</button>
+              <button onClick={connect1}>create</button>
             </li>
             <li>
               <input type="text" value={find} onChange={e=>setFind(e.target.value)}/>
@@ -254,10 +246,12 @@ const Debug = () => {
               <ul style={{display:"flex"}}>
                 <li><button onClick={startGame}>start</button></li>
                 <li><button onClick={allChoose}>all choose</button></li>
+              </ul>
+              <ul style={{display:"flex"}}>
                 <li><button onClick={allReady}>all ready</button></li>
+                <li><button onClick={autoNightVote}>auto night vote</button></li>
                 <li><button onClick={autoSubVote}>auto sub vote</button></li>
                 <li><button onClick={autoVote}>auto vote</button></li>
-                <li><button onClick={autoNightVote}>auto night vote</button></li>
               </ul>
             </li>
           </ul>

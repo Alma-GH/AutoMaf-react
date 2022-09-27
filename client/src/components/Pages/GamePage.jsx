@@ -63,8 +63,7 @@ const GamePage = () => {
   }
 
   useRedirect(
-    // !GameService.getRoomStatus(room),
-    false,
+    !GameService.getRoomStatus(room),
     room,
     LINK_PREPARE,
     ()=>{

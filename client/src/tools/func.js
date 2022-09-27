@@ -4,7 +4,7 @@ import {MessageContext} from "../context/contexts";
 import MessageCreator from "./Services/MessageCreator";
 
 
-export const setConnection = (cb,setRoom,setPlayer,setError)=>{
+export const setConnection = (cb,setRoom,setPlayer,setError,setTimer)=>{
   if(!Socket.getState(true))
     Socket.connect(cb, data=>{
       if(!data.event)
@@ -14,7 +14,7 @@ export const setConnection = (cb,setRoom,setPlayer,setError)=>{
       if(data.event === "error")
         setError(data.message)
       if(data.event === "get_timer")
-        console.log({timer: data.time})
+        setTimer(data.time)
     })
   else{
     cb()
@@ -22,6 +22,7 @@ export const setConnection = (cb,setRoom,setPlayer,setError)=>{
   }
 }
 
+//TODO: different keys
 export const errorByTimer = (setError, message, key, time)=>{
   setError({visible: true,message})
   Timer.timeout(key,()=>{

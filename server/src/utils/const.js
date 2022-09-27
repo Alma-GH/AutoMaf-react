@@ -23,6 +23,7 @@ export const E_ERROR        = "error"
 
 //error messages to client
 export const EM_WRONG_PASS        = "Неправильный пароль или название"
+export const EM_UNEXPECTED_QUIT   = "Выход игрока"
 //Player
 export const EM_NULL_NAME_PLAYER  = "Пустое имя игрока"
 
@@ -34,6 +35,7 @@ export const EM_SET_PLAYERS_HIGH  = `Слишком много игроков(${
 export const EM_UNIQUE_NAME       = "Такое название комнаты уже существует"
 export const EM_PASS_ROOM         = "Слишком короткий пароль"
 export const EM_START_GAME        = `Не хватает игроков для игры(${DEF_MIN_PLAYERS} мин.)`
+export const EM_START_ALREADY     = "Нельзя начать во время таймера"
 
 //Server
 export const EM_FIND_ROOM         = "Такой комнаты нет"

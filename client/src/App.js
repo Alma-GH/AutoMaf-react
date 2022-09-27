@@ -1,5 +1,5 @@
 import "./style/App.scss"
-import {MessageContext, RoomContext} from "./context/contexts";
+import {MessageContext, RoomContext, ServerTimerContext} from "./context/contexts";
 import {useEffect, useState} from "react";
 import Debug from "./components/Debug";
 import {BrowserRouter} from "react-router-dom";
@@ -16,6 +16,7 @@ function App() {
   const [room, setRoom] = useState(null)
   const [player, setPlayer] = useState(null)
 
+  const [timer, setTimer] = useState(null)
   const [error, setError] = useState({
     visible: false,
     message: ""
@@ -32,8 +33,9 @@ function App() {
     }
 
     window.onbeforeunload = ()=>{
-      if(Socket.websocket && room)
+      if(Socket.websocket && room){
         return "Вы точно хотите выйти?"
+      }
     }
 
     window.onunload = ()=>{
@@ -48,11 +50,13 @@ function App() {
     <BrowserRouter>
       <RoomContext.Provider value={{room,setRoom, player,setPlayer}} >
         <MessageContext.Provider value={{error,setError}}>
-          <div className="App">
-            <AppRouter/>
-            {DEBUG_LOG && <Debug/>}
-            <ErrorMessage {...error}/>
-          </div>
+          <ServerTimerContext.Provider value={{timer, setTimer}}>
+            <div className="App">
+              <AppRouter/>
+              {DEBUG_LOG && <Debug/>}
+              <ErrorMessage {...error}/>
+            </div>
+          </ServerTimerContext.Provider>
         </MessageContext.Provider>
       </RoomContext.Provider>
     </BrowserRouter>

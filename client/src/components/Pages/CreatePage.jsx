@@ -1,17 +1,16 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss";
 import InputC from "../UI/InputC/InputC";
 import BtnText from "../UI/BtnText/BtnText";
 import Socket from "../../tools/Services/Socket";
-import {MessageContext, RoomContext} from "../../context/contexts";
 import {useNavigate} from "react-router-dom";
-import {DEFAULT_NAME, LINK_PREPARE, LINK_START, S_NICK} from "../../tools/const";
-import {errorByTimer, setConnection} from "../../tools/func";
+import {DEFAULT_NAME, LINK_START, S_NICK} from "../../tools/const";
 import MessageCreator from "../../tools/Services/MessageCreator";
 import CreateAddPass from "../main/CreateComps/CreateAddPass";
 import CreateBtnSettings from "../main/CreateComps/CreateBtnSettings";
 import CreateSettings from "../main/CreateComps/CreateSettings";
+import {useConnection} from "../../hooks/useConnection";
 
 
 const CreatePage = () => {
@@ -28,26 +27,11 @@ const CreatePage = () => {
   const [pass, setPass] = useState("")
   const [numPlayers, setNumPlayers] = useState("")
 
+  const connect = useConnection(create, "leader")
+
   const op = addPass[0].value
 
-  const mContext = useContext(MessageContext)
-  const roomControl = useContext(RoomContext)
 
-
-  function connect() {
-    setConnection(
-      create,
-      roomControl.setRoom,
-      player=>{
-        roomControl.setPlayer(player)
-        nav(LINK_PREPARE)
-      },
-      message=>{
-        errorByTimer(mContext.setError, message,
-          "leader", 3000)
-      }
-    )
-  }
 
   function create(){
 

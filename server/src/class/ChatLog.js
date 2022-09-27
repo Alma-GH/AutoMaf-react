@@ -43,6 +43,7 @@ class ChatLog{
   }
   clear(){
     this.chat.length = 0
+    this.end = false
   }
   gameEnd(message){
     this.setLog(ChatLog.WHO_HOST, message)
@@ -75,6 +76,9 @@ class ChatLog{
   }
   getLogPhraseByDeadPlayer(player){
     return `Игрок ${player.getName()} вне игры`
+  }
+  getLogPhraseByQuitPlayer(player){
+    return `Игрок ${player.getName()} вышел`
   }
 
 }

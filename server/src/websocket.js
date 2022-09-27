@@ -9,7 +9,7 @@ import {
   E_READINESS,
   E_START_GAME, E_TIMER,
   E_VOTE,
-  E_VOTE_NIGHT, EM_WRONG_PASS
+  E_VOTE_NIGHT, EM_UNEXPECTED_QUIT, EM_WRONG_PASS
 } from "./utils/const.js";
 import Onside from "./class/Onside.js";
 import Game from "./class/Game.js";
@@ -31,12 +31,14 @@ wss.on('connection', function connection(ws) {
 
       let room
       let player
+      let error
       switch (message.event) {
         case E_CREATE_ROOM:
           [room,player] = create_room(message)
           ws.id = room.roomID
           single(ws, room)
           single(ws, {event:E_CREATE_ROOM, player})
+          single(ws,{event:E_TIMER, time:0}, room.roomID)
           break;
         case E_FIND_ROOM:
           [room,player] = find_room(message)
@@ -46,10 +48,11 @@ wss.on('connection', function connection(ws) {
           else
             broadcast(room,room.roomID)
           single(ws, {event:E_FIND_ROOM, player})
+          single(ws,{event:E_TIMER, time:0}, room.roomID)
           break;
         case E_START_GAME:
           room = start_game(message)
-          startTimerToGame(5,1000,room)
+          startTimerToGame(5,750,room)
           break;
         case E_CHOOSE_CARD:
           room = choose_card(message)
@@ -78,12 +81,15 @@ wss.on('connection', function connection(ws) {
             startTimerToNextPhaseOnVote(room,3,1000)
           break;
         case E_QUIT:
-          room = quit(message)
+          [room, error] = quit(message)
           delete ws.id
           if(room.game)
             broadcastClear(room, room.roomID)
           else
             broadcast(room,room.roomID)
+          broadcast({event:E_TIMER, time:0}, room.roomID)
+          if(error)
+            broadcast({event: E_ERROR,message: EM_UNEXPECTED_QUIT}, room.roomID)
           break;
 
         //no need
@@ -115,27 +121,28 @@ function broadcast(message, id) {
 }
 
 function broadcastClear(room,id){
-  //TODO: clear log in game
   const game = room.getGame()
 
-  //tmp and clear
+  //tmp
   const table = game.tableVotes
+  const votes = game.players.map(player=>player.vote)
+  const log   = game.log
+  const timer = room.timer
+
+  //clear/adaptive
   game.tableVotes = Array.from(game.getTable().entries())
     .map(row=>{
       const voter = row[0]
       const vote = row[1]
       return [voter.getID(), vote instanceof Onside ? vote.getID() : vote]
     })
-
   //TODO: crutch - after make voting by id
-  const votes = game.players.map(player=>player.vote)
   game.players.forEach(player=>{
     if(player.vote instanceof Onside)
       player.vote = player.vote._id
   })
-
-  const log = game.log
   game.log = undefined
+  room.timer = null
 
   broadcast(room,id)
 
@@ -145,6 +152,7 @@ function broadcastClear(room,id){
     player.vote = votes[ind]
   })
   game.log = log
+  room.timer = timer
 }
 
 
@@ -256,11 +264,13 @@ function quit(data){
   const dataIG6 = data
 
   const needRoom = Server.getRoomByID(dataIG6.roomID)
+  const error = needRoom.getTimerID() //if timer not exist return null
+  needRoom.clearTimer()
 
   const player = needRoom.getPlayerByID(dataIG6.idPlayer)
   needRoom.quitPlayer(player)
 
-  return needRoom
+  return [needRoom, error]
 }
 
 
@@ -284,15 +294,41 @@ function startTimerToGame(time, timeout, room){
 
   function func(){
     if(time===0){
-      clearInterval(tm)
-      broadcastClear(room, room.roomID)
-    }else{
-      broadcast({event:E_TIMER, time}, room.roomID)
-      time-=1
+      room.clearTimer()
+      if(room.getStatus())
+        broadcastClear(room, room.roomID)
     }
+    broadcast({event:E_TIMER, time}, room.roomID)
+    time-=1
   }
   func()
-  const tm = setInterval(func, timeout)
+  room.setTimerID(func, timeout)
+}
+
+function startTimerToNextPhase(room,time,timeout, startLog,endLog,nextPhase){
+  const log = room.getLog()
+  const game = room.getGame()
+  startLog(log)
+
+
+  function func(){
+    if(time===0){
+      room.clearTimer()
+      log.setLog(ChatLog.WHO_HOST, time)
+      endLog(log)
+
+      nextPhase(game)
+
+      broadcastClear(room, room.roomID)
+    }else{
+      log.setLog(ChatLog.WHO_HOST, time)
+      time -= 1
+      broadcastClear(room, room.roomID)
+    }
+  }
+
+  func()
+  room.setTimerID(func, timeout)
 }
 
 function startTimerToJudgedPath(room){
@@ -318,40 +354,14 @@ function startTimerToJudgedPath(room){
     game.nextJudged()
 
     if(!questionJudged())
-      clearInterval(tm)
+      room.clearTimer()
 
     broadcastClear(room, room.roomID)
   }
 
   questionJudged()
 
-  const tm = setInterval(func,time)
-}
-
-function startTimerToNextPhase(room,time,timeout, startLog,endLog,nextPhase){
-  const log = room.getLog()
-  const game = room.getGame()
-  startLog(log)
-
-
-  function func(){
-    if(time===0){
-      clearInterval(tm)
-      log.setLog(ChatLog.WHO_HOST, time)
-      endLog(log)
-
-      nextPhase(game)
-
-      broadcastClear(room, room.roomID)
-    }else{
-      log.setLog(ChatLog.WHO_HOST, time)
-      time -= 1
-      broadcastClear(room, room.roomID)
-    }
-  }
-
-  func()
-  const tm = setInterval(func, timeout)
+  room.setTimerID(func,time)
 }
 
 

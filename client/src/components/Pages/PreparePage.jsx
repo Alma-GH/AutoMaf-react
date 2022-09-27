@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import BtnText from "../UI/BtnText/BtnText";
-import {MessageContext, RoomContext} from "../../context/contexts";
+import {RoomContext, ServerTimerContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import {LINK_GAME} from "../../tools/const";
 import MessageCreator from "../../tools/Services/MessageCreator";
@@ -12,8 +12,6 @@ import PrepareCount from "../main/PrepareComps/PrepareCount";
 import PreparePlayerList from "../main/PrepareComps/PreparePlayerList";
 import {useModal} from "../../hooks/useModal";
 import {useRedirect} from "../../hooks/useRedirect";
-import {useTimerStage} from "../../hooks/useTimerStage";
-import {errorByTimer} from "../../tools/func";
 
 
 const PreparePage = () => {
@@ -21,6 +19,7 @@ const PreparePage = () => {
   const [modal,openModal, closeModal] = useModal()
 
   const context = useContext(RoomContext)
+  const tContext = useContext(ServerTimerContext)
 
   const player  = context.player
   const room    = context.room
@@ -28,12 +27,18 @@ const PreparePage = () => {
   const players = GameService.getMembers(room)
   const max     = GameService.getMaxMembers(room)
 
+  const timer = tContext.timer
+
 
   function startGame(){
     const id      = GameService.getRoomID(room)
     const message = MessageCreator.startGame(id)
 
     Socket.send(JSON.stringify(message))
+  }
+
+  function getStage(){
+    return timer ? 6 - timer : 0
   }
 
   useRedirect(
@@ -49,7 +54,7 @@ const PreparePage = () => {
 
       <WindowInput>
         <div className={clsWin.inputCont}>
-          <PrepareCount max={max} num={players.length} stage={0}/>
+          <PrepareCount max={max} num={players.length} stage={getStage()}/>
           <PreparePlayerList players={players} me={player}/>
         </div>
 

@@ -7,7 +7,7 @@ import {
   EM_MAX_PLAYERS,
   EM_NULL_NAME_ROOM, EM_PASS_ROOM,
   EM_SET_PLAYERS_HIGH,
-  EM_SET_PLAYERS_LOW, EM_START_GAME,
+  EM_SET_PLAYERS_LOW, EM_START_ALREADY, EM_START_GAME,
   EM_UNIQUE_NAME
 } from "../utils/const.js";
 import ChatLog from "./ChatLog.js";
@@ -28,7 +28,9 @@ class Room {
 
   inGame
   game
+
   log
+  timer
 
   //TODO: options
   gameOptions
@@ -49,6 +51,7 @@ class Room {
     this.addPlayer(leader)
 
     this.log = new ChatLog()
+    this.timer = null
   }
 
   getID(){
@@ -119,6 +122,9 @@ class Room {
       Server.closeRoom(this.roomID)
     //temp
     this.inGame = false
+
+    const l = this.getLog()
+    l.setLog(ChatLog.WHO_LOG, l.getLogPhraseByQuitPlayer(player))
   }
 
   getStatus(){
@@ -145,6 +151,16 @@ class Room {
     return this.log
   }
 
+  getTimerID(){
+    return this.timer
+  }
+  setTimerID(cb, timeout){
+    this.timer = setInterval(cb, timeout)
+  }
+  clearTimer(){
+    clearInterval(this.getTimerID())
+    this.timer = null
+  }
 
   toString(){
     return JSON.stringify({
@@ -253,6 +269,8 @@ class TypeChecker{
   check_startGame(room){
     if(room.getPlayers().length < DEF_MIN_PLAYERS)
       throw new Error(EM_START_GAME)
+    if(room.getTimerID())
+      throw new Error(EM_START_ALREADY)
   }
 
   checkArgs_quitPlayer(...args){
