@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss";
 import InputC from "../UI/InputC/InputC";
@@ -11,11 +11,15 @@ import CreateAddPass from "../main/CreateComps/CreateAddPass";
 import CreateBtnSettings from "../main/CreateComps/CreateBtnSettings";
 import CreateSettings from "../main/CreateComps/CreateSettings";
 import {useConnection} from "../../hooks/useConnection";
+import {MessageContext} from "../../context/contexts";
+import Loader from "../Notification/Loader";
 
 
 const CreatePage = () => {
 
   const nav = useNavigate()
+  const mContext = useContext(MessageContext)
+  const isLoad = mContext.loading
 
   const [openSettings, setOpenSettings] = useState(false)
 
@@ -54,34 +58,40 @@ const CreatePage = () => {
       <h1>Создать комнату</h1>
 
       <WindowInput>
-        <div className={clsWin.inputCont}>
-          <InputC
-            placeholder="Название комнаты"
-            val={room}
-            setVal={setRoom}
-          />
+        {!isLoad
+          ? <>
+            <div className={clsWin.inputCont}>
+              <InputC
+                placeholder="Название комнаты"
+                val={room}
+                setVal={setRoom}
+              />
 
-          <CreateAddPass
-            pass={pass}
-            setPass={setPass}
-            addPass={addPass}
-            setAddPass={setAddPass}
-            op={op}
-          />
+              <CreateAddPass
+                pass={pass}
+                setPass={setPass}
+                addPass={addPass}
+                setAddPass={setAddPass}
+                op={op}
+              />
 
-          <InputC
-            placeholder="Игроков"
-            val={numPlayers}
-            setVal={setNumPlayers}
-          />
+              <InputC
+                placeholder="Игроков"
+                val={numPlayers}
+                setVal={setNumPlayers}
+              />
 
-          <CreateBtnSettings setOpenSettings={setOpenSettings}/>
-        </div>
+              <CreateBtnSettings setOpenSettings={setOpenSettings}/>
+            </div>
 
-        <div className={clsWin.btnCont}>
-          <BtnText text="Назад" color="red" cb={back}/>
-          <BtnText text="Создать" cb={connect}/>
-        </div>
+            <div className={clsWin.btnCont}>
+              <BtnText text="Назад" color="red" cb={back}/>
+              <BtnText text="Создать" cb={connect}/>
+            </div>
+            </>
+
+          : <Loader/>
+        }
       </WindowInput>
     </div>
   );

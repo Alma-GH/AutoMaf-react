@@ -5,7 +5,7 @@ import Server from "./class/Server.js";
 import {
   E_CHOOSE_CARD,
   E_CREATE_ROOM, E_ERROR,
-  E_FIND_ROOM, E_NEXT_JUDGED, E_QUIT,
+  E_FIND_ROOM, E_NEXT_JUDGED, E_PLAYER_DATA, E_QUIT,
   E_READINESS,
   E_START_GAME, E_TIMER,
   E_VOTE,
@@ -26,7 +26,6 @@ wss.on('connection', function connection(ws) {
     try{
       //TODO: check event
       //TODO: add reconnect
-      //TODO: add event for all messages
       message = JSON.parse(message)
 
       let room
@@ -36,18 +35,18 @@ wss.on('connection', function connection(ws) {
         case E_CREATE_ROOM:
           [room,player] = create_room(message)
           ws.id = room.roomID
-          single(ws, room)
-          single(ws, {event:E_CREATE_ROOM, player})
+          single(ws, {event:E_CREATE_ROOM, room})
+          single(ws, {event:E_PLAYER_DATA, player})
           single(ws,{event:E_TIMER, time:0}, room.roomID)
           break;
         case E_FIND_ROOM:
           [room,player] = find_room(message)
           ws.id = room.roomID
           if(room.game)
-            broadcastClear(room, room.roomID)
+            broadcastClear({event:E_FIND_ROOM, room}, room.roomID)
           else
-            broadcast(room,room.roomID)
-          single(ws, {event:E_FIND_ROOM, player})
+            broadcast({event:E_FIND_ROOM, room},room.roomID)
+          single(ws, {event:E_PLAYER_DATA, player})
           single(ws,{event:E_TIMER, time:0}, room.roomID)
           break;
         case E_START_GAME:
@@ -56,11 +55,11 @@ wss.on('connection', function connection(ws) {
           break;
         case E_CHOOSE_CARD:
           room = choose_card(message)
-          broadcastClear(room, room.roomID)
+          broadcastClear({event:E_CHOOSE_CARD, room}, room.roomID)
           break;
         case E_READINESS:
           room = readiness(message)
-          broadcastClear(room, room.roomID)
+          broadcastClear({event:E_READINESS, room}, room.roomID)
 
           if(room.getGame()._allPlayersReady())
             startTimerToNextPhaseOnReadiness(room,3,1000)
@@ -68,14 +67,14 @@ wss.on('connection', function connection(ws) {
           break;
         case E_VOTE_NIGHT:
           room = vote_night(message)
-          broadcastClear(room, room.roomID)
+          broadcastClear({event:E_VOTE_NIGHT, room}, room.roomID)
 
           if(room.getGame()._allPlayersVoteNight())
             startTimerToNextPhaseOnVoteNight(room,3,1000)
           break;
         case E_VOTE:
           room = vote(message)
-          broadcastClear(room, room.roomID)
+          broadcastClear({event:E_VOTE, room}, room.roomID)
 
           if(room.getGame()._allPlayersVote())
             startTimerToNextPhaseOnVote(room,3,1000)
@@ -84,19 +83,19 @@ wss.on('connection', function connection(ws) {
           [room, error] = quit(message)
           delete ws.id
           if(room.game)
-            broadcastClear(room, room.roomID)
+            broadcastClear({event:E_QUIT, room}, room.roomID)
           else
-            broadcast(room,room.roomID)
-          broadcast({event:E_TIMER, time:0}, room.roomID)
+            broadcast({event:E_QUIT, room},room.roomID)
+
           if(error)
             broadcast({event: E_ERROR,message: EM_UNEXPECTED_QUIT}, room.roomID)
           break;
 
         //no need
-        case E_NEXT_JUDGED:
-          room = nextJudged(message)
-          broadcastClear(room, room.roomID)
-          break;
+        // case E_NEXT_JUDGED:
+        //   room = nextJudged(message)
+        //   broadcastClear(room, room.roomID)
+        //   break;
       }
     }catch (e){
       console.log(e)
@@ -120,7 +119,8 @@ function broadcast(message, id) {
   })
 }
 
-function broadcastClear(room,id){
+function broadcastClear(message,id){
+  const room = message.room
   const game = room.getGame()
 
   //tmp
@@ -144,7 +144,7 @@ function broadcastClear(room,id){
   game.log = undefined
   room.timer = null
 
-  broadcast(room,id)
+  broadcast({event:message.event, room},id)
 
   //return values
   game.tableVotes = table
@@ -264,8 +264,8 @@ function quit(data){
   const dataIG6 = data
 
   const needRoom = Server.getRoomByID(dataIG6.roomID)
-  const error = needRoom.getTimerID() //if timer not exist return null
-  needRoom.clearTimer()
+  const error = needRoom.hasAnyTimer() //if timers not exists return false
+  needRoom.clearAllTimers()
 
   const player = needRoom.getPlayerByID(dataIG6.idPlayer)
   needRoom.quitPlayer(player)
@@ -294,18 +294,18 @@ function startTimerToGame(time, timeout, room){
 
   function func(){
     if(time===0){
-      room.clearTimer()
+      room.clearTimer(Room.TK_START)
       if(room.getStatus())
-        broadcastClear(room, room.roomID)
+        broadcastClear({event:E_START_GAME, room}, room.roomID)
     }
     broadcast({event:E_TIMER, time}, room.roomID)
     time-=1
   }
   func()
-  room.setTimerID(func, timeout)
+  room.setTimerID(func, timeout, Room.TK_START)
 }
 
-function startTimerToNextPhase(room,time,timeout, startLog,endLog,nextPhase){
+function startTimerToNextPhase(room,event,time,timeout, startLog,endLog,nextPhase){
   const log = room.getLog()
   const game = room.getGame()
   startLog(log)
@@ -313,22 +313,22 @@ function startTimerToNextPhase(room,time,timeout, startLog,endLog,nextPhase){
 
   function func(){
     if(time===0){
-      room.clearTimer()
+      room.clearTimer(Room.TK_PHASE)
       log.setLog(ChatLog.WHO_HOST, time)
       endLog(log)
 
       nextPhase(game)
 
-      broadcastClear(room, room.roomID)
+      broadcastClear({event, room}, room.roomID)
     }else{
       log.setLog(ChatLog.WHO_HOST, time)
       time -= 1
-      broadcastClear(room, room.roomID)
+      broadcastClear({event, room}, room.roomID)
     }
   }
 
   func()
-  room.setTimerID(func, timeout)
+  room.setTimerID(func, timeout, Room.TK_PHASE)
 }
 
 function startTimerToJudgedPath(room){
@@ -354,14 +354,14 @@ function startTimerToJudgedPath(room){
     game.nextJudged()
 
     if(!questionJudged())
-      room.clearTimer()
+      room.clearTimer(Room.TK_JUDGED)
 
-    broadcastClear(room, room.roomID)
+    broadcastClear({event:E_NEXT_JUDGED, room}, room.roomID)
   }
 
   questionJudged()
 
-  room.setTimerID(func,time)
+  room.setTimerID(func,time,Room.TK_JUDGED)
 }
 
 
@@ -412,7 +412,7 @@ function startTimerToNextPhaseOnVote(room,time,timeout){
     gameEndLog(room)
   }
 
-  startTimerToNextPhase(room,time,timeout, startLog, endLog, nextPhase)
+  startTimerToNextPhase(room,E_VOTE,time,timeout, startLog, endLog, nextPhase)
 }
 
 function startTimerToNextPhaseOnVoteNight(room,time,timeout){
@@ -430,7 +430,7 @@ function startTimerToNextPhaseOnVoteNight(room,time,timeout){
     gameEndLog(room)
   }
 
-  startTimerToNextPhase(room,time,timeout, startLog, endLog, nextPhase)
+  startTimerToNextPhase(room,E_VOTE_NIGHT,time,timeout, startLog, endLog, nextPhase)
 }
 
 function startTimerToNextPhaseOnReadiness(room,time,timeout){
@@ -447,7 +447,7 @@ function startTimerToNextPhaseOnReadiness(room,time,timeout){
       startTimerToJudgedPath(room)
   }
 
-  startTimerToNextPhase(room,time,timeout, startLog, endLog, nextPhase)
+  startTimerToNextPhase(room,E_READINESS,time,timeout, startLog, endLog, nextPhase)
 }
 
 

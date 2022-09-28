@@ -8,11 +8,12 @@ class MessageCreator{
   static E_READINESS    = "readiness"
   static E_VOTE_NIGHT   = "vote_night"
   static E_VOTE         = "vote"
-  // static E_NEXT_JUDGED  = "next_judged"
+  static E_NEXT_JUDGED  = "next_judged"
   static E_QUIT         = "quit_player"
 
   static E_ERROR        = "error"
   static E_PLAYER_DATA  = "get_player"
+  static E_TIMER        = "get_timer"
 
   startGame(roomID){
     return {

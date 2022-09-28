@@ -17,6 +17,7 @@ function App() {
   const [player, setPlayer] = useState(null)
 
   const [timer, setTimer] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState({
     visible: false,
     message: ""
@@ -49,7 +50,7 @@ function App() {
   return (
     <BrowserRouter>
       <RoomContext.Provider value={{room,setRoom, player,setPlayer}} >
-        <MessageContext.Provider value={{error,setError}}>
+        <MessageContext.Provider value={{error,setError, loading,setLoading}}>
           <ServerTimerContext.Provider value={{timer, setTimer}}>
             <div className="App">
               <AppRouter/>

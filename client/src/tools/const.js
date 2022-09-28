@@ -1,10 +1,13 @@
 
-//server
+//SERVER
+//link
 export const SERVER_LINK = 'ws://localhost:5000'
 
+//default
+export const DEFAULT_NAME = "Unknown"
 
 
-//paths
+//PATHS
 export const PATH_ROOT_APP = "/app"
 
 export const PATH_ENTER   = "enter"
@@ -28,6 +31,7 @@ export const LINK_GAME    = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_GAME}`
 
 
 
+//GAME
 //roles
 export const CARD_MAFIA = "CARD_MAFIA"
 export const CARD_CIVIL = "CARD_CIVIL"
@@ -49,12 +53,11 @@ export const AVATAR_DEAD    = "AVATAR_DEAD"
 export const AVATAR_SPEAK   = "AVATAR_SPEAK"
 export const AVATAR_JUDGED  = "AVATAR_JUDGED"
 
+
+
+//OTHER
 //storage keys
 export const S_NICK = "nick"
-
-
-//default name
-export const DEFAULT_NAME = "Unknown"
 
 //debug
 export const DEBUG_SERVER_COMMANDS = false

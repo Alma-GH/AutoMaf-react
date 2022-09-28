@@ -30,7 +30,11 @@ class Room {
   game
 
   log
+
   timer
+  static TK_START = "timer_key_start"
+  static TK_PHASE = "timer_key_next_phase"
+  static TK_JUDGED = "timer_key_next_judged"
 
   //TODO: options
   gameOptions
@@ -51,7 +55,7 @@ class Room {
     this.addPlayer(leader)
 
     this.log = new ChatLog()
-    this.timer = null
+    this.timer = {}
   }
 
   getID(){
@@ -151,15 +155,26 @@ class Room {
     return this.log
   }
 
-  getTimerID(){
+  getAllTimers(){
     return this.timer
   }
-  setTimerID(cb, timeout){
-    this.timer = setInterval(cb, timeout)
+  getTimerIdByKey(key){
+    return this.timer[key]
   }
-  clearTimer(){
-    clearInterval(this.getTimerID())
-    this.timer = null
+  hasAnyTimer(){
+    return !!Object.getOwnPropertyNames(this.getAllTimers()).length
+  }
+  setTimerID(cb, timeout,key){
+    this.timer[key] = setInterval(cb, timeout)
+  }
+  clearTimer(key){
+    clearInterval(this.getTimerIdByKey(key))
+    delete this.timer[key]
+  }
+  clearAllTimers(){
+    for (const key in this.timer) {
+      this.clearTimer(key)
+    }
   }
 
   toString(){
@@ -269,7 +284,7 @@ class TypeChecker{
   check_startGame(room){
     if(room.getPlayers().length < DEF_MIN_PLAYERS)
       throw new Error(EM_START_GAME)
-    if(room.getTimerID())
+    if(room.getTimerIdByKey(Room.TK_START))
       throw new Error(EM_START_ALREADY)
   }
 

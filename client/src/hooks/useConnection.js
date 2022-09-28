@@ -14,16 +14,19 @@ export const useConnection = (cb, keyT)=>{
 
 
   function connect() {
+    mContext.setLoading(true)
     setConnection(
       cb,
       roomControl.setRoom,
       player=>{
         roomControl.setPlayer(player)
         nav(LINK_PREPARE)
+        mContext.setLoading(false)
       },
       message=>{
         errorByTimer(mContext.setError, message,
           keyT, 3000)
+        mContext.setLoading(false)
       },
       tContext.setTimer
     )

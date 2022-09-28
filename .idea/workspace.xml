@@ -4,17 +4,14 @@
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/AppRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/AppRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Debug.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Debug.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/context/contexts.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/contexts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/hooks/useConnection.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/hooks/useConnection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/func.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/ChatLog.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/ChatLog.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/class/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/const.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +129,8 @@
       <workItem from="1664028060297" duration="5361000" />
       <workItem from="1664100928383" duration="6843000" />
       <workItem from="1664193706663" duration="6225000" />
-      <workItem from="1664279788549" duration="12119000" />
+      <workItem from="1664279788549" duration="12343000" />
+      <workItem from="1664366334638" duration="13121000" />
     </task>
     <servers />
   </component>

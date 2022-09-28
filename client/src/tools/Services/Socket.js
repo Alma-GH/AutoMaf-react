@@ -31,7 +31,7 @@ class Socket{
 
       if(log){
         console.group("ONMESSAGE")
-        console.log({message,game:message.game,players:message.game?.players})
+        console.log({message})
         console.groupEnd()
       }
 
