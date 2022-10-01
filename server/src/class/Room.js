@@ -36,6 +36,8 @@ class Room {
   static TK_PHASE = "timer_key_next_phase"
   static TK_JUDGED = "timer_key_next_judged"
 
+  static LIVE_TIME = 1000*60*60*24 //1day
+
   //TODO: options
   gameOptions
 
@@ -175,6 +177,10 @@ class Room {
     for (const key in this.timer) {
       this.clearTimer(key)
     }
+  }
+
+  startLive(){
+    setTimeout(()=>Server.closeRoom(this.roomID), Room.LIVE_TIME)
   }
 
   toString(){

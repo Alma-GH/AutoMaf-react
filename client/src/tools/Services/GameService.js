@@ -103,11 +103,11 @@ class GameService {
   }
   numVotes(player,game){
     const all = this.getPlayers(game)
-    return all.filter(pl=>pl.vote===player._id).length
+    return all?.filter(pl=>pl.vote===player._id).length
   }
   numNightVotes(player,game){
     const all = this.getPlayers(game)
-    return all.filter(pl=>this.getID(pl.voteNight)===this.getID(player)).length
+    return all?.filter(pl=>this.getID(pl.voteNight)===this.getID(player)).length
   }
   getRole(player,game){
     const find = this.getPlayers(game)?.find(pl=>pl._id === this.getID(player))

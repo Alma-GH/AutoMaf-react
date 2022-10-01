@@ -76,7 +76,7 @@ const GameTableCardPlayer = ({player}) => {
 
     const cardMatch = GameService.isPlayerToMatchNightPhase(player,game)
     const myMatch = GameService.isPlayerToMatchNightPhase(me, game)
-    const amIAlive = GameService.getPlayersAlive(game).some(pl=>(
+    const amIAlive = GameService.getPlayersAlive(game)?.some(pl=>(
       GameService.getID(pl) === GameService.getID(me)
     ))
 

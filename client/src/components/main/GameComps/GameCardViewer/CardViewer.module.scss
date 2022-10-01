@@ -45,6 +45,9 @@
     width: 100%;
     background-color: black;
     color: white;
+
+    @extend %center;
+
     img{
       @extend %allIN;
       -webkit-user-drag: none;

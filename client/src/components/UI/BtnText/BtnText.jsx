@@ -9,7 +9,9 @@ const BtnText = ({text, color, cb, disabled}) => {
 
   return (
     <button className={style.join(" ")} onClick={cb} disabled={disabled}>
-      {text}
+      <div className={cls.label}>
+        {text}
+      </div>
     </button>
   );
 };

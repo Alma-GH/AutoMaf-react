@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {AVATAR_NORMAL} from "../../../../tools/const"
 import cls from "./GameTableCard.module.scss"
-import {RoomContext} from "../../../../context/contexts";
+import {CardContext, RoomContext} from "../../../../context/contexts";
 import Socket from "../../../../tools/Services/Socket";
 import MessageCreator from "../../../../tools/Services/MessageCreator";
 import Avatar from "./Avatar";
@@ -10,6 +10,7 @@ import GameService from "../../../../tools/Services/GameService";
 
 const GameTableCardRole = ({card}) => {
 
+  const {setVisCard} = useContext(CardContext)
   const context = useContext(RoomContext)
   const me = context.player
   const room = context.room
@@ -24,6 +25,7 @@ const GameTableCardRole = ({card}) => {
     const message = MessageCreator.chooseCard(rID, pID, card.index)
 
     Socket.send(JSON.stringify(message))
+    setVisCard(true)
   }
 
   const style = []

@@ -1,5 +1,5 @@
 import "./style/App.scss"
-import {MessageContext, RoomContext, ServerTimerContext} from "./context/contexts";
+import {CardContext, MessageContext, RoomContext, ServerTimerContext} from "./context/contexts";
 import {useEffect, useState} from "react";
 import Debug from "./components/Debug";
 import {BrowserRouter} from "react-router-dom";
@@ -13,8 +13,9 @@ import {DEBUG_LOG} from "./tools/const";
 
 function App() {
 
-  const [room, setRoom] = useState(null)
-  const [player, setPlayer] = useState(null)
+  let [room, setRoom] = useState(null)
+  let [player, setPlayer] = useState(null)
+
 
   const [timer, setTimer] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -22,6 +23,8 @@ function App() {
     visible: false,
     message: ""
   })
+
+  const [visCard, setVisCard] = useState(false);
 
   useEffect(()=>{
 
@@ -46,17 +49,18 @@ function App() {
 
   },[room, player])
 
-
   return (
     <BrowserRouter>
       <RoomContext.Provider value={{room,setRoom, player,setPlayer}} >
         <MessageContext.Provider value={{error,setError, loading,setLoading}}>
           <ServerTimerContext.Provider value={{timer, setTimer}}>
-            <div className="App">
-              <AppRouter/>
-              {DEBUG_LOG && <Debug/>}
-              <ErrorMessage {...error}/>
-            </div>
+            <CardContext.Provider value={{visCard,setVisCard}}>
+              <div className="App">
+                <AppRouter/>
+                {DEBUG_LOG && <Debug/>}
+                <ErrorMessage {...error}/>
+              </div>
+            </CardContext.Provider>
           </ServerTimerContext.Provider>
         </MessageContext.Provider>
       </RoomContext.Provider>

@@ -7,7 +7,7 @@ import {
   EM_VOTE,
   EM_VOTE_FOR,
   EM_VOTE_AGAIN,
-  EM_VOTE_PHASE
+  EM_VOTE_PHASE, EM_CHOOSE_NULL, EM_READY
 } from "../utils/const.js";
 
 
@@ -570,7 +570,7 @@ class TypeChecker{
       throw new Error(EM_GAME_CHOOSE)
 
     if(game.getCards()[cardIndex] === null)
-      throw new Error("this card has already been taken")
+      throw new Error(EM_CHOOSE_NULL)
   }
 
   checkArgs_addReadyPlayer(...args){
@@ -589,7 +589,7 @@ class TypeChecker{
     const player = args[0]
 
     if(game.getPlayersReadiness().includes(player))
-      throw new Error("this player already ready")
+      throw new Error(EM_READY)
 
     if(!game.getPlayersAlive().includes(player))
       throw new Error("this player not alive")

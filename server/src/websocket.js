@@ -9,7 +9,7 @@ import {
   E_READINESS,
   E_START_GAME, E_TIMER,
   E_VOTE,
-  E_VOTE_NIGHT, EM_UNEXPECTED_QUIT, EM_WRONG_PASS
+  E_VOTE_NIGHT, EM_UNEXPECTED_QUIT, EM_VOTE_ON_TIMER, EM_WRONG_PASS
 } from "./utils/const.js";
 import Onside from "./class/Onside.js";
 import Game from "./class/Game.js";
@@ -87,6 +87,7 @@ wss.on('connection', function connection(ws) {
           else
             broadcast({event:E_QUIT, room},room.roomID)
 
+          broadcast({event:E_TIMER, time:0}, room.roomID)
           if(error)
             broadcast({event: E_ERROR,message: EM_UNEXPECTED_QUIT}, room.roomID)
           break;
@@ -235,7 +236,10 @@ function vote_night(data){
 
   const mafia = gameInRoom.getPlayerByID(dataIG3.idVoter)
   const player = gameInRoom.getPlayerByID(dataIG3.idChosen)
-  gameInRoom.setVoteNightWithoutNextPhase(mafia,player)
+  if(!needRoom.getTimerIdByKey(Room.TK_PHASE))
+    gameInRoom.setVoteNightWithoutNextPhase(mafia,player)
+  else
+    throw new Error(EM_VOTE_ON_TIMER)
 
   return needRoom
 }

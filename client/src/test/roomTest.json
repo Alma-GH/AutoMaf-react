@@ -1,0 +1,132 @@
+{
+  "roomID": 0,
+  "players": [
+    {
+      "_id": 0,
+      "_name": "Leader"
+    },
+    {
+      "_id": 1,
+      "_name": "Finder17"
+    },
+    {
+      "_id": 2,
+      "_name": "Finder22"
+    },
+    {
+      "_id": 3,
+      "_name": "Finder26"
+    }
+  ],
+  "newPlayerID": 4,
+  "maxPlayers": 8,
+  "name": "room",
+  "isSetPass": false,
+  "inGame": true,
+  "game": {
+    "end": null,
+    "players": [
+      {
+        "_id": 0,
+        "_name": "Leader",
+        "role": "CARD_CIVIL",
+        "alive": true,
+        "readiness": false,
+        "speak": false,
+        "judged": false,
+        "vote": null
+      },
+      {
+        "_id": 1,
+        "_name": "Finder17",
+        "role": "CARD_CIVIL",
+        "alive": true,
+        "readiness": false,
+        "speak": false,
+        "judged": false,
+        "vote": null
+      },
+      {
+        "_id": 2,
+        "_name": "Finder22",
+        "role": "CARD_MAFIA",
+        "alive": true,
+        "readiness": false,
+        "speak": false,
+        "judged": false,
+        "vote": null
+      },
+      {
+        "_id": 3,
+        "_name": "Finder26",
+        "role": "CARD_CIVIL",
+        "alive": true,
+        "readiness": false,
+        "speak": false,
+        "judged": false,
+        "vote": null
+      }
+    ],
+    "phasePath": [
+      "PHASE_PREPARE",
+      "PHASE_DAY_DISCUSSION",
+      "PHASE_NIGHT_MAFIA",
+      "PHASE_DAY_DISCUSSION",
+      "PHASE_DAY_SUBTOTAL",
+      "PHASE_DAY_DISCUSSION",
+      "PHASE_DAY_TOTAL"
+    ],
+    "phaseIndex": 1,
+    "numDay": 1,
+    "cards": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "tableVotes": [],
+    "pathIdVote": []
+  },
+  "log": {
+    "chat": [
+      {
+        "who": "Log",
+        "message": "Игра запущена"
+      },
+      {
+        "who": "Ведущий",
+        "message": "Выберите карты"
+      },
+      {
+        "who": "Ведущий",
+        "message": "Полная готовность"
+      },
+      {
+        "who": "Ведущий",
+        "message": 3
+      },
+      {
+        "who": "Ведущий",
+        "message": 2
+      },
+      {
+        "who": "Ведущий",
+        "message": 1
+      },
+      {
+        "who": "Ведущий",
+        "message": 0
+      },
+      {
+        "who": "Log",
+        "message": "Смена фазы на День(Обсуждение)"
+      },
+      {
+        "who": "Ведущий",
+        "message": "Итак начнем. Можете пока представиться друг другу"
+      }
+    ],
+    "end": false
+  },
+  "timer": null
+}

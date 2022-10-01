@@ -1,33 +1,58 @@
 @import "../../../style/variables";
 
 .parent{
-  height: $hBtn;
+  height: $hBtn+10px;
   width: $wBtn;
 
-  position: relative;
-  border-radius: 30px;
+  background-color: rgba(0, 0, 0, 0);
   border: 0;
+  @extend %center;
 
-  box-shadow:  0 7px 5px -3px rgba(0, 0, 0, 0.5);;
-  background-color: $colBtn_green;
+  .label{
+    height: $hBtn;
+    width: $wBtn;
 
-  //font
-  @extend %font;
-  @extend %fontBtn;
+    position: relative;
+    bottom: 0;
+    border-radius: 30px;
+    border: 0;
+
+    @extend %center;
+
+    box-shadow:  0 7px 5px -3px rgba(0, 0, 0, 0.5);;
+    background-color: $colBtn_green;
+
+    transition: bottom 0.1s ease-in-out;
+    //font
+    @extend %font;
+    @extend %fontBtn;
+  }
 
   &:disabled{
-    background-color: $colBtn_grey;
-  }
-  &:hover{
-    bottom: 8px;
+    .label{
+      background-color: $colBtn_grey;
+    }
   }
 
+  &:hover{
+    .label{
+      bottom: 8px;
+    }
+  }
+
+  &:focus-visible{
+    outline: 1px solid black;
+  }
 }
 
 .yellow{
-  background-color: $colBtn_yellow;
+  .label{
+    background-color: $colBtn_yellow;
+  }
 }
 
 .red{
-  background-color: $colBtn_red;
+  .label{
+    background-color: $colBtn_red;
+  }
 }

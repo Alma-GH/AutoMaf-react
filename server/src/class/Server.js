@@ -2,7 +2,6 @@ import Room from "./Room.js";
 import {EM_FIND_ROOM} from "../utils/const.js";
 
 
-//TODO: if room live more 1day closeRoom
 class Server {
 
   rooms = []
@@ -27,7 +26,7 @@ class Server {
 
   addRoom(room){
     Checker.check_addRoom(room)
-
+    room.startLive()
     this.rooms.push(room)
   }
   closeRoom(id){

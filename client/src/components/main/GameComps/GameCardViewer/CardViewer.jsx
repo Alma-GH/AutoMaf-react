@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import BtnIco from "../../../UI/BtnIco/BtnIco";
 import imgUP from "../../../../assets/imgs/up-chevron.png";
 import cls from './CardViewer.module.scss'
 import {CARD_CIVIL, CARD_MAFIA} from "../../../../tools/const";
 import imgCivil from "../../../../assets/imgs/civil-card.png"
 import imgMafia from "../../../../assets/imgs/mafia-card.png"
+import {CardContext} from "../../../../context/contexts";
 
 const CardViewer = ({enabled=true, role}) => {
 
@@ -32,8 +33,7 @@ const CardViewer = ({enabled=true, role}) => {
     return map[role]
   }
 
-  //TODO: auto visible(take card)
-  const [visCard, setVisCard] = useState(false);
+  const {visCard, setVisCard} = useContext(CardContext)
   let styleCard = [cls.parent]
   if(visCard) styleCard.push(cls.vis)
   if(!enabled) styleCard.push(cls.disable)

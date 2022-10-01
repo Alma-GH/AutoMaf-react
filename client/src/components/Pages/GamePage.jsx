@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import GameTable from "../main/GameComps/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
 import CardViewer from "../main/GameComps/GameCardViewer/CardViewer";

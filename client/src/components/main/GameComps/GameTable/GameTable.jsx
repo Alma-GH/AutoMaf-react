@@ -6,7 +6,6 @@ import GameTableCardPlayer from "../GameTableCard/GameTableCard.Player";
 
 
 const GameTable = ({players=[], cards=[], phase}) => {
-
   let set
   if(phase === PHASE_PREPARE){
     set = cards.map((card,ind)=>(

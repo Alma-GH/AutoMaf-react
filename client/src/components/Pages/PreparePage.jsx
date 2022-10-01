@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import BtnText from "../UI/BtnText/BtnText";

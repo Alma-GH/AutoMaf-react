@@ -24,6 +24,7 @@ export const E_ERROR        = "error"
 //error messages to client
 export const EM_WRONG_PASS        = "Неправильный пароль или название"
 export const EM_UNEXPECTED_QUIT   = "Выход игрока"
+export const EM_VOTE_ON_TIMER     = "Уже нельзя голосовать"
 //Player
 export const EM_NULL_NAME_PLAYER  = "Пустое имя игрока"
 
@@ -42,6 +43,8 @@ export const EM_FIND_ROOM         = "Такой комнаты нет"
 
 //Game
 export const EM_GAME_CHOOSE       = "Вы уже взяли карту"
+export const EM_CHOOSE_NULL       = "Эту карту уже взяли"
+export const EM_READY             = "Вы уже готовы"
 export const EM_PLAYER_DEAD       = "Этот игрок уже мертв"
 export const EM_VOTE              = "Вы не можете голосовать"
 export const EM_VOTE_PHASE        = "В эту фазу нельзя голосовать"
