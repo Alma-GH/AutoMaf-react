@@ -3,26 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Notification/Loader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Notification/Loader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/StartPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/StartPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/CreateComps/CreateBtnSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/CreateComps/CreateBtnSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.Player.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.Player.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.Role.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.Role.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/context/contexts.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/context/contexts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/GameService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/GameService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/const.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/LogInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/LogInfo.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +47,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components/Notification" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -73,11 +57,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\Notification" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameComps\GameObjective" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\UI\Modal" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameTableCard" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\Notification" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameComps" />
@@ -142,7 +126,8 @@
       <workItem from="1664193706663" duration="6225000" />
       <workItem from="1664279788549" duration="12343000" />
       <workItem from="1664366334638" duration="13479000" />
-      <workItem from="1664629555694" duration="11332000" />
+      <workItem from="1664629555694" duration="11869000" />
+      <workItem from="1664716127855" duration="5688000" />
     </task>
     <servers />
   </component>

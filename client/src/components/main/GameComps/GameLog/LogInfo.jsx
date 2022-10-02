@@ -66,7 +66,7 @@ const LogInfo = () => {
       [CIVIL_WIN]: ["Мирные", "lightgreen"],
       [MAFIA_WIN]: ["Мафия", "red"]
     }
-    return {who: map[end][0], color: map[end][1]}
+    return {who: map[end]?.[0], color: map[end]?.[1]}
   }
 
   return (

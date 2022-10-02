@@ -1,0 +1,21 @@
+@import "./../../style/variables";
+
+.parent{
+  @extend %allIN;
+  @extend %center;
+}
+
+
+.startFromGame{
+  position: fixed;
+  width:100vw;
+  height:100vh;
+
+  display:grid;
+  place-items:center;
+
+  @extend %font;
+  font-size: 8rem;
+  color: yellow;
+  text-shadow: 0 0 50px white;
+}

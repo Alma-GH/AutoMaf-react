@@ -336,7 +336,6 @@ function startTimerToNextPhase(room,event,time,timeout, startLog,endLog,nextPhas
 }
 
 function startTimerToJudgedPath(room){
-  //TODO: FIX BUG
   const time = 10000
   const log = room.getLog()
   const game = room.getGame()
@@ -353,7 +352,8 @@ function startTimerToJudgedPath(room){
     const judged    = game.getPlayerJudged()
     const numVotes  = game.getPlayersVoted().filter(player=>player.vote === judged).length
     const all       = game.getPlayersAlive().length - 1
-    log.setLog(ChatLog.WHO_HOST, `${numVotes} из ${all}`)
+    if(judged)
+      log.setLog(ChatLog.WHO_HOST, `${numVotes} из ${all}`)
 
     game.nextJudged()
 
@@ -402,6 +402,7 @@ function startTimerToNextPhaseOnVote(room,time,timeout){
   const choice = room.getGame()._choiceVotes()
 
   const startLog = log=>{
+    //TODO: mb add log.setLog(ChatLog.WHO_HOST, `${numVotes} из ${all}`)
     log.setLog(ChatLog.WHO_HOST, "Голосование окончено")
     if(choice)
       log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByJailed(choice))
