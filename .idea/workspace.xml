@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Notification/Loader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Notification/Loader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/LogInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/LogInfo.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/utils/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/const.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,8 +84,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.TypeChecker.test.js" />
-        <item itemvalue="Node.js.Game.test.js" />
         <item itemvalue="Node.js.tests.js" />
+        <item itemvalue="Node.js.Game.test.js" />
         <item itemvalue="Node.js.index.js" />
       </list>
     </recent_temporary>
@@ -127,7 +124,9 @@
       <workItem from="1664279788549" duration="12343000" />
       <workItem from="1664366334638" duration="13479000" />
       <workItem from="1664629555694" duration="11869000" />
-      <workItem from="1664716127855" duration="5688000" />
+      <workItem from="1664716127855" duration="6000000" />
+      <workItem from="1664898776075" duration="1943000" />
+      <workItem from="1664973649468" duration="3326000" />
     </task>
     <servers />
   </component>

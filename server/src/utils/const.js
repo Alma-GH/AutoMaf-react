@@ -23,6 +23,7 @@ export const E_ERROR        = "error"
 
 //error messages to client
 export const EM_WRONG_PASS        = "Неправильный пароль или название"
+export const EM_GAME_PROCESS      = "Игра уже начата"
 export const EM_UNEXPECTED_QUIT   = "Выход игрока"
 export const EM_VOTE_ON_TIMER     = "Уже нельзя голосовать"
 //Player

@@ -9,7 +9,7 @@ import {
   E_READINESS,
   E_START_GAME, E_TIMER,
   E_VOTE,
-  E_VOTE_NIGHT, EM_UNEXPECTED_QUIT, EM_VOTE_ON_TIMER, EM_WRONG_PASS
+  E_VOTE_NIGHT, EM_GAME_PROCESS, EM_UNEXPECTED_QUIT, EM_VOTE_ON_TIMER, EM_WRONG_PASS
 } from "./utils/const.js";
 import Onside from "./class/Onside.js";
 import Game from "./class/Game.js";
@@ -181,15 +181,16 @@ function find_room(data){
   const finder        = new Player(dataFR.nameFinder)
   const needRoom      = Server.getRoomByName(dataFR.nameRoom)
   //TODO: Room.tryConnect()
-  const isConnectable = needRoom.getPass() ? needRoom.getPass() === dataFR.passRoom : true
+  const rightPass = needRoom.getPass() ? needRoom.getPass() === dataFR.passRoom : true
+  const inGame = needRoom.getStatus() || needRoom.hasAnyTimer()
 
-  if(isConnectable){
-    needRoom.addPlayer(finder)
-    return [needRoom,finder]
-  }else{
+  if(!rightPass)
     throw new Error(EM_WRONG_PASS)
-  }
+  if(inGame)
+    throw new Error(EM_GAME_PROCESS)
 
+  needRoom.addPlayer(finder)
+  return [needRoom,finder]
 }
 
 function start_game(data){
