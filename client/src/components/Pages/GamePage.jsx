@@ -109,7 +109,10 @@ const GamePage = () => {
       {sleep && <div className="gameBack"/>}
 
       <ModalQuit isOpen={modal} onClose={closeModal}/>
-      <StartLoader stage={tContext.timer}/>
+      {end &&
+        <StartLoader stage={tContext.timer}/>
+      }
+
     </div>
   );
 };

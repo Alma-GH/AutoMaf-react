@@ -83,7 +83,16 @@ class GameService {
     return game?.cards
   }
   getPlayers(game){
-    return game?.players
+
+    return game?.players.map((player,indM)=>{
+      const name = this.getName(player)
+      const count = game.players
+        .filter((pl,indF)=>((indF<indM) && (this.getName(pl) === name)))
+        .length
+      const newPlayer = {...player}
+      newPlayer._name = count === 0 ? name : `${name}(${count})`
+      return newPlayer
+    })
   }
   getPlayersReady(game){
     return this.getPlayers(game).filter(player=>player.readiness)

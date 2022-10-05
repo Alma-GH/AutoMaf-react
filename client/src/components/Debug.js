@@ -1,9 +1,8 @@
 import React, {useContext, useState} from 'react';
-import {MessageContext, RoomContext, ServerTimerContext} from "../context/contexts";
+import {RoomContext, ServerTimerContext} from "../context/contexts";
 import Socket from "../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
 import {LINK_CREATE, LINK_ENTER, LINK_FIND, LINK_GAME, LINK_PREPARE, LINK_START} from "../tools/const";
-import {errorByTimer, setConnection} from "../tools/func";
 import GameService from "../tools/Services/GameService";
 import MessageCreator from "../tools/Services/MessageCreator";
 import {useConnection} from "../hooks/useConnection";
@@ -147,7 +146,7 @@ const Debug = () => {
     const speaker = GameService.getPlayers(game).find(player=>player.speak)
 
     const message = MessageCreator
-        .vote(room.roomID,speaker._id, sus===speaker ? nextSus._id : sus._id)
+        .vote(room.roomID,speaker._id, sus._id===speaker._id ? nextSus._id : sus._id)
 
     Socket.send(JSON.stringify(message))
   }
