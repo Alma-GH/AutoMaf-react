@@ -87,6 +87,7 @@
       letter-spacing: -1px;
       color:black;
       -webkit-text-stroke: 0 black;
+
       span{
         -webkit-text-stroke: 0.5px black;
       }
@@ -112,15 +113,13 @@
       width: 85%;
       height: 280px;
 
-      //@extend %column;
-      //align-items: center;
-      //justify-content: start;
-      //padding: 0px 5px;
       overflow-y: auto;
       overflow-x: hidden;
 
       border: 1px solid black;
       box-shadow: 0 8px 7px -5px rgba(34, 60, 80, 0.7);
+
+      @extend %scroll;
 
       &>*:first-child{
         margin-top: 15px;
@@ -129,22 +128,6 @@
         margin-bottom: 15px;
         margin-right: auto;
         margin-left: auto;
-      }
-
-      &::-webkit-scrollbar {
-        width: 12px;
-      }
-
-      &::-webkit-scrollbar-track {
-        border-radius: 100px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border-radius: 100px;
-        border: 3px solid transparent;
-        background-clip: content-box;
-        background-color: #8070d4;
-
       }
 
 

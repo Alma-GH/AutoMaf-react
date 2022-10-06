@@ -76,7 +76,7 @@ wss.on('connection', function connection(ws) {
           room = vote(message)
           broadcastClear({event:E_VOTE, room}, room.roomID)
 
-          if(room.getGame()._allPlayersVote())
+          if(room.getGame()._isEndVote())
             startTimerToNextPhaseOnVote(room,3,1000)
           break;
         case E_QUIT:
@@ -253,7 +253,11 @@ function vote(data){
 
   const voter = gameInRoom.getPlayerByID(dataIG4.idVoter)
   const player = gameInRoom.getPlayerByID(dataIG4.idChosen)
-  gameInRoom.setVoteWithoutNextPhase(voter,player)
+  if(!needRoom.getTimerIdByKey(Room.TK_PHASE))
+    gameInRoom.setVoteWithoutNextPhase(voter,player)
+  else
+    throw new Error(EM_VOTE_ON_TIMER)
+
 
   const log = needRoom.getLog()
   const newSpeaker = gameInRoom.getPlayerSpeaker()
@@ -344,7 +348,7 @@ function startTimerToJudgedPath(room){
 
   function questionJudged(){
     const newJudged = game.getPlayerJudged()
-    if(newJudged)
+    if(newJudged && !room.getTimerIdByKey(Room.TK_PHASE))
       log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByJudged(newJudged))
     return newJudged
   }
@@ -353,7 +357,7 @@ function startTimerToJudgedPath(room){
     const judged    = game.getPlayerJudged()
     const numVotes  = game.getPlayersVoted().filter(player=>player.vote === judged).length
     const all       = game.getPlayersAlive().length - 1
-    if(judged)
+    if(judged && !room.getTimerIdByKey(Room.TK_PHASE))
       log.setLog(ChatLog.WHO_HOST, `${numVotes} из ${all}`)
 
     game.nextJudged()

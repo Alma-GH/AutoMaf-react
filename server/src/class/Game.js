@@ -355,19 +355,41 @@ class Game {
     //nextJudged by timer
 
     //TODO: check pathID
-    if(this._allPlayersVote())
+    if(this._isEndVote()){
+      const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
+      this._createPathIdFromTable(isSubTotal)
       this._actionOnVotes()
+    }
+
   } //*
   _allPlayersVote(){
     const whoVoted      = this.getPlayersVoted()
     const whoShouldVote = this.getPlayersAlive()
     return  whoVoted.length === whoShouldVote.length
   }
+  _enoughVote(){
+    const whoVoted      = this.getPlayersVoted()
+    const whoShouldVote = this.getPlayersAlive()
+
+    if(whoVoted.length === whoShouldVote.length)
+      return true
+
+    const sortEntry     = this.getSortVotesByScore()
+    const len = sortEntry.length
+    const max1 = sortEntry[len-1][1]
+    const max2 = sortEntry[len-2][1]
+    const whoUnVoted = whoShouldVote.length - whoVoted.length
+
+    return  max1>max2+whoUnVoted
+  }
+  _isEndVote(){
+    if(this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
+      return this._allPlayersVote()
+    else if(this.getPhase() === Game.PHASE_DAY_TOTAL)
+      return this._enoughVote()
+  }
   _actionOnVotes(){
     //todo: clear table votes
-
-    // const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
-    // this._createPathIdFromTable(isSubTotal)
 
     //decision is made
     let choice = this._choiceVotes()
@@ -405,8 +427,7 @@ class Game {
   getPathId(){
     return this.pathIdVote
   }
-  _createPathIdFromTable(firstTotal){
-
+  getSortVotesByScore(){
     //init map
     const map = new Map()
     const aliveIDs = this.getPlayersAlive().map(player=>player.getID())
@@ -423,8 +444,12 @@ class Game {
     }
 
     //result
-    let sortEntryByScore = Array.from(map.entries())
+    return Array.from(map.entries())
       .sort((a,b)=>a[1]-b[1])
+  }
+  _createPathIdFromTable(firstTotal){
+
+    let sortEntryByScore = this.getSortVotesByScore()
 
     if(!firstTotal){
       const scores = sortEntryByScore.map(entry=>entry[1])
@@ -499,14 +524,14 @@ class Game {
     this._nextSpeaker()
     //nextJudged by timer
 
-    if(this._allPlayersVote()){
+    if(this._isEndVote()){
       const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
       this._createPathIdFromTable(isSubTotal)
     }
 
   } //*
   nextPhaseByVote(){
-    if(this._allPlayersVote())
+    if(this._isEndVote())
       this._actionOnVotes()
   }
 
@@ -532,6 +557,14 @@ class Game {
 
       end: this.end
     }, null, 2)
+  }
+  voteInfo(){
+    return {
+      table:Array.from(this.getTable().entries())
+        .map(row=>[row[0].getName(),row[1] ? row[1].getName():row[1]]),
+      pathID:this.getPathId(),
+      voters:this.getPlayersVoted().map(player=>player.getName()),
+    }
   }
 
 }

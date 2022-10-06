@@ -111,6 +111,17 @@ function subtotal2(game,table){
   // console.log(Array.from(game.getTable().entries())
   //   .map(row=>[row[0].getName(),row[1] ? row[1].getName():row[1]]))
 }
+function subtotalStop(game){
+  if(game.end !== null) return console.log("GAME END")
+
+  const players = game.getPlayersAlive()
+  const sus = players[0]
+
+  let speaker
+  while(speaker = game.getPlayers().find(player=>player.isSpeak())){
+    game.setVoteWithoutNextPhase(speaker,sus===speaker ? false : sus)
+  }
+}
 
 function total(game){
   if(game.end !== null) return console.log("GAME END")
@@ -154,8 +165,34 @@ function total2(game,table){
 
 
 }
+function totalStop(game){
+  if(game.end !== null) return console.log("GAME END")
 
+  const alive = game.getPlayersAlive()
+  const sus = alive[0]
+  debugger
+  let judged
+  while(!game._isEndVote()){
+    judged = game.getPlayers().find(player=>player.isJudged())
+    alive.forEach(player=>{
+      const conds = (
+        !player.isJudged() &&
+        player.getVote()===null &&
+        !game._isEndVote()
+      )
+      if(conds && sus.isJudged()){
+        game.setVoteWithoutNextPhase(player, sus)
+      }
+      if(conds && sus === player)
+        game.setVoteWithoutNextPhase(player,false)
+    })
+
+    game.nextJudged()
+  }
+
+}
 
 
 export {numPossibleVotes, getSomeRandomInt,
-getVotes,skip_discussion,night_kill,night_kill2,night_kill3, subtotal,subtotal2,total,total2}
+getVotes,skip_discussion,night_kill,night_kill2,night_kill3,
+  subtotal,subtotal2,subtotalStop,totalStop,total,total2}

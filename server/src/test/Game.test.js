@@ -1,10 +1,8 @@
-import Game from "../class/Game.js";
 import Player from "../class/Player.js";
 import Room from "../class/Room.js";
-import Onside from "../class/Onside.js";
-import {getVotes, night_kill, night_kill3, skip_discussion, subtotal2, total2} from "../utils/classU.js";
+import {night_kill, skip_discussion, subtotalStop, totalStop} from "../utils/classU.js";
 
-const MAX_PLAYERS = 12
+const MAX_PLAYERS = 7
 
 //init players
 const players = []
@@ -32,31 +30,25 @@ const game = room.getGame()
 //players take cards
 for (let i = 0; i < MAX_PLAYERS; i++) {
   const player = players[i]
-  const onside = game.createRole(player,i)
-  if(i>=0) game.addReadyPlayer(onside)
+  game.createRole(player,i)
 }
 
-
 skip_discussion(game)
-night_kill3(game,getVotes(game,[0,0,0,0]))
 skip_discussion(game)
-// subtotal2(game,getVotes(game,[2,0,1,1,1,0,1]))
-// skip_discussion(game)
-//
-// //total 1
-// total2(game,getVotes(game,[1,0,1,0,1,0,1]))
-// skip_discussion(game)
-// total2(game,getVotes(game,[1,0,1,1,1,0,1]))
+night_kill(game)
+skip_discussion(game)
+subtotalStop(game)
+console.dir({info:game.voteInfo()}, { depth: null })
+game.nextPhaseByVote()
+skip_discussion(game)
 
-// night_kill(game)
-// skip_discussion()
-// subtotal()
-// skip_discussion()
-//
-// //total 2
-// total()
-// night_kill()
 
+//total 1
+totalStop(game)
+console.dir({info:game.voteInfo()}, { depth: null })
+game.nextPhaseByVote()
+night_kill(game)
+skip_discussion(game)
 
 
 console.group("Test class 'Game':")
