@@ -3,7 +3,7 @@ import GameTable from "../main/GameComps/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
 import CardViewer from "../main/GameComps/GameCardViewer/CardViewer";
 import GameLog from "../main/GameComps/GameLog/GameLog";
-import {LINK_PREPARE, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
+import {DEBUG_LOG, LINK_PREPARE, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
 import {MessageContext, RoomContext, ServerTimerContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import MessageCreator from "../../tools/Services/MessageCreator";
@@ -47,9 +47,9 @@ const GamePage = () => {
     end
   //TODO: add night phases
   const sleep =
-    GameService.isNight(game) &&
+    (GameService.isNight(game) &&
     GameService.getPlayerByID(myID,game).alive &&
-    !GameService.isPlayerToMatchNightPhase(player,game) ||
+    !GameService.isPlayerToMatchNightPhase(player,game)) ||
     tContext.timer !== 0
 
 
@@ -66,7 +66,7 @@ const GamePage = () => {
   }
 
   useRedirect(
-    !GameService.getRoomStatus(room),
+    !GameService.getRoomStatus(room) && !DEBUG_LOG,
     room,
     LINK_PREPARE,
     ()=>{
@@ -79,40 +79,38 @@ const GamePage = () => {
   return (
     <div className="gamePage">
 
-      <div className="gameTable">
+      <div className="right">
         <GameTable
           cards={cards ?? []}
           players={players ?? []}
           phase={phase}
         />
-      </div>
 
-      <div className="btnCont">
-        <BtnText text="Выйти" color="red" cb={openModal}/>
-        {end && GameService.isLeader(player, members)
-          ? <BtnText text="Restart" color="yellow" cb={restart}/>
-          : <BtnText text="Готов" disabled={disabledBtnReady} cb={readiness}/>
-        }
-      </div>
+        <div className="btnCont">
+          <BtnText text="Выйти" color="red" cb={openModal}/>
+          {end && GameService.isLeader(player, members)
+            ? <BtnText text="Restart" color="yellow" cb={restart}/>
+            : <BtnText text="Готов" disabled={disabledBtnReady} cb={readiness}/>
+          }
+        </div>
 
-      <CardViewer enabled={true} role={GameService.getRole(player,game)}/>
-
-      <div className="gameTimer">
-        {/*<GameTimer/>*/}
+        <CardViewer enabled={true} role={GameService.getRole(player,game)}/>
       </div>
 
 
-      <div className="gameLog">
+      <div className="left">
         <GameLog/>
       </div>
 
-      {sleep && <div className="gameBack"/>}
+
 
       <ModalQuit isOpen={modal} onClose={closeModal}/>
+
+      {sleep && <div className="gameBack"/>}
+
       {end &&
         <StartLoader stage={tContext.timer}/>
       }
-
     </div>
   );
 };

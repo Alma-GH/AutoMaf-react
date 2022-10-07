@@ -4,6 +4,8 @@ import BtnIco from "../../../UI/BtnIco/BtnIco";
 import imgVote from "../../../../assets/imgs/megaphone.png"
 import imgCross from "../../../../assets/imgs/cancel.png"
 import imgQuestion from "../../../../assets/imgs/question.png"
+import imgRight from "../../../../assets/imgs/right-arrow.png"
+import imgLeft from "../../../../assets/imgs/left-arrow.png"
 import GameVote from "../GameVote/GameVote"
 import {RoomContext} from "../../../../context/contexts";
 import GameService from "../../../../tools/Services/GameService";
@@ -21,6 +23,7 @@ const GameLog = () => {
 
   const [visVote, setVisVote] = useState(false);
   const [visObjective, setVisObjective] = useState(false)
+  const [visLog, setVisLog] = useState(true)
 
   function toggleVote(){
     setVisObjective(false)
@@ -30,9 +33,15 @@ const GameLog = () => {
     setVisVote(false)
     setVisObjective(prev=>!prev)
   }
+  function toggleLog(){
+    setVisLog(prev=>!prev)
+  }
 
+  const style = [cls.parent]
+  if(visLog)
+    style.push(cls.vis)
   return (
-    <div className={cls.parent}>
+    <div className={style.join(" ")}>
       <LogInfo/>
 
       <LogMessages log={log}/>
@@ -47,6 +56,12 @@ const GameLog = () => {
         <BtnIco
           cb={toggleObjective}
           img={visObjective?imgCross:imgQuestion}
+          disabled={false}
+          isAnimStyle={true}
+        />
+        <BtnIco
+          cb={toggleLog}
+          img={visLog?imgLeft:imgRight}
           disabled={false}
           isAnimStyle={true}
         />

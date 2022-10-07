@@ -10,6 +10,7 @@
 
   border: 1px solid black;
   background-color: orange;
+  overflow: hidden;
   @extend %font;
 
   transition: top 0.5s, background-color 0s 0.5s;

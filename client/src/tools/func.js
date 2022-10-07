@@ -39,3 +39,8 @@ export const errorByTimer = (setError, message, key, time)=>{
     setError({visible: false})
   }, time)
 }
+
+
+export const shortWord = (word, length)=>{
+  return word.length<=length ? word : word.slice(0,length) + "..."
+}

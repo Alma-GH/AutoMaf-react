@@ -1,5 +1,7 @@
 //@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
 
+$debug: false;
+
 //Buttons
 $hBtn: 50px;
 $wBtn: 175px;
@@ -94,5 +96,21 @@ $colError_red: #FF3737;
   transition: top $time cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+//adaptive
+$sm: 480px;
+$md2: 900px;
+$md: 1300px;
+$lg: 1500px;
 
+@mixin media($prop,$widths,$values){
+  @each $nameW, $valW in $widths {
+    @media screen and (max-width: $valW){
+      @each $nameV, $valV in $values{
+        @if $nameV==$nameW{
+          #{$prop}: $valV
+        }
+      }
+    }
+  }
+}
 

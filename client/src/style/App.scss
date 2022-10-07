@@ -108,19 +108,37 @@ h4{
   position: relative;
   overflow: hidden;
 
+  @if($debug){
+    @include media(background-color,
+            (lg:$lg,md:$md,sm:$sm),
+            (lg:red,md:green,sm:blue));
+  }
+
+
   &>*{
     position: absolute;
   }
 
-  .gameTable{
-    $margin: 20px;
-    right: $margin;
-    top: $margin;
+  $leftMargin: 50px;
+  .right{
+    height: 100vh;
+    width: 70%;
+    right: 0;
+    padding-left: $leftMargin;
+    @include media(width, (sm:$md), (sm:100%));
+  }
+  .left{
+    height: 100vh;
+    width: 24%;
+    @include media(width, (sm:$md), (sm:70%));
+    left: 0;
   }
 
+
   .btnCont{
+    position: absolute;
     bottom: 15px;
-    left: 450px;
+    left: $leftMargin;
 
     display: flex;
     height: 50px;
@@ -142,19 +160,10 @@ h4{
     }
   }
 
-  .gameLog{
-    height: 100vh;
-    width: 370px;
-    left: 0;
-  }
-
   .gameBack{
     height: 100vh;
     width: 100vw;
     background-color: rgba(0,0,0,0.7);
   }
 }
-
-
-
 

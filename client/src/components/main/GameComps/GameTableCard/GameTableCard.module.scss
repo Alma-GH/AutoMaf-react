@@ -15,6 +15,7 @@
   background-color: #00FFF0;
   border: 3px solid #007A73;
   cursor: pointer;
+  overflow: hidden;
 
   &.invis{
     visibility: hidden;

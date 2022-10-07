@@ -56,7 +56,7 @@ const GameVote = ({vis}) => {
         <tbody>
           {readTable?.map(player=>(
             <tr key={player.who}>
-              <td>{player.who}</td>
+              <td title={player.who}>{player.who}</td>
               <td>{player.voteFor}</td>
               <td>{player.count}/{readTable.length-1}</td>
             </tr>

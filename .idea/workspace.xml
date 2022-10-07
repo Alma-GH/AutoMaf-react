@@ -3,12 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective/GameObjective.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective/GameObjective.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameVote/GameVote.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameVote/GameVote.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameVote/GameVote.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameVote/GameVote.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/style/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/Game.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/Game.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/classU.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/classU.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/func.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/server_client.test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +61,9 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components/Notification" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.18.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.18.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/assets/imgs" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -59,18 +73,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\Notification" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameComps\GameObjective" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\UI\Modal" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameTableCard" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\server\src\test" />
+      <recent name="C:\Forall\F_VSC\react_automaf\server\src\utils" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameComps" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\PrepareComps" />
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets\imgs" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\assets" />
-      <recent name="C:\Forall\F_VSC\react_automaf\server\src\class" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.Game.test.js">
@@ -80,7 +94,7 @@
     <configuration name="TypeChecker.test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/test/TypeChecker.test.js" working-dir="$PROJECT_DIR$/server/src/test">
       <method v="2" />
     </configuration>
-    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/index.js" working-dir="$PROJECT_DIR$/server/src">
+    <configuration name="server_client.test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/test/server_client.test.js" working-dir="$PROJECT_DIR$/server/src">
       <method v="2" />
     </configuration>
     <configuration name="tests.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/src/test/tests.js" working-dir="$PROJECT_DIR$/server/src/test">
@@ -91,7 +105,7 @@
         <item itemvalue="Node.js.Game.test.js" />
         <item itemvalue="Node.js.TypeChecker.test.js" />
         <item itemvalue="Node.js.tests.js" />
-        <item itemvalue="Node.js.index.js" />
+        <item itemvalue="Node.js.server_client.test.js" />
       </list>
     </recent_temporary>
   </component>
@@ -132,7 +146,9 @@
       <workItem from="1664716127855" duration="6000000" />
       <workItem from="1664898776075" duration="1943000" />
       <workItem from="1664973649468" duration="7221000" />
-      <workItem from="1665058159533" duration="13745000" />
+      <workItem from="1665058159533" duration="14034000" />
+      <workItem from="1665076458837" duration="32000" />
+      <workItem from="1665147792068" duration="18383000" />
     </task>
     <servers />
   </component>

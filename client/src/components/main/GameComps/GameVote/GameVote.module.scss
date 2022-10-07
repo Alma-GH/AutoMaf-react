@@ -7,9 +7,9 @@
   left: -100%;
   @extend %allIN;
 
-
   border: 3px solid black;
   background-color: orange;
+  overflow: hidden;
   @extend %font;
 
   transition: left 0.5s, background-color 0s 0.5s;
@@ -26,11 +26,10 @@
   }
 
   table{
-    $side_space: 20px;
-
+    $side_space: 5px;
     width: 100%;
     border-collapse: collapse;
-
+    table-layout: fixed;
     thead tr{
 
       $border: 2px solid black;
@@ -61,17 +60,16 @@
       -webkit-text-stroke: 0px black;
       border-bottom: 1px solid white;
       td{
-        padding: 10px 0px;
+        padding: 5px;
+        overflow: hidden;
         &:nth-child(1) {
           text-align: left;
-          padding-left: $side_space;
         }
         &:nth-child(2) {
           text-align: center;
         }
         &:nth-child(3) {
           text-align: right;
-          padding-right: $side_space;
         }
       }
     }

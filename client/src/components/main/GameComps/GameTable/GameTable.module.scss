@@ -1,8 +1,12 @@
 @import "../../../../style/variables";
 
+$border: 6px;
+$margin: 20px;
 .parent{
-  $border: 6px;
-  width : 1070px + $border*2;
+  margin-top: $margin;
+  @include media(margin-top, (sm:$md2), (sm:50px));
+  margin-right: $margin;
+  //width : 1070px + $border*2;
   height: 540px;
 
   display: grid;

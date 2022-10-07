@@ -4,8 +4,11 @@
   $hCard: 575px;
   $hBtn: 50px;
 
+  position: absolute;
   bottom: -$hCard;
-  right: 100px;
+  right: 50px;
+  @include media(top, (sm:$md2),(sm:-$hCard));
+  @include media(bottom, (sm:$md2),(sm:initial));
   z-index: 2;
 
   width: 380px;
@@ -14,13 +17,24 @@
   @extend %column;
   @extend %center;
 
-  transition: bottom 0.5s;
+  @if($debug) {
+    border: 1px solid red;
+  }
+
+  transition: bottom 0.5s, top 0.5s;
+
+  button img{
+    transition: transform 0.3s;
+    @include media(transform, (sm:$md2),(sm:rotate(180deg) translate(50%, 50%)));
+  }
+
   &.vis{
     bottom:0;
+    @include media(top, (sm:$md2),(sm:0));
 
     button img{
-      transition: transform 0.3s;
       transform: rotate(180deg) translate(50%, 50%);
+      @include media(transform, (sm:$md2),(sm:rotate(0deg) translate(-50%, -50%)));
     }
   }
 
@@ -30,6 +44,7 @@
   }
 
   button{
+    @include media(order, (sm:$md2),(sm:2));
     width: 100px;
     aspect-ratio: 2/1;
     background-color: white;

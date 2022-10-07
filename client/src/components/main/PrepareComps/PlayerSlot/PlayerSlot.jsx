@@ -17,6 +17,7 @@ const PlayerSlot = ({name, col, isLead, you}) => {
 
 
       <div className={cls.name}>
+        {/*{name.length<=10 ? name : name.slice(0,10)+"..."}*/}
         {name}
       </div>
     </div>
