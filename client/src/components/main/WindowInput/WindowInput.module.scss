@@ -3,6 +3,7 @@
 .parent{
   height: 540px;
   width: 485px;
+  @include media(width, (md:$md2),(md:380px));
 
   position: relative;
 
@@ -151,11 +152,4 @@
 
   }
 
-}
-
-@media screen and (max-width: 900px) {
-  .parent{
-    height: 540px;
-    width: 380px;
-  }
 }

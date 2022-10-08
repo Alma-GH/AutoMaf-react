@@ -5,8 +5,14 @@
   $colCard_you: #73ff00;
   $colCard_team: red;
 
-  height:150px;
-  width: 100px;
+  $h: 150px;
+  $w: 100px;
+  $margin: 30px;
+
+  height:$h;
+  width: $w;
+  margin: 0 $margin;
+  @include media(margin, (sm:$md2,xsm:750px,xxsm:$sm),(sm:0 $margin*0.7,xsm:0 $margin*0.5,xxsm:0));
 
   @extend %column;
   align-items: center;

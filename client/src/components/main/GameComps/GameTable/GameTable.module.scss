@@ -8,11 +8,18 @@ $margin: 20px;
   margin-right: $margin;
   //width : 1070px + $border*2;
   height: 540px;
+  @include media(height, (xxsm:$md2),(xxsm:700px));
 
-  display: grid;
-  grid-template-columns: repeat(5,1fr);
-  grid-column-gap: 125px;
+  //display: grid;
+  //grid-template-columns: repeat(5,1fr);
+  //grid-column-gap: 125px;
+
+  display: flex;
+  flex-wrap: wrap;
+
   padding: 35px;
+  overflow: auto;
+  @extend %scroll;
 
   border: $border solid #522912;
   border-radius: 100px;

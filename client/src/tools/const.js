@@ -61,7 +61,7 @@ export const S_NICK = "nick"
 
 //debug
 export const DEBUG_SERVER_COMMANDS = false
-export const DEBUG_LOG             = true
+export const DEBUG_LOG             = false
 
 //
 export const EM_VERSION = "Данная функция пока не доступна"

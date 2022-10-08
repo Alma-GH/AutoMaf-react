@@ -3,25 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective/GameObjective.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective/GameObjective.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameVote/GameVote.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameVote/GameVote.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameVote/GameVote.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameVote/GameVote.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/style/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/func.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/server_client.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +134,8 @@
       <workItem from="1664973649468" duration="7221000" />
       <workItem from="1665058159533" duration="14034000" />
       <workItem from="1665076458837" duration="32000" />
-      <workItem from="1665147792068" duration="18383000" />
+      <workItem from="1665147792068" duration="19330000" />
+      <workItem from="1665232583700" duration="3670000" />
     </task>
     <servers />
   </component>
