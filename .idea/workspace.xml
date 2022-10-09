@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +45,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.18.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="14.18.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/assets/imgs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test_deploy" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -130,7 +131,8 @@
       <workItem from="1665058159533" duration="14034000" />
       <workItem from="1665076458837" duration="32000" />
       <workItem from="1665147792068" duration="19330000" />
-      <workItem from="1665232583700" duration="6811000" />
+      <workItem from="1665232583700" duration="14000000" />
+      <workItem from="1665309651922" duration="3333000" />
     </task>
     <servers />
   </component>

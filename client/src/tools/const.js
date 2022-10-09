@@ -1,7 +1,8 @@
 
 //SERVER
 //link
-export const SERVER_LINK = 'ws://localhost:5000'
+export const LOCAL_LINK = 'ws://localhost:5000'
+export const SERVER_LINK = `wss://confirmed-cold-crowd.glitch.me`
 
 //default
 export const DEFAULT_NAME = "Unknown"
