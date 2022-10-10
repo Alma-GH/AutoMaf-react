@@ -1,6 +1,6 @@
 import Player from "../class/Player.js";
 import Room from "../class/Room.js";
-import {night_kill, skip_discussion, subtotalStop, totalStop} from "../utils/classU.js";
+import {night_kill, skip_discussion, subtotalStop, totalStop} from "./func.test";
 
 const MAX_PLAYERS = 7
 

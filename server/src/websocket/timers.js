@@ -1,9 +1,14 @@
-import Room from "../class/Room.js";
-import ChatLog from "../class/ChatLog.js";
-import Game from "../class/Game.js";
-
-import {E_NEXT_JUDGED, E_READINESS, E_START_GAME, E_TIMER, E_VOTE, E_VOTE_NIGHT} from "./const.js";
-import {broadcast, broadcastClear} from "./send.js";
+const {
+  E_NEXT_JUDGED,
+  E_READINESS,
+  E_START_GAME,
+  E_TIMER,
+  E_VOTE,
+  E_VOTE_NIGHT } = require("../utils/const.js");
+const Room = require("../class/Room.js");
+const ChatLog = require("../class/ChatLog.js");
+const Game = require("../class/Game.js");
+const {broadcast, broadcastClear} = require("./send.js");
 
 
 
@@ -171,5 +176,9 @@ function startTimerToNextPhaseOnReadiness(room,time,timeout){
 
 
 
-export {startTimerToGame, startTimerToNextPhaseOnVote,
-  startTimerToNextPhaseOnVoteNight, startTimerToNextPhaseOnReadiness}
+module.exports = {
+  startTimerToGame,
+  startTimerToNextPhaseOnVote,
+  startTimerToNextPhaseOnVoteNight,
+  startTimerToNextPhaseOnReadiness
+}

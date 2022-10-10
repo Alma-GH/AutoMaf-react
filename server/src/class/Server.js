@@ -1,10 +1,20 @@
-import Room from "./Room.js";
-import {EM_FIND_ROOM} from "../utils/const.js";
-
+const Checker = require("./TypeCheckers/TCServer.js")
 
 class Server {
 
+  static ROOM_EMPTY_TIME = 1000*60 //1min
+  static ROOM_LIVE_TIME = 1000*60*60*24 //1day
+
   rooms = []
+
+  constructor() {
+    setInterval(()=>{
+      this.getRooms().forEach(room=>{
+        if(room.getPlayers().length === 0)
+          this.closeRoom(room.getID())
+      })
+    },Server.ROOM_EMPTY_TIME)
+  }
 
   getRooms(){
     return this.rooms
@@ -26,8 +36,8 @@ class Server {
 
   addRoom(room){
     Checker.check_addRoom(room)
-    room.startLive()
     this.rooms.push(room)
+    setTimeout(()=>this.closeRoom(room.getID()), Server.ROOM_LIVE_TIME)
   }
   closeRoom(id){
     this.rooms = this.rooms.filter(room=>room.roomID !== id)
@@ -39,70 +49,5 @@ class Server {
 }
 
 
-export default new Server()
+module.exports = new Server()
 
-
-class TypeChecker{
-
-  //client setters
-  checkArgs_addRoom(...args){
-    if(args.length!==1) return false
-
-    const room = args[0]
-
-    const isRoom  = (room instanceof Room)
-
-    return isRoom
-  }
-  check_addRoom(...args){
-    if(!this.checkArgs_addRoom(...args))
-      throw new Error("is not a Room")
-
-    const room = args[0]
-
-    //TODO: check name of room
-  }
-
-  //client getters
-  checkArgs_getRoomByName(...args){
-    if(args.length!==1) return false
-
-    const name = args[0]
-
-    const isStr  = (typeof name === "string")
-
-    return isStr
-  }
-  check_getRoomByName(server,...args){
-    if(!this.checkArgs_getRoomByName(...args))
-      throw new Error("incorrect request Room by name")
-
-    const name = args[0]
-
-    if(!server.getRooms().find(room=>room.getName()===name))
-      throw new Error(EM_FIND_ROOM)
-  }
-
-  checkArgs_getRoomByID(...args){
-    if(args.length!==1) return false
-
-    const id = args[0]
-
-    const isNum  = (typeof id === "number")
-    const isInt  = Number.isInteger(id)
-
-    return isNum && isInt
-  }
-  check_getRoomByID(server,...args){
-    if(!this.checkArgs_getRoomByID(...args))
-      throw new Error("incorrect request Room by id")
-
-    const id = args[0]
-
-    if(!server.getRooms().find(room=>room.getID()===id))
-      throw new Error("this room not exist")
-  }
-
-}
-
-const Checker = new TypeChecker()

@@ -2,9 +2,9 @@ import React, {useContext} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import BtnText from "../UI/BtnText/BtnText";
-import {RoomContext, ServerTimerContext} from "../../context/contexts";
+import {MessageContext, RoomContext, ServerTimerContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
-import {LINK_GAME} from "../../tools/const";
+import {LINK_GAME, LINK_START} from "../../tools/const";
 import MessageCreator from "../../tools/Services/MessageCreator";
 import GameService from "../../tools/Services/GameService";
 import ModalQuit from "../UI/Modal/ModalQuit";
@@ -12,6 +12,7 @@ import PrepareCount from "../main/PrepareComps/PrepareCount";
 import PreparePlayerList from "../main/PrepareComps/PreparePlayerList";
 import {useModal} from "../../hooks/useModal";
 import {useRedirect} from "../../hooks/useRedirect";
+import {errorByTimer} from "../../tools/func";
 
 
 const PreparePage = () => {
@@ -20,6 +21,7 @@ const PreparePage = () => {
 
   const context = useContext(RoomContext)
   const tContext = useContext(ServerTimerContext)
+  const mContext = useContext(MessageContext)
 
   const player  = context.player
   const room    = context.room
@@ -45,6 +47,16 @@ const PreparePage = () => {
     GameService.getRoomStatus(room),
     room,
     LINK_GAME
+  )
+
+  useRedirect(
+    Socket.websocket===null,
+    mContext.error,
+    LINK_START,
+    ()=>{
+      const mess = "Упс. Сокет закрылся(мб. проблема на сервере)"
+      errorByTimer(mContext.setError, mess, "out socket", 3000)
+    }
   )
 
   return (

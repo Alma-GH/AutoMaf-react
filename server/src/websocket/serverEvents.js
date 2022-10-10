@@ -1,10 +1,13 @@
+const {
+  EM_GAME_PROCESS,
+  EM_VOTE_ON_TIMER,
+  EM_WRONG_PASS } = require("../utils/const.js");
+const Player = require("../class/Player.js");
+const Room = require("../class/Room");
+const Server = require("../class/Server.js");
+const ChatLog = require("../class/ChatLog.js");
 
-import Player from "../class/Player.js";
-import Room from "../class/Room.js";
-import Server from "../class/Server.js";
-import ChatLog from "../class/ChatLog.js";
 
-import {EM_GAME_PROCESS, EM_VOTE_ON_TIMER, EM_WRONG_PASS} from "./const.js";
 
 function create_room(data){
   const dataCR = data
@@ -129,4 +132,13 @@ function quit(data){
 }
 
 
-export {create_room, find_room, start_game, choose_card, readiness, vote_night, vote, quit}
+module.exports = {
+  create_room,
+  find_room,
+  start_game,
+  choose_card,
+  readiness,
+  vote_night,
+  vote,
+  quit
+}

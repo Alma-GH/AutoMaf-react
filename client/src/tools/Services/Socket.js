@@ -1,14 +1,14 @@
-import {SERVER_LINK} from "../const";
+import {LOCAL_LINK, PROD, SERVER_LINK} from "../const";
 
-const log = true
+const log = !PROD
 
 class Socket{
 
   websocket = null
 
-  connect(onopen,onmessage){
+  connect(onopen,onmessage,onclose){
 
-    this.websocket = new WebSocket(SERVER_LINK)
+    this.websocket = new WebSocket(PROD ? SERVER_LINK : LOCAL_LINK)
 
     this.websocket.onopen = () => {
 
@@ -22,7 +22,7 @@ class Socket{
         console.log({message})
         console.groupEnd()
       }
-
+      console.log('Socket открыт')
       onopen()
     }
     this.websocket.onmessage = (event) => {
@@ -40,9 +40,10 @@ class Socket{
     this.websocket.onclose= () => {
       console.log('Socket закрыт')
       this.websocket = null
+      onclose()
     }
     this.websocket.onerror = () => {
-      console.log('Socket произошла ошибка')
+      console.log('Socket-произошла ошибка')
     }
   }
 

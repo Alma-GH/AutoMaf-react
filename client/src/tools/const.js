@@ -1,4 +1,9 @@
 
+//DEBUG
+export const PROD                  = true
+export const DEBUG_SERVER_COMMANDS = false && !PROD
+export const DEBUG_LOG             = true && !PROD
+
 //SERVER
 //link
 export const LOCAL_LINK = 'ws://localhost:5000'
@@ -59,10 +64,6 @@ export const AVATAR_JUDGED  = "AVATAR_JUDGED"
 //OTHER
 //storage keys
 export const S_NICK = "nick"
-
-//debug
-export const DEBUG_SERVER_COMMANDS = false
-export const DEBUG_LOG             = false
 
 //
 export const EM_VERSION = "Данная функция пока не доступна"

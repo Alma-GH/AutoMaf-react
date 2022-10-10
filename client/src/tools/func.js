@@ -25,6 +25,8 @@ export const setConnection = (cb,setRoom,setPlayer,setError,setTimer,setLoading)
         setPlayer(data.player)
       if(enumMC.E_TIMER === data.event)
         setTimer(data.time)
+    },()=>{
+      setError("Сокет закрылся")
     })
   else{
     cb()

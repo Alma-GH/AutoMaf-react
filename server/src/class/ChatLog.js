@@ -1,4 +1,4 @@
-import Game from "./Game.js";
+const Game = require("./Game.js");
 
 class ChatLog{
 
@@ -85,4 +85,4 @@ class ChatLog{
 
 
 
-export default ChatLog
+module.exports = ChatLog

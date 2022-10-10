@@ -3,7 +3,7 @@ import GameTable from "../main/GameComps/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
 import CardViewer from "../main/GameComps/GameCardViewer/CardViewer";
 import GameLog from "../main/GameComps/GameLog/GameLog";
-import {DEBUG_LOG, LINK_PREPARE, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
+import {DEBUG_LOG, LINK_PREPARE, LINK_START, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
 import {MessageContext, RoomContext, ServerTimerContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import MessageCreator from "../../tools/Services/MessageCreator";
@@ -66,13 +66,23 @@ const GamePage = () => {
   }
 
   useRedirect(
-    !GameService.getRoomStatus(room) && !DEBUG_LOG,
+    !GameService.getRoomStatus(room),
     room,
     LINK_PREPARE,
     ()=>{
       //tmp
       const mess = "Кто-то вышел из игры"
       errorByTimer(mContext.setError, mess, "out", 3000)
+    }
+  )
+
+  useRedirect(
+    Socket.websocket===null,
+    mContext.error,
+    LINK_START,
+    ()=>{
+      const mess = "Упс. Сокет закрылся(мб. проблема на сервере)"
+      errorByTimer(mContext.setError, mess, "out socket", 3000)
     }
   )
 
@@ -98,10 +108,7 @@ const GamePage = () => {
       </div>
 
 
-      <div className="left">
-        <GameLog/>
-      </div>
-
+      <GameLog/>
 
 
       <ModalQuit isOpen={modal} onClose={closeModal}/>

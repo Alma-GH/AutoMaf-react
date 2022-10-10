@@ -1,4 +1,4 @@
-import Player from "./Player.js";
+const Player = require("./Player.js");
 
 class Onside extends Player{
 
@@ -111,4 +111,4 @@ class Onside extends Player{
 
 }
 
-export default Onside
+module.exports = Onside

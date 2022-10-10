@@ -1,6 +1,6 @@
-import http from "http"
-import express from "express"
-import {WebSocketServer} from "ws";
+const http = require("http")
+const express = require("express")
+const {WebSocketServer} = require("ws")
 
 
 
@@ -11,7 +11,7 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 
 
-export {wss,server,PORT}
+module.exports = {wss,server,PORT}
 
 
 

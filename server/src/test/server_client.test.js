@@ -1,7 +1,7 @@
 import Player from "../class/Player.js";
 import Room from "../class/Room.js";
 import Server from "../class/Server.js";
-import {skip_discussion} from "../utils/classU.js";
+import {skip_discussion} from "./func.test.js";
 
 function log(name, arr){
   console.group(name)

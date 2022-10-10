@@ -1,7 +1,7 @@
 import Room from "../class/Room.js";
 import Server from "../class/Server.js";
 import Player from "../class/Player.js";
-import {getVotes, night_kill, skip_discussion, subtotal, subtotal2} from "../utils/classU.js";
+import {getVotes, night_kill, skip_discussion, subtotal, subtotal2} from "./func.test.js";
 import Game from "../class/Game.js";
 import Onside from "../class/Onside.js";
 

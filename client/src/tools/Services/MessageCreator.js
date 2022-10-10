@@ -89,7 +89,9 @@ class MessageCreator{
       idPlayer: playerID
     }
   }
-  // nextJudged(){}
+
+
+  //TODO: add sendMsg
 
 }
 

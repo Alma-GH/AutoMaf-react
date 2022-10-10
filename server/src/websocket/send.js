@@ -1,5 +1,5 @@
-import Onside from "../class/Onside.js";
-import {wss} from "../websocket.js";
+const Onside = require("../class/Onside.js");
+const {wss} = require("./websocket.js");
 
 
 function single(client, message){
@@ -51,4 +51,4 @@ function broadcastClear(message,id){
 
 
 
-export {single,broadcast,broadcastClear}
+module.exports = {single,broadcast,broadcastClear}
