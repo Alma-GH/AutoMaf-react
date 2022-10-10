@@ -107,7 +107,7 @@ class TypeChecker{
   check_startGame(room){
     if(room.getPlayers().length < DEF_MIN_PLAYERS)
       throw new Error(EM_START_GAME)
-    if(room.getTimerIdByKey(Room.TK_START))
+    if(room.getTimerIdByKey(room.constructor.TK_START))
       throw new Error(EM_START_ALREADY)
   }
 

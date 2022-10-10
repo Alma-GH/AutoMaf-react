@@ -3,11 +3,13 @@
 export const PROD                  = true
 export const DEBUG_SERVER_COMMANDS = false && !PROD
 export const DEBUG_LOG             = true && !PROD
+export const DEBUG_REDIRECT        = true && !PROD
 
 //SERVER
 //link
 export const LOCAL_LINK = 'ws://localhost:5000'
 export const SERVER_LINK = `wss://confirmed-cold-crowd.glitch.me`
+export const TEST_SERVER_LINK = "wss://test-automaf.glitch.me/"
 
 //default
 export const DEFAULT_NAME = "Unknown"

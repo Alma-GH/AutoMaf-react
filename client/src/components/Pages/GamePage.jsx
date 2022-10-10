@@ -3,7 +3,7 @@ import GameTable from "../main/GameComps/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
 import CardViewer from "../main/GameComps/GameCardViewer/CardViewer";
 import GameLog from "../main/GameComps/GameLog/GameLog";
-import {DEBUG_LOG, LINK_PREPARE, LINK_START, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
+import {LINK_PREPARE, LINK_START, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
 import {MessageContext, RoomContext, ServerTimerContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import MessageCreator from "../../tools/Services/MessageCreator";

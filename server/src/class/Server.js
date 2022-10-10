@@ -35,7 +35,7 @@ class Server {
   }
 
   addRoom(room){
-    Checker.check_addRoom(room)
+    // Checker.check_addRoom(room)
     this.rooms.push(room)
     setTimeout(()=>this.closeRoom(room.getID()), Server.ROOM_LIVE_TIME)
   }

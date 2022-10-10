@@ -3,33 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Notification/Loader.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Notification/Loader.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/hooks/useRedirect.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/hooks/useRedirect.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/func.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/ChatLog.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/ChatLog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Onside.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Onside.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Room.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/class/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/Game.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/Game.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/TypeChecker.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/TypeChecker.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/server_client.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/server_client.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/classU.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/classU.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/const.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/send.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/send.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/serverEvents.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/serverEvents.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/timers.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/timers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/websocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/websocket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/vercel.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCRoom.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +76,7 @@
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameComps" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.Game.test.js">
+  <component name="RunManager" selected="Node.js.TypeChecker.test.js">
     <configuration name="Game.test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="Game.test.js" working-dir="$PROJECT_DIR$/server/src/test">
       <method v="2" />
     </configuration>
@@ -110,8 +91,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.Game.test.js" />
         <item itemvalue="Node.js.TypeChecker.test.js" />
+        <item itemvalue="Node.js.Game.test.js" />
         <item itemvalue="Node.js.tests.js" />
         <item itemvalue="Node.js.server_client.test.js" />
       </list>
@@ -159,7 +140,7 @@
       <workItem from="1665147792068" duration="19330000" />
       <workItem from="1665232583700" duration="14000000" />
       <workItem from="1665309651922" duration="5463000" />
-      <workItem from="1665407969820" duration="13095000" />
+      <workItem from="1665407969820" duration="16081000" />
     </task>
     <servers />
   </component>
