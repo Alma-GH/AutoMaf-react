@@ -83,3 +83,33 @@
 
   }
 }
+
+
+
+
+//v2
+.parent_v2{
+  button{
+    z-index: 2;
+  }
+  .myCard{
+    z-index: 1;
+    border: 5px solid black;
+    img{
+      transform: scale(0.8);
+    }
+  }
+}
+
+
+.parent_v2.maf{
+  .myCard{
+    background-color:  rgb(127, 38, 38);
+  }
+}
+.parent_v2.civ{
+  .myCard{
+    background-color:  yellow;
+  }
+}
+

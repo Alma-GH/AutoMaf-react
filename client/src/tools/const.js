@@ -5,6 +5,8 @@ export const DEBUG_SERVER_COMMANDS = false && !PROD
 export const DEBUG_LOG             = true && !PROD
 export const DEBUG_REDIRECT        = true && !PROD
 
+export const SECOND_STYLE          = true
+
 //SERVER
 //link
 export const LOCAL_LINK = 'ws://localhost:5000'

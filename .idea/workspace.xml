@@ -3,14 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Notification/Loader.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Notification/Loader.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/hooks/useRedirect.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/hooks/useRedirect.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCRoom.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +47,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.18.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="14.18.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test_deploy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/assets/imgs" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -140,7 +135,11 @@
       <workItem from="1665147792068" duration="19330000" />
       <workItem from="1665232583700" duration="14000000" />
       <workItem from="1665309651922" duration="5463000" />
-      <workItem from="1665407969820" duration="16081000" />
+      <workItem from="1665407969820" duration="16490000" />
+      <workItem from="1665429413040" duration="475000" />
+      <workItem from="1665533618142" duration="16000" />
+      <workItem from="1666019255710" duration="5029000" />
+      <workItem from="1667068229583" duration="561000" />
     </task>
     <servers />
   </component>
