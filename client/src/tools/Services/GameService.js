@@ -5,18 +5,21 @@ import {
   PHASE_DAY_SUBTOTAL,
   PHASE_DAY_TOTAL,
   PHASE_NIGHT_MAFIA,
-  PHASE_PREPARE
+  PHASE_PREPARE,
+  SECOND_STYLE
 } from "../const";
-import imgMafia from "../../assets/imgs/mafia-card.png";
-import imgCivil from "../../assets/imgs/civil-card.png";
+import imgCivil from "../../assets/imgs/civil-card.png"
+import imgCivil2 from "../../assets/imgs/civil-card2.png"
+import imgMafia from "../../assets/imgs/mafia-card.png"
+import imgMafia2 from "../../assets/imgs/mafia-card2.png"
 
 
 class GameService {
 
   //TODO: add other img and night phases
   IMG_MAP = {
-    [CARD_MAFIA]: imgMafia,
-    [CARD_CIVIL]: imgCivil,
+    [CARD_MAFIA]: !SECOND_STYLE ? imgMafia : imgMafia2,
+    [CARD_CIVIL]: !SECOND_STYLE ? imgCivil : imgCivil2,
   }
 
   NIGHT_MAP = {
@@ -49,7 +52,8 @@ class GameService {
     return player?._id
   }
   isLeader(player,players){
-    //TODO: check players[0]
+    if(!players)
+      return null
     return this.getID(player) === this.getID(players[0])
   }
 
@@ -122,6 +126,10 @@ class GameService {
     const find = this.getPlayers(game)?.find(pl=>pl._id === this.getID(player))
     return find?.role
   }
+  getPlayerVote(player,game){
+    const find = this.getPlayers(game)?.find(pl=>pl._id === this.getID(player))
+    return find?.vote
+  }
   isPlayerToMatchNightPhase(player,game){
     const phase = this.getPhase(game)
     const role = this.getRole(player, game)
@@ -130,6 +138,9 @@ class GameService {
       return null
 
     return this.NIGHT_MAP[phase] === role
+  }
+  getChoice(game){
+    return game?.pathIdVote[0]
   }
 
   getTableVotes(game){

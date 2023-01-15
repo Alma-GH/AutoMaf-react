@@ -1,4 +1,4 @@
-import Onside from "../class/Onside.js";
+const Onside = require("../class/Onside")
 
 
 //For game tests
@@ -159,5 +159,16 @@ function totalStop(game){
 }
 
 
-export {  getVotes,skip_discussion,night_kill,night_kill2,night_kill3,
-  subtotal,subtotal2,subtotalStop,totalStop,total,total2}
+module.exports = {
+  getVotes,
+  skip_discussion,
+  night_kill,
+  night_kill2,
+  night_kill3,
+  subtotal,
+  subtotal2,
+  subtotalStop,
+  totalStop,
+  total,
+  total2
+}

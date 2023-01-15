@@ -26,10 +26,11 @@ class Room {
   static TK_PHASE = "timer_key_next_phase"
   static TK_JUDGED = "timer_key_next_judged"
 
+  static TK_RT_VOTE = "timer_key_realtime_vote"
+
 
   //TODO: options
   gameOptions
-
 
   constructor(leader, maxP, name, pass) {
     //init
@@ -47,6 +48,9 @@ class Room {
 
     this.log = new ChatLog()
     this.timer = {}
+    this.gameOptions = {
+      voteType: Game.VOTE_TYPE_REALTIME
+    }
   }
 
   getID(){
@@ -140,6 +144,19 @@ class Room {
 
     this.log.clear()
     this.log.setLog(ChatLog.WHO_LOG, "Игра запущена")
+  }
+  stopGame(){
+    this.inGame = false
+    this.game = null
+  }
+
+  getOptions(){
+    return this.gameOptions
+  }
+  setOptions(options){
+    Checker.check_setOptions(options)
+
+    this.gameOptions = options
   }
 
   getLog(){

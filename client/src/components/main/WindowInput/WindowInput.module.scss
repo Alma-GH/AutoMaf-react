@@ -1,7 +1,7 @@
 @import "../../../style/variables";
 
 .parent{
-  height: 540px;
+  height: 650px;
   width: 485px;
   @include media(width, (md:$md2),(md:380px));
 
@@ -53,6 +53,10 @@
       letter-spacing: -1px;
       text-align: left;
 
+      &:disabled{
+        background-color: grey;
+      }
+
       .imgCont{
         position: absolute;
         right: 0;
@@ -68,6 +72,31 @@
         }
       }
 
+    }
+
+    & .inSettingsSelect{
+      height: $hInp;
+      width: $wInp;
+
+      border: 3px solid black;
+
+      background-color: #B7B7B7;
+      font-weight: 700;
+    }
+    & .inSettingsOption{
+      height: $hInp;
+      width: $wInp;
+
+      background-color: #B7B7B7;
+      font-weight: 700;
+      
+      &:hover{
+        cursor: pointer;
+        background-color: rgba(0,0,0,0);
+      }
+    }
+    & .inSettingsMenu{
+      background-color: #6e6e6e;
     }
 
     //for prepare page

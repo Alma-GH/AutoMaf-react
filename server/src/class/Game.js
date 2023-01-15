@@ -47,6 +47,11 @@ class Game {
     Game.PHASE_NIGHT_MAFIA
   ]
 
+  //vote types in options
+  static VOTE_TYPE_CLASSIC = "VOTE_TYPE_CLASSIC"
+  static VOTE_TYPE_FAIR = "VOTE_TYPE_FAIR"
+  static VOTE_TYPE_REALTIME = "VOTE_TYPE_REALTIME"
+
   //(CIVIL_WIN, MAFIA_WIN)
   end
 
@@ -64,6 +69,8 @@ class Game {
   tableVotes
   //[id,id,id,...]  - path of players for court
   pathIdVote
+  //id Player
+  subtotalChoice
 
   log
 
@@ -81,8 +88,10 @@ class Game {
 
     this._initTable()
     this.pathIdVote = []
+    this.subtotalChoice = null
 
     this.log = room.getLog()
+    this.options = room.getOptions()
   }
 
   /**
@@ -222,7 +231,7 @@ class Game {
       this._initReadiness()
     }
 
-  } //*
+  }
   _allPlayersReady(){
     const isPreparePhase = (this.getPhase() === Game.PHASE_PREPARE)
     return  (this.players.filter(player=>player.isReady()).length)
@@ -241,7 +250,7 @@ class Game {
     if(this._allPlayersVoteNight())
       this._actionOnVotesNight()
 
-  } //*
+  }
   _allPlayersVoteNight(){
     //who vote
     let role = Onside.CARD_MAFIA
@@ -281,6 +290,7 @@ class Game {
     //TODO: TypeChecker
     if(this.getPhase() !== Game.PHASE_DAY_SUBTOTAL) return
 
+    this.subtotalChoice = null
     const first = this.getPlayersAlive()[0]
     first.speakOn()
   }
@@ -305,8 +315,10 @@ class Game {
 
     this._initTable()
 
-    const first = this.getPlayerByID(this.pathIdVote[0])
-    first.judgedOn()
+    if(this.getVoteType() === Game.VOTE_TYPE_CLASSIC){
+      const first = this.getPlayerByID(this.pathIdVote[0])
+      first.judgedOn()
+    }
   }
   nextJudged(){
     //TODO: TypeChecker
@@ -354,7 +366,7 @@ class Game {
       this._actionOnVotes()
     }
 
-  } //*
+  }
   _allPlayersVote(){
     const whoVoted      = this.getPlayersVoted()
     const whoShouldVote = this.getPlayersAlive()
@@ -364,16 +376,19 @@ class Game {
     const whoVoted      = this.getPlayersVoted()
     const whoShouldVote = this.getPlayersAlive()
 
-    if(whoVoted.length === whoShouldVote.length)
+    if(this.getVoteType() !== Game.VOTE_TYPE_REALTIME
+      && whoVoted.length === whoShouldVote.length)
       return true
 
     const sortEntry     = this.getSortVotesByScore()
     const len = sortEntry.length
     const max1 = sortEntry[len-1][1]
     const max2 = sortEntry[len-2][1]
-    const whoUnVoted = whoShouldVote.length - whoVoted.length
+    const numWhoUnVoted = whoShouldVote.length - whoVoted.length
 
-    return  max1>max2+whoUnVoted
+    return this.getVoteType() === Game.VOTE_TYPE_REALTIME
+      ? max1>whoShouldVote.length/2
+      : max1>max2+numWhoUnVoted
   }
   _isEndVote(){
     if(this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
@@ -407,6 +422,9 @@ class Game {
     }
 
     return null
+  }
+  getSubtotalChoice(){
+    return this.subtotalChoice
   }
   _initVotes(){
     this.getPlayers()
@@ -517,9 +535,12 @@ class Game {
     this._nextSpeaker()
     //nextJudged by timer
 
+    //TODO: mb replace in nextPhaseByVote()
     if(this._isEndVote()){
       const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
       this._createPathIdFromTable(isSubTotal)
+      if(isSubTotal)
+        this.subtotalChoice = this.pathIdVote[this.pathIdVote.length-1]
     }
 
   } //*
@@ -528,6 +549,11 @@ class Game {
       this._actionOnVotes()
   }
 
+
+  //options
+  getVoteType(){
+    return this.options.voteType
+  }
 
 
   toString(){

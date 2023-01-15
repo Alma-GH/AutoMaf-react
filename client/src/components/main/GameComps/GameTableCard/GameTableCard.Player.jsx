@@ -3,12 +3,12 @@ import {
   AVATAR_DEAD,
   AVATAR_JUDGED,
   AVATAR_NORMAL,
-  AVATAR_SPEAK,
+  AVATAR_SPEAK, AVATAR_TIMER,
   CARD_MAFIA,
-  PHASE_NIGHT_MAFIA
+  PHASE_NIGHT_MAFIA, T_VOTE
 } from "../../../../tools/const"
 import cls from "./GameTableCard.module.scss"
-import {RoomContext} from "../../../../context/contexts";
+import {RoomContext, ServerTimerContext} from "../../../../context/contexts";
 import Socket from "../../../../tools/Services/Socket";
 import MessageCreator from "../../../../tools/Services/MessageCreator";
 import Avatar from "./Avatar";
@@ -17,8 +17,11 @@ import GameService from "../../../../tools/Services/GameService";
 const GameTableCardPlayer = ({player}) => {
 
   const context = useContext(RoomContext)
+  const tContext = useContext(ServerTimerContext)
   const me = context.player
   const room = context.room
+  const time = tContext?.timer?.time
+  const timer = tContext?.timer?.name
 
   const game = GameService.getGame(room)
   const rID = GameService.getRoomID(room)
@@ -27,17 +30,29 @@ const GameTableCardPlayer = ({player}) => {
   const phase = GameService.getPhase(game)
   const end = GameService.getEnd(game)
 
-
-  const votes       = GameService.numVotes(player,game)
+  const numVotes    = GameService.numVotes(player,game)
   const nightVotes  = GameService.numNightVotes(player,game)
   const avatar      = getAvatar(player)
   const name        = GameService.getName(player)
   const playerRole  = GameService.getRole(player,game)
 
+  const myVote = GameService.getPlayerVote(GameService.getPlayerByID(myID,game),game)
+
   function vote(){
+
+    const nullMessage = MessageCreator.vote(rID, myID, null)
     const message = MessageCreator.vote(rID, myID, pID)
 
+
+    if(myVote === pID){
+      Socket.send(JSON.stringify(nullMessage))
+      return
+    }
+
+    if(myVote !== null)
+      Socket.send(JSON.stringify(nullMessage))
     Socket.send(JSON.stringify(message))
+
   }
   function voteKill(){
     const message = MessageCreator.voteNight(rID, myID, pID)
@@ -57,6 +72,7 @@ const GameTableCardPlayer = ({player}) => {
   }
 
   function getAvatar(player){
+
     if(!player)
       return AVATAR_NORMAL
 
@@ -68,6 +84,9 @@ const GameTableCardPlayer = ({player}) => {
 
     if(player.judged)
       return AVATAR_JUDGED
+
+    if(timer === T_VOTE && GameService.getChoice(game) === pID && time !== 0)
+      return AVATAR_TIMER
 
     return AVATAR_NORMAL
   }
@@ -90,10 +109,11 @@ const GameTableCardPlayer = ({player}) => {
   style.push(cls.parent)
   if(myID===pID)  style.push(cls.you)
   if(teamStyle()) style.push(cls.team)
+  if(myVote===pID) style.push(cls.vote)
   return (
     <div className={style.join(" ")} onClick={getFunction(phase)}>
-      {(votes>0 || (nightVotes>0 && (GameService.getRole(me,game) === CARD_MAFIA))) &&
-        <div className={cls.counter}>{votes || nightVotes}</div>
+      {(numVotes>0 || (nightVotes>0 && (GameService.getRole(me,game) === CARD_MAFIA))) &&
+        <div className={cls.counter}>{numVotes || nightVotes}</div>
       }
 
       {!end

@@ -12,6 +12,7 @@ const {
 } = require("../../utils/const.js");
 const Player = require("../Player.js");
 const Server = require("../Server.js");
+const Game = require("../Game"); //TODO: check on error
 
 
 
@@ -128,6 +129,29 @@ class TypeChecker{
 
     if(!room.getPlayers().find(pl=>pl.getID()===player.getID()))
       throw new Error("this player not exist")
+  }
+
+  checkArgs_setOptions(...args){
+    if(args.length!==1) return false
+
+    const options = args[0]
+
+    const isObj = typeof options === "object"
+
+    const numKeys = Object.keys(options).length
+    const correctKeys =
+      "voteType" in options //TODO: change for more options
+
+    return isObj && correctKeys && numKeys === 1 //TODO: change for more options
+  }
+  check_setOptions(...args){
+    if(!this.checkArgs_setOptions(...args))
+      throw new Error("incorrect options")
+
+    const opt = args[0]
+
+    if(![Game.VOTE_TYPE_REALTIME, Game.VOTE_TYPE_CLASSIC, Game.VOTE_TYPE_FAIR].includes(opt.voteType))
+      throw new Error("vote type in options not exist")
   }
 
 

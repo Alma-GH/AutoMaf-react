@@ -1,9 +1,18 @@
-import Room from "../class/Room.js";
-import Server from "../class/Server.js";
-import Player from "../class/Player.js";
-import {getVotes, night_kill, skip_discussion, subtotal, subtotal2} from "./func.test.js";
-import Game from "../class/Game.js";
-import Onside from "../class/Onside.js";
+const Room = require("../class/Room");
+const Player = require("../class/Player");
+const Game = require("../class/Game");
+const Onside = require("../class/Onside")
+const Server = require("../class/Server")
+const {
+  getVotes,
+  night_kill,
+  skip_discussion,
+  subtotal,
+  subtotal2
+} = require("./func.test")
+
+
+
 
 class FabTester{
 
@@ -273,6 +282,10 @@ Tester.block("Game", ()=> {
       const finder = new Player("Roman" + i)
       room.addPlayer(finder)
     }
+
+    room.setOptions({
+      voteType: Game.VOTE_TYPE_CLASSIC
+    })
     room.startGame()
 
     return room

@@ -1,10 +1,14 @@
-import {AVATAR_DEAD, AVATAR_JUDGED, AVATAR_NORMAL, AVATAR_SPEAK} from "../../../../tools/const";
+import {AVATAR_DEAD, AVATAR_JUDGED, AVATAR_NORMAL, AVATAR_SPEAK, AVATAR_TIMER} from "../../../../tools/const";
 import cls from "./GameTableCard.module.scss";
 import imgCross from "../../../../assets/imgs/cancel.png";
 import imgBalance from "../../../../assets/imgs/balance.png";
-import React from "react";
+import React, {useContext} from "react";
+import {ServerTimerContext} from "../../../../context/contexts";
 
 const Avatar = ({state=AVATAR_NORMAL})=>{
+
+  const tContext = useContext(ServerTimerContext)
+  const time = tContext?.timer?.time
 
   return (
     <div className={cls.avatar}>
@@ -24,6 +28,11 @@ const Avatar = ({state=AVATAR_NORMAL})=>{
       {state === AVATAR_JUDGED &&
       <>
         <img src={imgBalance} alt="Bal"/>
+      </>
+      }
+      {state === AVATAR_TIMER &&
+      <>
+        {time}
       </>
       }
     </div>

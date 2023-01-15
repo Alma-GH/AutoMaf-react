@@ -11,7 +11,7 @@ import CreateAddPass from "../main/CreateComps/CreateAddPass";
 import CreateBtnSettings from "../main/CreateComps/CreateBtnSettings";
 import CreateSettings from "../main/CreateComps/CreateSettings";
 import {useConnection} from "../../hooks/useConnection";
-import {MessageContext} from "../../context/contexts";
+import {MessageContext, SettingsContext} from "../../context/contexts";
 import Loader from "../Notification/Loader";
 
 
@@ -19,7 +19,10 @@ const CreatePage = () => {
 
   const nav = useNavigate()
   const mContext = useContext(MessageContext)
+  const sContext = useContext(SettingsContext)
+
   const isLoad = mContext.loading
+  const options = sContext.settings
 
   const [openSettings, setOpenSettings] = useState(false)
 
@@ -40,7 +43,7 @@ const CreatePage = () => {
   function create(){
 
     const name = localStorage.getItem(S_NICK) || DEFAULT_NAME
-    const message = MessageCreator.createRoom(name, room, +numPlayers, op, pass, {})
+    const message = MessageCreator.createRoom(name, room, +numPlayers, op, pass, options)
 
     Socket.send(JSON.stringify(message));
   }

@@ -1,9 +1,11 @@
 
 class MessageCreator{
 
+  static E_SETTINGS     = "change_settings"
   static E_CREATE_ROOM  = "create_room"
   static E_FIND_ROOM    = "find_room"
   static E_START_GAME   = "start_game"
+  static E_STOP_GAME    = "stop_game"
   static E_CHOOSE_CARD  = "choose_card"
   static E_READINESS    = "readiness"
   static E_VOTE_NIGHT   = "vote_night"
@@ -15,9 +17,22 @@ class MessageCreator{
   static E_PLAYER_DATA  = "get_player"
   static E_TIMER        = "get_timer"
 
+  setSettings(roomID, voteType){
+    return {
+      event: MessageCreator.E_SETTINGS,
+      roomID,
+      voteType
+    }
+  }
   startGame(roomID){
     return {
       event: MessageCreator.E_START_GAME,
+      roomID
+    }
+  }
+  stopGame(roomID){
+    return {
+      event: MessageCreator.E_STOP_GAME,
       roomID
     }
   }
@@ -89,6 +104,7 @@ class MessageCreator{
       idPlayer: playerID
     }
   }
+
 
 
   //TODO: add sendMsg

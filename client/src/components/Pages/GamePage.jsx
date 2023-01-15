@@ -3,7 +3,7 @@ import GameTable from "../main/GameComps/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
 import CardViewer from "../main/GameComps/GameCardViewer/CardViewer";
 import GameLog from "../main/GameComps/GameLog/GameLog";
-import {LINK_PREPARE, LINK_START, PHASE_DAY_DISCUSSION, PHASE_PREPARE} from "../../tools/const"
+import {LINK_PREPARE, LINK_START, PHASE_DAY_DISCUSSION, PHASE_PREPARE, T_START} from "../../tools/const"
 import {MessageContext, RoomContext, ServerTimerContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import MessageCreator from "../../tools/Services/MessageCreator";
@@ -25,6 +25,7 @@ const GamePage = () => {
 
   const room = context.room
   const player = context.player
+  const timer = tContext.timer
 
   const rID     = GameService.getRoomID(room)
   const myID    = GameService.getID(player)
@@ -50,7 +51,10 @@ const GamePage = () => {
     (GameService.isNight(game) &&
     GameService.getPlayerByID(myID,game).alive &&
     !GameService.isPlayerToMatchNightPhase(player,game)) ||
-    tContext.timer !== 0
+    (timer
+        ? timer.name === T_START && timer.time !== 0
+        : false
+    )
 
 
   function readiness(){
@@ -65,15 +69,16 @@ const GamePage = () => {
     Socket.send(JSON.stringify(message))
   }
 
+  function returnInLobby(){
+    const message = MessageCreator.stopGame(rID)
+
+    Socket.send(JSON.stringify(message))
+  }
+
   useRedirect(
     !GameService.getRoomStatus(room),
     room,
     LINK_PREPARE,
-    ()=>{
-      //tmp
-      const mess = "Кто-то вышел из игры"
-      errorByTimer(mContext.setError, mess, "out", 3000)
-    }
   )
 
   useRedirect(
@@ -81,7 +86,7 @@ const GamePage = () => {
     mContext.error,
     LINK_START,
     ()=>{
-      const mess = "Упс. Сокет закрылся(мб. проблема на сервере)"
+      const mess = "Упс. Сокет закрылся"
       errorByTimer(mContext.setError, mess, "out socket", 3000)
     }
   )
@@ -99,7 +104,10 @@ const GamePage = () => {
         <div className="btnCont">
           <BtnText text="Выйти" color="red" cb={openModal}/>
           {end && GameService.isLeader(player, members)
-            ? <BtnText text="Restart" color="yellow" cb={restart}/>
+            ? <>
+              <BtnText text="Lobby" color="yellow" cb={returnInLobby}/>
+              <BtnText text="Restart" color="yellow" cb={restart}/>
+            </>
             : <BtnText text="Готов" disabled={disabledBtnReady} cb={readiness}/>
           }
         </div>
@@ -116,7 +124,7 @@ const GamePage = () => {
       {sleep && <div className="gameBack"/>}
 
       {end &&
-        <StartLoader stage={tContext.timer}/>
+        <StartLoader stage={tContext.timer.time}/>
       }
     </div>
   );

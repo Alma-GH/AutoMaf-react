@@ -1,19 +1,48 @@
 
+const PROD      = false
+const DEBUG_MOD = true && !PROD
+
 const DEF_PLAYERS = {
   //class Room
   DEF_MIN_PLAYERS : 4,
   DEF_MAX_PLAYERS : 15,
 }
 
+const DEF_TIME = {
+  T_START: 5,
+  TO_START: !DEBUG_MOD ? 750 : 200,
+
+  T_READY: 3,
+  TO_READY: !DEBUG_MOD ? 1000 : 300,
+
+  T_VOTE_NIGHT: 3,
+  TO_VOTE_NIGHT: !DEBUG_MOD ? 1000 : 300,
+
+  T_VOTE: 3,
+  TO_VOTE: !DEBUG_MOD ? 1000 : 300,
+
+  T_ACCESS_VOTE_MIN: 3,
+  T_ACCESS_VOTE_MAX: 5,
+  TO_ACCESS_VOTE: !DEBUG_MOD ? 1000 : 500,
+
+  TO_JUDGED: !DEBUG_MOD ? 10000 : 3000
+}
+
 
 module.exports = Object.freeze({
 
+  DEBUG_MOD: DEBUG_MOD,
+
   ...DEF_PLAYERS,
 
+  ...DEF_TIME,
+
   //event
+  E_SETTINGS     : "change_settings",
   E_CREATE_ROOM  : "create_room",
   E_FIND_ROOM    : "find_room",
   E_START_GAME   : "start_game",
+  E_STOP_GAME    : "stop_game",
   E_CHOOSE_CARD  : "choose_card",
   E_READINESS    : "readiness",
   E_VOTE_NIGHT   : "vote_night",
@@ -32,6 +61,7 @@ module.exports = Object.freeze({
   EM_GAME_PROCESS      : "Игра уже начата",
   EM_UNEXPECTED_QUIT   : "Выход игрока",
   EM_VOTE_ON_TIMER     : "Уже нельзя голосовать",
+  EM_QUIT_ON_GAME      : "Кто-то вышел из игры",
   //Player
   EM_NULL_NAME_PLAYER  : "Пустое имя игрока",
 

@@ -4,28 +4,14 @@ const {
   E_START_GAME,
   E_TIMER,
   E_VOTE,
-  E_VOTE_NIGHT } = require("../utils/const.js");
+  E_VOTE_NIGHT,
+  TO_VOTE, T_VOTE, TO_JUDGED} = require("../utils/const.js");
 const Room = require("../class/Room.js");
 const ChatLog = require("../class/ChatLog.js");
 const Game = require("../class/Game.js");
 const {broadcast, broadcastClear} = require("./send.js");
 
 
-
-function startTimerToGame(time, timeout, room){
-
-  function func(){
-    if(time===0){
-      room.clearTimer(Room.TK_START)
-      if(room.getStatus())
-        broadcastClear({event:E_START_GAME, room}, room.roomID)
-    }
-    broadcast({event:E_TIMER, time}, room.roomID)
-    time-=1
-  }
-  func()
-  room.setTimerID(func, timeout, Room.TK_START)
-}
 
 function startTimerToNextPhase(room,event,time,timeout, startLog,endLog,nextPhase){
   const log = room.getLog()
@@ -54,7 +40,7 @@ function startTimerToNextPhase(room,event,time,timeout, startLog,endLog,nextPhas
 }
 
 function startTimerToJudgedPath(room){
-  const time = 10000
+  const time = TO_JUDGED
   const log = room.getLog()
   const game = room.getGame()
 
@@ -87,6 +73,22 @@ function startTimerToJudgedPath(room){
   room.setTimerID(func,time,Room.TK_JUDGED)
 }
 
+function startTimerToAccessVote(room,time,timeout){
+
+  function func(){
+    if(time===0){
+      room.clearTimer(Room.TK_RT_VOTE)
+      startTimerToNextPhaseOnVote(room,T_VOTE,TO_VOTE)
+    }
+    //TODO: change
+    broadcast({event:E_TIMER, timer: {name:Room.TK_RT_VOTE, time}}, room.roomID)
+    time-=1
+  }
+  func()
+  room.setTimerID(func, timeout, Room.TK_RT_VOTE)
+}
+
+
 
 function newPhaseLog(room){
   if(!room)
@@ -115,6 +117,22 @@ function gameEndLog(room){
     log.gameEnd("Мирные одерживают победу")
 }
 
+
+
+function startTimerToGame(time, timeout, room){
+
+  function func(){
+    if(time===0){
+      room.clearTimer(Room.TK_START)
+      if(room.getStatus())
+        broadcastClear({event:E_START_GAME, room}, room.roomID)
+    }
+    broadcast({event:E_TIMER, timer: {name:Room.TK_START, time}}, room.roomID)
+    time-=1
+  }
+  func()
+  room.setTimerID(func, timeout, Room.TK_START)
+}
 
 function startTimerToNextPhaseOnVote(room,time,timeout){
   //TODO: condition on some suspects
@@ -167,11 +185,42 @@ function startTimerToNextPhaseOnReadiness(room,time,timeout){
     game.nextPhaseByReadyPlayers()
     const phase = game.getPhase()
     newPhaseLog(room)
-    if(phase === Game.PHASE_DAY_TOTAL)
-      startTimerToJudgedPath(room)
+    if(phase === Game.PHASE_DAY_TOTAL){
+
+      switch (game.getVoteType()){
+        case Game.VOTE_TYPE_CLASSIC:
+          startTimerToJudgedPath(room)
+          break;
+        case Game.VOTE_TYPE_FAIR:
+          //TODO: start speaker path
+          break;
+        case Game.VOTE_TYPE_REALTIME:
+          //nothing
+          break;
+      }
+
+    }
+
   }
 
   startTimerToNextPhase(room,E_READINESS,time,timeout, startLog, endLog, nextPhase)
+}
+
+function controlTimerToAccessVote(room,time,timeout){
+
+  const game = room.getGame()
+
+  //TODO: mb bag
+  if(game._isEndVote()){
+    if(!room.getTimerIdByKey(Room.TK_RT_VOTE))
+      startTimerToAccessVote(room, time, timeout)
+  }else{
+    room.clearTimer(Room.TK_RT_VOTE)
+    broadcast({
+      event: E_TIMER,
+      timer: {name: Room.TK_RT_VOTE, time: 0}
+    }, room.roomID)
+  }
 }
 
 
@@ -180,5 +229,6 @@ module.exports = {
   startTimerToGame,
   startTimerToNextPhaseOnVote,
   startTimerToNextPhaseOnVoteNight,
-  startTimerToNextPhaseOnReadiness
+  startTimerToNextPhaseOnReadiness,
+  controlTimerToAccessVote
 }

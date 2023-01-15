@@ -36,7 +36,7 @@ function broadcastClear(message,id){
       player.vote = player.vote._id
   })
   game.log = undefined
-  room.timer = null
+  room.timer = undefined
 
   broadcast({event:message.event, room},id)
 

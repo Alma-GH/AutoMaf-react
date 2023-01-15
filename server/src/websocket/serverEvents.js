@@ -6,8 +6,19 @@ const Player = require("../class/Player.js");
 const Room = require("../class/Room");
 const Server = require("../class/Server.js");
 const ChatLog = require("../class/ChatLog.js");
+const Game = require("../class/Game");
 
 
+function set_settings(data){
+  const dataSS = data
+
+  const roomInGame = Server.getRoomByID(dataSS.roomID)
+  delete data.roomID
+  delete data.event
+  roomInGame.setOptions(data)
+
+  return roomInGame
+}
 
 function create_room(data){
   const dataCR = data
@@ -19,8 +30,8 @@ function create_room(data){
     dataCR.nameRoom,
     dataCR.existPassword ? dataCR.password : null
   )
+  newRoom.setOptions(dataCR.gameOptions)
   Server.addRoom(newRoom)
-
 
   return [newRoom,leader]
 }
@@ -52,6 +63,15 @@ function start_game(data){
   roomInGame.getLog().setLog(ChatLog.WHO_HOST, "Выберите карты")
 
   return roomInGame
+}
+
+function stop_game(data){
+  const dataIG0 = data
+
+  const room = Server.getRoomByID(dataIG0.roomID)
+  room.stopGame()
+
+  return room
 }
 
 function choose_card(data){
@@ -102,7 +122,9 @@ function vote(data){
   const gameInRoom = needRoom.getGame()
 
   const voter = gameInRoom.getPlayerByID(dataIG4.idVoter)
-  const player = gameInRoom.getPlayerByID(dataIG4.idChosen)
+  const player = dataIG4.idChosen !== null
+    ? gameInRoom.getPlayerByID(dataIG4.idChosen)
+    : null
   if(!needRoom.getTimerIdByKey(Room.TK_PHASE))
     gameInRoom.setVoteWithoutNextPhase(voter,player)
   else
@@ -111,31 +133,36 @@ function vote(data){
 
   const log = needRoom.getLog()
   const newSpeaker = gameInRoom.getPlayerSpeaker()
-  log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByVote(voter,player))
+
+  if(gameInRoom.getVoteType() !== Game.VOTE_TYPE_REALTIME)
+    log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByVote(voter,player))
   if(newSpeaker)
     log.setLog(ChatLog.WHO_HOST, log.getHostPhraseBySpeaker(newSpeaker))
 
-  return needRoom
+  return [needRoom, player]
 }
 
 function quit(data){
   const dataIG6 = data
 
   const needRoom = Server.getRoomByID(dataIG6.roomID)
-  const error = needRoom.hasAnyTimer() //if timers not exists return false
+  const errorTimer = needRoom.hasAnyTimer() //if timers not exists return false
+  const errorQuit = needRoom.getStatus()
   needRoom.clearAllTimers()
 
   const player = needRoom.getPlayerByID(dataIG6.idPlayer)
   needRoom.quitPlayer(player)
 
-  return [needRoom, error]
+  return [needRoom, errorTimer, errorQuit]
 }
 
 
 module.exports = {
+  set_settings,
   create_room,
   find_room,
   start_game,
+  stop_game,
   choose_card,
   readiness,
   vote_night,

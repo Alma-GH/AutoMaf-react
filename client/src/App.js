@@ -1,5 +1,5 @@
 import "./style/App.scss"
-import {CardContext, MessageContext, RoomContext, ServerTimerContext} from "./context/contexts";
+import {CardContext, MessageContext, RoomContext, ServerTimerContext, SettingsContext} from "./context/contexts";
 import {useEffect, useState} from "react";
 import Debug from "./components/Debug";
 import {BrowserRouter} from "react-router-dom";
@@ -8,7 +8,7 @@ import ErrorMessage from "./components/Notification/ErrorMessage";
 import AppRouter from "./components/AppRouter";
 import MessageCreator from "./tools/Services/MessageCreator";
 import GameService from "./tools/Services/GameService";
-import {DEBUG_LOG} from "./tools/const";
+import {DEBUG_LOG, S_VOTE_TYPE_REALTIME} from "./tools/const";
 
 
 function App() {
@@ -25,6 +25,9 @@ function App() {
   })
 
   const [visCard, setVisCard] = useState(false);
+  const [settings, setSettings] = useState({
+    voteType: S_VOTE_TYPE_REALTIME
+  });
 
   useEffect(()=>{
 
@@ -55,11 +58,13 @@ function App() {
         <MessageContext.Provider value={{error,setError, loading,setLoading}}>
           <ServerTimerContext.Provider value={{timer, setTimer}}>
             <CardContext.Provider value={{visCard,setVisCard}}>
-              <div className="App">
-                <AppRouter/>
-                {DEBUG_LOG && <Debug/>}
-                <ErrorMessage {...error}/>
-              </div>
+              <SettingsContext.Provider value={{settings, setSettings}}>
+                <div className="App">
+                  <AppRouter/>
+                  {DEBUG_LOG && <Debug/>}
+                  <ErrorMessage {...error}/>
+                </div>
+              </SettingsContext.Provider>
             </CardContext.Provider>
           </ServerTimerContext.Provider>
         </MessageContext.Provider>

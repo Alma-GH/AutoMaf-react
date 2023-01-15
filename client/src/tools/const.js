@@ -1,9 +1,9 @@
 
 //DEBUG
-export const PROD                  = true
+export const PROD                  = false
 export const DEBUG_SERVER_COMMANDS = false && !PROD
 export const DEBUG_LOG             = true && !PROD
-export const DEBUG_REDIRECT        = true && !PROD
+export const DEBUG_REDIRECT        = false && !PROD
 
 export const SECOND_STYLE          = true
 
@@ -40,6 +40,16 @@ export const LINK_PREPARE = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_PREPARE}`
 export const LINK_GAME    = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_GAME}`
 
 
+//ROOM
+//timers
+export const T_START = "timer_key_start"
+export const T_VOTE = "timer_key_realtime"
+
+//settings
+export const S_VOTE_TYPE_REALTIME = "VOTE_TYPE_REALTIME"
+export const S_VOTE_TYPE_CLASSIC = "VOTE_TYPE_CLASSIC"
+export const S_VOTE_TYPE_FAIR = "VOTE_TYPE_FAIR"
+
 
 //GAME
 //roles
@@ -62,6 +72,7 @@ export const AVATAR_NORMAL  = "AVATAR_NORMAL"
 export const AVATAR_DEAD    = "AVATAR_DEAD"
 export const AVATAR_SPEAK   = "AVATAR_SPEAK"
 export const AVATAR_JUDGED  = "AVATAR_JUDGED"
+export const AVATAR_TIMER   = "AVATAR_TIMER"
 
 
 
@@ -69,5 +80,7 @@ export const AVATAR_JUDGED  = "AVATAR_JUDGED"
 //storage keys
 export const S_NICK = "nick"
 
-//
+//error message
 export const EM_VERSION = "Данная функция пока не доступна"
+
+

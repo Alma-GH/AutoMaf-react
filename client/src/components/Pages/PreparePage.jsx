@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import WindowInput from "../main/WindowInput/WindowInput";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import BtnText from "../UI/BtnText/BtnText";
@@ -13,11 +13,15 @@ import PreparePlayerList from "../main/PrepareComps/PreparePlayerList";
 import {useModal} from "../../hooks/useModal";
 import {useRedirect} from "../../hooks/useRedirect";
 import {errorByTimer} from "../../tools/func";
+import CreateBtnSettings from "../main/CreateComps/CreateBtnSettings";
+import CreateSettings from "../main/CreateComps/CreateSettings";
 
 
 const PreparePage = () => {
 
   const [modal,openModal, closeModal] = useModal()
+
+  const [openSettings, setOpenSettings] = useState(false)
 
   const context = useContext(RoomContext)
   const tContext = useContext(ServerTimerContext)
@@ -29,7 +33,7 @@ const PreparePage = () => {
   const players = GameService.getMembers(room)
   const max     = GameService.getMaxMembers(room)
 
-  const timer = tContext.timer
+  const time = tContext.timer?.time
 
 
   function startGame(){
@@ -40,7 +44,7 @@ const PreparePage = () => {
   }
 
   function getStage(){
-    return timer ? 6 - timer : 0
+    return time ? 6 - time : 0
   }
 
   useRedirect(
@@ -59,6 +63,9 @@ const PreparePage = () => {
     }
   )
 
+  if(openSettings)
+    return <CreateSettings setOpenSettings={setOpenSettings}/>
+
   return (
     <div className="prepPage">
 
@@ -68,12 +75,16 @@ const PreparePage = () => {
         <div className={clsWin.inputCont}>
           <PrepareCount max={max} num={players.length} stage={getStage()}/>
           <PreparePlayerList players={players} me={player}/>
+          <CreateBtnSettings setOpenSettings={setOpenSettings}/>
         </div>
 
         <div className={clsWin.btnCont}>
           <BtnText text="Выйти" color="red" cb={openModal}/>
           <BtnText text="Начать" cb={startGame} disabled={!GameService.isLeader(player,players)}/>
         </div>
+
+
+
       </WindowInput>
 
 

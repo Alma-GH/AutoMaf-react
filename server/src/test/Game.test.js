@@ -38,14 +38,12 @@ skip_discussion(game)
 night_kill(game)
 skip_discussion(game)
 subtotalStop(game)
-console.dir({info:game.voteInfo()}, { depth: null })
 game.nextPhaseByVote()
 skip_discussion(game)
 
 
 //total 1
 totalStop(game)
-console.dir({info:game.voteInfo()}, { depth: null })
 game.nextPhaseByVote()
 night_kill(game)
 skip_discussion(game)

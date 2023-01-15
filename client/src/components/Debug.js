@@ -1,8 +1,16 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {RoomContext, ServerTimerContext} from "../context/contexts";
 import Socket from "../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
-import {LINK_CREATE, LINK_ENTER, LINK_FIND, LINK_GAME, LINK_PREPARE, LINK_START} from "../tools/const";
+import {
+  LINK_CREATE,
+  LINK_ENTER,
+  LINK_FIND,
+  LINK_GAME,
+  LINK_PREPARE,
+  LINK_START,
+  S_VOTE_TYPE_CLASSIC, S_VOTE_TYPE_REALTIME
+} from "../tools/const";
 import GameService from "../tools/Services/GameService";
 import MessageCreator from "../tools/Services/MessageCreator";
 import {useConnection} from "../hooks/useConnection";
@@ -34,6 +42,9 @@ const Debug = () => {
 
   const [create, setCreate] = useState("room")
   const [find, setFind] = useState("room")
+  const [votes, setVotes] = useState("")
+
+  const [voteType, setVoteType] = useState("")
 
   const nav = useNavigate()
 
@@ -156,13 +167,15 @@ const Debug = () => {
     const game = GameService.getGame(room)
 
     const alive = GameService.getPlayersAlive(game)
+
     const voters = alive
-      .filter(pl=>(!pl.judged && pl.vote===null))
-    const sus = alive.find(pl=>pl.judged)
+      .filter(pl=>(!pl.judged && pl.vote===null) || game.options.voteType === "VOTE_TYPE_REALTIME")
+    const sus = alive.find(pl=>pl.judged || game.options.voteType === "VOTE_TYPE_REALTIME")
+    const nextSus = alive.find(pl=>pl._id!==sus._id)
 
     voters.forEach(voter=>{
       const message = MessageCreator
-        .vote(room.roomID,voter._id, sus._id)
+        .vote(room.roomID,voter._id, sus._id===voter._id ? nextSus._id : sus._id)
 
       Socket.send(JSON.stringify(message))
     })
@@ -186,10 +199,72 @@ const Debug = () => {
     })
   }
 
+  function vote(){
+    const map = {}
+
+    const separators = ["\n", " ", ";"]
+    const voteStrings = []
+    let voteStr = ""
+
+    for(let char of votes){
+      if(separators.includes(char)){
+        if(voteStr.length !== 0)
+          voteStrings.push(voteStr)
+        voteStr = ""
+        continue
+      }
+      voteStr += char
+    }
+    if(voteStr.length){
+      voteStrings.push(voteStr)
+    }
+
+    for(let vote of voteStrings){
+      map[vote[0]] = vote[2]
+    }
+
+
+    for(let key of Object.keys(map)){
+      const val = map[key]
+
+      const message = MessageCreator
+        .vote(room.roomID, +key, +val)
+
+      Socket.send(JSON.stringify(message))
+    }
+
+  }
+
+  function setSettings(){
+    const message = MessageCreator.setSettings(GameService.getRoomID(room), voteType)
+    Socket.send(JSON.stringify(message))
+  }
+
+  useEffect(()=>{
+
+    document.addEventListener("keydown", (e)=>{
+
+      if(e.ctrlKey){
+        e.preventDefault()
+        switch (e.key){
+          case "1":
+            connect1()
+            break;
+          case "2":
+            connect2()
+            break;
+          case "3":
+            allReady()
+            break;
+        }
+      }
+    })
+
+  }, [room])
 
   const roomDATA = getRoomData()
   const playerDATA = JSON.stringify(player)
-  const timerDATA = timer
+  const timerDATA = JSON.stringify(timer,null,2)
   return (
     <div style={{...styleCont, right: vis ? "0" : "-30vw",}}>
 
@@ -224,7 +299,7 @@ const Debug = () => {
               value={timerDATA!==null ? timerDATA : "null"}
               readOnly
               cols="30"
-              rows="1"
+              rows="4"
             />
           </div>
         </div>
@@ -252,6 +327,17 @@ const Debug = () => {
                 <li><button onClick={autoSubVote}>auto sub vote</button></li>
                 <li><button onClick={autoVote}>auto vote</button></li>
               </ul>
+            </li>
+            <li>
+              <textarea value={votes} onChange={e=>setVotes(e.target.value)}/>
+              <button onClick={vote}>vote</button>
+            </li>
+            <li>
+              <input
+                type="text" placeholder="vote type"
+                value={voteType} onChange={e=>setVoteType(e.target.value)}
+              />
+              <button onClick={setSettings}>settings</button>
             </li>
           </ul>
         </div>
