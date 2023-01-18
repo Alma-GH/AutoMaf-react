@@ -3,9 +3,11 @@ import {
   AVATAR_DEAD,
   AVATAR_JUDGED,
   AVATAR_NORMAL,
-  AVATAR_SPEAK, AVATAR_TIMER,
+  AVATAR_SPEAK,
+  AVATAR_TIMER,
+  CARD_DETECTIVE,
   CARD_MAFIA,
-  PHASE_NIGHT_MAFIA, T_VOTE
+  T_VOTE
 } from "../../../../tools/const"
 import cls from "./GameTableCard.module.scss"
 import {RoomContext, ServerTimerContext} from "../../../../context/contexts";
@@ -54,7 +56,7 @@ const GameTableCardPlayer = ({player}) => {
     Socket.send(JSON.stringify(message))
 
   }
-  function voteKill(){
+  function voteNight(){
     const message = MessageCreator.voteNight(rID, myID, pID)
 
     Socket.send(JSON.stringify(message))
@@ -64,11 +66,8 @@ const GameTableCardPlayer = ({player}) => {
     if(!phase)
       return vote
 
-    const map = {
-      [PHASE_NIGHT_MAFIA]: voteKill,
-    }
-    const func = map[phase]
-    return func ? func : vote
+    //DEP NIGHT PHASE
+    return GameService.isNight(game) ? voteNight : vote
   }
 
   function getAvatar(player){
@@ -104,15 +103,33 @@ const GameTableCardPlayer = ({player}) => {
     return cardMatch && notMyCard && (myMatch || !amIAlive)
   }
 
+  function detectStyle(){
 
-  const style = []
-  style.push(cls.parent)
+    const myRole = GameService.getRole(me, game)
+    const player = GameService.getPlayerByID(pID, game)
+
+    return myRole === CARD_DETECTIVE && player.detected;
+  }
+
+
+  const style = [cls.parent]
   if(myID===pID)  style.push(cls.you)
   if(teamStyle()) style.push(cls.team)
   if(myVote===pID) style.push(cls.vote)
+
+  const nameStyle = [cls.name]
+  if(detectStyle()){
+    if(playerRole === CARD_MAFIA)
+      nameStyle.push(cls.detectMaf)
+    else
+      nameStyle.push(cls.detectCiv)
+  }
+
   return (
     <div className={style.join(" ")} onClick={getFunction(phase)}>
-      {(numVotes>0 || (nightVotes>0 && (GameService.getRole(me,game) === CARD_MAFIA))) &&
+
+      {//DEP NIGHT PHASE
+        (numVotes>0 || (nightVotes>0 && (GameService.getRole(me,game) === GameService.NIGHT_MAP[phase]))) &&
         <div className={cls.counter}>{numVotes || nightVotes}</div>
       }
 
@@ -121,7 +138,7 @@ const GameTableCardPlayer = ({player}) => {
         : <img src={GameService.getImgByRole(playerRole)} alt={playerRole}/>
       }
 
-      <div className={cls.name}>{name}</div>
+      <div className={nameStyle.join(" ")}>{name}</div>
     </div>
   );
 };

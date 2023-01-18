@@ -31,6 +31,7 @@ const GameObjective = ({vis}) => {
       return `Нажмите "готов"`
 
     const myRole = GameService.getRole(me,game)
+    //DEP NIGHT PHASES
     const map = {
       [PHASE_NIGHT_MAFIA+CARD_CIVIL]: "Дождитесь дня",
       [PHASE_NIGHT_MAFIA+CARD_MAFIA]: "Проголосовать за убийство",

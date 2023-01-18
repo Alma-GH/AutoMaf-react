@@ -48,6 +48,7 @@ const LogInfo = () => {
 
 
   function getVoteLabel(phaseNext){
+    //DEP NIGHT PHASE
     const map = {
       [PHASE_DAY_DISCUSSION]: "Начало игры",
 

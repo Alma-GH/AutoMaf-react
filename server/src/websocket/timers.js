@@ -10,6 +10,7 @@ const Room = require("../class/Room.js");
 const ChatLog = require("../class/ChatLog.js");
 const Game = require("../class/Game.js");
 const {broadcast, broadcastClear} = require("./send.js");
+const {getRandomIntInclusive} = require("../utils/func");
 
 
 
@@ -88,6 +89,16 @@ function startTimerToAccessVote(room,time,timeout){
   room.setTimerID(func, timeout, Room.TK_RT_VOTE)
 }
 
+function startHideTimerToNextPhase(room,time,timeout){
+  //TODO: mb dependence of num players with match role
+  const min = 3
+  const max = 7
+  const randTime = getRandomIntInclusive(min,max) * 1000
+
+  //TODO: mb bag -> add timout in room
+  setTimeout(()=>startTimerToNextPhaseOnVoteNight(room,time,timeout), randTime)
+}
+
 
 
 function newPhaseLog(room){
@@ -158,17 +169,29 @@ function startTimerToNextPhaseOnVote(room,time,timeout){
 }
 
 function startTimerToNextPhaseOnVoteNight(room,time,timeout){
-  const choice = room.getGame()._choiceVotesNight()
+  const game = room.getGame()
+  const phase = game.getPhase()
+  const choice = phase===Game.PHASE_NIGHT_MAFIA
+    ? game._choiceVotesNight()
+    : game.getPlayersInjured().find(player=>player.isLive())
 
   const startLog = log=>{
-    log.setLog(ChatLog.WHO_HOST, "Мафия сделала свой выбор")
-    log.setLog(ChatLog.WHO_HOST, "К сожалению город просыпается без ...")
+
+    log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByEndNightPhase(phase))
+
+    if(game.isLastNightPhase())
+      log.setLog(ChatLog.WHO_HOST, "К сожалению город просыпается без ...")
   }
   const endLog = log=>{
-    log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByDeadPlayer(choice))
+    //TODO: change if doctor heal him
+    if(game.isLastNightPhase())
+      log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByDeadPlayer(choice))
   }
   const nextPhase = game=>{
     game.nextPhaseByNightVote()
+    newPhaseLog(room)
+    if(game.isNightPhase() && !game.havePlayersOnNightPhase())
+      startHideTimerToNextPhase(room,time,timeout)
     gameEndLog(room)
   }
 

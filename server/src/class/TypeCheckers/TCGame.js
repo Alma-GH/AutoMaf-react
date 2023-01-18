@@ -89,9 +89,11 @@ class TypeChecker{
     const voter = args[0]
     const val = args[1]
 
+    //DEP NIGHT PHASES
     let voters = null
     game._runFunctionsByPhase([
-      ()=>{voters = game.getPlayers().filter(player=>player.getRole() === Onside.CARD_MAFIA)}
+      ()=>{voters = game.getPlayersByRole(Onside.CARD_MAFIA)},
+      ()=>{voters = game.getPlayersByRole(Onside.CARD_DETECTIVE)}
     ])
 
     //now throw from ._runFunctionsByPhase

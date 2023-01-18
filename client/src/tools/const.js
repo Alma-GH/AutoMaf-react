@@ -1,16 +1,16 @@
 
 //DEBUG
-export const PROD                  = false
+export const PROD                  = true
 export const DEBUG_SERVER_COMMANDS = false && !PROD
 export const DEBUG_LOG             = true && !PROD
 export const DEBUG_REDIRECT        = false && !PROD
 
-export const SECOND_STYLE          = true
+export const SECOND_STYLE          = false
 
 //SERVER
 //link
 export const LOCAL_LINK = 'ws://localhost:5000'
-export const SERVER_LINK = `wss://confirmed-cold-crowd.glitch.me`
+export const SERVER_LINK = `wss://automaf-server.glitch.me`
 export const TEST_SERVER_LINK = "wss://test-automaf.glitch.me/"
 
 //default
@@ -43,7 +43,7 @@ export const LINK_GAME    = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_GAME}`
 //ROOM
 //timers
 export const T_START = "timer_key_start"
-export const T_VOTE = "timer_key_realtime"
+export const T_VOTE = "timer_key_realtime_vote"
 
 //settings
 export const S_VOTE_TYPE_REALTIME = "VOTE_TYPE_REALTIME"
@@ -55,11 +55,17 @@ export const S_VOTE_TYPE_FAIR = "VOTE_TYPE_FAIR"
 //roles
 export const CARD_MAFIA = "CARD_MAFIA"
 export const CARD_CIVIL = "CARD_CIVIL"
+export const CARD_DETECTIVE = "CARD_DETECTIVE"
+export const CARD_DOCTOR = "CARD_DOCTOR"
+export const CARD_BUTTERFLY = "CARD_BUTTERFLY"
 
 //phases
 export const PHASE_PREPARE        = "PHASE_PREPARE"
 export const PHASE_DAY_DISCUSSION = "PHASE_DAY_DISCUSSION"
 export const PHASE_NIGHT_MAFIA    = "PHASE_NIGHT_MAFIA"
+export const PHASE_NIGHT_DETECTIVE  = "PHASE_NIGHT_DETECTIVE"
+export const PHASE_NIGHT_DOCTOR   = "PHASE_NIGHT_DOCTOR"
+export const PHASE_NIGHT_BUTTERFLY  = "PHASE_NIGHT_BUTTERFLY"
 export const PHASE_DAY_SUBTOTAL   = "PHASE_DAY_SUBTOTAL"
 export const PHASE_DAY_TOTAL      = "PHASE_DAY_TOTAL"
 

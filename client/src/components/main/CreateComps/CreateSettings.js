@@ -25,7 +25,7 @@ const CreateSettings = ({setOpenSettings}) => {
   const options = [
     select1,
     select2,
-    select3,
+    // select3,
   ]
 
   const [valSelect, setValSelect] = useState(settings

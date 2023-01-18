@@ -6,7 +6,7 @@ $debug: false;
 $hBtn: 50px;
 $wBtn: 175px;
 
-$colBtn_green: #33FF00;
+$colBtn_green: #3eff00;
 $colBtn_red: #FF0000;
 $colBtn_yellow: #FAFF00;
 $colBtn_grey: #C7C7C7;
@@ -121,3 +121,13 @@ $lg: 1500px;
   }
 }
 
+//animations
+
+@keyframes shadow {
+  from{
+    box-shadow: 0 0 50px 70px rgb(106, 255, 50);
+  }
+  to{
+    box-shadow: 0 0 50px 10px rgb(106, 255, 50);
+  }
+}

@@ -105,10 +105,10 @@ function vote_night(data){
   const needRoom = Server.getRoomByID(dataIG3.roomID)
   const gameInRoom = needRoom.getGame()
 
-  const mafia = gameInRoom.getPlayerByID(dataIG3.idVoter)
+  const voter = gameInRoom.getPlayerByID(dataIG3.idVoter)
   const player = gameInRoom.getPlayerByID(dataIG3.idChosen)
   if(!needRoom.getTimerIdByKey(Room.TK_PHASE))
-    gameInRoom.setVoteNightWithoutNextPhase(mafia,player)
+    gameInRoom.setVoteNightWithoutNextPhase(voter,player)
   else
     throw new Error(EM_VOTE_ON_TIMER)
 

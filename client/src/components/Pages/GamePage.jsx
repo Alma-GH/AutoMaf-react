@@ -13,6 +13,7 @@ import ModalQuit from "../UI/Modal/ModalQuit";
 import {useModal} from "../../hooks/useModal";
 import {useRedirect} from "../../hooks/useRedirect";
 import clsLoad from "./../../components/Notification/Loader.module.scss"
+import clsReadyBtn from "./../../components/UI/BtnText/BtnText.module.scss"
 
 const GamePage = () => {
 
@@ -46,7 +47,7 @@ const GamePage = () => {
     !GameService.getPlayerByID(myID,game).alive ||
     ![PHASE_DAY_DISCUSSION,PHASE_PREPARE].includes(phase) ||
     end
-  //TODO: add night phases
+
   const sleep =
     (GameService.isNight(game) &&
     GameService.getPlayerByID(myID,game).alive &&
@@ -108,7 +109,12 @@ const GamePage = () => {
               <BtnText text="Lobby" color="yellow" cb={returnInLobby}/>
               <BtnText text="Restart" color="yellow" cb={restart}/>
             </>
-            : <BtnText text="Готов" disabled={disabledBtnReady} cb={readiness}/>
+            : <BtnText
+                text="Готов"
+                disabled={disabledBtnReady}
+                cb={readiness}
+                addCls={!disabledBtnReady ? clsReadyBtn.attention : null}
+              />
           }
         </div>
 

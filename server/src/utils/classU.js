@@ -1,13 +1,9 @@
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
+const {getRandomInt} = require("./func.js");
 
 //class Game
 
 function numPossibleVotes(all, maf){
-  return Math.floor((all - maf*2)/2)
+  return Math.ceil((all - 1 - maf*2)/2)
 }
 
 function getSomeRandomInt(max,nRand){

@@ -28,8 +28,9 @@ class Room {
 
   static TK_RT_VOTE = "timer_key_realtime_vote"
 
+  // static TK_SECRET = "timer_key_secret"
 
-  //TODO: options
+
   gameOptions
 
   constructor(leader, maxP, name, pass) {

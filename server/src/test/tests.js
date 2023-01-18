@@ -1,22 +1,29 @@
-const Room = require("../class/Room");
-const Player = require("../class/Player");
-const Game = require("../class/Game");
 
 
-const room = new Room(new Player("Roman"), 4, "room", "123")
+const players = 8
+const mafs = 1
 
-console.log(room.getOptions())
-room.setOptions({
-  voteType: 1
-})
-console.log(room.getOptions())
+let chance
 
-// room.addPlayer(new Player("1"))
-// room.addPlayer(new Player("Rom2"))
-// room.addPlayer(new Player("Rom3"))
-// room.startGame()
-//
-// console.log(room.getGame().getVoteType())
+let now = players
+let x = mafs
+
+while(n-1 > 4){
+  let sum = 1
+
+
+
+  chance += sum
+}
+
+
+
+
+console.log({chance})
+
+
+
+
 
 
 

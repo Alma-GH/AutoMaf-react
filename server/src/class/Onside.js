@@ -6,7 +6,12 @@ class Onside extends Player{
   static CARD_CIVIL = "CARD_CIVIL"
   static CARD_MAFIA = "CARD_MAFIA"
 
-  //(CARD_MAFIA,CARD_CIVIL) - card
+  static CARD_DETECTIVE = "CARD_DETECTIVE"
+  static CARD_DOCTOR = "CARD_DOCTOR"
+  static CARD_BUTTERFLY = "CARD_BUTTERFLY"
+
+
+  //(CARD_MAFIA,CARD_CIVIL, ...) - card
   role
 
   alive
@@ -14,10 +19,15 @@ class Onside extends Player{
   speak
   judged
 
+  //temporary properties
+  injure
+  detected
+  alibi
+
   //(player,false,null) - votes for court
   vote
 
-  //(player,null) - votes for special role (mafia, doctor, commissar)
+  //(player,null) - votes for special role (mafia, doctor, detective)
   voteNight
 
   constructor(player,role) {
@@ -26,10 +36,16 @@ class Onside extends Player{
     this.setID(player.getID())
 
     this.setRole(role)
+
     this.alive = true
     this.readiness = false
     this.speak = false
     this.judged = false
+
+    this.injure = false
+    this.detected = false
+    this.alibi = false
+
     this.setVote(null)
   }
 
@@ -37,7 +53,13 @@ class Onside extends Player{
     return this.role
   }
   setRole(role){
-    if(![Onside.CARD_CIVIL,Onside.CARD_MAFIA].includes(role))
+    if(![
+      Onside.CARD_CIVIL,
+      Onside.CARD_MAFIA,
+      Onside.CARD_DETECTIVE,
+      Onside.CARD_DOCTOR,
+      Onside.CARD_BUTTERFLY,
+    ].includes(role))
       throw new Error("Type error: role in Onside")
     this.role = role
   }
@@ -80,6 +102,36 @@ class Onside extends Player{
   }
   judgedOff(){
     this.judged = false
+  }
+
+  isInjured(){
+    return this.injure
+  }
+  toInjure(){
+    this.injure = true
+  }
+  heal(){
+    this.injure = false
+  }
+
+  isDetected(){
+    return this.detected
+  }
+  toDetect(){
+    this.detected = true
+  }
+  miss(){
+    this.detected = false
+  }
+
+  hasAlibi(){
+    return this.alibi
+  }
+  heGetAlibi(){
+    this.alibi = true
+  }
+  heLoseAlibi(){
+    this.alibi = false
   }
 
   getVote(){

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {RoomContext, ServerTimerContext} from "../context/contexts";
+import {RoomContext, ServerTimerContext, SettingsContext} from "../context/contexts";
 import Socket from "../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
 import {
@@ -49,6 +49,7 @@ const Debug = () => {
   const nav = useNavigate()
 
   const context = useContext(RoomContext)
+  const sContext = useContext(SettingsContext)
   const timer = useContext(ServerTimerContext).timer
   const room    = context.room
   const player  = context.player
@@ -78,7 +79,7 @@ const Debug = () => {
       password: "",
       numPlayers: max,
 
-      gameOptions:{}
+      gameOptions: sContext.settings
     }
     Socket.send(JSON.stringify(message));
   }

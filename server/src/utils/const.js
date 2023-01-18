@@ -1,5 +1,5 @@
 
-const PROD      = false
+const PROD      = true
 const DEBUG_MOD = true && !PROD
 
 const DEF_PLAYERS = {

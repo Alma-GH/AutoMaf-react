@@ -14,14 +14,25 @@ class Game {
   static PHASE_PREPARE        = "PHASE_PREPARE"
   static PHASE_DAY_DISCUSSION = "PHASE_DAY_DISCUSSION"
   static PHASE_NIGHT_MAFIA    = "PHASE_NIGHT_MAFIA"
+  static PHASE_NIGHT_DETECTIVE  = "PHASE_NIGHT_DETECTIVE"
+  static PHASE_NIGHT_DOCTOR   = "PHASE_NIGHT_DOCTOR"
+  static PHASE_NIGHT_BUTTERFLY  = "PHASE_NIGHT_BUTTERFLY"
   static PHASE_DAY_SUBTOTAL   = "PHASE_DAY_SUBTOTAL"
   static PHASE_DAY_TOTAL      = "PHASE_DAY_TOTAL"
+
+  //night phases
+  static NIGHT_PHASES = [
+    Game.PHASE_NIGHT_MAFIA,
+    Game.PHASE_NIGHT_DETECTIVE,
+    Game.PHASE_NIGHT_DOCTOR,
+    Game.PHASE_NIGHT_BUTTERFLY,
+  ]
 
   //game path of phases
   static START_PATH = [
     Game.PHASE_PREPARE,
     Game.PHASE_DAY_DISCUSSION,
-    Game.PHASE_NIGHT_MAFIA,
+    ...Game.NIGHT_PHASES,
     Game.PHASE_DAY_DISCUSSION,
     Game.PHASE_DAY_SUBTOTAL,
     Game.PHASE_DAY_DISCUSSION,
@@ -29,7 +40,7 @@ class Game {
   ]
 
   static ADD_NEXT_DAY = [
-    Game.PHASE_NIGHT_MAFIA,
+    ...Game.NIGHT_PHASES,
     Game.PHASE_DAY_DISCUSSION,
     Game.PHASE_DAY_SUBTOTAL,
     Game.PHASE_DAY_DISCUSSION,
@@ -41,11 +52,6 @@ class Game {
     Game.PHASE_DAY_TOTAL
   ]
 
-
-  //night phases
-  static NIGHT_PHASES = [
-    Game.PHASE_NIGHT_MAFIA
-  ]
 
   //vote types in options
   static VOTE_TYPE_CLASSIC = "VOTE_TYPE_CLASSIC"
@@ -60,6 +66,7 @@ class Game {
 
   phasePath
   phaseIndex
+  possibleNightPhases
   numDay
 
   //[CARD_MAFIA,CARD_CIVIL, null, ...]
@@ -74,7 +81,6 @@ class Game {
 
   log
 
-  //TODO: options
   options
 
   constructor(room) {
@@ -114,20 +120,20 @@ class Game {
         this.phasePath = this.phasePath.concat(Game.ADD_NEXT_DAY)
     }
 
-    //TODO: change day other way if will some night phases
     //if now phase == prepare or last night phase then next day
-    if([
-        Game.PHASE_PREPARE,
-        Game.NIGHT_PHASES[Game.NIGHT_PHASES.length-1]
-      ].includes(this.getPhase())){
+    if(this.getPhase() === Game.PHASE_PREPARE || this.isLastNightPhase()){
       this._nextDay()
+      this._killInjured()
+      // this._initAllProperties()
     }
 
 
     this.phaseIndex++
+    while(!this._possiblePhase())
+      this.phaseIndex++
     const phaseNow = this.getPhase()
-    const l = this.log
 
+    const l = this.log
     if(phaseNow)
       l.setLog(l.constructor.WHO_LOG, l.getLogPhraseByPhase(this.getPhase()))
 
@@ -137,9 +143,19 @@ class Game {
     else if(phaseNow === Game.PHASE_DAY_TOTAL)
       this._startTotal()
   }
+  _possiblePhase(){
+    return !this.isNightPhase() || this.possibleNightPhases.includes(this.getPhase())
+  }
   _initPhase(){
     this.phasePath = [...Game.START_PATH]
     this.phaseIndex = 0
+    this.possibleNightPhases = [Game.PHASE_NIGHT_MAFIA]
+  }
+  isNightPhase(){
+    return Game.NIGHT_PHASES.includes(this.getPhase())
+  }
+  isLastNightPhase(){
+    return this.getPhase() === this.possibleNightPhases[this.possibleNightPhases.length-1]
   }
 
   getDay(){
@@ -155,21 +171,53 @@ class Game {
   getCards(){
     return this.cards
   }
+  //DEP NIGHT PHASES
   _createCards(numPlayers){
+    //recommend -> 0
+    let balance = numPlayers
+
+
     //cards with mafia
     let numMaf = 1
     while(numPossibleVotes(numPlayers,numMaf)>2){
       numMaf++
     }
-    const mafInds = getSomeRandomInt(numPlayers,numMaf)
+
+    balance -= 5 * numMaf
+    //cards with detective
+    let numDet = 0
+    if(balance < 0)
+      numDet += 1
+
+    //cards with doctor
+    let numDoc = 0
+    //cards with butterfly
+    let numBut = 0
 
     //create cards
+    const specInds = getSomeRandomInt(numPlayers,numMaf+numDet)
+    const detIndsInSpecInds = getSomeRandomInt(specInds.length, numDet)
+    const detInds = detIndsInSpecInds.map(ind=>specInds[ind-1])
+
     const cards = []
     for(let i = 1; i<numPlayers+1; i++){
-      cards.push(mafInds.includes(i) ? Onside.CARD_MAFIA : Onside.CARD_CIVIL)
+      if(detInds.includes(i))
+        cards.push(Onside.CARD_DETECTIVE)
+      else if(specInds.includes(i))
+        cards.push(Onside.CARD_MAFIA)
+      else
+        cards.push(Onside.CARD_CIVIL)
     }
 
     this.cards = cards
+
+    //ORDER MATTERS
+    if(numDet !== 0)
+      this.possibleNightPhases.push(Game.PHASE_NIGHT_DETECTIVE)
+    if(numDoc !== 0)
+      this.possibleNightPhases.push(Game.PHASE_NIGHT_DOCTOR)
+    if(numBut !== 0)
+      this.possibleNightPhases.push(Game.PHASE_NIGHT_BUTTERFLY)
   }
 
   //create and return new created player
@@ -183,6 +231,14 @@ class Game {
 
     return playerWithCard
   } //*
+  getRoleToMatchNightPhase(){
+    let role = Onside.CARD_MAFIA
+    this._runFunctionsByPhase([
+      ()=>{role = Onside.CARD_MAFIA},
+      ()=>{role = Onside.CARD_DETECTIVE},
+    ])
+    return role
+  }
 
   getPlayerByID(id){
     Checker.check_getPlayersByID(this,id)
@@ -201,6 +257,15 @@ class Game {
   getPlayersAlive(){
     return this.players.filter(player=>player.isLive())
   }
+  getPlayersInjured(){
+    return this.getPlayersAlive().filter(player=>player.isInjured())
+  }
+  getPlayersDetected(){
+    return this.getPlayersAlive().filter(player=>player.isDetected())
+  }
+  getPlayersWithAlibi(){
+    return this.getPlayersAlive().filter(player=>player.hasAlibi())
+  }
   getPlayersReadiness(){
     return this.players.filter(player=>player.isReady())
   }
@@ -210,6 +275,10 @@ class Game {
   getPlayersVotedNight(){
     return this.players.filter(player=>player.getVoteNight())
   }
+  getPlayersByRole(role){
+    return this.getPlayers().filter(player=>player.getRole() === role)
+  }
+
   _killPlayer(victim){
     //TODO: mb add validate
 
@@ -219,6 +288,25 @@ class Game {
 
     if(this._isMafiaWin())        this.end = Game.MAFIA_WIN
     else if(this._isCivilWin())   this.end = Game.CIVIL_WIN
+  }
+  _killInjured(){
+    this.getPlayersInjured().forEach(player=>{
+      if(player.isLive())
+        this._killPlayer(player)
+    })
+  }
+  _injurePlayer(player){
+    player.toInjure()
+  }
+  _detectPlayer(player){
+    player.toDetect()
+  }
+  _initAllProperties(){
+    this.getPlayers().forEach(player=>{
+      player.miss()
+      player.heal()
+      player.heLoseAlibi()
+    })
   }
 
   addReadyPlayer(player){
@@ -252,11 +340,9 @@ class Game {
 
   }
   _allPlayersVoteNight(){
+    //DEP NIGHT PHASES
     //who vote
-    let role = Onside.CARD_MAFIA
-    this._runFunctionsByPhase([
-      ()=>{role = Onside.CARD_MAFIA}
-    ])
+    let role = this.getRoleToMatchNightPhase()
 
     const whoVoted      = this.getPlayersVotedNight()
     const whoShouldVote = this.getPlayersAlive().filter(player=>player.getRole() === role)
@@ -267,17 +353,33 @@ class Game {
   _actionOnVotesNight(){
     const choice = this._choiceVotesNight()
 
+    //DEP NIGHT PHASES
     this._runFunctionsByPhase([
-      ()=>{this._killPlayer(choice)}
+      ()=>{this._injurePlayer(choice)},
+      ()=>{
+        if(this.havePlayersOnNightPhase())
+          this._detectPlayer(choice)
+      },
     ])
 
     this._initVotesNight()
     this._nextPhase()
   }
   _choiceVotesNight(){
-    if(this._allPlayersVoteNight())
-      return this.getPlayersVotedNight()[0].getVoteNight()
+    if(this._allPlayersVoteNight()){
+      const voter = this.getPlayersVotedNight()[0]
+      return voter ? voter.getVoteNight() : null
+    }
+
     return null
+  }
+  havePlayersOnNightPhase(){
+    if(!Game.NIGHT_PHASES.includes(this.getPhase()))
+      return null
+
+    let role = this.getRoleToMatchNightPhase()
+
+    return !!this.getPlayersByRole(role).filter(player=>player.isLive()).length
   }
   _initVotesNight(){
     this.getPlayers()
@@ -495,9 +597,11 @@ class Game {
 
   //call only on night phases
   _runFunctionsByPhase(functions){
-    const map = {
-      [Game.PHASE_NIGHT_MAFIA]:functions[0],
-      //TODO: add other night phases
+    const map = {}
+
+    let count=0
+    for(let phase of Game.NIGHT_PHASES){
+      map[phase] = functions[count++]
     }
 
     const isNightPhase = (typeof map[this.getPhase()] === "function")

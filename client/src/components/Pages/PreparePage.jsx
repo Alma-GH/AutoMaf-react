@@ -35,7 +35,6 @@ const PreparePage = () => {
 
   const time = tContext.timer?.time
 
-
   function startGame(){
     const id      = GameService.getRoomID(room)
     const message = MessageCreator.startGame(id)
