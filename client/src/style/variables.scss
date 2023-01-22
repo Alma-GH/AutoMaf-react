@@ -33,6 +33,10 @@ $colCard_blue: #00FFF0;
 
 $colError_red: #FF3737;
 
+%debugBack{
+  background-color: rgba(51, 255, 0, 0.2);
+}
+
 %font{
   color: white;
   font-weight: 1000;

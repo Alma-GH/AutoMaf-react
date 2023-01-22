@@ -16,6 +16,9 @@ export const TEST_SERVER_LINK = "wss://test-automaf.glitch.me/"
 //default
 export const DEFAULT_NAME = "Unknown"
 
+// export const TIME_CALL_TO_SERVER = 2 * 60 * 1000
+export const TIME_CALL_TO_SERVER = 5000
+
 
 //PATHS
 export const PATH_ROOT_APP = "/app"
@@ -85,6 +88,8 @@ export const AVATAR_TIMER   = "AVATAR_TIMER"
 //OTHER
 //storage keys
 export const S_NICK = "nick"
+export const S_LOST_ROOM = "lost room"
+export const S_LOST_PLAYER = "lost player"
 
 //error message
 export const EM_VERSION = "Данная функция пока не доступна"

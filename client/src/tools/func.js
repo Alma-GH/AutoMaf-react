@@ -18,7 +18,8 @@ export const setConnection = (cb,setRoom,setPlayer,setError,setTimer,setLoading)
         ,enumMC.E_VOTE
         ,enumMC.E_NEXT_JUDGED
         ,enumMC.E_SETTINGS
-        ,enumMC.E_QUIT].includes(data.event))
+        ,enumMC.E_QUIT
+        ,enumMC.E_RECONNECT].includes(data.event))
         setRoom(data.room)
 
       if(enumMC.E_ERROR === data.event)

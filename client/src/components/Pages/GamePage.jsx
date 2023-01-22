@@ -26,7 +26,7 @@ const GamePage = () => {
 
   const room = context.room
   const player = context.player
-  const timer = tContext.timer
+  const timer = tContext?.timer
 
   const rID     = GameService.getRoomID(room)
   const myID    = GameService.getID(player)
@@ -89,6 +89,8 @@ const GamePage = () => {
     ()=>{
       const mess = "Упс. Сокет закрылся"
       errorByTimer(mContext.setError, mess, "out socket", 3000)
+      context.setRoom(null)
+      context.setPlayer(null)
     }
   )
 

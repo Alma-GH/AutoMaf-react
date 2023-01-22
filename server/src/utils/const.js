@@ -25,7 +25,10 @@ const DEF_TIME = {
   T_ACCESS_VOTE_MAX: 5,
   TO_ACCESS_VOTE: !DEBUG_MOD ? 1000 : 500,
 
-  TO_JUDGED: !DEBUG_MOD ? 10000 : 3000
+  TO_JUDGED: !DEBUG_MOD ? 10000 : 3000,
+
+
+  TO_RECONNECT: !DEBUG_MOD ? 60*1000 : 20*1000
 }
 
 
@@ -53,6 +56,8 @@ module.exports = Object.freeze({
   E_PLAYER_DATA  : "get_player",
   E_TIMER        : "get_timer",
   E_ERROR        : "error",
+
+  E_RECONNECT    : "reconnect",
 
 
 

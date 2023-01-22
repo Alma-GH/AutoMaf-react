@@ -29,6 +29,7 @@ class Room {
   static TK_RT_VOTE = "timer_key_realtime_vote"
 
   // static TK_SECRET = "timer_key_secret"
+  static TK_RECONNECT = "timer_key_reconnect_"
 
 
   gameOptions
@@ -121,7 +122,7 @@ class Room {
     // if(!this.players.length)
     //   Server.closeRoom(this.roomID)
     //temp
-    this.inGame = false
+    this.stopGame()
 
     const l = this.getLog()
     l.setLog(ChatLog.WHO_LOG, l.getLogPhraseByQuitPlayer(player))
@@ -176,8 +177,17 @@ class Room {
   setTimerID(cb, timeout,key){
     this.timer[key] = setInterval(cb, timeout)
   }
+  setTimeoutID(cb, timeout,key){
+    this.timer[key] = setTimeout(cb, timeout)
+  }
   clearTimer(key){
+    if(![Room.TK_START, Room.TK_PHASE, Room.TK_JUDGED, Room.TK_RT_VOTE].includes(key))
+      return
     clearInterval(this.getTimerIdByKey(key))
+    delete this.timer[key]
+  }
+  clearTimeout(key){
+    clearTimeout(this.getTimerIdByKey(key))
     delete this.timer[key]
   }
   clearAllTimers(){

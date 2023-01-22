@@ -17,6 +17,8 @@ class MessageCreator{
   static E_PLAYER_DATA  = "get_player"
   static E_TIMER        = "get_timer"
 
+  static E_RECONNECT    = "reconnect"
+
   setSettings(roomID, voteType){
     return {
       event: MessageCreator.E_SETTINGS,
@@ -105,6 +107,13 @@ class MessageCreator{
     }
   }
 
+  reconnect(roomID, playerID){
+    return {
+      event: MessageCreator.E_RECONNECT,
+      roomID,
+      idPlayer: playerID
+    }
+  }
 
 
   //TODO: add sendMsg

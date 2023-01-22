@@ -8,7 +8,8 @@ import ErrorMessage from "./components/Notification/ErrorMessage";
 import AppRouter from "./components/AppRouter";
 import MessageCreator from "./tools/Services/MessageCreator";
 import GameService from "./tools/Services/GameService";
-import {DEBUG_LOG, S_VOTE_TYPE_REALTIME} from "./tools/const";
+import {DEBUG_LOG, S_LOST_PLAYER, S_LOST_ROOM, S_VOTE_TYPE_REALTIME} from "./tools/const";
+import Reconnect from "./components/Reconnect";
 
 
 function App() {
@@ -46,8 +47,15 @@ function App() {
     }
 
     window.onunload = ()=>{
-      if(Socket.websocket && room && player)
-        quit()
+      if(Socket.websocket && player && room){
+        // quit()
+        if(GameService.getGame(room)){
+          localStorage.setItem(S_LOST_ROOM, GameService.getRoomID(room))
+          localStorage.setItem(S_LOST_PLAYER, GameService.getID(player))
+        }else{
+          quit()
+        }
+      }
     }
 
   },[room, player])
@@ -63,6 +71,7 @@ function App() {
                   <AppRouter/>
                   {DEBUG_LOG && <Debug/>}
                   <ErrorMessage {...error}/>
+                  <Reconnect/>
                 </div>
               </SettingsContext.Provider>
             </CardContext.Provider>

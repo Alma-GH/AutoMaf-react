@@ -1,0 +1,34 @@
+@import "./../../../../style/variables";
+
+.parent{
+
+  $m: 30px;
+
+  position: absolute;
+  right: $m*3;
+  top: $m;
+
+
+
+  h1{
+    @extend %font;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+    color:black;
+    -webkit-text-stroke: 0 black;
+    cursor: default;
+  }
+
+
+  & .pass{
+    min-width: 50px;
+    background-color: black;
+    &:hover{
+      background-color: initial;
+    }
+  }
+
+  //@extend %debugBack;
+
+}
+

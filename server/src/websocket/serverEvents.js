@@ -43,7 +43,7 @@ function find_room(data){
   const needRoom      = Server.getRoomByName(dataFR.nameRoom)
   //TODO: Room.tryConnect()
   const rightPass = needRoom.getPass() ? needRoom.getPass() === dataFR.passRoom : true
-  const inGame = needRoom.getStatus() || needRoom.hasAnyTimer()
+  const inGame = needRoom.getStatus() || needRoom.getTimerIdByKey(Room.TK_START)
 
   if(!rightPass)
     throw new Error(EM_WRONG_PASS)
@@ -157,6 +157,16 @@ function quit(data){
 }
 
 
+function get_room(data){
+  const dataGR = data
+
+  const needRoom = Server.getRoomByID(dataGR.roomID)
+  const player = needRoom.getPlayerByID(dataGR.idPlayer)
+
+  return [needRoom,player]
+}
+
+
 module.exports = {
   set_settings,
   create_room,
@@ -167,5 +177,6 @@ module.exports = {
   readiness,
   vote_night,
   vote,
-  quit
+  quit,
+  get_room
 }

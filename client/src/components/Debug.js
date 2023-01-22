@@ -2,15 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {RoomContext, ServerTimerContext, SettingsContext} from "../context/contexts";
 import Socket from "../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
-import {
-  LINK_CREATE,
-  LINK_ENTER,
-  LINK_FIND,
-  LINK_GAME,
-  LINK_PREPARE,
-  LINK_START,
-  S_VOTE_TYPE_CLASSIC, S_VOTE_TYPE_REALTIME
-} from "../tools/const";
+import {LINK_CREATE, LINK_ENTER, LINK_FIND, LINK_GAME, LINK_PREPARE, LINK_START} from "../tools/const";
 import GameService from "../tools/Services/GameService";
 import MessageCreator from "../tools/Services/MessageCreator";
 import {useConnection} from "../hooks/useConnection";
@@ -246,7 +238,8 @@ const Debug = () => {
     document.addEventListener("keydown", (e)=>{
 
       if(e.ctrlKey){
-        e.preventDefault()
+        if(["1","2","3"].includes(e.key))
+          e.preventDefault()
         switch (e.key){
           case "1":
             connect1()

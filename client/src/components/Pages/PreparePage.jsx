@@ -15,6 +15,7 @@ import {useRedirect} from "../../hooks/useRedirect";
 import {errorByTimer} from "../../tools/func";
 import CreateBtnSettings from "../main/CreateComps/CreateBtnSettings";
 import CreateSettings from "../main/CreateComps/CreateSettings";
+import PrepareInfo from "../main/PrepareComps/PrepareInfo/PrepareInfo";
 
 
 const PreparePage = () => {
@@ -59,6 +60,8 @@ const PreparePage = () => {
     ()=>{
       const mess = "Упс. Сокет закрылся(мб. проблема на сервере)"
       errorByTimer(mContext.setError, mess, "out socket", 3000)
+      context.setRoom(null)
+      context.setPlayer(null)
     }
   )
 
@@ -88,6 +91,7 @@ const PreparePage = () => {
 
 
       <ModalQuit isOpen={modal} onClose={closeModal}/>
+      <PrepareInfo/>
     </div>
   );
 };

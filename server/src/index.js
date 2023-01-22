@@ -12,17 +12,36 @@ const {
   T_VOTE_NIGHT, TO_VOTE_NIGHT,
   T_VOTE, TO_VOTE,
   T_ACCESS_VOTE_MIN, T_ACCESS_VOTE_MAX, TO_ACCESS_VOTE,
+  TO_RECONNECT
 } = require("./utils/const.js");
 const WSSEvent = require("./websocket/serverEvents.js");
 const WSTimer = require("./websocket/timers.js");
 const {broadcast, broadcastClear, single} = require("./websocket/send.js");
 const {PORT, server, wss} = require("./websocket/websocket.js");
 const Room = require("./class/Room.js");
-const {E_SETTINGS, E_STOP_GAME, EM_QUIT_ON_GAME} = require("./utils/const");
+const {E_SETTINGS, E_STOP_GAME, EM_QUIT_ON_GAME, E_RECONNECT} = require("./utils/const");
 
 
 
 wss.on('connection', function connection(ws) {
+
+  function quit(){
+    const data = {
+      roomID:ws.id,
+      idPlayer:ws.uid
+    };
+    const [room, errorTimer, errorQuit] = WSSEvent.quit(data)
+    delete ws.id
+    delete ws.uid
+
+    broadcastClear({event:E_QUIT, room}, room.roomID)
+
+    broadcast({event:E_TIMER, timer: {name:Room.TK_START, time:0}}, room.roomID)
+    if(errorTimer)
+      broadcast({event: E_ERROR,message: EM_UNEXPECTED_QUIT}, room.roomID)
+    else if(errorQuit)
+      broadcast({event: E_ERROR,message: EM_UNEXPECTED_QUIT}, room.roomID)
+  }
 
   ws.on('message', function (message) {
     try{
@@ -84,6 +103,7 @@ wss.on('connection', function connection(ws) {
             WSTimer.startTimerToNextPhaseOnVoteNight(room,T_VOTE_NIGHT,TO_VOTE_NIGHT)
           break;
         case E_VOTE:
+          let vote
           [room, vote] = WSSEvent.vote(message)
           broadcastClear({event:E_VOTE, room}, room.roomID)
           const game = room.getGame()
@@ -103,8 +123,27 @@ wss.on('connection', function connection(ws) {
           }
           break;
         case E_QUIT:
-          ws.close();
+          // ws.close();
+          quit()
           break;
+
+        case E_RECONNECT:
+          //TODO: add wssevent reconnect
+          [room,player] = WSSEvent.get_room(message)
+          room.clearTimeout(Room.TK_RECONNECT+player.getID())
+          ws.id = room.roomID
+          ws.uid = player.getID()
+          if(room.game)
+            broadcastClear({event:E_RECONNECT, room}, room.roomID)
+          else
+            broadcast({event:E_RECONNECT, room},room.roomID)
+          single(ws, {event:E_PLAYER_DATA, player})
+          break;
+
+        default:
+          console.group("UNKNOWN MESSAGE")
+          console.log({message})
+          console.groupEnd()
       }
 
     }catch (e){
@@ -115,24 +154,16 @@ wss.on('connection', function connection(ws) {
 
   ws.on('close', function (){
     try {
-      let room
-      let errorTimer
-      let errorQuit
       const data = {
         roomID:ws.id,
         idPlayer:ws.uid
       };
-      [room, errorTimer, errorQuit] = WSSEvent.quit(data)
-      if(room.game)
-        broadcastClear({event:E_QUIT, room}, room.roomID)
+      const [room,player] = WSSEvent.get_room(data)
+      if(!room.getStatus())
+        quit()
       else
-        broadcast({event:E_QUIT, room},room.roomID)
+        room.setTimeoutID(quit, TO_RECONNECT, Room.TK_RECONNECT+data.idPlayer)
 
-      broadcast({event:E_TIMER, timer: {name:Room.TK_START, time:0}}, room.roomID)
-      if(errorTimer)
-        broadcast({event: E_ERROR,message: EM_UNEXPECTED_QUIT}, room.roomID)
-      else if(errorQuit)
-        broadcast({event: E_ERROR,message: EM_UNEXPECTED_QUIT}, room.roomID)
 
     }catch (e){
       console.log(e)

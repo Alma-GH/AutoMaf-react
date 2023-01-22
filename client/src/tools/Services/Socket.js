@@ -1,10 +1,11 @@
-import {LOCAL_LINK, PROD, SERVER_LINK} from "../const";
+import {LOCAL_LINK, PROD, SERVER_LINK, TIME_CALL_TO_SERVER} from "../const";
 
 const log = !PROD
 
 class Socket{
 
   websocket = null
+  beaconInterval = null
 
   connect(onopen,onmessage,onclose){
 
@@ -39,13 +40,23 @@ class Socket{
     }
     this.websocket.onclose= () => {
       console.log('Socket закрыт')
+      clearInterval(this.beaconInterval)
       this.websocket = null
       onclose()
     }
     this.websocket.onerror = () => {
       console.log('Socket-произошла ошибка')
     }
+
   }
+
+  setBeacon(cb){
+    clearInterval(this.beaconInterval)
+    this.beaconInterval = setInterval(cb, TIME_CALL_TO_SERVER)
+  }
+
+
+
 
   send(string){
     if(!this.websocket)

@@ -57,6 +57,12 @@ class GameService {
   getRoomStatus(room){
     return room?.inGame
   }
+  getNameRoom(room){
+    return room?.name
+  }
+  getPassword(room){
+    return room?.password
+  }
   getLog(room){
     return room?.log?.chat
   }
@@ -164,7 +170,7 @@ class GameService {
   }
 
   getTableVotes(game){
-    if(!game?.tableVotes)
+    if(!game?.tableVotes || !Object.keys(game.tableVotes).length)
       return null
 
     const tableFromServer = new Map(game.tableVotes)

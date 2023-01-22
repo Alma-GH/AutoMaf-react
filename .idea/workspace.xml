@@ -3,30 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/AppRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/AppRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Debug.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Debug.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/PreparePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/CreateComps/CreateSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/CreateComps/CreateSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/LogInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/LogInfo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective/GameObjective.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective/GameObjective.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.Player.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.Player.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/hooks/useConnection.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/hooks/useConnection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/style/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/Services/GameService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/GameService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/Socket.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/ChatLog.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/ChatLog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Onside.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Onside.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/tools/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/func.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/class/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCGame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/tests.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/tests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/utils/classU.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/classU.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/utils/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/const.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/websocket/send.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/send.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/websocket/serverEvents.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/serverEvents.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/websocket/timers.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/timers.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,11 +79,11 @@
       <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameTableCard" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\PrepareComps\PrepareInfo" />
+      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\PrepareComps" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src\websocket" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src\server_func" />
       <recent name="C:\Forall\F_VSC\react_automaf\server\src\test" />
-      <recent name="C:\Forall\F_VSC\react_automaf\server\src\utils" />
-      <recent name="C:\Forall\F_VSC\react_automaf\client\src\components\main\GameComps" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.Game.test.js">
@@ -173,7 +167,11 @@
       <workItem from="1673869168722" duration="7015000" />
       <workItem from="1673959108091" duration="13062000" />
       <workItem from="1674040447665" duration="5359000" />
-      <workItem from="1674056302644" duration="1422000" />
+      <workItem from="1674056302644" duration="3094000" />
+      <workItem from="1674143494086" duration="7004000" />
+      <workItem from="1674234266889" duration="11287000" />
+      <workItem from="1674306363689" duration="13488000" />
+      <workItem from="1674417071307" duration="664000" />
     </task>
     <servers />
   </component>
@@ -191,6 +189,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
