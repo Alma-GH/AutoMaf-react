@@ -66,7 +66,6 @@ const GameTableCardPlayer = ({player}) => {
     if(!phase)
       return vote
 
-    //DEP NIGHT PHASE
     return GameService.isNight(game) ? voteNight : vote
   }
 
@@ -128,8 +127,8 @@ const GameTableCardPlayer = ({player}) => {
   return (
     <div className={style.join(" ")} onClick={getFunction(phase)}>
 
-      {//DEP NIGHT PHASE
-        (numVotes>0 || (nightVotes>0 && (GameService.getRole(me,game) === GameService.NIGHT_MAP[phase]))) &&
+      {
+        (numVotes>0 || (nightVotes>0 && (GameService.isPlayerToMatchNightPhase(me,game)))) &&
         <div className={cls.counter}>{numVotes || nightVotes}</div>
       }
 

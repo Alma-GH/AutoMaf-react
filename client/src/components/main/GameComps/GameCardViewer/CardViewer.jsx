@@ -19,7 +19,7 @@ const CardViewer = ({enabled=true, role}) => {
   const {visCard, setVisCard} = useContext(CardContext)
   let styleCard = [cls.parent]
   if(SECOND_STYLE){
-    //DEP NIGHT PHASE
+    //DEP NIGHT PHASES 2
     styleCard.push(cls.parent_v2)
     if(role === CARD_MAFIA)
       styleCard.push(cls.maf)
@@ -31,7 +31,7 @@ const CardViewer = ({enabled=true, role}) => {
 
 
   function getImageByRole(role){
-    //DEP NIGHT PHASE
+    //DEP NIGHT PHASES 4
     const map = {
       [CARD_MAFIA]:
         <>

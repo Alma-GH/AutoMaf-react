@@ -138,13 +138,13 @@ function totalStop(game){
   const sus = alive[0]
   debugger
   let judged
-  while(!game._isEndVote()){
+  while(!game.isEndVote()){
     judged = game.getPlayers().find(player=>player.isJudged())
     alive.forEach(player=>{
       const conds = (
         !player.isJudged() &&
         player.getVote()===null &&
-        !game._isEndVote()
+        !game.isEndVote()
       )
       if(conds && sus.isJudged()){
         game.setVoteWithoutNextPhase(player, sus)

@@ -20,6 +20,7 @@ function broadcastClear(message,id){
   //tmp
   const table = game?.tableVotes
   const votes = game?.players.map(player=>player.vote)
+  const nightVotes = game?.players.map(player=>player.voteNight)
   const log   = game?.log
   const timer = room.timer
 
@@ -35,6 +36,8 @@ function broadcastClear(message,id){
     game.players.forEach(player=>{
       if(player.vote instanceof Onside)
         player.vote = player.vote._id
+      if(player.voteNight instanceof Onside)
+        player.voteNight = player.voteNight._id
     })
     game.log = undefined
   }
@@ -47,6 +50,7 @@ function broadcastClear(message,id){
     game.tableVotes = table
     game.players.forEach((player,ind)=> {
       player.vote = votes[ind]
+      player.voteNight = nightVotes[ind]
     })
     game.log = log
   }

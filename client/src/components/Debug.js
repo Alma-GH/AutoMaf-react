@@ -36,6 +36,7 @@ const Debug = () => {
   const [find, setFind] = useState("room")
   const [votes, setVotes] = useState("")
 
+  const [settingsJSON, setSettingsJSON] = useState("")
   const [voteType, setVoteType] = useState("")
 
   const nav = useNavigate()
@@ -45,6 +46,7 @@ const Debug = () => {
   const timer = useContext(ServerTimerContext).timer
   const room    = context.room
   const player  = context.player
+  const settings = sContext.settings
 
 
   function getRoomData(){
@@ -61,18 +63,15 @@ const Debug = () => {
     if(room)
       return
 
-    const message = {
-      event: "create_room",
+    const message = MessageCreator.createRoom(
+      "Leader",
+      create,
+      max,
+      false,
+      "",
+      sContext.settings
+    )
 
-      nameCreator: "Leader",
-
-      nameRoom: create,
-      existPassword: false,
-      password: "",
-      numPlayers: max,
-
-      gameOptions: sContext.settings
-    }
     Socket.send(JSON.stringify(message));
   }
 
@@ -229,7 +228,16 @@ const Debug = () => {
   }
 
   function setSettings(){
-    const message = MessageCreator.setSettings(GameService.getRoomID(room), voteType)
+    const settingsObj = JSON.parse("{"+settingsJSON+"}")
+    console.log({settingsObj})
+    const message = MessageCreator.setSettings(
+      GameService.getRoomID(room),
+      settingsObj.voteType,
+      settingsObj.autoRole,
+      settingsObj.numMaf,
+      settingsObj.numDet,
+      settingsObj.numDoc
+    )
     Socket.send(JSON.stringify(message))
   }
 
@@ -259,6 +267,7 @@ const Debug = () => {
   const roomDATA = getRoomData()
   const playerDATA = JSON.stringify(player)
   const timerDATA = JSON.stringify(timer,null,2)
+  const settingsDATA = JSON.stringify(settings, null, 2)
   return (
     <div style={{...styleCont, right: vis ? "0" : "-30vw",}}>
 
@@ -295,6 +304,14 @@ const Debug = () => {
               cols="30"
               rows="4"
             />
+
+            <h5>SETTINGS:</h5>
+            <textarea
+              value={settingsDATA!==null ? settingsDATA : "null"}
+              readOnly
+              cols="30"
+              rows="10"
+            />
           </div>
         </div>
 
@@ -327,10 +344,7 @@ const Debug = () => {
               <button onClick={vote}>vote</button>
             </li>
             <li>
-              <input
-                type="text" placeholder="vote type"
-                value={voteType} onChange={e=>setVoteType(e.target.value)}
-              />
+              <textarea value={settingsJSON} onChange={e=>setSettingsJSON(e.target.value)}/>
               <button onClick={setSettings}>settings</button>
             </li>
           </ul>

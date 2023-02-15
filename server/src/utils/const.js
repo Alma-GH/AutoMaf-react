@@ -1,5 +1,5 @@
 
-const PROD      = true
+const PROD      = false
 const DEBUG_MOD = true && !PROD
 
 const DEF_PLAYERS = {
@@ -79,6 +79,9 @@ module.exports = Object.freeze({
   EM_PASS_ROOM         : "Слишком короткий пароль",
   EM_START_GAME        : `Не хватает игроков для игры(${DEF_PLAYERS.DEF_MIN_PLAYERS} мин.)`,
   EM_START_ALREADY     : "Нельзя начать во время таймера",
+  EM_MANY_MAF          : "Слишком большое количество членов мафии",
+  EM_MANY_SPEC         : "Слишком большое количество спец. ролей",
+  EM_NO_MAF            : "Добавьте хотя бы одного члена мафии",
 
   //Server
   EM_FIND_ROOM         : "Такой комнаты нет",

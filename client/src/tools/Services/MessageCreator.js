@@ -19,11 +19,15 @@ class MessageCreator{
 
   static E_RECONNECT    = "reconnect"
 
-  setSettings(roomID, voteType){
+  setSettings(roomID, voteType, autoRole, numMaf, numDet, numDoc){
     return {
       event: MessageCreator.E_SETTINGS,
       roomID,
-      voteType
+      voteType,
+      autoRole,
+      numMaf,
+      numDet,
+      numDoc
     }
   }
   startGame(roomID){
@@ -49,7 +53,12 @@ class MessageCreator{
       password: pass,
       numPlayers: players,
 
-      gameOptions:options
+      gameOptions: {
+        ...options,
+        numMaf: +options.numMaf,
+        numDet: +options.numDet,
+        numDoc: +options.numDoc
+      }
     }
   }
   findRoom(finder, room, pass){

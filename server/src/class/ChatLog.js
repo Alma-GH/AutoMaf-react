@@ -5,7 +5,7 @@ class ChatLog{
   static WHO_LOG = "Log"
   static WHO_HOST = "Ведущий"
 
-  //DEP NIGHT PHASES
+  //DEP NIGHT PHASES 3
   static MAP_PHRASES_BY_START_PHASE = {
     [Game.PHASE_DAY_DISCUSSION]: "Жду готовности",
     [Game.PHASE_NIGHT_MAFIA]: "Город засыпает... Просыпается мафия. И делает свой выбор",
@@ -71,6 +71,9 @@ class ChatLog{
   }
   getHostPhraseByDeadPlayer(player){
     return `... игрока ${player.getName()}. Он может дать последнее слово.`
+  }
+  getHostPhraseOnZeroDeadPlayers(){
+    return "... новых мертвых игроков. Все выжили."
   }
   getHostPhraseByJailed(player){
     return `Игрока ${player.getName()} посадили... `

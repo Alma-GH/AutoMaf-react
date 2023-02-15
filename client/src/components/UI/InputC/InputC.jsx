@@ -1,7 +1,7 @@
 import React from 'react';
 import cls from "./InputC.module.scss"
 
-const InputC = ({val,setVal,placeholder,enterCB}) => {
+const InputC = ({val,setVal,placeholder,enterCB, type="text"}) => {
 
   function pressEnter(e){
     const isEnter     = e.key === "Enter"
@@ -11,7 +11,7 @@ const InputC = ({val,setVal,placeholder,enterCB}) => {
   }
 
   return (
-    <input type="text"
+    <input type={type}
            placeholder={placeholder}
            value={val}
            onChange={e => setVal(e.target.value)}

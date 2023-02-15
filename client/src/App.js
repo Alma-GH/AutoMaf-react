@@ -8,7 +8,7 @@ import ErrorMessage from "./components/Notification/ErrorMessage";
 import AppRouter from "./components/AppRouter";
 import MessageCreator from "./tools/Services/MessageCreator";
 import GameService from "./tools/Services/GameService";
-import {DEBUG_LOG, S_LOST_PLAYER, S_LOST_ROOM, S_VOTE_TYPE_REALTIME} from "./tools/const";
+import {DEBUG_LOG, DEF_ERROR, DEF_SETTINGS, S_LOST_PLAYER, S_LOST_ROOM} from "./tools/const";
 import Reconnect from "./components/Reconnect";
 
 
@@ -20,15 +20,10 @@ function App() {
 
   const [timer, setTimer] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState({
-    visible: false,
-    message: ""
-  })
+  const [error, setError] = useState(DEF_ERROR)
 
   const [visCard, setVisCard] = useState(false);
-  const [settings, setSettings] = useState({
-    voteType: S_VOTE_TYPE_REALTIME
-  });
+  const [settings, setSettings] = useState(DEF_SETTINGS);
 
   useEffect(()=>{
 

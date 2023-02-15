@@ -147,7 +147,7 @@ function startTimerToGame(time, timeout, room){
 
 function startTimerToNextPhaseOnVote(room,time,timeout){
   //TODO: condition on some suspects
-  const choice = room.getGame()._choiceVotes()
+  const choice = room.getGame().choiceVotes()
 
   const startLog = log=>{
     //TODO: mb add log.setLog(ChatLog.WHO_HOST, `${numVotes} из ${all}`)
@@ -171,9 +171,14 @@ function startTimerToNextPhaseOnVote(room,time,timeout){
 function startTimerToNextPhaseOnVoteNight(room,time,timeout){
   const game = room.getGame()
   const phase = game.getPhase()
-  const choice = phase===Game.PHASE_NIGHT_MAFIA
-    ? game._choiceVotesNight()
-    : game.getPlayersInjured().find(player=>player.isLive())
+  const choice = game.choiceVotesNight()
+  const deadPlayer = phase===Game.PHASE_NIGHT_MAFIA
+    ? choice
+    : game.getPlayersInjured().find(player=>{
+      if(phase === Game.PHASE_NIGHT_DOCTOR && choice === player)
+        return false
+      return player.isLive()
+    })
 
   const startLog = log=>{
 
@@ -183,14 +188,23 @@ function startTimerToNextPhaseOnVoteNight(room,time,timeout){
       log.setLog(ChatLog.WHO_HOST, "К сожалению город просыпается без ...")
   }
   const endLog = log=>{
-    //TODO: change if doctor heal him
-    if(game.isLastNightPhase())
-      log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByDeadPlayer(choice))
+    if(game.isLastNightPhase()){
+      if(deadPlayer)
+        log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByDeadPlayer(deadPlayer))
+      else
+        log.setLog(ChatLog.WHO_HOST, log.getHostPhraseOnZeroDeadPlayers())
+    }
+
   }
   const nextPhase = game=>{
     game.nextPhaseByNightVote()
     newPhaseLog(room)
-    if(game.isNightPhase() && !game.havePlayersOnNightPhase())
+    const isNight = game.isNightPhase()
+    const noPlayers =!game.havePlayersOnNightPhase()
+    const alreadyDetected = game.allAlreadyDetected()
+    const isDetNight = (game.getPhase() === Game.PHASE_NIGHT_DETECTIVE)
+
+    if(isNight && (noPlayers || (alreadyDetected && isDetNight)))
       startHideTimerToNextPhase(room,time,timeout)
     gameEndLog(room)
   }
@@ -234,7 +248,7 @@ function controlTimerToAccessVote(room,time,timeout){
   const game = room.getGame()
 
   //TODO: mb bag
-  if(game._isEndVote()){
+  if(game.isEndVote()){
     if(!room.getTimerIdByKey(Room.TK_RT_VOTE))
       startTimerToAccessVote(room, time, timeout)
   }else{

@@ -12,7 +12,8 @@ const {
 } = require("../../utils/const.js");
 const Player = require("../Player.js");
 const Server = require("../Server.js");
-const Game = require("../Game"); //TODO: check on error
+const Game = require("../Game");
+const {EM_MANY_MAF, EM_MANY_SPEC, EM_NO_MAF} = require("../../utils/const"); //TODO: check on error
 
 
 
@@ -138,20 +139,57 @@ class TypeChecker{
 
     const isObj = typeof options === "object"
 
+    const needKeys = [
+      "voteType",
+      "autoRole",
+      "numMaf",
+      "numDoc",
+      "numDet"
+    ] //TODO: change for more options
     const numKeys = Object.keys(options).length
-    const correctKeys =
-      "voteType" in options //TODO: change for more options
+    const correctKeys = needKeys.every(key=>key in options)
+    const checksNumber = [
+      typeof options["numMaf"],
+      typeof options["numDet"],
+      typeof options["numDoc"]
+    ].every(type=>type==="number")
+    const checksString = typeof options["voteType"] === "string"
+    const checksBool = typeof options["autoRole"] === "boolean"
+    const typeChecks = checksString && checksNumber && checksBool
 
-    return isObj && correctKeys && numKeys === 1 //TODO: change for more options
+    return isObj && correctKeys && (numKeys === needKeys.length) && typeChecks
   }
-  check_setOptions(...args){
+  check_setOptions(room, isStart,...args){
     if(!this.checkArgs_setOptions(...args))
       throw new Error("incorrect options")
 
     const opt = args[0]
 
+    //DEP NIGHT PHASES 3
+    const numPlayers = isStart ? room.getPlayers().length : room.getMaxPlayers()
+    const numMaf = opt.numMaf
+    const numDoc = opt.numDoc
+    const numDet = opt.numDet
+    const autoRole = opt.autoRole
+
+    const manySpecRoles = numMaf + numDoc + numDet >= numPlayers
+    const manyMaf = numMaf>=numPlayers/2
+    const noMaf   = numMaf === 0
+
+
     if(![Game.VOTE_TYPE_REALTIME, Game.VOTE_TYPE_CLASSIC, Game.VOTE_TYPE_FAIR].includes(opt.voteType))
       throw new Error("vote type in options not exist")
+    if(![opt.numMaf, opt.numDet, opt.numDoc].every(num => num>= 0))
+      throw new Error("number players with role < 0")
+    if(!autoRole){
+      if(manyMaf)
+        throw new Error(EM_MANY_MAF)
+      if(manySpecRoles)
+        throw new Error(EM_MANY_SPEC)
+      if(noMaf)
+        throw new Error(EM_NO_MAF)
+    }
+
   }
 
 

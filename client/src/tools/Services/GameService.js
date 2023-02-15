@@ -20,7 +20,7 @@ import imgButterfly from "../../assets/imgs/butterfly-card.png"
 
 class GameService {
 
-  //DEP NIGHT PHASE
+  //DEP NIGHT PHASES 4
   IMG_MAP = {
     [CARD_MAFIA]: !SECOND_STYLE ? imgMafia : imgMafia2,
     [CARD_CIVIL]: !SECOND_STYLE ? imgCivil : imgCivil2,
@@ -91,7 +91,7 @@ class GameService {
     return (game ? game.phasePath[game.phaseIndex+1] : null)
   }
   getPhaseRus(game){
-    //DEP NIGHT PHASE
+    //DEP NIGHT PHASES 4
     const map = {
       [PHASE_PREPARE]: "Подготовка",
       [PHASE_DAY_DISCUSSION]: "День(Обсуждение)",
@@ -146,7 +146,7 @@ class GameService {
   }
   numNightVotes(player,game){
     const all = this.getPlayers(game)
-    return all?.filter(pl=>this.getID(pl.voteNight)===this.getID(player)).length
+    return all?.filter(pl=>pl.voteNight===this.getID(player)).length
   }
   getRole(player,game){
     const find = this.getPlayers(game)?.find(pl=>pl._id === this.getID(player))

@@ -12,6 +12,17 @@ import {
 } from "../../../../tools/const";
 import cls from "./GameLog.module.scss";
 
+
+const mapLabelByPhase = {
+  [PHASE_DAY_DISCUSSION]: "Начало игры",
+
+  [PHASE_NIGHT_MAFIA]: "Следующий день",
+  [PHASE_DAY_SUBTOTAL]: "Промежуточный итог",
+  [PHASE_DAY_TOTAL]: "Итог"
+}
+
+
+
 const LogInfo = () => {
   const context = useContext(RoomContext)
   const room = context.room
@@ -48,16 +59,7 @@ const LogInfo = () => {
 
 
   function getVoteLabel(phaseNext){
-    //DEP NIGHT PHASE
-    const map = {
-      [PHASE_DAY_DISCUSSION]: "Начало игры",
-
-      [PHASE_NIGHT_MAFIA]: "Следующий день",
-      [PHASE_DAY_SUBTOTAL]: "Промежуточный итог",
-      [PHASE_DAY_TOTAL]: "Итог"
-    }
-
-    return map[phaseNext]
+    return mapLabelByPhase[phaseNext]
   }
 
   function getEndLabel(end){

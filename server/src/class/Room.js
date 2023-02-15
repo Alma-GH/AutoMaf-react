@@ -51,7 +51,12 @@ class Room {
     this.log = new ChatLog()
     this.timer = {}
     this.gameOptions = {
-      voteType: Game.VOTE_TYPE_REALTIME
+      voteType: Game.VOTE_TYPE_REALTIME,
+
+      autoRole: true,
+      numDet: 1,
+      numDoc: 1,
+      numMaf: 1,
     }
   }
 
@@ -140,6 +145,7 @@ class Room {
   }
   startGame(){
     Checker.check_startGame(this)
+    Checker.check_setOptions(this, true,this.getOptions())
 
     this.game = new Game(this)
     this.inGame = true
@@ -156,8 +162,7 @@ class Room {
     return this.gameOptions
   }
   setOptions(options){
-    Checker.check_setOptions(options)
-
+    Checker.check_setOptions(this, false,options)
     this.gameOptions = options
   }
 

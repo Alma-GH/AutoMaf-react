@@ -1,6 +1,6 @@
 
 //DEBUG
-export const PROD                  = true
+export const PROD                  = false
 export const DEBUG_SERVER_COMMANDS = false && !PROD
 export const DEBUG_LOG             = true && !PROD
 export const DEBUG_REDIRECT        = false && !PROD
@@ -93,5 +93,19 @@ export const S_LOST_PLAYER = "lost player"
 
 //error message
 export const EM_VERSION = "Данная функция пока не доступна"
+
+//default objects
+export const DEF_SETTINGS = {
+  voteType: S_VOTE_TYPE_REALTIME,
+  autoRole: true,
+  numMaf: "",
+  numDet: "",
+  numDoc: ""
+}
+
+export const DEF_ERROR = {
+  visible: false,
+  message: ""
+}
 
 

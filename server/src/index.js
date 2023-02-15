@@ -91,7 +91,7 @@ wss.on('connection', function connection(ws) {
           room = WSSEvent.readiness(message)
           broadcastClear({event:E_READINESS, room}, room.roomID)
 
-          if(room.getGame()._allPlayersReady())
+          if(room.getGame().allPlayersReady())
             WSTimer.startTimerToNextPhaseOnReadiness(room,T_READY,TO_READY)
 
           break;
@@ -99,7 +99,7 @@ wss.on('connection', function connection(ws) {
           room = WSSEvent.vote_night(message)
           broadcastClear({event:E_VOTE_NIGHT, room}, room.roomID)
 
-          if(room.getGame()._allPlayersVoteNight())
+          if(room.getGame().allPlayersVoteNight())
             WSTimer.startTimerToNextPhaseOnVoteNight(room,T_VOTE_NIGHT,TO_VOTE_NIGHT)
           break;
         case E_VOTE:
@@ -118,7 +118,7 @@ wss.on('connection', function connection(ws) {
             WSTimer.controlTimerToAccessVote(room, time,TO_ACCESS_VOTE)
 
           }else{
-            if(game._isEndVote())
+            if(game.isEndVote())
               WSTimer.startTimerToNextPhaseOnVote(room,T_VOTE,TO_VOTE)
           }
           break;
@@ -133,10 +133,9 @@ wss.on('connection', function connection(ws) {
           room.clearTimeout(Room.TK_RECONNECT+player.getID())
           ws.id = room.roomID
           ws.uid = player.getID()
-          if(room.game)
-            broadcastClear({event:E_RECONNECT, room}, room.roomID)
-          else
-            broadcast({event:E_RECONNECT, room},room.roomID)
+
+          broadcastClear({event:E_RECONNECT, room}, room.roomID)
+
           single(ws, {event:E_PLAYER_DATA, player})
           break;
 

@@ -89,11 +89,15 @@ class TypeChecker{
     const voter = args[0]
     const val = args[1]
 
-    //DEP NIGHT PHASES
+    //DEP NIGHT PHASES 3
     let voters = null
+    let selfVote = false
+    let docPhase = false
+    let detPhase = false
     game._runFunctionsByPhase([
       ()=>{voters = game.getPlayersByRole(Onside.CARD_MAFIA)},
-      ()=>{voters = game.getPlayersByRole(Onside.CARD_DETECTIVE)}
+      ()=>{voters = game.getPlayersByRole(Onside.CARD_DETECTIVE); detPhase = true},
+      ()=>{voters = game.getPlayersByRole(Onside.CARD_DOCTOR); selfVote = true; docPhase = true}
     ])
 
     //now throw from ._runFunctionsByPhase
@@ -109,7 +113,13 @@ class TypeChecker{
     if(!voters.includes(voter))
       throw new Error(EM_VOTE)
 
-    if(voters.includes(val))
+    if(voters.includes(val) && !selfVote)
+      throw new Error(EM_VOTE_FOR)
+
+    if(docPhase && val ? game.lastDocVote === val.getID() : false)
+      throw new Error(EM_VOTE_FOR)
+
+    if(detPhase && val ? val.isDetected() : false)
       throw new Error(EM_VOTE_FOR)
   }
 

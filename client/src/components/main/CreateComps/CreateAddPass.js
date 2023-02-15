@@ -1,19 +1,12 @@
 import React from 'react';
-import CheckboxC from "../../UI/CheckboxC/CheckboxC";
 import InputC from "../../UI/InputC/InputC";
+import CheckboxAdd from "../../UI/CheckboxAdd/CheckboxAdd";
 
 const CreateAddPass = ({addPass,setAddPass, op, pass, setPass}) => {
   return (
-    <>
-      <CheckboxC choices={addPass} setChoices={setAddPass}/>
-      <div style={{ visibility: (op ? "visible" : "hidden") }}>
-        <InputC
-          placeholder="Пароль"
-          val={pass}
-          setVal={setPass}
-        />
-      </div>
-    </>
+    <CheckboxAdd choices={addPass} setChoices={setAddPass} op={op}>
+      <InputC placeholder="Пароль" val={pass} setVal={setPass}/>
+    </CheckboxAdd>
   );
 };
 

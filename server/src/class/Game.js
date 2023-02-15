@@ -78,6 +78,7 @@ class Game {
   pathIdVote
   //id Player
   subtotalChoice
+  lastDocVote
 
   log
 
@@ -86,18 +87,19 @@ class Game {
   constructor(room) {
     const players = room.getPlayers()
 
+    this.log = room.getLog()
+    this.options = room.getOptions()
+
     this.end = null
     this.players = []
     this._initPhase()
     this._initDay()
-    this._createCards(players.length)
+    this._createCards(players.length,this.options)
 
     this._initTable()
     this.pathIdVote = []
     this.subtotalChoice = null
-
-    this.log = room.getLog()
-    this.options = room.getOptions()
+    this.lastDocVote = null
   }
 
   /**
@@ -171,38 +173,59 @@ class Game {
   getCards(){
     return this.cards
   }
-  //DEP NIGHT PHASES
-  _createCards(numPlayers){
-    //recommend -> 0
-    let balance = numPlayers
-
-
-    //cards with mafia
-    let numMaf = 1
-    while(numPossibleVotes(numPlayers,numMaf)>2){
-      numMaf++
-    }
-
-    balance -= 5 * numMaf
-    //cards with detective
-    let numDet = 0
-    if(balance < 0)
-      numDet += 1
-
-    //cards with doctor
-    let numDoc = 0
-    //cards with butterfly
+  //DEP NIGHT PHASES 3
+  _createCards(numPlayers, options){
+    let numMaf = options.numMaf
+    let numDoc = options.numDoc
+    let numDet = options.numDet
     let numBut = 0
 
+    if(options.autoRole){
+      //recommend -> 0
+      let balance = numPlayers
+
+      numMaf = 1
+      numDoc = 0
+      numDet = 0
+      numBut = 0
+
+      //cards with mafia
+      while(numPossibleVotes(numPlayers,numMaf)>2){
+        numMaf++
+      }
+
+      balance -= 5 * numMaf
+
+      //cards with doctor
+      if(balance < 0)
+        numDoc += 1
+
+      //cards with detective
+      if(balance < -2)
+        numDet += 1
+
+      //cards with butterfly
+    }
+
+
+
     //create cards
-    const specInds = getSomeRandomInt(numPlayers,numMaf+numDet)
+    let specInds = getSomeRandomInt(numPlayers,numMaf+numDet+numDoc)
+
     const detIndsInSpecInds = getSomeRandomInt(specInds.length, numDet)
     const detInds = detIndsInSpecInds.map(ind=>specInds[ind-1])
+    specInds = specInds.filter(ind=>!detInds.includes(ind))
+
+    const docIndsInSpecInds = getSomeRandomInt(specInds.length, numDoc)
+    const docInds = docIndsInSpecInds.map(ind=>specInds[ind-1])
+    specInds = specInds.filter(ind=>!docInds.includes(ind))
 
     const cards = []
     for(let i = 1; i<numPlayers+1; i++){
       if(detInds.includes(i))
         cards.push(Onside.CARD_DETECTIVE)
+      else if(docInds.includes(i))
+        cards.push(Onside.CARD_DOCTOR)
       else if(specInds.includes(i))
         cards.push(Onside.CARD_MAFIA)
       else
@@ -232,10 +255,12 @@ class Game {
     return playerWithCard
   } //*
   getRoleToMatchNightPhase(){
+    //DEP NIGHT PHASES 3
     let role = Onside.CARD_MAFIA
     this._runFunctionsByPhase([
       ()=>{role = Onside.CARD_MAFIA},
       ()=>{role = Onside.CARD_DETECTIVE},
+      ()=>{role = Onside.CARD_DOCTOR},
     ])
     return role
   }
@@ -301,6 +326,9 @@ class Game {
   _detectPlayer(player){
     player.toDetect()
   }
+  _healPlayer(player){
+    player.heal()
+  }
   _initAllProperties(){
     this.getPlayers().forEach(player=>{
       player.miss()
@@ -314,13 +342,13 @@ class Game {
 
     player.ready()
 
-    if(this._allPlayersReady()){
+    if(this.allPlayersReady()){
       this._nextPhase()
       this._initReadiness()
     }
 
   }
-  _allPlayersReady(){
+  allPlayersReady(){
     const isPreparePhase = (this.getPhase() === Game.PHASE_PREPARE)
     return  (this.players.filter(player=>player.isReady()).length)
               ===
@@ -335,12 +363,11 @@ class Game {
 
     player.setVoteNight(val)
 
-    if(this._allPlayersVoteNight())
+    if(this.allPlayersVoteNight())
       this._actionOnVotesNight()
 
   }
-  _allPlayersVoteNight(){
-    //DEP NIGHT PHASES
+  allPlayersVoteNight(){
     //who vote
     let role = this.getRoleToMatchNightPhase()
 
@@ -351,22 +378,28 @@ class Game {
       && votes.every(vote=>vote===votes[0]))
   }
   _actionOnVotesNight(){
-    const choice = this._choiceVotesNight()
+    const choice = this.choiceVotesNight()
 
-    //DEP NIGHT PHASES
+    //DEP NIGHT PHASES 3
     this._runFunctionsByPhase([
       ()=>{this._injurePlayer(choice)},
       ()=>{
         if(this.havePlayersOnNightPhase())
           this._detectPlayer(choice)
       },
+      ()=>{
+        if(this.havePlayersOnNightPhase()){
+          this._healPlayer(choice)
+          this.lastDocVote = choice.getID()
+        }
+      },
     ])
 
     this._initVotesNight()
     this._nextPhase()
   }
-  _choiceVotesNight(){
-    if(this._allPlayersVoteNight()){
+  choiceVotesNight(){
+    if(this.allPlayersVoteNight()){
       const voter = this.getPlayersVotedNight()[0]
       return voter ? voter.getVoteNight() : null
     }
@@ -380,6 +413,20 @@ class Game {
     let role = this.getRoleToMatchNightPhase()
 
     return !!this.getPlayersByRole(role).filter(player=>player.isLive()).length
+  }
+  allAlreadyDetected(){
+    const numDetected = this
+      .getPlayersDetected()
+      .length
+    const numAliveDetective = this
+      .getPlayersByRole(Onside.CARD_DETECTIVE)
+      .filter(player=>player.isLive())
+      .length
+    const numAlive = this
+      .getPlayersAlive()
+      .length
+
+    return numDetected === (numAlive - numAliveDetective)
   }
   _initVotesNight(){
     this.getPlayers()
@@ -462,7 +509,7 @@ class Game {
     //nextJudged by timer
 
     //TODO: check pathID
-    if(this._isEndVote()){
+    if(this.isEndVote()){
       const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
       this._createPathIdFromTable(isSubTotal)
       this._actionOnVotes()
@@ -492,7 +539,7 @@ class Game {
       ? max1>whoShouldVote.length/2
       : max1>max2+numWhoUnVoted
   }
-  _isEndVote(){
+  isEndVote(){
     if(this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
       return this._allPlayersVote()
     else if(this.getPhase() === Game.PHASE_DAY_TOTAL)
@@ -502,7 +549,7 @@ class Game {
     //todo: clear table votes
 
     //decision is made
-    let choice = this._choiceVotes()
+    let choice = this.choiceVotes()
     if(choice){
       this._killPlayer(choice)
       this._initTable()
@@ -517,7 +564,7 @@ class Game {
     this._initVotes()
     this._nextPhase()
   }
-  _choiceVotes(){
+  choiceVotes(){
     if((this.pathIdVote.length === 1) && (this.getPhase() === Game.PHASE_DAY_TOTAL)){
       const suspectID = this.pathIdVote[0]
       return this.getPlayerByID(suspectID)
@@ -617,7 +664,7 @@ class Game {
     player.ready()
   } //*
   nextPhaseByReadyPlayers(){
-    if(this._allPlayersReady()){
+    if(this.allPlayersReady()){
       this._nextPhase()
       this._initReadiness()
     }
@@ -628,8 +675,18 @@ class Game {
     player.setVoteNight(val)
   } //*
   nextPhaseByNightVote(){
-    if(this._allPlayersVoteNight())
+    if(this.allPlayersVoteNight())
       this._actionOnVotesNight()
+    else{
+      //TODO: auto vote
+      const role = this.getRoleToMatchNightPhase()
+      const voters = this.getPlayersByRole(role).filter(player=>player.isLive())
+      const vote = this.getPlayersAlive().find(player=>player.getRole() !== role)
+      voters.forEach(voter=>voter.setVoteNight(vote))
+      this._actionOnVotesNight()
+      // throw new Error("nextPhaseByNightVote: players not voted")
+    }
+
   }
   setVoteWithoutNextPhase(player,val){
     Checker.check_setVote(this,player,val)
@@ -640,7 +697,7 @@ class Game {
     //nextJudged by timer
 
     //TODO: mb replace in nextPhaseByVote()
-    if(this._isEndVote()){
+    if(this.isEndVote()){
       const isSubTotal = (this.getPhase() === Game.PHASE_DAY_SUBTOTAL)
       this._createPathIdFromTable(isSubTotal)
       if(isSubTotal)
@@ -649,7 +706,7 @@ class Game {
 
   } //*
   nextPhaseByVote(){
-    if(this._isEndVote())
+    if(this.isEndVote())
       this._actionOnVotes()
   }
 

@@ -8,6 +8,10 @@ import {S_VOTE_TYPE_CLASSIC, S_VOTE_TYPE_FAIR, S_VOTE_TYPE_REALTIME} from "../..
 import MessageCreator from "../../../tools/Services/MessageCreator";
 import GameService from "../../../tools/Services/GameService";
 import Socket from "../../../tools/Services/Socket";
+import CheckboxC from "../../UI/CheckboxC/CheckboxC";
+import CheckboxAdd from "../../UI/CheckboxAdd/CheckboxAdd";
+import InputC from "../../UI/InputC/InputC";
+import {nonTypeComparisonFlatObjects} from "../../../tools/func";
 
 const select1 = { value: S_VOTE_TYPE_REALTIME, label: 'Realtime' }
 const select2 = { value: S_VOTE_TYPE_CLASSIC, label: 'Классическое' }
@@ -19,7 +23,8 @@ const CreateSettings = ({setOpenSettings}) => {
   const sContext = useContext(SettingsContext)
 
   const room = rContext?.room
-  const settings = room?.gameOptions || sContext.settings
+  const roomSettings = room?.gameOptions
+  const settings = sContext.settings
   const setNewSettings = sContext.setSettings
 
   const options = [
@@ -28,30 +33,36 @@ const CreateSettings = ({setOpenSettings}) => {
     // select3,
   ]
 
-  const [valSelect, setValSelect] = useState(settings
-      ? options.find(opt=>opt.value === settings.voteType)
-      : select1
-  )
-
-
   function setVoteType(select){
-
-    if(room){
-      const message = MessageCreator.setSettings(GameService.getRoomID(room),select.value)
-      Socket.send(JSON.stringify(message))
-    }
-
-    setValSelect(select)
+    setNewSettings({...settings, voteType: select.value})
+  }
+  function setAutoRole(choices){
+    const val = choices[0].value
+    setNewSettings({...settings, autoRole: val})
+  }
+  function typeMaf(val){
+    setNewSettings({...settings, numMaf: val})
+  }
+  function typeDet(val){
+    setNewSettings({...settings, numDet: val})
+  }
+  function typeDoc(val){
+    setNewSettings({...settings, numDoc: val})
   }
 
-  useEffect(()=>{
-
-    if(!room)
-      setNewSettings({
-        voteType: valSelect.value
-      })
-
-  }, [room, valSelect])
+  function saveSettings(){
+    if(room){
+      const message = MessageCreator.setSettings(
+        GameService.getRoomID(room),
+        settings.voteType,
+        settings.autoRole,
+        +settings.numMaf,
+        +settings.numDet,
+        +settings.numDoc
+      )
+      Socket.send(JSON.stringify(message))
+    }
+  }
 
   return (
     <div className="prepPage">
@@ -62,7 +73,7 @@ const CreateSettings = ({setOpenSettings}) => {
         <div className={clsWin.inputCont}>
           <Select
             options={options}
-            value={valSelect}
+            value={options.find(opt=>opt.value === settings.voteType)}
             onChange={setVoteType}
             placeholder={"Вид голосования"}
             classNames={{
@@ -71,10 +82,28 @@ const CreateSettings = ({setOpenSettings}) => {
               menu: () => clsWin.inSettingsMenu
             }}
           />
+          <CheckboxAdd
+            choices={[{name:"Авто баланс", value: settings.autoRole}]}
+            setChoices={setAutoRole}
+            op={!settings.autoRole}
+            contClass={clsWin.inputsNumbersRoles}
+          >
+            <InputC placeholder="К-во членов мафии" type={"number"} val={settings.numMaf} setVal={typeMaf}/>
+            <InputC placeholder="К-во детективов" type={"number"} val={settings.numDet} setVal={typeDet}/>
+            <InputC placeholder="К-во докторов" type={"number"} val={settings.numDoc} setVal={typeDoc}/>
+          </CheckboxAdd>
         </div>
 
         <div className={clsWin.btnCont}>
           <BtnText text="Назад" color="red" cb={()=>setOpenSettings(false)}/>
+          {room &&
+            <BtnText text="Сохранить" color="green"
+                     cb={()=>saveSettings()}
+                     disabled={nonTypeComparisonFlatObjects(roomSettings, settings)}
+            />
+          }
+
+
         </div>
 
       </WindowInput>
