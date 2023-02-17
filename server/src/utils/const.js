@@ -64,6 +64,7 @@ module.exports = Object.freeze({
   //error messages to client
   EM_WRONG_PASS        : "Неправильный пароль или название",
   EM_GAME_PROCESS      : "Игра уже начата",
+  EM_ENTER_AGAIN       : "Вы уже находитесь в этой комнате",
   EM_UNEXPECTED_QUIT   : "Выход игрока",
   EM_VOTE_ON_TIMER     : "Уже нельзя голосовать",
   EM_QUIT_ON_GAME      : "Кто-то вышел из игры",

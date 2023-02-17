@@ -1,6 +1,6 @@
 import "./style/App.scss"
 import {CardContext, MessageContext, RoomContext, ServerTimerContext, SettingsContext} from "./context/contexts";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Debug from "./components/Debug";
 import {BrowserRouter} from "react-router-dom";
 import Socket from "./tools/Services/Socket";
@@ -8,8 +8,9 @@ import ErrorMessage from "./components/Notification/ErrorMessage";
 import AppRouter from "./components/AppRouter";
 import MessageCreator from "./tools/Services/MessageCreator";
 import GameService from "./tools/Services/GameService";
-import {DEBUG_LOG, DEF_ERROR, DEF_SETTINGS, S_LOST_PLAYER, S_LOST_ROOM} from "./tools/const";
+import {DEBUG_LOG, DEF_ERROR, DEF_SETTINGS, S_LOST_PLAYER, S_LOST_ROOM, S_PLAYER_ID} from "./tools/const";
 import Reconnect from "./components/Reconnect";
+import ModalAlert from "./components/UI/Modal/ModalAlert";
 
 
 function App() {
@@ -24,6 +25,13 @@ function App() {
 
   const [visCard, setVisCard] = useState(false);
   const [settings, setSettings] = useState(DEF_SETTINGS);
+
+  useEffect(()=>{
+    if(room && player){
+      const id = GameService.getRoomID(room) + "_" + GameService.getID(player)
+      localStorage.setItem(S_PLAYER_ID,id)
+    }
+  }, [room, player])
 
   useEffect(()=>{
 

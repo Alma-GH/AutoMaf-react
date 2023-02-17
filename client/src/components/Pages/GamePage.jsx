@@ -13,7 +13,8 @@ import ModalQuit from "../UI/Modal/ModalQuit";
 import {useModal} from "../../hooks/useModal";
 import {useRedirect} from "../../hooks/useRedirect";
 import clsLoad from "./../../components/Notification/Loader.module.scss"
-import clsReadyBtn from "./../../components/UI/BtnText/BtnText.module.scss"
+import clsBtnText from "./../../components/UI/BtnText/BtnText.module.scss"
+import ModalAlert from "../UI/Modal/ModalAlert";
 
 const GamePage = () => {
 
@@ -105,7 +106,7 @@ const GamePage = () => {
         />
 
         <div className="btnCont">
-          <BtnText text="Выйти" color="red" cb={openModal}/>
+          <BtnText text="Выйти" color="red" cb={openModal} addCls={modal ? clsBtnText.hide : null}/>
           {end && GameService.isLeader(player, members)
             ? <>
               <BtnText text="Lobby" color="yellow" cb={returnInLobby}/>
@@ -115,7 +116,7 @@ const GamePage = () => {
                 text="Готов"
                 disabled={disabledBtnReady}
                 cb={readiness}
-                addCls={!disabledBtnReady ? clsReadyBtn.attention : null}
+                addCls={!disabledBtnReady ? clsBtnText.attention : null}
               />
           }
         </div>
@@ -132,8 +133,10 @@ const GamePage = () => {
       {sleep && <div className="gameBack"/>}
 
       {end &&
-        <StartLoader stage={tContext.timer.time}/>
+        <StartLoader stage={tContext.timer?.time}/>
       }
+
+      <ModalAlert/>
     </div>
   );
 };

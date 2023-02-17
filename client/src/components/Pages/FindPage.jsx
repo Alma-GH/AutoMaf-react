@@ -4,7 +4,7 @@ import BtnText from "../UI/BtnText/BtnText";
 import InputC from "../UI/InputC/InputC";
 import clsWin from "../main/WindowInput/WindowInput.module.scss"
 import Socket from "../../tools/Services/Socket";
-import {DEFAULT_NAME, LINK_START, S_NICK} from "../../tools/const";
+import {DEFAULT_NAME, LINK_START, S_NICK, S_PLAYER_ID} from "../../tools/const";
 import {useNavigate} from "react-router-dom";
 import MessageCreator from "../../tools/Services/MessageCreator";
 import {useConnection} from "../../hooks/useConnection";
@@ -26,7 +26,8 @@ const FindPage = () => {
 
   function findRoom(){
     const name = localStorage.getItem(S_NICK) || DEFAULT_NAME
-    const message = MessageCreator.findRoom(name, room, pass)
+    const id = localStorage.getItem(S_PLAYER_ID)
+    const message = MessageCreator.findRoom(name, room, pass, id)
 
     Socket.send(JSON.stringify(message));
     setPass("")

@@ -2,7 +2,16 @@ import React, {useContext, useEffect, useState} from 'react';
 import {RoomContext, ServerTimerContext, SettingsContext} from "../context/contexts";
 import Socket from "../tools/Services/Socket";
 import {useNavigate} from "react-router-dom";
-import {LINK_CREATE, LINK_ENTER, LINK_FIND, LINK_GAME, LINK_PREPARE, LINK_START} from "../tools/const";
+import {
+  LINK_CREATE,
+  LINK_ENTER,
+  LINK_FIND,
+  LINK_GAME,
+  LINK_PREPARE,
+  LINK_START,
+  S_NICK,
+  S_PLAYER_ID
+} from "../tools/const";
 import GameService from "../tools/Services/GameService";
 import MessageCreator from "../tools/Services/MessageCreator";
 import {useConnection} from "../hooks/useConnection";
@@ -37,7 +46,6 @@ const Debug = () => {
   const [votes, setVotes] = useState("")
 
   const [settingsJSON, setSettingsJSON] = useState("")
-  const [voteType, setVoteType] = useState("")
 
   const nav = useNavigate()
 
@@ -74,28 +82,20 @@ const Debug = () => {
 
     Socket.send(JSON.stringify(message));
   }
-
   function findRoom(){
     if(room)
       return
 
-    const message = {
-      event: "find_room",
-
-      nameFinder: "Finder" + new Date().getSeconds(),
-      nameRoom: find,
-      passRoom: ""
-    }
+    const message = MessageCreator.findRoom(
+      "Finder" + new Date().getSeconds(),
+      find,
+      "",
+      localStorage.getItem(S_PLAYER_ID)
+    )
     Socket.send(JSON.stringify(message));
   }
-
   function startGame(){
-    const message = {
-      event: "start_game",
-
-      roomID: room.roomID
-    }
-
+    const message = MessageCreator.startGame(room.roomID)
     Socket.send(JSON.stringify(message))
   }
 
@@ -103,35 +103,21 @@ const Debug = () => {
 
     const players = room.players
 
-    const messages = players.map((player,ind)=>{
-      return {
-        event: "choose_card",
-
-        roomID: room.roomID,
-
-        idPlayer: player._id,
-        cardIndex: ind,
-      }
-    })
+    const messages = players.map((player,ind)=>
+      MessageCreator.chooseCard(room.roomID, player._id, ind)
+    )
 
     messages.forEach(message=>{
       Socket.send(JSON.stringify(message))
     })
   }
-
   function allReady(){
 
     const players = room.players
 
-    const messages = players.map((player,ind)=>{
-      return {
-        event: "readiness",
-
-        roomID: room.roomID,
-
-        idPlayer: player._id,
-      }
-    })
+    const messages = players.map((player,ind)=>
+      MessageCreator.readiness(room.roomID, player._id)
+    )
 
     messages.forEach(message=>{
       Socket.send(JSON.stringify(message))
@@ -148,12 +134,14 @@ const Debug = () => {
 
     const speaker = GameService.getPlayers(game).find(player=>player.speak)
 
-    const message = MessageCreator
-        .vote(room.roomID,speaker._id, sus._id===speaker._id ? nextSus._id : sus._id)
+    const message = MessageCreator.vote(
+      room.roomID,
+      speaker._id,
+      sus._id===speaker._id ? nextSus._id : sus._id
+    )
 
     Socket.send(JSON.stringify(message))
   }
-
   function autoVote(){
 
     const game = GameService.getGame(room)
@@ -166,13 +154,15 @@ const Debug = () => {
     const nextSus = alive.find(pl=>pl._id!==sus._id)
 
     voters.forEach(voter=>{
-      const message = MessageCreator
-        .vote(room.roomID,voter._id, sus._id===voter._id ? nextSus._id : sus._id)
+      const message = MessageCreator.vote(
+        room.roomID,
+        voter._id,
+        sus._id===voter._id ? nextSus._id : sus._id
+      )
 
       Socket.send(JSON.stringify(message))
     })
   }
-
   function autoNightVote(){
 
     const game = GameService.getGame(room)
@@ -184,8 +174,11 @@ const Debug = () => {
       .find(pl=>!GameService.isPlayerToMatchNightPhase(pl,game))
 
     voters.forEach(voter=>{
-      const message = MessageCreator
-        .voteNight(room.roomID,voter._id, sus._id)
+      const message = MessageCreator.voteNight(
+        room.roomID,
+        voter._id,
+        sus._id
+      )
 
       Socket.send(JSON.stringify(message))
     })

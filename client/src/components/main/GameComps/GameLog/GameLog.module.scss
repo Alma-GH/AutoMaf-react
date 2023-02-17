@@ -27,6 +27,7 @@ $btnsWidth: 51px;
     width: 100%;
     padding: 10px;
     overflow: hidden;
+    overflow-y: scroll;
   }
 
   .info{
@@ -53,6 +54,7 @@ $btnsWidth: 51px;
 
     position: absolute;
     right: -$btnsWidth;
+    @include autoMedia(right, (gsm: -$btnsWidth*0.8));
     top: -1px;
 
     @extend %column;

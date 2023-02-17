@@ -10,6 +10,10 @@
   //border: 1px solid red;
 
   @extend %column;
+
+  @include autoMedia(width, (sm: 0.8* $wInp));
+
+
   .choice{
     display: flex;
     align-items: center;

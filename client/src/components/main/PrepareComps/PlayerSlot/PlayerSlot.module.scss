@@ -42,7 +42,7 @@
       aspect-ratio: 1/1;
 
       margin-left: 20px;
-
+      @include autoMedia(margin-left, (sm: 5px));
 
       border: 1px solid black;
       background-color: #FAFF00;

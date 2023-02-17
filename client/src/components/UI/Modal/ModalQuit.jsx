@@ -4,7 +4,7 @@ import BtnText from "../BtnText/BtnText";
 import GameService from "../../../tools/Services/GameService";
 import MessageCreator from "../../../tools/Services/MessageCreator";
 import Socket from "../../../tools/Services/Socket";
-import {LINK_START} from "../../../tools/const";
+import {LINK_START, S_PLAYER_ID} from "../../../tools/const";
 import {RoomContext} from "../../../context/contexts";
 import {useNavigate} from "react-router-dom";
 import cls from "./Modal.module.scss"
@@ -28,6 +28,7 @@ const ModalQuit = ({isOpen, onClose}) => {
     context.setRoom(null)
     context.setPlayer(null)
     nav(LINK_START)
+    // localStorage.removeItem(S_PLAYER_ID)
   }
 
   return (

@@ -5,6 +5,7 @@
 html{
   font-size: 25px;
   background-color: $colBack_white;
+  @include autoMedia(font-size, (gsm: 20px))
 }
 *{
   margin: 0;
@@ -166,4 +167,3 @@ h4{
     background-color: rgba(0,0,0,0.7);
   }
 }
-

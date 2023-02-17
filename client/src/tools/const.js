@@ -1,6 +1,6 @@
 
 //DEBUG
-export const PROD                  = false
+export const PROD                  = true
 export const DEBUG_SERVER_COMMANDS = false && !PROD
 export const DEBUG_LOG             = true && !PROD
 export const DEBUG_REDIRECT        = false && !PROD
@@ -90,6 +90,7 @@ export const AVATAR_TIMER   = "AVATAR_TIMER"
 export const S_NICK = "nick"
 export const S_LOST_ROOM = "lost room"
 export const S_LOST_PLAYER = "lost player"
+export const S_PLAYER_ID = "player id"
 
 //error message
 export const EM_VERSION = "Данная функция пока не доступна"

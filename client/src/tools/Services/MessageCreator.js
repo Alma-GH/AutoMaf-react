@@ -1,3 +1,4 @@
+import {PROD} from "../const";
 
 class MessageCreator{
 
@@ -61,13 +62,14 @@ class MessageCreator{
       }
     }
   }
-  findRoom(finder, room, pass){
+  findRoom(finder, room, pass, idFinder){
     return {
       event: MessageCreator.E_FIND_ROOM,
 
       nameFinder: finder,
       nameRoom: room,
-      passRoom: pass
+      passRoom: pass,
+      idFinder: PROD ? idFinder : null
     }
   }
   chooseCard(roomID, playerID, index){

@@ -4,28 +4,33 @@ $border: 6px;
 $margin: 20px;
 .parent{
   margin-top: $margin;
-  @include media(margin-top, (sm:$md2), (sm:50px));
   margin-right: $margin;
-  //width : 1070px + $border*2;
   height: 540px;
-  @include media(height, (xxsm:$md2),(xxsm:700px));
 
-  //display: grid;
-  //grid-template-columns: repeat(5,1fr);
-  //grid-column-gap: 125px;
 
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  justify-items: center;
+  align-items: center;
+  grid-auto-rows: 50%;
 
-  padding: 35px;
+  //display: flex;
+  //flex-wrap: wrap;
+
+  padding: 10px;
   overflow: auto;
   @extend %scroll;
 
   border: $border solid #522912;
-  border-radius: 100px;
+  //border-radius: 100px;
   box-shadow: 5px 5px 3px 0px rgba(0, 0, 0, 0.3);
   background-color: #009906;
 
+  @include media(margin-top, (sm:$md2), (sm:50px));
+  @include media(height, (xxsm:$md2),(xxsm:400px));
+  @include autoMedia(height, (gsm: 80%));
+  @include autoMedia(margin-top, (gsm:0));
+  @include autoMedia(margin-right, (gsm:0));
 
   &>*{
     //margin-right: 20px;

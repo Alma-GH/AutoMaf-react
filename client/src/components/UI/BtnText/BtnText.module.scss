@@ -8,6 +8,9 @@
   border: 0;
   @extend %center;
 
+  @include autoMedia(width, (sm:0.8*$wBtn));
+  @include autoMedia(height, (sm:0.8*($hBtn+10px)));
+
   .label{
     height: $hBtn;
     width: $wBtn;
@@ -26,6 +29,10 @@
     //font
     @extend %font;
     @extend %fontBtn;
+
+    @include autoMedia(width, (sm:0.8*$wBtn));
+    @include autoMedia(height, (sm:0.8*($hBtn+10px)));
+
   }
 
   &:disabled{
@@ -37,6 +44,7 @@
   &:hover{
     .label{
       bottom: 8px;
+      @include autoMedia(bottom, (sm: 0));
     }
   }
 
@@ -49,6 +57,9 @@
     animation-duration: 0.5s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+  }
+  &.hide{
+    visibility: hidden;
   }
 }
 

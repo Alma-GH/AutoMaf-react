@@ -12,6 +12,9 @@
   font-weight: 700;
   color: white;
 
+  @include autoMedia(width, (sm:0.8*$wInp));
+  @include autoMedia(height, (sm:0.8*$hInp));
+
   &::placeholder{
     color: #DEDEDE;
   }

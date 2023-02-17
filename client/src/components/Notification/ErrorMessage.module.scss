@@ -4,8 +4,9 @@
   $height: 100px;
 
   position: absolute;
-  right: 50px;
+  left: 50px;
   top: -$height;
+  z-index: 1000;
 
   height: $height;
   aspect-ratio: 2/1;
@@ -18,6 +19,8 @@
   border: 3px solid black;
   background-color: $colError_red;
 
+  @include autoMedia(left, (sm: 50%));
+  @include autoMedia(transform, (sm: translate(-50%)));
   @include transPos(0.5s);
 
   &.vis{

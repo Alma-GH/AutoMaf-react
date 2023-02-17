@@ -7,6 +7,7 @@ const Room = require("../class/Room");
 const Server = require("../class/Server.js");
 const ChatLog = require("../class/ChatLog.js");
 const Game = require("../class/Game");
+const {EM_ENTER_AGAIN} = require("../utils/const");
 
 
 function set_settings(data){
@@ -22,15 +23,23 @@ function set_settings(data){
 
 function create_room(data){
   const dataCR = data
+  const {
+    nameCreator,
+    numPlayers,
+    nameRoom,
+    existPassword,
+    password,
+    gameOptions
+  } = dataCR
 
-  const leader = new Player(dataCR.nameCreator)
+  const leader = new Player(nameCreator)
   const newRoom = new Room(
     leader,
-    dataCR.numPlayers,
-    dataCR.nameRoom,
-    dataCR.existPassword ? dataCR.password : null
+    numPlayers,
+    nameRoom,
+    existPassword ? password : null
   )
-  newRoom.setOptions(dataCR.gameOptions)
+  newRoom.setOptions(gameOptions)
   Server.addRoom(newRoom)
 
   return [newRoom,leader]
@@ -38,17 +47,29 @@ function create_room(data){
 
 function find_room(data){
   const dataFR = data
+  const {
+    nameFinder,
+    nameRoom,
+    passRoom,
+    idFinder
+  } = dataFR
 
-  const finder        = new Player(dataFR.nameFinder)
-  const needRoom      = Server.getRoomByName(dataFR.nameRoom)
+  const finder        = new Player(nameFinder)
+  const needRoom      = Server.getRoomByName(nameRoom)
   //TODO: Room.tryConnect()
-  const rightPass = needRoom.getPass() ? needRoom.getPass() === dataFR.passRoom : true
+  const rightPass = needRoom.getPass() ? needRoom.getPass() === passRoom : true
   const inGame = needRoom.getStatus() || needRoom.getTimerIdByKey(Room.TK_START)
 
   if(!rightPass)
     throw new Error(EM_WRONG_PASS)
   if(inGame)
     throw new Error(EM_GAME_PROCESS)
+  if(needRoom
+    .getPlayers()
+    .map(player=>(needRoom.getID() + "_" + player.getID()))
+    .includes(idFinder)
+  )
+    throw new Error(EM_ENTER_AGAIN)
 
   needRoom.addPlayer(finder)
   return [needRoom,finder]

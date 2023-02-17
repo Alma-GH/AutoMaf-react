@@ -125,6 +125,36 @@ $lg: 1500px;
   }
 }
 
+
+$as: 400px;
+//$am: 0;
+//$al: 0;
+$ags: $as*2;
+$sizes: (sm: $as, gsm: $ags);
+
+@mixin autoMedia($prop,$values,$onHeight:false){
+  @each $nameW, $valW in $sizes {
+    @if($onHeight == false){
+      @media screen and (max-width: $valW){
+        @each $nameV, $valV in $values{
+          @if $nameV==$nameW{
+            #{$prop}: $valV
+          }
+        }
+      }
+    }
+    @if($onHeight == true){
+      @media screen and (max-height: $valW) {
+        @each $nameV, $valV in $values{
+          @if $nameV==$nameW{
+            #{$prop}: $valV
+          }
+        }
+      }
+    }
+  }
+}
+
 //animations
 
 @keyframes shadow {

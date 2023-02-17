@@ -2,32 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6040c8f-3584-457b-96ee-f1a07d34f2c0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/components/UI/Modal/ModalAlert.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Debug.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Debug.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/CreatePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/CreateComps/CreateAddPass.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/CreateComps/CreateAddPass.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/CreateComps/CreateSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/CreateComps/CreateSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/LogInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/LogInfo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective/GameObjective.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameObjective/GameObjective.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.Player.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.Player.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Notification/ErrorMessage.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Notification/ErrorMessage.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/FindPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Pages/GamePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnIco/BtnIco.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnIco/BtnIco.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/BtnText/BtnText.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UI/CheckboxC/CheckboxC.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/CheckboxC/CheckboxC.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/InputC/InputC.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UI/Modal/Modal.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/Modal/Modal.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/UI/Modal/ModalQuit.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/UI/Modal/ModalQuit.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameCardViewer/CardViewer.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameLog/GameLog.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTable/GameTable.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/GameComps/GameTableCard/GameTableCard.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PlayerSlot/PlayerSlot.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PrepareInfo/PrepareInfo.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/PrepareComps/PrepareInfo/PrepareInfo.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/main/WindowInput/WindowInput.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/Services/GameService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/GameService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/App.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/style/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/style/variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/Services/MessageCreator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/tools/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/const.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/tools/func.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/tools/func.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/ChatLog.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/ChatLog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/Room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCGame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/class/TypeCheckers/TCRoom.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/func.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/func.test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/utils/const.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/utils/const.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/websocket/send.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/send.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/websocket/timers.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/timers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/websocket/serverEvents.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/websocket/serverEvents.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +185,7 @@
       <workItem from="1674755215452" duration="5000" />
       <workItem from="1675795779772" duration="353000" />
       <workItem from="1675948498617" duration="12994000" />
-      <workItem from="1676436678605" duration="13775000" />
+      <workItem from="1676436678605" duration="52276000" />
     </task>
     <servers />
   </component>

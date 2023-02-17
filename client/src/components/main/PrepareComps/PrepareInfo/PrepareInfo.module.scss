@@ -2,13 +2,14 @@
 
 .parent{
 
+  $hideW: 730px;
   $m: 30px;
 
   position: absolute;
-  right: $m*3;
+  left: $m*2;
   top: $m;
 
-
+  @include media(left, (lg:1000px, md:800px, sm:$hideW), (sm: -100%, md:0, lg: $m));
 
   h1{
     @extend %font;

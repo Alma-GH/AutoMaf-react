@@ -15,11 +15,13 @@ button.btn{
 .btn{
 
   min-height: $btnSize;
+
   aspect-ratio: 1/1;
   position: relative;
 
   cursor: pointer;
 
+  @include autoMedia(min-height, (gsm: $btnSize*0.8));
   @include transBGC($transTimeLong);
 
   &.on{

@@ -64,10 +64,9 @@ wss.on('connection', function connection(ws) {
           [room,player] = WSSEvent.find_room(message)
           ws.id = room.roomID
           ws.uid = player.getID()
-          if(room.game)
-            broadcastClear({event:E_FIND_ROOM, room}, room.roomID)
-          else
-            broadcast({event:E_FIND_ROOM, room},room.roomID)
+
+          broadcastClear({event:E_FIND_ROOM, room}, room.roomID)
+
           single(ws, {event:E_PLAYER_DATA, player})
           single(ws,{event:E_TIMER, timer: {name:Room.TK_START, time:0}}, room.roomID)
           break;

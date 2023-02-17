@@ -36,5 +36,10 @@
 
         display: flex;
         justify-content: space-between;
+
+        @include autoMedia(left, (sm: 50%));
+        @include autoMedia(right, (sm: initial));
+        @include autoMedia(transform, (sm: translateX(-50%)));
     }
 }
+
