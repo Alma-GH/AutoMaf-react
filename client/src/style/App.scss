@@ -60,6 +60,19 @@ h4{
   width: 100%;
 }
 
+.authPage{
+
+  @extend %page;
+  @extend %center;
+
+  .inputCont{
+    height: 350px;
+    @extend %column;
+    align-items: center;
+  }
+
+}
+
 .enterPage{
 
   @extend %page;

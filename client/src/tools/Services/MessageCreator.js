@@ -2,27 +2,27 @@ import {PROD} from "../const";
 
 class MessageCreator{
 
-  static E_SETTINGS     = "change_settings"
-  static E_CREATE_ROOM  = "create_room"
-  static E_FIND_ROOM    = "find_room"
-  static E_START_GAME   = "start_game"
-  static E_STOP_GAME    = "stop_game"
-  static E_CHOOSE_CARD  = "choose_card"
-  static E_READINESS    = "readiness"
-  static E_VOTE_NIGHT   = "vote_night"
-  static E_VOTE         = "vote"
-  static E_NEXT_JUDGED  = "next_judged"
-  static E_QUIT         = "quit_player"
+  E_SETTINGS     = "change_settings"
+  E_CREATE_ROOM  = "create_room"
+  E_FIND_ROOM    = "find_room"
+  E_START_GAME   = "start_game"
+  E_STOP_GAME    = "stop_game"
+  E_CHOOSE_CARD  = "choose_card"
+  E_READINESS    = "readiness"
+  E_VOTE_NIGHT   = "vote_night"
+  E_VOTE         = "vote"
+  E_NEXT_JUDGED  = "next_judged"
+  E_QUIT         = "quit_player"
 
-  static E_ERROR        = "error"
-  static E_PLAYER_DATA  = "get_player"
-  static E_TIMER        = "get_timer"
+  E_ERROR        = "error"
+  E_PLAYER_DATA  = "get_player"
+  E_TIMER        = "get_timer"
 
-  static E_RECONNECT    = "reconnect"
+  E_RECONNECT    = "reconnect"
 
   setSettings(roomID, voteType, autoRole, numMaf, numDet, numDoc){
     return {
-      event: MessageCreator.E_SETTINGS,
+      event: this.E_SETTINGS,
       roomID,
       voteType,
       autoRole,
@@ -33,19 +33,19 @@ class MessageCreator{
   }
   startGame(roomID){
     return {
-      event: MessageCreator.E_START_GAME,
+      event: this.E_START_GAME,
       roomID
     }
   }
   stopGame(roomID){
     return {
-      event: MessageCreator.E_STOP_GAME,
+      event: this.E_STOP_GAME,
       roomID
     }
   }
   createRoom(creator, room, players, setPass,pass, options={}){
     return {
-      event: MessageCreator.E_CREATE_ROOM,
+      event: this.E_CREATE_ROOM,
 
       nameCreator: creator,
 
@@ -64,7 +64,7 @@ class MessageCreator{
   }
   findRoom(finder, room, pass, idFinder){
     return {
-      event: MessageCreator.E_FIND_ROOM,
+      event: this.E_FIND_ROOM,
 
       nameFinder: finder,
       nameRoom: room,
@@ -74,7 +74,7 @@ class MessageCreator{
   }
   chooseCard(roomID, playerID, index){
     return {
-      event: MessageCreator.E_CHOOSE_CARD,
+      event: this.E_CHOOSE_CARD,
 
       roomID,
 
@@ -84,7 +84,7 @@ class MessageCreator{
   }
   readiness(roomID, playerID){
     return {
-      event: MessageCreator.E_READINESS,
+      event: this.E_READINESS,
 
       roomID: roomID,
       idPlayer: playerID,
@@ -92,7 +92,7 @@ class MessageCreator{
   }
   voteNight(roomID, playerID, voteID){
     return {
-      event: MessageCreator.E_VOTE_NIGHT,
+      event: this.E_VOTE_NIGHT,
 
       roomID,
 
@@ -102,7 +102,7 @@ class MessageCreator{
   }
   vote(roomID, playerID, voteID){
     return {
-      event: MessageCreator.E_VOTE,
+      event: this.E_VOTE,
 
       roomID,
 
@@ -112,7 +112,7 @@ class MessageCreator{
   }
   quit(roomID, playerID){
     return {
-      event: MessageCreator.E_QUIT,
+      event: this.E_QUIT,
       roomID,
       idPlayer: playerID
     }
@@ -120,7 +120,7 @@ class MessageCreator{
 
   reconnect(roomID, playerID){
     return {
-      event: MessageCreator.E_RECONNECT,
+      event: this.E_RECONNECT,
       roomID,
       idPlayer: playerID
     }

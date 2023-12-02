@@ -15,6 +15,7 @@ import {useRedirect} from "../../hooks/useRedirect";
 import clsLoad from "./../../components/Notification/Loader.module.scss"
 import clsBtnText from "./../../components/UI/BtnText/BtnText.module.scss"
 import ModalAlert from "../UI/Modal/ModalAlert";
+import {toast} from "react-toastify";
 
 const GamePage = () => {
 
@@ -88,8 +89,7 @@ const GamePage = () => {
     mContext.error,
     LINK_START,
     ()=>{
-      const mess = "Упс. Сокет закрылся"
-      errorByTimer(mContext.setError, mess, "out socket", 3000)
+      toast("Упс. Сокет закрылся", {toastId: "toast_socket_id"})
       context.setRoom(null)
       context.setPlayer(null)
     }

@@ -8,10 +8,12 @@ import ErrorMessage from "./components/Notification/ErrorMessage";
 import AppRouter from "./components/AppRouter";
 import MessageCreator from "./tools/Services/MessageCreator";
 import GameService from "./tools/Services/GameService";
-import {DEBUG_LOG, DEF_ERROR, DEF_SETTINGS, S_LOST_PLAYER, S_LOST_ROOM, S_PLAYER_ID} from "./tools/const";
+import {DEBUG_PANEL, DEF_ERROR, DEF_SETTINGS, S_LOST_PLAYER, S_LOST_ROOM, S_PLAYER_ID} from "./tools/const";
 import Reconnect from "./components/Reconnect";
 import ModalAlert from "./components/UI/Modal/ModalAlert";
+import AuthProvider from "./components/providers/AuthProvider";
 
+console.log(process.env)
 
 function App() {
 
@@ -65,22 +67,24 @@ function App() {
 
   return (
     <BrowserRouter>
-      <RoomContext.Provider value={{room,setRoom, player,setPlayer}} >
-        <MessageContext.Provider value={{error,setError, loading,setLoading}}>
-          <ServerTimerContext.Provider value={{timer, setTimer}}>
-            <CardContext.Provider value={{visCard,setVisCard}}>
-              <SettingsContext.Provider value={{settings, setSettings}}>
-                <div className="App">
-                  <AppRouter/>
-                  {DEBUG_LOG && <Debug/>}
-                  <ErrorMessage {...error}/>
-                  <Reconnect/>
-                </div>
-              </SettingsContext.Provider>
-            </CardContext.Provider>
-          </ServerTimerContext.Provider>
-        </MessageContext.Provider>
-      </RoomContext.Provider>
+      <AuthProvider>
+        <RoomContext.Provider value={{room,setRoom, player,setPlayer}} >
+          <MessageContext.Provider value={{error,setError, loading,setLoading}}>
+            <ServerTimerContext.Provider value={{timer, setTimer}}>
+              <CardContext.Provider value={{visCard,setVisCard}}>
+                <SettingsContext.Provider value={{settings, setSettings}}>
+                  <div className="App">
+                    <AppRouter/>
+                    {DEBUG_PANEL && <Debug/>}
+                    <ErrorMessage />
+                    <Reconnect/>
+                  </div>
+                </SettingsContext.Provider>
+              </CardContext.Provider>
+            </ServerTimerContext.Provider>
+          </MessageContext.Provider>
+        </RoomContext.Provider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

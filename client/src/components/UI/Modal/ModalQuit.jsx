@@ -28,6 +28,7 @@ const ModalQuit = ({isOpen, onClose}) => {
     context.setRoom(null)
     context.setPlayer(null)
     nav(LINK_START)
+    Socket.close()
     // localStorage.removeItem(S_PLAYER_ID)
   }
 

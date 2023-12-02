@@ -1,17 +1,17 @@
 import React from 'react';
-import cls from "./ErrorMessage.module.scss"
+import {ToastContainer} from "react-toastify";
+import styles from "./ErrorMessage.module.scss"
 
-const ErrorMessage = ({message, visible}) => {
-
-  const style = []
-  style.push(cls.error)
-  if(visible)
-    style.push(cls.vis)
-
+const ErrorMessage = () => {
   return (
-    <div className={style.join(" ")}>
-      {message}
-    </div>
+      <ToastContainer
+          hideProgressBar
+          closeButton={false}
+          toastClassName={styles.errorMessageToast}
+          bodyClassName={styles.errorMessageBody}
+          position={"top-left"}
+          limit={3}
+      />
   );
 };
 

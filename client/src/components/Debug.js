@@ -6,8 +6,8 @@ import {
   LINK_CREATE,
   LINK_ENTER,
   LINK_FIND,
-  LINK_GAME,
-  LINK_PREPARE,
+  LINK_GAME, LINK_LOGIN,
+  LINK_PREPARE, LINK_REGISTRATION,
   LINK_START,
   S_NICK,
   S_PLAYER_ID
@@ -15,6 +15,8 @@ import {
 import GameService from "../tools/Services/GameService";
 import MessageCreator from "../tools/Services/MessageCreator";
 import {useConnection} from "../hooks/useConnection";
+import API from "../tools/Services/API";
+import useAuth from "../hooks/useAuth";
 
 const styleCont = {
   height: "100vh",
@@ -37,9 +39,18 @@ const styleBtn = {
   width: "30px"
 }
 
-const Debug = () => {
+const Row = ({ children, ...props }) => (
+    <div style={{display: "flex"}} {...props}>
+      {children}
+    </div>
+)
 
+const Debug = () => {
+  const { login, register } = useAuth()
   const [vis, setVis] = useState(true)
+
+  const [username, setUsername] = useState("user1")
+  const [password, setPassword] = useState("pass1")
 
   const [create, setCreate] = useState("room")
   const [find, setFind] = useState("room")
@@ -55,7 +66,6 @@ const Debug = () => {
   const room    = context.room
   const player  = context.player
   const settings = sContext.settings
-
 
   function getRoomData(){
     return JSON.stringify(room,null,2)
@@ -313,6 +323,16 @@ const Debug = () => {
           <h5>POST:</h5>
           <ul>
             <li>
+              <input type="text" value={username} onChange={e=>setUsername(e.target.value)}/>
+              <input type="text" value={password} onChange={e=>setPassword(e.target.value)}/>
+              <button onClick={() => register(username, password)}>register</button>
+            </li>
+            <li>
+              <input type="text" value={username} onChange={e=>setUsername(e.target.value)}/>
+              <input type="text" value={password} onChange={e=>setPassword(e.target.value)}/>
+              <button onClick={() => login(username, password)}>login</button>
+            </li>
+            <li>
               <input type="text" value={create} onChange={e=>setCreate(e.target.value)}/>
               <button onClick={connect1}>create</button>
             </li>
@@ -347,6 +367,12 @@ const Debug = () => {
         <div>
           <h5>ROUTES:</h5>
           <ul style={{display:"flex"}}>
+            <li>
+              <button onClick={()=>nav(LINK_REGISTRATION)}>register</button>
+            </li>
+            <li>
+              <button onClick={()=>nav(LINK_LOGIN)}>login</button>
+            </li>
             <li>
               <button onClick={()=>nav(LINK_ENTER)}>enter</button>
             </li>
