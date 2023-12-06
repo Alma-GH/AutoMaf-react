@@ -1,15 +1,12 @@
 import React, {useContext} from 'react';
 import clsWin from "../WindowInput/WindowInput.module.scss";
 import imgS from "../../../assets/imgs/spanner.png";
-import {errorByTimer} from "../../../tools/func";
-import {EM_VERSION} from "../../../tools/const";
-import {MessageContext, RoomContext} from "../../../context/contexts";
+import {RoomContext} from "../../../context/contexts";
 import GameService from "../../../tools/Services/GameService";
 
 //TODO: create UI comp
 const CreateBtnSettings = ({setOpenSettings}) => {
 
-  const mContext = useContext(MessageContext)
   const rContext = useContext(RoomContext)
 
   const room = rContext?.room
@@ -17,11 +14,6 @@ const CreateBtnSettings = ({setOpenSettings}) => {
 
   const players = GameService.getMembers(room)
 
-
-
-  function throwMessage(){
-    errorByTimer(mContext.setError, EM_VERSION, "settingsAlpha", 3000)
-  }
   function openSettings(){
     setOpenSettings(true)
   }

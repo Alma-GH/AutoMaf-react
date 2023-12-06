@@ -47,10 +47,9 @@ class TypeChecker{
 
     const id = args[0]
 
-    const isNum  = (typeof id === "number")
-    const isInt  = Number.isInteger(id)
+    const isString  = (typeof id === "string")
 
-    return isNum && isInt
+    return isString
   }
   check_getRoomByID(server,...args){
     if(!this.checkArgs_getRoomByID(...args))

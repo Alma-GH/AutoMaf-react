@@ -1,5 +1,5 @@
 const Onside = require("../class/Onside.js");
-const {wss} = require("./websocket.js");
+const {wss} = require("./wss");
 
 
 function single(client, message){

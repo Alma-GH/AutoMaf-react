@@ -5,18 +5,12 @@ class API {
 
     async register(username, password){
         try{
-            const body = JSON.stringify({ username, password })
-            const res = await fetch(`${LOCAL_BASE_URL}/register`, {
+            const options = {
                 method: "POST",
-                headers:{
-                  "Content-Type": "application/json"
-                },
-                body
-            })
-            const json = await res.json()
-            const token = json.accessToken
-            token && localStorage.setItem(S_ACCESS_TOKEN, token)
-            return json
+                headers:{ "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            }
+            return fetch(`${LOCAL_BASE_URL}/register`, options)
         }catch (err){
             console.error(err)
         }
@@ -24,18 +18,12 @@ class API {
 
     async login(username, password){
         try{
-            const body = JSON.stringify({ username, password })
-            const res = await fetch(`${LOCAL_BASE_URL}/login`, {
+            const options = {
                 method: "POST",
-                headers:{
-                    "Content-Type": "application/json"
-                },
-                body
-            })
-            const json = await res.json()
-            const token = json.accessToken
-            token && localStorage.setItem(S_ACCESS_TOKEN, token)
-            return json
+                headers:{ "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            }
+            return fetch(`${LOCAL_BASE_URL}/login`, options)
         }catch (err){
             console.error(err)
         }
@@ -44,13 +32,12 @@ class API {
     async getMe(){
         try{
             const token = localStorage.getItem(S_ACCESS_TOKEN)
-            const res = await fetch(`${LOCAL_BASE_URL}/me`, {
+            const options = {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
-            })
-            const json = await res.json()
-            return json
+            }
+            return fetch(`${LOCAL_BASE_URL}/me`, options)
         }catch (err){
             console.error(err)
         }

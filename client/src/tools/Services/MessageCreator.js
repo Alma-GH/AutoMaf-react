@@ -62,14 +62,13 @@ class MessageCreator{
       }
     }
   }
-  findRoom(finder, room, pass, idFinder){
+  findRoom(finder, room, pass){
     return {
       event: this.E_FIND_ROOM,
 
       nameFinder: finder,
       nameRoom: room,
-      passRoom: pass,
-      idFinder: PROD ? idFinder : null
+      passRoom: pass
     }
   }
   chooseCard(roomID, playerID, index){

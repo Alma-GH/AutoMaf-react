@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import {LINK_ENTER, LINK_REGISTRATION} from "../../tools/const";
 import {useNavigate} from "react-router-dom";
 import Loader from "../Notification/Loader";
+import {toast} from "react-toastify";
 
 const Login = () => {
     const nav = useNavigate()
@@ -16,10 +17,11 @@ const Login = () => {
     const handleLogin = () => {
         setLoading(true)
         login(username, password)
-            .then(isSuccess => {
-                if(isSuccess) nav(LINK_ENTER)
-                setLoading(false)
-            })
+          .then((res) => {
+              if(res.status === 201) nav(LINK_ENTER)
+              else toast(res.message, {toastId: res.message})
+              setLoading(false)
+          })
     }
     const handleNavRegister = () => {
         nav("../../" + LINK_REGISTRATION)

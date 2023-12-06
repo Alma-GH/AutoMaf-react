@@ -196,9 +196,9 @@ class TypeChecker{
 
     const id = args[0]
 
-    const isInt     = Number.isInteger(id)
+    const isString     = (typeof id === "string")
 
-    return isInt
+    return isString
   }
   check_getPlayersByID(game,...args){
     if(!this.checkArgs_getPlayersByID(...args))

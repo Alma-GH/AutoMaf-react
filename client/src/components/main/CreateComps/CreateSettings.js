@@ -13,10 +13,6 @@ import CheckboxAdd from "../../UI/CheckboxAdd/CheckboxAdd";
 import InputC from "../../UI/InputC/InputC";
 import {nonTypeComparisonFlatObjects} from "../../../tools/func";
 
-const select1 = { value: S_VOTE_TYPE_REALTIME, label: 'Realtime' }
-const select2 = { value: S_VOTE_TYPE_CLASSIC, label: 'Классическое' }
-const select3 = { value: S_VOTE_TYPE_FAIR, label: 'Честное' }
-
 const CreateSettings = ({setOpenSettings}) => {
 
   const rContext = useContext(RoomContext)
@@ -27,15 +23,6 @@ const CreateSettings = ({setOpenSettings}) => {
   const settings = sContext.settings
   const setNewSettings = sContext.setSettings
 
-  const options = [
-    select1,
-    select2,
-    // select3,
-  ]
-
-  function setVoteType(select){
-    setNewSettings({...settings, voteType: select.value})
-  }
   function setAutoRole(choices){
     const val = choices[0].value
     setNewSettings({...settings, autoRole: val})
@@ -71,17 +58,6 @@ const CreateSettings = ({setOpenSettings}) => {
       <WindowInput>
 
         <div className={clsWin.inputCont}>
-          <Select
-            options={options}
-            value={options.find(opt=>opt.value === settings.voteType)}
-            onChange={setVoteType}
-            placeholder={"Вид голосования"}
-            classNames={{
-              control: () => clsWin.inSettingsSelect,
-              option: () => clsWin.inSettingsOption,
-              menu: () => clsWin.inSettingsMenu
-            }}
-          />
           <CheckboxAdd
             choices={[{name:"Авто баланс", value: settings.autoRole}]}
             setChoices={setAutoRole}

@@ -1,15 +1,3 @@
-import Timer from "./Services/Timer";
-
-
-//TODO: different keys
-export const errorByTimer = (setError, message, key, time)=>{
-  setError({visible: true,message})
-  Timer.timeout(key,()=>{
-    setError({visible: false})
-  }, time)
-}
-
-
 export const shortWord = (word, length)=>{
   return word.length<=length ? word : word.slice(0,length) + "..."
 }

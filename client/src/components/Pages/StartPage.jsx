@@ -4,8 +4,10 @@ import {useNavigate} from "react-router-dom";
 import {EM_VERSION, LINK_CREATE, LINK_ENTER, LINK_FIND, T_VERSION} from "../../tools/const";
 import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import useAuth from "../../hooks/useAuth";
 
 const StartPage = () => {
+    const {logout} = useAuth()
     const nav = useNavigate()
 
 
@@ -23,7 +25,8 @@ const StartPage = () => {
                 <BtnText text="Найти" cb={getNav(LINK_FIND)}/>
                 <BtnText text="Создать" cb={getNav(LINK_CREATE)}/>
                 <BtnText text="Правила" cb={throwMessage}/>
-                <BtnText text="Имя" color="red" cb={getNav(LINK_ENTER)}/>
+                <BtnText text="Имя" color="yellow" cb={getNav(LINK_ENTER)}/>
+                <BtnText text="Выйти" color="red" cb={logout}/>
             </div>
         </div>
 

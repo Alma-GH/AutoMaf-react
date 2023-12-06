@@ -3,7 +3,7 @@
 export const PROD                   = false
 const SERVER_COMMANDS               = false
 const PANEL                         = true
-const REDIRECT                      = true
+const REDIRECT                      = false
 
 export const DEBUG_SERVER_COMMANDS = SERVER_COMMANDS && !PROD
 export const DEBUG_PANEL           = PANEL && !PROD
@@ -103,15 +103,16 @@ export const S_ACCESS_TOKEN = "access_token"
 export const S_NICK = "nick"
 export const S_LOST_ROOM = "lost room"
 export const S_LOST_PLAYER = "lost player"
-export const S_PLAYER_ID = "player id"
 
 //toast keys
-export const T_NICK = "toast_nick_id"
 export const T_VERSION = "toast_version_id"
+export const T_NICK = "toast_nick_id"
+export const T_CLOSE_CONNECTION = "toast_connection_id"
 
 //error message
-export const EM_VERSION = "Данная функция пока не доступна"
-export const EM_NICK    = "Введите ник"
+export const EM_VERSION           = "Данная функция пока не доступна"
+export const EM_NICK              = "Введите ник"
+export const EM_CLOSE_CONNECTION  = "Сервер прервал соединение"
 
 //default objects
 export const DEF_SETTINGS = {

@@ -6,16 +6,15 @@ import {
   LINK_CREATE,
   LINK_ENTER,
   LINK_FIND,
-  LINK_GAME, LINK_LOGIN,
-  LINK_PREPARE, LINK_REGISTRATION,
-  LINK_START,
-  S_NICK,
-  S_PLAYER_ID
+  LINK_GAME,
+  LINK_LOGIN,
+  LINK_PREPARE,
+  LINK_REGISTRATION,
+  LINK_START
 } from "../tools/const";
 import GameService from "../tools/Services/GameService";
 import MessageCreator from "../tools/Services/MessageCreator";
 import {useConnection} from "../hooks/useConnection";
-import API from "../tools/Services/API";
 import useAuth from "../hooks/useAuth";
 
 const styleCont = {
@@ -46,11 +45,11 @@ const Row = ({ children, ...props }) => (
 )
 
 const Debug = () => {
-  const { login, register } = useAuth()
+  const { login, register, logout } = useAuth()
   const [vis, setVis] = useState(true)
 
-  const [username, setUsername] = useState("user1")
-  const [password, setPassword] = useState("pass1")
+  const [username, setUsername] = useState("find1")
+  const [password, setPassword] = useState("123")
 
   const [create, setCreate] = useState("room")
   const [find, setFind] = useState("room")
@@ -100,7 +99,6 @@ const Debug = () => {
       "Finder" + new Date().getSeconds(),
       find,
       "",
-      localStorage.getItem(S_PLAYER_ID)
     )
     Socket.send(JSON.stringify(message));
   }
@@ -331,6 +329,9 @@ const Debug = () => {
               <input type="text" value={username} onChange={e=>setUsername(e.target.value)}/>
               <input type="text" value={password} onChange={e=>setPassword(e.target.value)}/>
               <button onClick={() => login(username, password)}>login</button>
+            </li>
+            <li>
+              <button onClick={logout}>logout</button>
             </li>
             <li>
               <input type="text" value={create} onChange={e=>setCreate(e.target.value)}/>

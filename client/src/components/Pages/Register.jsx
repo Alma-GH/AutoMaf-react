@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import {useNavigate} from "react-router-dom";
 import {LINK_ENTER, LINK_LOGIN} from "../../tools/const";
 import Loader from "../Notification/Loader";
+import {toast} from "react-toastify";
 
 const Register = () => {
     const nav = useNavigate()
@@ -16,8 +17,9 @@ const Register = () => {
     const handleRegister = () => {
         setLoading(true)
         register(username, password)
-            .then(isSuccess => {
-                if(isSuccess) nav(LINK_ENTER)
+            .then(res => {
+                if(res.status === 201) nav(LINK_ENTER)
+                else toast(res.message, {toastId: res.message})
                 setLoading(false)
             })
     }

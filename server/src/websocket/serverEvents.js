@@ -7,7 +7,6 @@ const Room = require("../class/Room");
 const Server = require("../class/Server.js");
 const ChatLog = require("../class/ChatLog.js");
 const Game = require("../class/Game");
-const {EM_ENTER_AGAIN} = require("../utils/const");
 
 
 function set_settings(data){
@@ -21,7 +20,7 @@ function set_settings(data){
   return roomInGame
 }
 
-function create_room(data){
+function create_room(data, uid){
   const dataCR = data
   const {
     nameCreator,
@@ -32,7 +31,7 @@ function create_room(data){
     gameOptions
   } = dataCR
 
-  const leader = new Player(nameCreator)
+  const leader = new Player(nameCreator, uid)
   const newRoom = new Room(
     leader,
     numPlayers,
@@ -45,16 +44,15 @@ function create_room(data){
   return [newRoom,leader]
 }
 
-function find_room(data){
+function find_room(data, uid){
   const dataFR = data
   const {
     nameFinder,
     nameRoom,
-    passRoom,
-    idFinder
+    passRoom
   } = dataFR
 
-  const finder        = new Player(nameFinder)
+  const finder        = new Player(nameFinder, uid)
   const needRoom      = Server.getRoomByName(nameRoom)
   //TODO: Room.tryConnect()
   const rightPass = needRoom.getPass() ? needRoom.getPass() === passRoom : true
@@ -64,12 +62,6 @@ function find_room(data){
     throw new Error(EM_WRONG_PASS)
   if(inGame)
     throw new Error(EM_GAME_PROCESS)
-  if(needRoom
-    .getPlayers()
-    .map(player=>(needRoom.getID() + "_" + player.getID()))
-    .includes(idFinder)
-  )
-    throw new Error(EM_ENTER_AGAIN)
 
   needRoom.addPlayer(finder)
   return [needRoom,finder]
@@ -180,7 +172,7 @@ function quit(data){
 
 function get_room(data){
   const dataGR = data
-
+  console.log({dataGR})
   const needRoom = Server.getRoomByID(dataGR.roomID)
   const player = needRoom.getPlayerByID(dataGR.idPlayer)
 

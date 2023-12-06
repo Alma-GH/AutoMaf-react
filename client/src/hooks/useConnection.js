@@ -59,7 +59,7 @@ export const useConnection = (cb)=>{
   function connect() {
     mContext.setLoading(true)
 
-    if(!Socket.getState(true))
+    if(!Socket.getState(true) || Socket.getState(true) === "CLOSED")
         Socket.connect(cb, onMessage, onClose, localStorage.getItem(S_ACCESS_TOKEN))
     else{
         cb()

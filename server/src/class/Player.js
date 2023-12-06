@@ -3,10 +3,10 @@ const Checker = require("./TypeCheckers/TCPlayer.js")
 class Player {
   _id
   _name
-  constructor(name) {
+  constructor(name, id) {
     Checker.check_constructor(name)
 
-    this._id = null
+    this.setID(id)
     this._name = name
   }
 
