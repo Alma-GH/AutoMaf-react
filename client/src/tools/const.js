@@ -16,6 +16,7 @@ export const SECOND_STYLE          = false
 export const LOCAL_BASE_URL = process.env.REACT_APP_LOCAL_BASE_URL
 export const LOCAL_WS_URL = process.env.REACT_APP_LOCAL_WS_URL
 export const SERVER_LINK = `wss://automaf-server.glitch.me`
+export const SERVER_BASE_URL = "http://automaf-server.glitch.me"
 export const TEST_SERVER_LINK = "wss://test-automaf.glitch.me/"
 
 //default
