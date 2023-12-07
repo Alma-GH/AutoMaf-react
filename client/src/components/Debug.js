@@ -7,14 +7,16 @@ import {
   LINK_ENTER,
   LINK_FIND,
   LINK_GAME,
+  LINK_LOGIN,
   LINK_PREPARE,
-  LINK_START,
-  S_NICK,
-  S_PLAYER_ID
+  LINK_REGISTRATION,
+  LINK_START
 } from "../tools/const";
 import GameService from "../tools/Services/GameService";
 import MessageCreator from "../tools/Services/MessageCreator";
 import {useConnection} from "../hooks/useConnection";
+import useAuth from "../hooks/useAuth";
+import API from "../tools/Services/API";
 
 const styleCont = {
   height: "100vh",
@@ -37,15 +39,25 @@ const styleBtn = {
   width: "30px"
 }
 
-const Debug = () => {
+const Row = ({ children, ...props }) => (
+    <div style={{display: "flex"}} {...props}>
+      {children}
+    </div>
+)
 
+const Debug = () => {
+  const { login, register, logout } = useAuth()
   const [vis, setVis] = useState(true)
+
+  const [username, setUsername] = useState("find1")
+  const [password, setPassword] = useState("123")
 
   const [create, setCreate] = useState("room")
   const [find, setFind] = useState("room")
   const [votes, setVotes] = useState("")
 
   const [settingsJSON, setSettingsJSON] = useState("")
+  const [statJSON, setStatJSON] = useState("")
 
   const nav = useNavigate()
 
@@ -55,7 +67,6 @@ const Debug = () => {
   const room    = context.room
   const player  = context.player
   const settings = sContext.settings
-
 
   function getRoomData(){
     return JSON.stringify(room,null,2)
@@ -90,7 +101,6 @@ const Debug = () => {
       "Finder" + new Date().getSeconds(),
       find,
       "",
-      localStorage.getItem(S_PLAYER_ID)
     )
     Socket.send(JSON.stringify(message));
   }
@@ -234,6 +244,15 @@ const Debug = () => {
     Socket.send(JSON.stringify(message))
   }
 
+  function getStatistic(){
+    API.getStatistic()
+      .then(data=>data.json())
+      .then(data=>{
+        if(data?.statistic)
+          setStatJSON(JSON.stringify(data.statistic, undefined, 2))
+      })
+  }
+
   useEffect(()=>{
 
     document.addEventListener("keydown", (e)=>{
@@ -298,9 +317,9 @@ const Debug = () => {
               rows="4"
             />
 
-            <h5>SETTINGS:</h5>
+            <h5>SETTINGS\STAT:</h5>
             <textarea
-              value={settingsDATA!==null ? settingsDATA : "null"}
+              value={settingsDATA!==null ? settingsDATA + statJSON : "null"}
               readOnly
               cols="30"
               rows="10"
@@ -312,6 +331,22 @@ const Debug = () => {
         <div>
           <h5>POST:</h5>
           <ul>
+            <li>
+              <input type="text" value={username} onChange={e=>setUsername(e.target.value)}/>
+              <input type="text" value={password} onChange={e=>setPassword(e.target.value)}/>
+              <button onClick={() => register(username, password)}>register</button>
+            </li>
+            <li>
+              <input type="text" value={username} onChange={e=>setUsername(e.target.value)}/>
+              <input type="text" value={password} onChange={e=>setPassword(e.target.value)}/>
+              <button onClick={() => login(username, password)}>login</button>
+            </li>
+            <li>
+              <button onClick={logout}>logout</button>
+            </li>
+            <li>
+              <button onClick={getStatistic}>statistic</button>
+            </li>
             <li>
               <input type="text" value={create} onChange={e=>setCreate(e.target.value)}/>
               <button onClick={connect1}>create</button>
@@ -347,6 +382,12 @@ const Debug = () => {
         <div>
           <h5>ROUTES:</h5>
           <ul style={{display:"flex"}}>
+            <li>
+              <button onClick={()=>nav(LINK_REGISTRATION)}>register</button>
+            </li>
+            <li>
+              <button onClick={()=>nav(LINK_LOGIN)}>login</button>
+            </li>
             <li>
               <button onClick={()=>nav(LINK_ENTER)}>enter</button>
             </li>

@@ -60,6 +60,19 @@ h4{
   width: 100%;
 }
 
+.authPage{
+
+  @extend %page;
+  @extend %center;
+
+  .inputCont{
+    height: 350px;
+    @extend %column;
+    align-items: center;
+  }
+
+}
+
 .enterPage{
 
   @extend %page;
@@ -88,8 +101,34 @@ h4{
   @extend %center;
 
   .btnCont{
-    height: 300px;
+    height: 350px;
     @extend %column;
+  }
+}
+
+.statPage{
+  @extend %page;
+  @extend %center;
+  @extend %column;
+
+  padding: 15px 0;
+
+  h1{
+    position: relative;
+    @extend %font;
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+    color:black;
+    -webkit-text-stroke: 0 black;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .statWindow {
+    padding: 20px;
   }
 }
 

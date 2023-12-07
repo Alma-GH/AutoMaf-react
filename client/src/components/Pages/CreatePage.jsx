@@ -35,7 +35,7 @@ const CreatePage = () => {
   const [pass, setPass] = useState("")
   const [numPlayers, setNumPlayers] = useState("")
 
-  const connect = useConnection(create, "leader")
+  const connect = useConnection(create)
 
   const op = addPass[0].value
 

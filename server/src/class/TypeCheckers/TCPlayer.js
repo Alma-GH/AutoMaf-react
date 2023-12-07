@@ -29,9 +29,9 @@ class TypeChecker{
 
     const id = args[0]
 
-    const isNum = (typeof id === "number")
+    const isString = (typeof id === "string")
 
-    return isNum
+    return isString
   }
   check_setID(...args){
     if(!this.checkArgs_setID(...args))

@@ -1,15 +1,16 @@
-import {LOCAL_LINK, PROD, SERVER_LINK, TIME_CALL_TO_SERVER} from "../const";
+import {LOCAL_WS_URL, PROD, SERVER_LINK, TIME_CALL_TO_SERVER} from "../const";
 
 const log = !PROD
 
 class Socket{
 
   websocket = null
-  beaconInterval = null
 
-  connect(onopen,onmessage,onclose){
-
-    this.websocket = new WebSocket(PROD ? SERVER_LINK : LOCAL_LINK)
+  connect(onopen,onmessage,onclose,token){
+    const params = new URLSearchParams()
+    params.append("token", token)
+    const url = (PROD ? SERVER_LINK : LOCAL_WS_URL) + "?" + params.toString()
+    this.websocket = new WebSocket(url)
 
     this.websocket.onopen = () => {
 
@@ -40,7 +41,6 @@ class Socket{
     }
     this.websocket.onclose= () => {
       console.log('Socket закрыт')
-      clearInterval(this.beaconInterval)
       this.websocket = null
       onclose()
     }
@@ -50,19 +50,22 @@ class Socket{
 
   }
 
-  setBeacon(cb){
-    clearInterval(this.beaconInterval)
-    this.beaconInterval = setInterval(cb, TIME_CALL_TO_SERVER)
-  }
-
-
-
-
   send(string){
-    if(!this.websocket)
-      throw new Error("Socket: websocket == null")
+    if(!this.websocket){
+      console.log("Socket: websocket == null")
+      return
+    }
 
     this.websocket.send(string)
+  }
+
+  close(){
+    if(!this.websocket){
+      console.log("Socket: websocket == null")
+      return
+    }
+
+    this.websocket.close()
   }
 
   getState(type_string){

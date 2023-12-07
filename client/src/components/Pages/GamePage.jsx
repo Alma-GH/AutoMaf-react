@@ -3,11 +3,10 @@ import GameTable from "../main/GameComps/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
 import CardViewer from "../main/GameComps/GameCardViewer/CardViewer";
 import GameLog from "../main/GameComps/GameLog/GameLog";
-import {LINK_PREPARE, LINK_START, PHASE_DAY_DISCUSSION, PHASE_PREPARE, T_START} from "../../tools/const"
-import {MessageContext, RoomContext, ServerTimerContext} from "../../context/contexts";
+import {LINK_PREPARE, PHASE_DAY_DISCUSSION, PHASE_PREPARE, T_START} from "../../tools/const"
+import {RoomContext, ServerTimerContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
 import MessageCreator from "../../tools/Services/MessageCreator";
-import {errorByTimer} from "../../tools/func";
 import GameService from "../../tools/Services/GameService";
 import ModalQuit from "../UI/Modal/ModalQuit";
 import {useModal} from "../../hooks/useModal";
@@ -15,6 +14,7 @@ import {useRedirect} from "../../hooks/useRedirect";
 import clsLoad from "./../../components/Notification/Loader.module.scss"
 import clsBtnText from "./../../components/UI/BtnText/BtnText.module.scss"
 import ModalAlert from "../UI/Modal/ModalAlert";
+import useRedirectCloseConnection from "../../hooks/useRedirectCloseConnection";
 
 const GamePage = () => {
 
@@ -22,7 +22,6 @@ const GamePage = () => {
 
   //server data
   const context = useContext(RoomContext)
-  const mContext = useContext(MessageContext)
   const tContext = useContext(ServerTimerContext)
 
   const room = context.room
@@ -83,17 +82,7 @@ const GamePage = () => {
     LINK_PREPARE,
   )
 
-  useRedirect(
-    Socket.websocket===null,
-    mContext.error,
-    LINK_START,
-    ()=>{
-      const mess = "Упс. Сокет закрылся"
-      errorByTimer(mContext.setError, mess, "out socket", 3000)
-      context.setRoom(null)
-      context.setPlayer(null)
-    }
-  )
+  useRedirectCloseConnection()
 
   return (
     <div className="gamePage">

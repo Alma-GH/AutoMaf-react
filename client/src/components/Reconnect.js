@@ -26,8 +26,8 @@ const Reconnect = () => {
   function reconnect(){
 
     const message = MessageCreator.reconnect(
-      +localStorage.getItem(S_LOST_ROOM),
-      +localStorage.getItem(S_LOST_PLAYER)
+      localStorage.getItem(S_LOST_ROOM),
+      localStorage.getItem(S_LOST_PLAYER)
     )
 
     Socket.send(JSON.stringify(message))

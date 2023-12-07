@@ -1,15 +1,14 @@
 const Game = require("./Game.js");
 const ChatLog = require("./ChatLog.js");
 const Checker = require("./TypeCheckers/TCRoom.js")
+const { v4: uuidv4 } = require('uuid');
 
 
 class Room {
 
-  static newID = 0
   roomID
 
   players
-  newPlayerID
   maxPlayers
 
   name
@@ -36,9 +35,8 @@ class Room {
 
   constructor(leader, maxP, name, pass) {
     //init
-    this.roomID = Room.newID++
+    this.roomID = uuidv4()
     this.players = []
-    this.newPlayerID = 0
     this.isSetPass = false
     this.setName(name)
     this.setMaxPlayers(maxP)
@@ -104,9 +102,6 @@ class Room {
   addPlayer(player){
     Checker.check_addPlayer(this,player)
 
-    //add id in room for player
-    player.setID(this.newPlayerID++)
-    //add player in room
     this.players.push(player)
   }
   quitPlayer(player){
@@ -204,12 +199,9 @@ class Room {
 
   toString(){
     return JSON.stringify({
-      s_newID: Room.newID,
-
       roomID: this.roomID,
 
       players: this.players.map(player=>player.toString()),
-      newPlayerID: this.newPlayerID
     },null,2)
   }
 }

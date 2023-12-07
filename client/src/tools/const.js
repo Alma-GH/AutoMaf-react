@@ -1,15 +1,20 @@
 
 //DEBUG
-export const PROD                  = true
-export const DEBUG_SERVER_COMMANDS = false && !PROD
-export const DEBUG_LOG             = true && !PROD
-export const DEBUG_REDIRECT        = false && !PROD
+export const PROD                   = true
+const SERVER_COMMANDS               = false
+const PANEL                         = true
+const REDIRECT                      = false
+
+export const DEBUG_SERVER_COMMANDS = SERVER_COMMANDS && !PROD
+export const DEBUG_PANEL           = PANEL && !PROD
+export const DEBUG_REDIRECT        = REDIRECT && !PROD
 
 export const SECOND_STYLE          = false
 
 //SERVER
 //link
-export const LOCAL_LINK = 'ws://localhost:5000'
+export const LOCAL_BASE_URL = process.env.REACT_APP_LOCAL_BASE_URL
+export const LOCAL_WS_URL = process.env.REACT_APP_LOCAL_WS_URL
 export const SERVER_LINK = `wss://automaf-server.glitch.me`
 export const TEST_SERVER_LINK = "wss://test-automaf.glitch.me/"
 
@@ -23,9 +28,14 @@ export const TIME_CALL_TO_SERVER = 5000
 //PATHS
 export const PATH_ROOT_APP = "/app"
 
+export const PATH_ROOT_AUTH = "auth"
+export const PATH_LOGIN = "login"
+export const PATH_REGISTRATION = "registration"
+
 export const PATH_ENTER   = "enter"
 export const PATH_START   = "start"
 export const PATH_CREATE  = "create"
+export const PATH_STAT    = "statistic"
 export const PATH_FIND    = "find"
 
 export const PATH_ROOT_ROOM = "room"
@@ -34,9 +44,13 @@ export const PATH_GAME      = "game"
 
 
 
+export const LINK_REGISTRATION  = `${PATH_ROOT_AUTH}/${PATH_REGISTRATION}`
+export const LINK_LOGIN         = `${PATH_ROOT_AUTH}/${PATH_LOGIN}`
+
 export const LINK_ENTER   = `${PATH_ROOT_APP}/${PATH_ENTER}`
 export const LINK_START   = `${PATH_ROOT_APP}/${PATH_START}`
 export const LINK_CREATE  = `${PATH_ROOT_APP}/${PATH_CREATE}`
+export const LINK_STAT    = `${PATH_ROOT_APP}/${PATH_STAT}`
 export const LINK_FIND    = `${PATH_ROOT_APP}/${PATH_FIND}`
 
 export const LINK_PREPARE = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_PREPARE}`
@@ -87,13 +101,20 @@ export const AVATAR_TIMER   = "AVATAR_TIMER"
 
 //OTHER
 //storage keys
+export const S_ACCESS_TOKEN = "access_token"
 export const S_NICK = "nick"
 export const S_LOST_ROOM = "lost room"
 export const S_LOST_PLAYER = "lost player"
-export const S_PLAYER_ID = "player id"
+
+//toast keys
+export const T_VERSION = "toast_version_id"
+export const T_NICK = "toast_nick_id"
+export const T_CLOSE_CONNECTION = "toast_connection_id"
 
 //error message
-export const EM_VERSION = "Данная функция пока не доступна"
+export const EM_VERSION           = "Данная функция пока не доступна"
+export const EM_NICK              = "Введите ник"
+export const EM_CLOSE_CONNECTION  = "Сервер прервал соединение"
 
 //default objects
 export const DEF_SETTINGS = {

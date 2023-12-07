@@ -13,7 +13,7 @@ const {
 const Player = require("../Player.js");
 const Server = require("../Server.js");
 const Game = require("../Game");
-const {EM_MANY_MAF, EM_MANY_SPEC, EM_NO_MAF} = require("../../utils/const"); //TODO: check on error
+const {EM_MANY_MAF, EM_MANY_SPEC, EM_NO_MAF, EM_ENTER_AGAIN} = require("../../utils/const"); //TODO: check on error
 
 
 
@@ -36,7 +36,7 @@ class TypeChecker{
     const player = args[0]
 
     if(room.getPlayers().some(pl=>pl.getID() === player.getID()))
-      throw new Error("this player already in room")
+      throw new Error(EM_ENTER_AGAIN)
 
     if(room.players.length+1 > room.maxPlayers)
       throw new Error(EM_MAX_PLAYERS)
@@ -199,10 +199,9 @@ class TypeChecker{
 
     const id = args[0]
 
-    const isNum  = (typeof id === "number")
-    const isInt  = Number.isInteger(id)
+    const isString  = (typeof id === "string")
 
-    return isNum && isInt
+    return isString
   }
   check_getPlayerByID(room,...args){
     if(!this.checkArgs_getPlayerByID(...args))

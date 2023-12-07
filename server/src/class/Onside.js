@@ -32,8 +32,7 @@ class Onside extends Player{
 
   constructor(player,role) {
     //copy name and id
-    super(player.getName());
-    this.setID(player.getID())
+    super(player.getName(), player.getID());
 
     this.setRole(role)
 

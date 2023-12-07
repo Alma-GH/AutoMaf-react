@@ -1,23 +1,18 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import BtnText from "../UI/BtnText/BtnText";
 import InputC from "../UI/InputC/InputC";
 import {useNavigate} from "react-router-dom";
-import {LINK_START, S_NICK} from "../../tools/const";
-import {MessageContext} from "../../context/contexts";
-import {errorByTimer} from "../../tools/func";
+import {EM_NICK, LINK_START, S_NICK, T_NICK} from "../../tools/const";
+import {toast} from "react-toastify";
 
 const EnterPage = () => {
 
   const nav = useNavigate()
-  const [name, setName] = useState("")
-
-  const mContext = useContext(MessageContext)
+  const [name, setName] = useState(localStorage.getItem(S_NICK))
 
   function enter(){
-    //validate
     if(!name.length){
-      errorByTimer(mContext.setError, "Введите ник",
-        "enter nick", 3000)
+      toast(EM_NICK, {toastId: T_NICK})
       return
     }
 
@@ -25,13 +20,6 @@ const EnterPage = () => {
     setName("")
     nav(LINK_START)
   }
-
-  useEffect(()=>{
-    const nick = localStorage.getItem(S_NICK)
-    if(nick)
-      setName(nick)
-  }, [])
-
 
   return (
     <div className="enterPage">
