@@ -2,17 +2,13 @@ import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import {
   LINK_CREATE,
-  LINK_ENTER, LINK_FIND, LINK_GAME, LINK_LOGIN, LINK_PREPARE, LINK_REGISTRATION, LINK_START,
-  PATH_CREATE,
-  PATH_ENTER,
-  PATH_FIND,
-  PATH_GAME,
-  PATH_LOGIN,
-  PATH_PREPARE, PATH_REGISTRATION,
-  PATH_ROOT_APP,
-  PATH_ROOT_AUTH,
-  PATH_ROOT_ROOM,
-  PATH_START,
+  LINK_ENTER,
+  LINK_FIND,
+  LINK_GAME,
+  LINK_LOGIN,
+  LINK_PREPARE,
+  LINK_REGISTRATION,
+  LINK_START, LINK_STAT,
   S_NICK
 } from "../tools/const";
 import EnterPage from "./Pages/EnterPage";
@@ -24,6 +20,7 @@ import GamePage from "./Pages/GamePage";
 import AuthGuard from "./guards/AuthGuard";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import StatPage from "./Pages/StatPage";
 
 const AppRouter = () => {
 
@@ -39,6 +36,7 @@ const AppRouter = () => {
         <Route path={LINK_ENTER} element={<EnterPage/>}/>
         <Route path={LINK_START} element={<StartPage/>}/>
         <Route path={LINK_CREATE} element={<CreatePage/>}/>
+        <Route path={LINK_STAT} element={<StatPage/>}/>
         <Route path={LINK_FIND} element={<FindPage/>}/>
 
         <Route path={LINK_PREPARE} element={<PreparePage/>}/>

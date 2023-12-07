@@ -106,6 +106,32 @@ h4{
   }
 }
 
+.statPage{
+  @extend %page;
+  @extend %center;
+  @extend %column;
+
+  padding: 15px 0;
+
+  h1{
+    position: relative;
+    @extend %font;
+    font-size: 1.3rem;
+    letter-spacing: -1px;
+    color:black;
+    -webkit-text-stroke: 0 black;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .statWindow {
+    padding: 20px;
+  }
+}
+
 .prepPage{
   @extend %page;
   @extend %center;

@@ -1,19 +1,25 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const {MongoClient, ServerApiVersion} = require("mongodb");
+const client = require("./dbClient.js")
+
+const getNewStatistic = (playerId) => {
+    return {
+        player: playerId,
+        games: 0,
+        win: 0,
+        gamesMafia: 0,
+        gamesDoc: 0,
+        gamesDet: 0,
+        winMafia: 0,
+        winDoc: 0,
+        winDet: 0
+    }
+}
 
 const generateToken = (userId) => {
     const payload = {userId}
     return jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: "1d"})
 }
-
-const client = new MongoClient(process.env.MONGO_DB_URL, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
 
 class AuthController {
     async registration(req, res) {
@@ -29,6 +35,7 @@ class AuthController {
             await client.connect();
             const db = client.db(process.env.DB_NAME);
             const usersCollection = db.collection('users');
+            const statisticCollection = db.collection('statistic')
 
             const existingUser = await usersCollection.findOne({username});
 
@@ -36,6 +43,8 @@ class AuthController {
                 const hashedPassword = await bcrypt.hash(password, 10);
                 const newUser = {username, password: hashedPassword};
                 const insertResult = await usersCollection.insertOne(newUser);
+                const newStat = getNewStatistic(insertResult.insertedId)
+                await statisticCollection.insertOne(newStat)
 
                 const token = generateToken(insertResult.insertedId)
                 res.status(201).json({accessToken: token, message: 'Пользователь успешно зарегистрирован'});

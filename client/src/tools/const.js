@@ -35,6 +35,7 @@ export const PATH_REGISTRATION = "registration"
 export const PATH_ENTER   = "enter"
 export const PATH_START   = "start"
 export const PATH_CREATE  = "create"
+export const PATH_STAT    = "statistic"
 export const PATH_FIND    = "find"
 
 export const PATH_ROOT_ROOM = "room"
@@ -49,6 +50,7 @@ export const LINK_LOGIN         = `${PATH_ROOT_AUTH}/${PATH_LOGIN}`
 export const LINK_ENTER   = `${PATH_ROOT_APP}/${PATH_ENTER}`
 export const LINK_START   = `${PATH_ROOT_APP}/${PATH_START}`
 export const LINK_CREATE  = `${PATH_ROOT_APP}/${PATH_CREATE}`
+export const LINK_STAT    = `${PATH_ROOT_APP}/${PATH_STAT}`
 export const LINK_FIND    = `${PATH_ROOT_APP}/${PATH_FIND}`
 
 export const LINK_PREPARE = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_PREPARE}`

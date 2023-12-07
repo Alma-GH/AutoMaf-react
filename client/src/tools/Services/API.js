@@ -3,6 +3,13 @@ import {LOCAL_BASE_URL, S_ACCESS_TOKEN} from "../const";
 
 class API {
 
+    getAuthHeaders(){
+        const token = localStorage.getItem(S_ACCESS_TOKEN)
+        return {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+
     async register(username, password){
         try{
             const options = {
@@ -31,13 +38,17 @@ class API {
 
     async getMe(){
         try{
-            const token = localStorage.getItem(S_ACCESS_TOKEN)
-            const options = {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            }
+            const options = { headers: { ...this.getAuthHeaders() } }
             return fetch(`${LOCAL_BASE_URL}/me`, options)
+        }catch (err){
+            console.error(err)
+        }
+    }
+
+    async getStatistic(){
+        try{
+            const options = { headers: { ...this.getAuthHeaders() } }
+            return fetch(`${LOCAL_BASE_URL}/statistic`, options)
         }catch (err){
             console.error(err)
         }
