@@ -1,6 +1,6 @@
 
 //DEBUG
-export const PROD                   = false
+export const PROD                   = true
 const SERVER_COMMANDS               = false
 const PANEL                         = true
 const REDIRECT                      = false
