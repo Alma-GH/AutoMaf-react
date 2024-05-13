@@ -2,7 +2,6 @@
 
 .parent{
   height: $hBtn+10px;
-  width: $wBtn;
 
   background-color: rgba(0, 0, 0, 0);
   border: 0;
@@ -13,7 +12,8 @@
 
   .label{
     height: $hBtn;
-    width: $wBtn;
+    min-width: $wBtn;
+    padding: 0 10px;
 
     position: relative;
     bottom: 0;

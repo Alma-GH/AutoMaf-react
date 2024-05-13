@@ -8,7 +8,6 @@ export const useRedirect = (condition, changeableObj, link, cb=()=>{})=>{
   const nav = useNavigate()
 
   useEffect(()=>{
-
     if(condition && !DEBUG_REDIRECT){
       cb()
       nav(link)
