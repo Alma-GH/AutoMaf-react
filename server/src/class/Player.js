@@ -1,12 +1,16 @@
 const Checker = require("./TypeCheckers/TCPlayer.js")
+const { v4: uuidv4 } = require('uuid');
 
 class Player {
   _id
   _name
-  constructor(name) {
+  constructor(name, id) {
     Checker.check_constructor(name)
 
-    this._id = null
+    if(id)
+      this.setID(id)
+    else
+      this.setID("guest_" + uuidv4())
     this._name = name
   }
 

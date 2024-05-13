@@ -1,6 +1,7 @@
 
 const PROD      = false
-const DEBUG_MOD = true && !PROD
+const DEBUG     = true
+const DEBUG_MOD = DEBUG && !PROD
 
 const DEF_PLAYERS = {
   //class Room

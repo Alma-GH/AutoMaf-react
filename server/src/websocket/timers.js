@@ -11,6 +11,7 @@ const ChatLog = require("../class/ChatLog.js");
 const Game = require("../class/Game.js");
 const {broadcast, broadcastClear} = require("./send.js");
 const {getRandomIntInclusive} = require("../utils/func");
+const StatisticController = require("../statisticController.js")
 
 
 
@@ -163,6 +164,7 @@ function startTimerToNextPhaseOnVote(room,time,timeout){
   const nextPhase = game=>{
     game.nextPhaseByVote()
     gameEndLog(room)
+    StatisticController.updatePlayersStatistic(game)
   }
 
   startTimerToNextPhase(room,E_VOTE,time,timeout, startLog, endLog, nextPhase)
@@ -207,6 +209,7 @@ function startTimerToNextPhaseOnVoteNight(room,time,timeout){
     if(isNight && (noPlayers || (alreadyDetected && isDetNight)))
       startHideTimerToNextPhase(room,time,timeout)
     gameEndLog(room)
+    StatisticController.updatePlayersStatistic(game)
   }
 
   startTimerToNextPhase(room,E_VOTE_NIGHT,time,timeout, startLog, endLog, nextPhase)
