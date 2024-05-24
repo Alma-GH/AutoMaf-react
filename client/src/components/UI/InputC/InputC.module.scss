@@ -1,26 +1,21 @@
 @import "./../../../style/variables";
 
 .parent{
-  height: $hInp;
-  width: $wInp;
+  width: 360px;
+  height: 55px;
 
-  padding: 10px;
-  border: 3px solid black;
+  border: 3px solid $color-grey1;
+  background-color: $color-grey2;
 
-  background-color: #B7B7B7;
-  font-size: 1rem;
-  font-weight: 700;
-  color: white;
+  padding-inline: 30px;
 
-  @include autoMedia(width, (sm:0.8*$wInp));
-  @include autoMedia(height, (sm:0.8*$hInp));
+  @extend %font1;
 
   &::placeholder{
-    color: #DEDEDE;
+    color: $color-grey1;
   }
-
-  &:focus{
-    background-color: red;
+  &:focus {
+    background-color: $color-grey1;
+    border: 3px solid #252525
   }
-
 }

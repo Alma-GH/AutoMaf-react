@@ -1,106 +1,44 @@
 import React, {useContext, useEffect, useState} from 'react';
-import WindowInput from "../main/WindowInput/WindowInput";
-import clsWin from "../main/WindowInput/WindowInput.module.scss";
-import InputC from "../UI/InputC/InputC";
-import BtnText from "../UI/BtnText/BtnText";
-import Socket from "../../tools/Services/Socket";
-import {useNavigate} from "react-router-dom";
-import {DEF_SETTINGS, DEFAULT_NAME, LINK_START, S_NICK} from "../../tools/const";
-import MessageCreator from "../../tools/Services/MessageCreator";
-import CreateAddPass from "../main/CreateComps/CreateAddPass";
-import CreateBtnSettings from "../main/CreateComps/CreateBtnSettings";
-import CreateSettings from "../main/CreateComps/CreateSettings";
-import {useConnection} from "../../hooks/useConnection";
-import {MessageContext, SettingsContext} from "../../context/contexts";
-import Loader from "../Notification/Loader";
+import Header from "../main/Header/Header";
+import MainCard from "../main/MainCard/MainCard";
+import CreateForm from "../main/CreateForm/CreateForm";
+import SettingsForm from "../main/SettingsForm/SettingsForm";
+import {DEF_SETTINGS} from "../../tools/const";
+import {SettingsContext} from "../../context/contexts";
 
 
 const CreatePage = () => {
 
-  const nav = useNavigate()
-  const mContext = useContext(MessageContext)
   const sContext = useContext(SettingsContext)
-
-  const isLoad = mContext.loading
-  const options = sContext.settings
   const setNewSettings = sContext.setSettings
 
   const [openSettings, setOpenSettings] = useState(false)
 
-  const [addPass, setAddPass] = useState([
-    {name:"Добавить пароль", value: false}
-  ])
-
-  const [room, setRoom] = useState("")
-  const [pass, setPass] = useState("")
-  const [numPlayers, setNumPlayers] = useState("")
-
-  const connect = useConnection(create)
-
-  const op = addPass[0].value
-
-
-
-  function create(){
-
-    const name = localStorage.getItem(S_NICK) || DEFAULT_NAME
-    const message = MessageCreator.createRoom(name, room, +numPlayers, op, pass, options)
-
-    Socket.send(JSON.stringify(message));
-  }
-
-  function back(){
-    nav(LINK_START)
-  }
-
   useEffect(()=>{
-    setNewSettings(DEF_SETTINGS)
-  }, [])
+    return () => setNewSettings(DEF_SETTINGS)
+  }, [setNewSettings])
 
 
   if(openSettings)
-    return <CreateSettings setOpenSettings={setOpenSettings}/>
+    return (
+      <div className="prepPage">
+        <Header />
+
+        <MainCard addCls="formBlock">
+          <h2>Настройки</h2>
+          <SettingsForm setOpenSettings={setOpenSettings} />
+        </MainCard>
+      </div>
+    )
 
   return (
     <div className="prepPage">
-      <h1>Создать комнату</h1>
+      <Header />
 
-      <WindowInput>
-        {!isLoad
-          ? <>
-            <div className={clsWin.inputCont}>
-              <InputC
-                placeholder="Название комнаты"
-                val={room}
-                setVal={setRoom}
-              />
-
-              <CreateAddPass
-                pass={pass}
-                setPass={setPass}
-                addPass={addPass}
-                setAddPass={setAddPass}
-                op={op}
-              />
-
-              <InputC
-                placeholder="Игроков"
-                val={numPlayers}
-                setVal={setNumPlayers}
-              />
-
-              <CreateBtnSettings setOpenSettings={setOpenSettings}/>
-            </div>
-
-            <div className={clsWin.btnCont}>
-              <BtnText text="Назад" color="red" cb={back}/>
-              <BtnText text="Создать" cb={connect}/>
-            </div>
-            </>
-
-          : <Loader/>
-        }
-      </WindowInput>
+      <MainCard addCls="formBlock">
+        <h2>Создать комнату</h2>
+        <CreateForm setOpenSettings={setOpenSettings} />
+      </MainCard>
     </div>
   );
 };

@@ -1,33 +1,32 @@
 @import "./../../../style/variables";
 
 .radio{
-
-  height: $hInp - 10px;
-  width: $wInp;
-
-  @extend %font;
-  font-size: 0.9rem;
-  //border: 1px solid red;
-
-  @extend %column;
-
-  @include autoMedia(width, (sm: 0.8* $wInp));
-
-
+  width: 100%;
+  
   .choice{
     display: flex;
     align-items: center;
     position: relative;
 
-    label{
-      position: absolute;
-      right: 20px;
+
+    label {
+      @extend %font1;
+      cursor: pointer;
+      user-select: none;
     }
 
     input{
       height: 30px;
       aspect-ratio: 1/1;
       margin-right: 10px;
+
+      border: 3px solid #B9B9B9;
+      background: #D9D9D9;
+      cursor: pointer;
+    }
+
+    input:checked {
+      background: black;
     }
   }
 }

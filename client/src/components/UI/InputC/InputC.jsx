@@ -11,12 +11,13 @@ const InputC = ({val,setVal,placeholder,enterCB, type="text"}) => {
   }
 
   return (
-    <input type={type}
-           placeholder={placeholder}
-           value={val}
-           onChange={e => setVal(e.target.value)}
-           className={cls.parent}
-           onKeyDown={pressEnter}
+    <input
+      type={type}
+       placeholder={placeholder}
+       value={val}
+       onChange={e => setVal(e.target.value)}
+       className={cls.parent}
+       onKeyDown={pressEnter}
     />
   );
 };

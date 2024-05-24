@@ -1,0 +1,18 @@
+@import "../../../style/variables";
+
+.createForm{
+  @extend %column;
+  align-items: center;
+  gap: 30px
+}
+.fields {
+  @extend %column;
+  gap: 30px;
+  align-items: center;
+  width: 360px;
+}
+
+.buttons {
+  display: flex;
+  gap: 30px;
+}

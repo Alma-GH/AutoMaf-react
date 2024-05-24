@@ -1,10 +1,10 @@
 import React from 'react';
 import CheckboxC from "../../UI/CheckboxC/CheckboxC";
 
-const CheckboxAdd = ({choices,setChoices, op, children, contClass}) => {
+const CheckboxAdd = ({choice,setChoice, op, children, contClass}) => {
   return (
     <>
-      <CheckboxC choices={choices} setChoices={setChoices}/>
+      <CheckboxC checked={choice.value} setChecked={setChoice} name={choice.name}/>
       <div style={{ visibility: (op ? "visible" : "hidden") }} className={contClass}>
         {children}
       </div>

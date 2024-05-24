@@ -1,0 +1,14 @@
+@import "../../../style/variables";
+
+.container{
+  width: 170px;
+  height: 170px;
+
+  background: #D9D9D9;
+
+  border: 3px solid #B9B9B9;
+
+  border-radius: 100% ;
+
+  @extend %center;
+}

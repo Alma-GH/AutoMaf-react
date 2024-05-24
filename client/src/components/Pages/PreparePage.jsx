@@ -16,7 +16,28 @@ import CreateBtnSettings from "../main/CreateComps/CreateBtnSettings";
 import CreateSettings from "../main/CreateComps/CreateSettings";
 import PrepareInfo from "../main/PrepareComps/PrepareInfo/PrepareInfo";
 import useRedirectCloseConnection from "../../hooks/useRedirectCloseConnection";
+import Header from "../main/Header/Header";
+import MainCard from "../main/MainCard/MainCard";
+import CreateForm from "../main/CreateForm/CreateForm";
+import SettingsForm from "../main/SettingsForm/SettingsForm";
 
+
+const PrepareBlock = ({setOpenSettings}) => {
+  return (
+    <div>
+      <div className={clsWin.inputCont}>
+        <PrepareCount max={max} num={players.length} stage={getStage()}/>
+        <PreparePlayerList players={players} me={player}/>
+        <CreateBtnSettings setOpenSettings={setOpenSettings}/>
+      </div>
+
+      <div className={clsWin.btnCont}>
+        <BtnText text="Выйти" color="red" cb={openModal}/>
+        <BtnText text="Начать" cb={startGame} disabled={!GameService.isLeader(player,players)}/>
+      </div>
+    </div>
+  )
+}
 
 const PreparePage = () => {
 
@@ -55,29 +76,26 @@ const PreparePage = () => {
   useRedirectCloseConnection()
 
   if(openSettings)
-    return <CreateSettings setOpenSettings={setOpenSettings}/>
+    return (
+      <div className="prepPage">
+        <Header />
+
+        <MainCard addCls="formBlock">
+          <h2>Настройки</h2>
+          <SettingsForm setOpenSettings={setOpenSettings} />
+        </MainCard>
+      </div>
+    )
 
   return (
+
     <div className="prepPage">
+      <Header />
 
-      <h1>Подготовка</h1>
-
-      <WindowInput>
-        <div className={clsWin.inputCont}>
-          <PrepareCount max={max} num={players.length} stage={getStage()}/>
-          <PreparePlayerList players={players} me={player}/>
-          <CreateBtnSettings setOpenSettings={setOpenSettings}/>
-        </div>
-
-        <div className={clsWin.btnCont}>
-          <BtnText text="Выйти" color="red" cb={openModal}/>
-          <BtnText text="Начать" cb={startGame} disabled={!GameService.isLeader(player,players)}/>
-        </div>
-
-
-
-      </WindowInput>
-
+      <MainCard addCls="formBlock">
+        <h2>Подготовка</h2>
+        <PrepareBlock setOpenSettings={setOpenSettings} />
+      </MainCard>
 
       <ModalQuit isOpen={modal} onClose={closeModal}/>
       <PrepareInfo/>

@@ -1,76 +1,17 @@
 @import "../../../style/variables";
 
-.parent{
-  height: $hBtn+10px;
+.container {
+  width: 234px;
+  height: 55px;
 
-  background-color: rgba(0, 0, 0, 0);
-  border: 0;
   @extend %center;
 
-  @include autoMedia(width, (sm:0.8*$wBtn));
-  @include autoMedia(height, (sm:0.8*($hBtn+10px)));
-
-  .label{
-    height: $hBtn;
-    min-width: $wBtn;
-    padding: 0 10px;
-
-    position: relative;
-    bottom: 0;
-    border-radius: 30px;
-    border: 0;
-
-    @extend %center;
-
-    box-shadow:  0 7px 5px -3px rgba(0, 0, 0, 0.5);
-    background-color: $colBtn_green;
-
-    transition: bottom 0.1s ease-in-out;
-    //font
-    @extend %font;
-    @extend %fontBtn;
-
-    @include autoMedia(width, (sm:0.8*$wBtn));
-    @include autoMedia(height, (sm:0.8*($hBtn+10px)));
-
-  }
-
-  &:disabled{
-    .label{
-      background-color: $colBtn_grey;
-    }
-  }
-
-  &:hover{
-    .label{
-      bottom: 8px;
-      @include autoMedia(bottom, (sm: 0));
-    }
-  }
-
-  &:focus-visible{
-    outline: 1px solid black;
-  }
-
-  &.attention .label{
-    animation-name: shadow;
-    animation-duration: 0.5s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-  }
-  &.hide{
-    visibility: hidden;
-  }
+  @extend %font1;
+  background-color: $color-red2;
+  border: 3px solid #AF2A2A;
 }
 
-.yellow{
-  .label{
-    background-color: $colBtn_yellow;
-  }
-}
-
-.red{
-  .label{
-    background-color: $colBtn_red;
-  }
+.container.secondary {
+  border: 3px solid #252525;
+  background-color: #C61212;
 }

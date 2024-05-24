@@ -24,8 +24,7 @@ import StatPage from "./Pages/StatPage";
 
 const AppRouter = () => {
 
-  const nick = localStorage.getItem(S_NICK)
-  const RedirectPrivate = nick ? <Navigate to={LINK_START} /> : <Navigate to={LINK_ENTER} />
+  const Redirect = <Navigate to={LINK_ENTER} />
 
   return (
     <Routes>
@@ -40,7 +39,7 @@ const AppRouter = () => {
       <Route path={LINK_PREPARE} element={<PreparePage/>}/>
       <Route path={LINK_GAME} element={<GamePage/>}/>
 
-      <Route path="*" element={RedirectPrivate}/>
+      <Route path="*" element={Redirect}/>
 
       <Route element={<AuthGuard/>}>
         <Route path={LINK_STAT} element={<StatPage/>}/>

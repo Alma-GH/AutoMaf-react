@@ -17,6 +17,7 @@ import MessageCreator from "../tools/Services/MessageCreator";
 import {useConnection} from "../hooks/useConnection";
 import useAuth from "../hooks/useAuth";
 import API from "../tools/Services/API";
+import "../style/Debug.css"
 
 const styleCont = {
   height: "100vh",
@@ -281,7 +282,7 @@ const Debug = () => {
   const timerDATA = JSON.stringify(timer,null,2)
   const settingsDATA = JSON.stringify(settings, null, 2)
   return (
-    <div style={{...styleCont, right: vis ? "0" : "-30vw",}}>
+    <div className="debug" style={{...styleCont, right: vis ? "0" : "-30vw",}}>
 
       <button style={styleBtn} onClick={()=>setVis(prev=>!prev)}>X</button>
 

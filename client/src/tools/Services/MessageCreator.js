@@ -43,15 +43,11 @@ class MessageCreator{
       roomID
     }
   }
-  createRoom(creator, room, players, setPass,pass, options={}){
+  createRoom(creator, players, options={}){
     return {
       event: this.E_CREATE_ROOM,
 
       nameCreator: creator,
-
-      nameRoom: room,
-      existPassword: setPass,
-      password: pass,
       numPlayers: players,
 
       gameOptions: {

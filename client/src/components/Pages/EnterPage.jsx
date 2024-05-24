@@ -4,6 +4,9 @@ import InputC from "../UI/InputC/InputC";
 import {useNavigate} from "react-router-dom";
 import {EM_NICK, LINK_START, S_NICK, T_NICK} from "../../tools/const";
 import {toast} from "react-toastify";
+import Header from "../main/Header/Header";
+import MainCard from "../main/MainCard/MainCard";
+import AvatarPicker from "../main/AvatarPicker/AvatarPicker";
 
 const EnterPage = () => {
 
@@ -23,15 +26,18 @@ const EnterPage = () => {
 
   return (
     <div className="enterPage">
-      <div className="inputCont">
+      <Header />
+
+      <MainCard addCls="inputCont">
+        <AvatarPicker />
         <InputC
-                placeholder="Ваше имя"
-                val={name}
-                setVal={setName}
-                enterCB={enter}
+          placeholder="Введите ник..."
+          val={name}
+          setVal={setName}
+          enterCB={enter}
         />
-        <BtnText text="Войти" cb={enter}/>
-      </div>
+        <BtnText text="Войти" type="secondary" cb={enter}/>
+      </MainCard>
     </div>
   );
 };

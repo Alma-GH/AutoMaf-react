@@ -1,0 +1,14 @@
+@import "../../../style/variables";
+
+.container {
+  height: 100%;
+  width: calc(740 * 100% /1920);
+  min-width: 560px;
+
+  @extend %center;
+
+  background-color: $color-grey4;
+  border-inline: $color-grey1 solid 2px;
+
+  margin: auto;
+}

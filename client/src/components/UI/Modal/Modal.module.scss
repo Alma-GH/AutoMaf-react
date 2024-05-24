@@ -43,3 +43,16 @@
     }
 }
 
+
+
+.content_avatar {
+    width: 739px;
+    height: 717px;
+    background-color: #B9B9B9;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}

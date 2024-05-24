@@ -1,11 +1,11 @@
 @import "./variables";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
 
 //defaults
 
 html{
-  font-size: 25px;
-  background-color: $colBack_white;
-  @include autoMedia(font-size, (gsm: 20px))
+  font-family: "Noto Serif", serif;
+  color: $color-black;
 }
 *{
   margin: 0;
@@ -15,30 +15,22 @@ html{
   list-style: none;
 }
 
+input {
+  all: unset;
+  box-sizing: border-box;
+}
 button{
+  all: unset;
   cursor: pointer;
-}
-
-h1{
-  font-size: 2rem;
-}
-h2{
-  font-size: 1.5rem;
-}
-h3{
-  font-size: 1.25rem;
-}
-h4{
-  font-size: 1.1rem;
+  box-sizing: border-box;
 }
 
 //MAIN
 .App{
-
   height: 100vh;
   width: 100vw;
 
-  background-color: $colBack_white;
+  background-color: $color-grey3;
 
   position: relative;
 
@@ -76,33 +68,29 @@ h4{
 .enterPage{
 
   @extend %page;
-  @extend %center;
 
-  //@include transPosRight(1s);
-  //position: relative;
-  //right: 0;
-  //
-  //&.out{
-  //  right: -100vw;
-  //  @include transPosRight(1s);
-  //}
+  .inputCont {
+    height: calc(100% - 78px);
+  }
 
-  .inputCont{
-    height: 150px;
+  .inputCont>div{
     @extend %column;
+    gap: 25px;
     align-items: center;
   }
 
 }
 
 .startPage{
-
   @extend %page;
-  @extend %center;
 
-  .btnCont{
-    height: 350px;
+  .buttonContainer{
+    height: calc(100% - 78px);
+  }
+
+  .buttonContainer>div {
     @extend %column;
+    gap: 23px;
   }
 }
 
@@ -134,18 +122,14 @@ h4{
 
 .prepPage{
   @extend %page;
-  @extend %center;
-  @extend %column;
 
-  padding: 15px 0;
-
-  h1{
-    position: relative;
-    @extend %font;
-    font-size: 1.3rem;
-    letter-spacing: -1px;
-    color:black;
-    -webkit-text-stroke: 0 black;
+  .formBlock{
+    height: calc(100% - 78px);
+    h2 {
+      @extend %font3;
+      text-align: center;
+      margin-bottom: 30px;
+    }
   }
 }
 
@@ -205,4 +189,11 @@ h4{
     width: 100vw;
     background-color: rgba(0,0,0,0.7);
   }
+}
+
+
+.centerBodyPage {
+  height: calc(100% - 78px);
+  display: flex;
+  justify-content: center
 }

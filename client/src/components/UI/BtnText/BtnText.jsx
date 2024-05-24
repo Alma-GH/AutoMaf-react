@@ -1,18 +1,18 @@
 import React from 'react';
-import cls from "./BtnText.module.scss"
+import cn from "./BtnText.module.scss"
+import clsx from "clsx";
 
-const BtnText = ({text, color, cb, disabled, addCls}) => {
-
-  let style = [cls.parent]
-  if(color === "red")     style.push(cls.red)
-  if(color === "yellow")  style.push(cls.yellow)
-  if(addCls)              style.push(addCls)
-
+const BtnText = ({text, type, cb, disabled, addCls}) => {
   return (
-    <button className={style.join(" ")} onClick={cb} disabled={disabled}>
-      <div className={cls.label}>
+    <button
+      className={clsx(cn.container, type === "secondary" && cn.secondary, addCls)}
+      onClick={cb}
+      disabled={disabled}
+      type="button"
+    >
+      <span className={cn.label}>
         {text}
-      </div>
+      </span>
     </button>
   );
 };
