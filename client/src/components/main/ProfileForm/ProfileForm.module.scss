@@ -1,0 +1,7 @@
+@import "src/style/variables";
+
+.container {
+  @extend %column;
+  gap: 25px;
+  align-items: center;
+}

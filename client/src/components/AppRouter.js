@@ -4,7 +4,7 @@ import {
   LINK_CREATE,
   LINK_ENTER,
   LINK_FIND,
-  LINK_GAME,
+  LINK_GAME, LINK_INVITE,
   LINK_LOGIN,
   LINK_PREPARE,
   LINK_REGISTRATION,
@@ -21,6 +21,7 @@ import AuthGuard from "./guards/AuthGuard";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/RegisterPage";
 import StatPage from "./Pages/StatPage";
+import InvitePage from "./Pages/InvitePage";
 
 const AppRouter = () => {
 
@@ -34,7 +35,7 @@ const AppRouter = () => {
       <Route path={LINK_ENTER} element={<EnterPage/>}/>
       <Route path={LINK_START} element={<StartPage/>}/>
       <Route path={LINK_CREATE} element={<CreatePage/>}/>
-      <Route path={LINK_FIND} element={<FindPage/>}/>
+      <Route path={LINK_INVITE} element={<InvitePage />}/>
 
       <Route path={LINK_PREPARE} element={<PreparePage/>}/>
       <Route path={LINK_GAME} element={<GamePage/>}/>

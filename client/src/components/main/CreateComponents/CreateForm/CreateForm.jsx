@@ -1,18 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
-import InputC from "../../UI/InputC/InputC";
-import CheckboxAdd from "../../UI/CheckboxAdd/CheckboxAdd";
-import BtnText from "../../UI/BtnText/BtnText";
-import Loader from "../../Notification/Loader";
-import {MessageContext, RoomContext, SettingsContext} from "../../../context/contexts";
+import InputC from "../../../UI/InputC/InputC";
+import CheckboxAdd from "../../../UI/CheckboxAdd/CheckboxAdd";
+import BtnText from "../../../UI/BtnText/BtnText";
+import Loader from "../../../Notification/Loader";
+import {MessageContext, RoomContext, SettingsContext} from "../../../../context/contexts";
 import {useNavigate} from "react-router-dom";
-import {useConnection} from "../../../hooks/useConnection";
-import {DEF_SETTINGS, DEFAULT_NAME, LINK_START, S_NICK} from "../../../tools/const";
-import MessageCreator from "../../../tools/Services/MessageCreator";
-import Socket from "../../../tools/Services/Socket";
+import {useConnection} from "../../../../hooks/useConnection";
+import {DEF_SETTINGS, DEFAULT_NAME, LINK_START, S_NICK} from "../../../../tools/const";
+import MessageCreator from "../../../../tools/Services/MessageCreator";
+import Socket from "../../../../tools/Services/Socket";
 import cn from "./CreateForm.module.scss"
-import GameService from "../../../tools/Services/GameService";
-import BtnTextIco from "../../UI/BtnTextIco/BtnTextIco";
-import imgS from "../../../assets/imgs/spanner.png";
+import GameService from "../../../../tools/Services/GameService";
+import BtnTextIco from "../../../UI/BtnTextIco/BtnTextIco";
+import imgS from "../../../../assets/imgs/spanner.png";
 
 
 

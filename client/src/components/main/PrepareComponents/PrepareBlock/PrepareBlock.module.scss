@@ -1,12 +1,11 @@
 @import "src/style/variables";
 
-
-.settingsForm{
+.block {
   @extend %column;
   align-items: center;
   gap: 30px
 }
-.fields {
+.body {
   @extend %column;
   gap: 30px;
   align-items: center;

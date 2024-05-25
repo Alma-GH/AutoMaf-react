@@ -1,9 +1,9 @@
-@import "../../../style/variables";
+@import "src/style/variables";
 
 .container {
   height: 100%;
-  width: calc(740 * 100% /1920);
-  min-width: 560px;
+  width: calc(800 * 100% /1920);
+  min-width: 645px;
 
   @extend %center;
 

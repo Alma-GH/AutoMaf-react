@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Header from "../main/Header/Header";
 import MainCard from "../main/MainCard/MainCard";
-import CreateForm from "../main/CreateForm/CreateForm";
+import CreateForm from "../main/CreateComponents/CreateForm/CreateForm";
 import SettingsForm from "../main/SettingsForm/SettingsForm";
 import {DEF_SETTINGS} from "../../tools/const";
 import {SettingsContext} from "../../context/contexts";

@@ -1,34 +1,5 @@
 @import "src/style/variables";
 
-.error{
-  $height: 100px;
-
-  position: absolute;
-  left: 50px;
-  top: -$height;
-  z-index: 1000;
-
-  height: $height;
-  aspect-ratio: 2/1;
-
-  padding: 10px;
-
-  color: white;
-  font-size: 0.7rem;
-  font-family: monospace;
-  border: 3px solid black;
-  background-color: $colError_red;
-
-  @include autoMedia(left, (sm: 50%));
-  @include autoMedia(transform, (sm: translate(-50%)));
-  @include transPos(0.5s);
-
-  &.vis{
-    top:30px;
-    @include transPos(0.5s);
-  }
-}
-
 .errorMessageToast {
   height: 100px;
   aspect-ratio: 2/1;
@@ -42,6 +13,6 @@
 
 .errorMessageBody {
   color: white;
-  font-size: 0.7rem;
-  font-family: monospace;
+  @extend %font1;
+  font-size: 12px;
 }

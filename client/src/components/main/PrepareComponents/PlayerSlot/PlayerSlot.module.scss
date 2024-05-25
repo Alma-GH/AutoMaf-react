@@ -1,0 +1,30 @@
+@import "src/style/variables";
+
+.container {
+  background: #E4E4E4;
+  border: 3px solid #B9B9B9;
+
+  padding: 10px;
+
+  width: 300px;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+}
+
+.you {
+  border-color: $color-red2;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+
+  margin-right: 10px;
+  cursor: default;
+}
+
+.name {
+  @extend %font1;
+}

@@ -6,7 +6,7 @@ import {
   LINK_CREATE,
   LINK_ENTER,
   LINK_FIND,
-  LINK_GAME,
+  LINK_GAME, LINK_INVITE,
   LINK_LOGIN,
   LINK_PREPARE,
   LINK_REGISTRATION,
@@ -399,7 +399,7 @@ const Debug = () => {
               <button onClick={()=>nav(LINK_CREATE)}>create</button>
             </li>
             <li>
-              <button onClick={()=>nav(LINK_FIND)}>find</button>
+              <button onClick={()=>nav(LINK_INVITE)}>invite</button>
             </li>
             <li>
               <button onClick={()=>nav(LINK_PREPARE)}>prepare</button>

@@ -39,10 +39,10 @@ const ModalQuit = ({isOpen, onClose}) => {
       className={cls.content}
       overlayClassName={cls.overlay}
     >
-      <p className={cls.question}>Вы точно хотите выйти?</p>
+      <p className={cls.question}>Вы уверены, что хотите выйти?</p>
       <div className={cls.btns}>
-        <BtnText text="Нет" cb={onClose} color="red"/>
-        <BtnText text="Да" cb={quit}/>
+        <BtnText text="Выйти" type="secondary" cb={quit}/>
+        <BtnText text="Остаться" cb={onClose}/>
       </div>
     </Modal>
   );

@@ -1,0 +1,19 @@
+@import "src/style/variables";
+
+.container {
+  width: 645px;
+  max-height: 460px;
+
+  padding: 15px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  border: 1px solid #B9B9B9;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  @extend %scroll;
+}

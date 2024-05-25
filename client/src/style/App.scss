@@ -73,12 +73,6 @@ button{
     height: calc(100% - 78px);
   }
 
-  .inputCont>div{
-    @extend %column;
-    gap: 25px;
-    align-items: center;
-  }
-
 }
 
 .startPage{

@@ -38,6 +38,7 @@ export const PATH_START   = "start"
 export const PATH_CREATE  = "create"
 export const PATH_STAT    = "statistic"
 export const PATH_FIND    = "find"
+export const PATH_INVITE  = "invite"
 
 export const PATH_ROOT_ROOM = "room"
 export const PATH_PREPARE   = "prepare"
@@ -53,6 +54,7 @@ export const LINK_START   = `${PATH_ROOT_APP}/${PATH_START}`
 export const LINK_CREATE  = `${PATH_ROOT_APP}/${PATH_CREATE}`
 export const LINK_STAT    = `${PATH_ROOT_APP}/${PATH_STAT}`
 export const LINK_FIND    = `${PATH_ROOT_APP}/${PATH_FIND}`
+export const LINK_INVITE  = `${PATH_ROOT_APP}/${PATH_INVITE}`
 
 export const LINK_PREPARE = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_PREPARE}`
 export const LINK_GAME    = `${PATH_ROOT_APP}/${PATH_ROOT_ROOM}/${PATH_GAME}`
@@ -111,11 +113,15 @@ export const S_LOST_PLAYER = "lost player"
 export const T_VERSION = "toast_version_id"
 export const T_NICK = "toast_nick_id"
 export const T_CLOSE_CONNECTION = "toast_connection_id"
+export const T_CLIPBOARD = "toast_clipboard_id"
 
 //error message
 export const EM_VERSION           = "Данная функция пока не доступна"
 export const EM_NICK              = "Введите ник"
 export const EM_CLOSE_CONNECTION  = "Сервер прервал соединение"
+
+//message
+export const M_CLIPBOARD = "Ссылка скопирована"
 
 //default objects
 export const DEF_SETTINGS = {
