@@ -36,5 +36,36 @@ $margin: 20px;
     //margin-right: 20px;
     //margin-bottom: 20px;
   }
+}
 
+
+$num_columns1: 6;
+$pad1: 35px;
+$gap: 40px;
+
+.container {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+
+  width: 70vw;
+  height: 80vh;
+  min-height: $card_height1 * 3 + $pad1 * 2 + 15px + $gap * 2;
+  min-width: $card_width1 * $num_columns1 + $pad1 * 2;
+
+  padding: $pad1;
+  border-radius: 34px;
+  background: #4D6863;
+  border-bottom: 15px solid #442908;
+
+  display: grid;
+  grid-template-columns: repeat($num_columns1,1fr);
+  gap: $gap;
+  justify-items: center;
+  align-items: center;
+
+
+  overflow: auto;
+  overflow-x: hidden;
+  @extend %scroll;
 }

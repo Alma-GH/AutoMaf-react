@@ -8,7 +8,10 @@ import Header from "../main/Header/Header";
 import MainCard from "../main/MainCard/MainCard";
 import SettingsForm from "../main/SettingsForm/SettingsForm";
 import PrepareBlock from "../main/PrepareComponents/PrepareBlock/PrepareBlock";
-
+import BtnIco from "../UI/BtnIco/BtnIco";
+import imgCross from "../../assets/imgs/cross.svg"
+import ModalQuit from "../UI/Modal/ModalQuit";
+import useBoolean from "../../hooks/useBoolean";
 
 const PreparePage = () => {
 
@@ -17,6 +20,7 @@ const PreparePage = () => {
   const context = useContext(RoomContext)
   const room    = context.room
 
+  const [isModalQuitOpen, openModal, closeModal] = useBoolean(false);
 
   useRedirect(
     GameService.getRoomStatus(room),
@@ -43,10 +47,20 @@ const PreparePage = () => {
     <div className="prepPage">
       <Header />
 
+      <BtnIco
+        cb={openModal}
+        type="secondary"
+        img={imgCross}
+        alt="cross"
+        addCls="closeButton"
+      />
+
       <MainCard addCls="formBlock">
         <h2>Подготовка</h2>
         <PrepareBlock setOpenSettings={setOpenSettings} />
       </MainCard>
+
+      <ModalQuit isOpen={isModalQuitOpen} onClose={closeModal}/>
     </div>
   );
 };

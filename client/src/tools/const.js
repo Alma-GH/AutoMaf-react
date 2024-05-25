@@ -94,6 +94,7 @@ export const CIVIL_WIN            = "CIVIL_WIN"
 export const MAFIA_WIN            = "MAFIA_WIN"
 
 //avatars
+export const AVATAR_UNKNOWN  = "AVATAR_UNKNOWN"
 export const AVATAR_NORMAL  = "AVATAR_NORMAL"
 export const AVATAR_DEAD    = "AVATAR_DEAD"
 export const AVATAR_SPEAK   = "AVATAR_SPEAK"

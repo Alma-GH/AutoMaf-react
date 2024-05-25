@@ -46,7 +46,7 @@ const LoginPage = () => {
                     setVal={setPassword}
                 />
                 <BtnText text="Войти" cb={handleLogin} disabled={loading}/>
-                <BtnText text="Регистрация" cb={handleNavRegister} disabled={loading} color={"yellow"}/>
+                <BtnText text="Регистрация" cb={handleNavRegister} disabled={loading} type="secondary" />
             </div>
         </div>
     );

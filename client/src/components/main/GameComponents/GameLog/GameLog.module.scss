@@ -4,18 +4,18 @@
 $btnsWidth: 51px;
 .parent{
 
-  @extend %allIN;
-    width: 24%;
-    @include media(width, (sm:$md), (sm:70%));
+  width: 24%;
+  height: 100%;
 
   position: relative;
   z-index: 2;
-  @include media(left, (sm:$md), (sm:-70%));
 
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid black;
   box-shadow: 20px 0px 5px -5px rgba(0, 0, 0, 0.3);
-  @extend %font;
+  @extend %font3;
+  -webkit-text-stroke: 1px black;
+  color: white;
 
   transition: left 0.5s;
   &.vis{
@@ -61,7 +61,7 @@ $btnsWidth: 51px;
 
     button{
       border: $borderBtn solid black;
-      background-color: $colBtn_yellow !important;
+      background-color: $color-red2 !important;
 
       &:first-child{
         border-bottom-width: math.div($borderBtn, 2);
@@ -74,13 +74,6 @@ $btnsWidth: 51px;
         display: none;
         @include media(display, (sm:$md), (sm:block));
         border-top-width: math.div($borderBtn, 2);
-      }
-
-      img{
-        height: 90%;
-      }
-      &:active img{
-        height: 50%;
       }
     }
 

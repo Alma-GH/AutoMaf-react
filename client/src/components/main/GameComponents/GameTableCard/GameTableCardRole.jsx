@@ -1,11 +1,10 @@
 import React, {useContext} from 'react';
-import {AVATAR_NORMAL} from "../../../../tools/const"
-import cls from "./GameTableCard.module.scss"
+import cn from "./GameTableCard.module.scss"
 import {CardContext, RoomContext} from "../../../../context/contexts";
 import Socket from "../../../../tools/Services/Socket";
 import MessageCreator from "../../../../tools/Services/MessageCreator";
-import Avatar from "./Avatar";
 import GameService from "../../../../tools/Services/GameService";
+import clsx from "clsx";
 
 
 const GameTableCardRole = ({card}) => {
@@ -17,7 +16,7 @@ const GameTableCardRole = ({card}) => {
 
   //click card events
   function chooseCard(){
-    if(card.role === null)
+    if(!card.isNotTaken)
       return
 
     const rID = GameService.getRoomID(room)
@@ -28,13 +27,12 @@ const GameTableCardRole = ({card}) => {
     setVisCard(true)
   }
 
-  const style = []
-  style.push(cls.parent)
-  if(card.role === null)
-    style.push(cls.invis)
   return (
-    <div className={style.join(" ")} onClick={chooseCard}>
-      <Avatar state={AVATAR_NORMAL}/>
+    <div
+      className={clsx(cn.container, cn.cardRole, !card.isNotTaken && cn.invis)}
+      onClick={chooseCard}
+    >
+      <span>?</span>
     </div>
   );
 };

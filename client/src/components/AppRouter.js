@@ -3,18 +3,17 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import {
   LINK_CREATE,
   LINK_ENTER,
-  LINK_FIND,
-  LINK_GAME, LINK_INVITE,
+  LINK_GAME,
+  LINK_INVITE,
   LINK_LOGIN,
   LINK_PREPARE,
   LINK_REGISTRATION,
-  LINK_START, LINK_STAT,
-  S_NICK
+  LINK_START,
+  LINK_STAT
 } from "../tools/const";
 import EnterPage from "./Pages/EnterPage";
 import StartPage from "./Pages/StartPage";
 import CreatePage from "./Pages/CreatePage";
-import FindPage from "./Pages/FindPage";
 import PreparePage from "./Pages/PreparePage";
 import GamePage from "./Pages/GamePage";
 import AuthGuard from "./guards/AuthGuard";

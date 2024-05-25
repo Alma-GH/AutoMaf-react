@@ -9,12 +9,13 @@ import {
   CARD_MAFIA,
   T_VOTE
 } from "../../../../tools/const"
-import cls from "./GameTableCard.module.scss"
+import cn from "./GameTableCard.module.scss"
 import {RoomContext, ServerTimerContext} from "../../../../context/contexts";
 import Socket from "../../../../tools/Services/Socket";
 import MessageCreator from "../../../../tools/Services/MessageCreator";
-import Avatar from "./Avatar";
 import GameService from "../../../../tools/Services/GameService";
+import CardType from "./CardType";
+import clsx from "clsx";
 
 const GameTableCardPlayer = ({player}) => {
 
@@ -74,17 +75,14 @@ const GameTableCardPlayer = ({player}) => {
     if(!player)
       return AVATAR_NORMAL
 
-    if(!player.alive)
-      return AVATAR_DEAD
-
-    if(player.speak)
-      return AVATAR_SPEAK
-
-    if(player.judged)
-      return AVATAR_JUDGED
-
-    if(timer === T_VOTE && GameService.getChoice(game) === pID && time !== 0)
-      return AVATAR_TIMER
+    // if(!player.alive)
+    //   return AVATAR_DEAD
+    //
+    // if(player.speak)
+    //   return AVATAR_SPEAK
+    //
+    // if(timer === T_VOTE && GameService.getChoice(game) === pID && time !== 0)
+    //   return AVATAR_TIMER
 
     return AVATAR_NORMAL
   }
@@ -110,34 +108,40 @@ const GameTableCardPlayer = ({player}) => {
     return myRole === CARD_DETECTIVE && player.detected;
   }
 
-
-  const style = [cls.parent]
-  if(myID===pID)  style.push(cls.you)
-  if(teamStyle()) style.push(cls.team)
-  if(myVote===pID) style.push(cls.vote)
-
-  const nameStyle = [cls.name]
-  if(detectStyle()){
-    if(playerRole === CARD_MAFIA)
-      nameStyle.push(cls.detectMaf)
-    else
-      nameStyle.push(cls.detectCiv)
-  }
+  const isDetected = detectStyle()
+  const isTeamStyle = teamStyle()
 
   return (
-    <div className={style.join(" ")} onClick={getFunction(phase)}>
+    <div
+      className={clsx(
+        cn.container,
+        cn.cardPlayer,
+        myID === pID && cn.you,
+        isTeamStyle && cn.team,
+        myVote === pID && cn.vote
+      )}
+      onClick={getFunction(phase)}
+    >
 
       {
         (numVotes>0 || (nightVotes>0 && (GameService.isPlayerToMatchNightPhase(me,game)))) &&
-        <div className={cls.counter}>{numVotes || nightVotes}</div>
+        <div className={cn.counter}>{numVotes || nightVotes}</div>
       }
 
       {!end
-        ? <Avatar state={avatar}/>
+        ? <CardType state={avatar} avatarIndex={3} />
         : <img src={GameService.getImgByRole(playerRole)} alt={playerRole}/>
       }
 
-      <div className={nameStyle.join(" ")}>{name}</div>
+      <div
+        className={clsx(
+          cn.name,
+          isDetected && playerRole === CARD_MAFIA && cn.detectMaf,
+          isDetected && playerRole !== CARD_MAFIA && cn.detectCiv
+        )}
+      >
+        {name}
+      </div>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
-import cls from "./GameTable.module.scss"
+import cn from "./GameTable.module.scss"
 import {PHASE_PREPARE} from "../../../../tools/const";
-import GameTableCardRole from "../GameTableCard/GameTableCard.Role";
-import GameTableCardPlayer from "../GameTableCard/GameTableCard.Player";
+import GameTableCardRole from "../GameTableCard/GameTableCardRole";
+import GameTableCardPlayer from "../GameTableCard/GameTableCardPlayer";
 
 
 const GameTable = ({players=[], cards=[], phase}) => {
@@ -12,7 +12,7 @@ const GameTable = ({players=[], cards=[], phase}) => {
       <GameTableCardRole
         //TODO: change key-index on key-name(id)
         key={ind}
-        card={{role:card,index:ind}}
+        card={{isNotTaken:card,index:ind}}
       />
     ))
   }else{
@@ -27,7 +27,7 @@ const GameTable = ({players=[], cards=[], phase}) => {
 
 
   return (
-    <div className={cls.parent}>
+    <div className={cn.container}>
       {set}
     </div>
   );

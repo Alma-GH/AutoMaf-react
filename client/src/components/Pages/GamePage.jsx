@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
-import GameTable from "../main/GameComps/GameTable/GameTable";
+import GameTable from "../main/GameComponents/GameTable/GameTable";
 import BtnText from "../UI/BtnText/BtnText";
-import CardViewer from "../main/GameComps/GameCardViewer/CardViewer";
-import GameLog from "../main/GameComps/GameLog/GameLog";
+import CardViewer from "../main/GameComponents/GameCardViewer/CardViewer";
+import GameLog from "../main/GameComponents/GameLog/GameLog";
 import {LINK_PREPARE, PHASE_DAY_DISCUSSION, PHASE_PREPARE, T_START} from "../../tools/const"
 import {RoomContext, ServerTimerContext} from "../../context/contexts";
 import Socket from "../../tools/Services/Socket";
@@ -15,10 +15,11 @@ import clsLoad from "./../../components/Notification/Loader.module.scss"
 import clsBtnText from "./../../components/UI/BtnText/BtnText.module.scss"
 import ModalAlert from "../UI/Modal/ModalAlert";
 import useRedirectCloseConnection from "../../hooks/useRedirectCloseConnection";
+import useBoolean from "../../hooks/useBoolean";
 
 const GamePage = () => {
 
-  const [modal,openModal, closeModal] = useModal()
+  const [isModalQuitOpen, openModal, closeModal] = useBoolean(false)
 
   //server data
   const context = useContext(RoomContext)
@@ -84,47 +85,42 @@ const GamePage = () => {
 
   useRedirectCloseConnection()
 
+  const pl = Array.from({length: 10}, () => ({_name: "123", _id: "11"}))
+
   return (
     <div className="gamePage">
 
-      <div className="right">
-        <GameTable
-          cards={cards ?? []}
-          players={players ?? []}
-          phase={phase}
-        />
 
-        <div className="btnCont">
-          <BtnText text="Выйти" color="red" cb={openModal} addCls={modal ? clsBtnText.hide : null}/>
-          {end && GameService.isLeader(player, members)
-            ? <>
-              <BtnText text="Lobby" color="yellow" cb={returnInLobby}/>
-              <BtnText text="Restart" color="yellow" cb={restart}/>
-            </>
-            : <BtnText
-                text="Готов"
-                disabled={disabledBtnReady}
-                cb={readiness}
-                addCls={!disabledBtnReady ? clsBtnText.attention : null}
-              />
-          }
-        </div>
+      <GameTable
+        cards={cards ?? []}
+        players={pl}
+        phase={phase}
+      />
 
-        <CardViewer enabled={true} role={GameService.getRole(player,game)}/>
-      </div>
+      {/*<div className="btnCont">*/}
+      {/*  <BtnText text="Выйти" color="red" cb={openModal} addCls={modal ? clsBtnText.hide : null}/>*/}
+      {/*  {end && GameService.isLeader(player, members)*/}
+      {/*    ? <>*/}
+      {/*      <BtnText text="Lobby" color="yellow" cb={returnInLobby}/>*/}
+      {/*      <BtnText text="Restart" color="yellow" cb={restart}/>*/}
+      {/*    </>*/}
+      {/*    : <BtnText*/}
+      {/*        text="Готов"*/}
+      {/*        disabled={disabledBtnReady}*/}
+      {/*        cb={readiness}*/}
+      {/*        addCls={!disabledBtnReady ? clsBtnText.attention : null}*/}
+      {/*      />*/}
+      {/*  }*/}
+      {/*</div>*/}
+
+      {/*<CardViewer enabled={true} role={GameService.getRole(player,game)}/>*/}
 
 
       <GameLog/>
 
-
-      <ModalQuit isOpen={modal} onClose={closeModal}/>
-
+      {end && <StartLoader stage={tContext.timer?.time}/>}
       {sleep && <div className="gameBack"/>}
-
-      {end &&
-        <StartLoader stage={tContext.timer?.time}/>
-      }
-
+      <ModalQuit isOpen={isModalQuitOpen} onClose={closeModal}/>
       <ModalAlert/>
     </div>
   );

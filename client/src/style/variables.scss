@@ -46,7 +46,7 @@ $color-black: #252525;
 %font{
   color: white;
   font-weight: 1000;
-  font-family: 'Inter', sans-serif;
+  font-family: "Noto Serif", serif;
   -webkit-text-stroke: 1px #000000;
 }
 
@@ -195,3 +195,8 @@ $sizes: (sm: $as, gsm: $ags);
     box-shadow: 0 0 50px 10px rgb(106, 255, 50);
   }
 }
+
+
+
+$card_width1: 140px;
+$card_height1: 200px;

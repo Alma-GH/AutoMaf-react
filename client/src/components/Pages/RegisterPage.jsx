@@ -46,7 +46,7 @@ const RegisterPage = () => {
                     setVal={setPassword}
                 />
                 <BtnText text="Создать" cb={handleRegister} disabled={loading}/>
-                <BtnText text="Уже есть аккаунт" cb={handleNavLogin} disabled={loading} color={"yellow"}/>
+                <BtnText text="Уже есть аккаунт" cb={handleNavLogin} disabled={loading} type="secondary" />
             </div>
         </div>
     );

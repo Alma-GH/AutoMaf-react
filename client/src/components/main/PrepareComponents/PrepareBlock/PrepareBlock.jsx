@@ -16,7 +16,7 @@ import {toast} from "react-toastify";
 
 const PrepareBlock = ({setOpenSettings}) => {
 
-  const [modal,openModal, closeModal] = useModal()
+
 
   const context = useContext(RoomContext)
   const tContext = useContext(ServerTimerContext)
@@ -66,8 +66,6 @@ const PrepareBlock = ({setOpenSettings}) => {
         <BtnText text="Пригласить"  cb={handlerInviteClick}/>
         <BtnText text="Начать" cb={startGame} disabled={!GameService.isLeader(player,players)}/>
       </div>
-
-      <ModalQuit isOpen={modal} onClose={closeModal}/>
     </div>
   )
 }

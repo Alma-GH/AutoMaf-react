@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import cls from "./GameLog.module.scss"
 import BtnIco from "../../../UI/BtnIco/BtnIco";
 import imgVote from "../../../../assets/imgs/megaphone.png"
-import imgCross from "../../../../assets/imgs/cancel.png"
+import imgCross from "../../../../assets/imgs/cross.svg"
 import imgQuestion from "../../../../assets/imgs/question.png"
 import imgRight from "../../../../assets/imgs/right-arrow.png"
 import imgLeft from "../../../../assets/imgs/left-arrow.png"
@@ -12,6 +12,7 @@ import GameService from "../../../../tools/Services/GameService";
 import LogInfo from "./LogInfo";
 import LogMessages from "./LogMessages";
 import GameObjective from "../GameObjective/GameObjective";
+import clsx from "clsx";
 
 
 const GameLog = () => {
@@ -37,11 +38,8 @@ const GameLog = () => {
     setVisLog(prev=>!prev)
   }
 
-  const style = [cls.parent]
-  if(visLog)
-    style.push(cls.vis)
   return (
-    <div className={style.join(" ")}>
+    <div className={clsx(cls.parent, visLog && cls.vis)}>
       <LogInfo/>
 
       <LogMessages log={log}/>

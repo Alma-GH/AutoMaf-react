@@ -1,0 +1,72 @@
+@import "src/style/variables";
+
+.container2 {
+  height: 60%;
+  aspect-ratio: 1/1;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  //time
+  @extend %timerFont;
+  color: red;
+  @include autoMedia(line-height, (gsm: 50%));
+
+  &>*{
+    background-color: #D9D9D9;
+    border: 1px solid black;
+  }
+  &>img{
+    background-color: initial;
+    border: none;
+    width: 70%;
+    aspect-ratio: 7/9;
+  }
+
+  //normal
+  .head{
+    height: 40%;
+    aspect-ratio:1/1;
+    border-radius:50%;
+  }
+  .body{
+    height: 60%;
+    width: 100%;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+
+  //speak
+  .exclPointUp{
+    height: 66%;
+    aspect-ratio: 1/3;
+  }
+  .exclPointDown{
+    height: 25%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+  }
+
+}
+
+.container {
+  width: 100%;
+  aspect-ratio: 1/1;
+  position: relative;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+}
+
+//dead
+.cross{
+  @extend %centerPos;
+  height: 80%;
+  width: 80%;
+  user-select: none;
+  pointer-events: none;
+}
