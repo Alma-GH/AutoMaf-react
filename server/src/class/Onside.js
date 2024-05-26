@@ -13,11 +13,10 @@ class Onside extends Player{
   //(CARD_MAFIA,CARD_CIVIL, ...) - card
   role
 
+  //temporary properties
   alive
   readiness
   speak
-
-  //temporary properties
   injure
   detected
 
