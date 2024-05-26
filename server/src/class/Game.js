@@ -52,8 +52,6 @@ class Game {
 
 
   //vote types in options
-  static VOTE_TYPE_CLASSIC = "VOTE_TYPE_CLASSIC"
-  static VOTE_TYPE_FAIR = "VOTE_TYPE_FAIR"
   static VOTE_TYPE_REALTIME = "VOTE_TYPE_REALTIME"
 
   //(CIVIL_WIN, MAFIA_WIN)

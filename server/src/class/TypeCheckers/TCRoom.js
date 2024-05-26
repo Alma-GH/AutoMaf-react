@@ -137,7 +137,7 @@ class TypeChecker{
     const noMaf   = numMaf === 0
 
 
-    if(![Game.VOTE_TYPE_REALTIME, Game.VOTE_TYPE_CLASSIC, Game.VOTE_TYPE_FAIR].includes(opt.voteType))
+    if(![Game.VOTE_TYPE_REALTIME].includes(opt.voteType))
       throw new Error("vote type in options not exist")
     if(![opt.numMaf, opt.numDet, opt.numDoc].every(num => num>= 0))
       throw new Error("number players with role < 0")

@@ -67,8 +67,6 @@ export const T_VOTE = "timer_key_realtime_vote"
 
 //settings
 export const S_VOTE_TYPE_REALTIME = "VOTE_TYPE_REALTIME"
-export const S_VOTE_TYPE_CLASSIC = "VOTE_TYPE_CLASSIC"
-export const S_VOTE_TYPE_FAIR = "VOTE_TYPE_FAIR"
 
 
 //GAME
