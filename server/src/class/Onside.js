@@ -22,7 +22,6 @@ class Onside extends Player{
   //temporary properties
   injure
   detected
-  alibi
 
   //(player,false,null) - votes for court
   vote
@@ -42,7 +41,6 @@ class Onside extends Player{
 
     this.injure = false
     this.detected = false
-    this.alibi = false
 
     this.setVote(null)
   }
@@ -122,15 +120,6 @@ class Onside extends Player{
     this.detected = false
   }
 
-  hasAlibi(){
-    return this.alibi
-  }
-  heGetAlibi(){
-    this.alibi = true
-  }
-  heLoseAlibi(){
-    this.alibi = false
-  }
 
   getVote(){
     return this.vote

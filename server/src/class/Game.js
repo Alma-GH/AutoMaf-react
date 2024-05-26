@@ -288,9 +288,7 @@ class Game {
   getPlayersDetected(){
     return this.getPlayersAlive().filter(player=>player.isDetected())
   }
-  getPlayersWithAlibi(){
-    return this.getPlayersAlive().filter(player=>player.hasAlibi())
-  }
+
   getPlayersReadiness(){
     return this.players.filter(player=>player.isReady())
   }
@@ -333,7 +331,6 @@ class Game {
     this.getPlayers().forEach(player=>{
       player.miss()
       player.heal()
-      player.heLoseAlibi()
     })
   }
 
