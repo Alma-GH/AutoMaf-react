@@ -1,18 +1,20 @@
 import {
   CARD_BUTTERFLY,
-  CARD_CIVIL, CARD_DETECTIVE, CARD_DOCTOR,
+  CARD_CIVIL,
+  CARD_DETECTIVE,
+  CARD_DOCTOR,
   CARD_MAFIA,
   PHASE_DAY_DISCUSSION,
   PHASE_DAY_SUBTOTAL,
-  PHASE_DAY_TOTAL, PHASE_NIGHT_BUTTERFLY, PHASE_NIGHT_DETECTIVE, PHASE_NIGHT_DOCTOR,
+  PHASE_DAY_TOTAL,
+  PHASE_NIGHT_BUTTERFLY,
+  PHASE_NIGHT_DETECTIVE,
+  PHASE_NIGHT_DOCTOR,
   PHASE_NIGHT_MAFIA,
-  PHASE_PREPARE,
-  SECOND_STYLE
+  PHASE_PREPARE
 } from "../const";
 import imgCivil from "../../assets/imgs/civil-card.png"
-import imgCivil2 from "../../assets/imgs/civil-card2.png"
 import imgMafia from "../../assets/imgs/mafia-card.png"
-import imgMafia2 from "../../assets/imgs/mafia-card2.png"
 import imgDetective from "../../assets/imgs/detective-card.png"
 import imgDoctor from "../../assets/imgs/doctor-card.png"
 import imgButterfly from "../../assets/imgs/butterfly-card.png"
@@ -22,8 +24,8 @@ class GameService {
 
   //DEP NIGHT PHASES 4
   IMG_MAP = {
-    [CARD_MAFIA]: imgMafia2,
-    [CARD_CIVIL]: imgCivil2,
+    [CARD_MAFIA]: imgMafia,
+    [CARD_CIVIL]: imgCivil,
 
     [CARD_DETECTIVE]: imgDetective,
     [CARD_DOCTOR]: imgDoctor,
