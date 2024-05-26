@@ -10,7 +10,6 @@ const GameTable = ({players=[], cards=[], phase}) => {
   if(phase === PHASE_PREPARE){
     set = cards.map((card,ind)=>(
       <GameTableCardRole
-        //TODO: change key-index on key-name(id)
         key={ind}
         card={{isNotTaken:card,index:ind}}
       />
@@ -18,7 +17,6 @@ const GameTable = ({players=[], cards=[], phase}) => {
   }else{
     set = players.map((player,ind)=>(
       <GameTableCardPlayer
-        //TODO: change key-index on key-name(id)
         key={ind}
         player={player}
       />

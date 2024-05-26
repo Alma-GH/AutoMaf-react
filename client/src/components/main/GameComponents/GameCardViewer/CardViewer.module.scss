@@ -1,20 +1,18 @@
 @import "src/style/variables";
 
-.parent{
-  $hCard: 575px;
-  $hBtn: 50px;
+$card_height: 575px;
+$button_height: 50px;
 
-  $m_hCard: $hCard * 0.5;
-  $m_hBtn: $hBtn * 0.5;
+
+.container {
 
   position: absolute;
-  bottom: -$hCard;
+  bottom: -$card_height;
   right: 50px;
-
   z-index: 2;
 
   width: 380px;
-  height: $hCard + $hBtn;
+  height: $card_height + $button_height;
 
 
   @extend %column;
@@ -26,112 +24,58 @@
 
   transition: bottom 0.5s, top 0.5s;
 
-  @include media(top, (sm:$md2),(sm:-$hCard));
-  @include media(bottom, (sm:$md2),(sm:initial));
-
-  @include autoMedia(height, (gsm: $m_hBtn+$m_hCard));
-  @include autoMedia(width, (gsm: 380px*0.5));
-  @include autoMedia(top, (gsm: -$m_hCard+9px));
-  @include autoMedia(bottom, (gsm: initial));
-
-  @include autoMedia(height, (gsm: $m_hBtn+$m_hCard), true);
-  @include autoMedia(width, (gsm: 380px*0.5), true);
-  @include autoMedia(top, (gsm: -$m_hCard+9px), true);
-  @include autoMedia(bottom, (gsm: initial), true);
-
-  button img{
-    transition: transform 0.3s;
-    @include media(transform, (sm:$md2),(sm:rotate(180deg) translate(50%, 50%)));
-    @include autoMedia(transform, (gsm: rotate(180deg) translate(50%, 50%)), true);
-  }
 
   &.vis{
     bottom:0;
-    @include media(top, (sm:$md2),(sm:0));
-    @include autoMedia(top, (gsm: 0), true);
 
-    button img{
-      transform: rotate(180deg) translate(50%, 50%);
-      @include media(transform, (sm:$md2),(sm:rotate(0deg) translate(-50%, -50%)));
-      @include autoMedia(transform, (gsm: rotate(0deg) translate(-50%, -50%)), true);
+    .button img{
+      transform: rotate(180deg) ;
     }
   }
-
-  &.disable button{
-    background-color: black !important;
-    cursor: initial;
-  }
-
-  button{
-
-    width: 100px;
-    aspect-ratio: 2/1;
-    background-color: white;
-    border: 3px solid black;
-    @include media(order, (sm:$md2),(sm:2));
-    @include autoMedia(order, (gsm: 2), true);
-
-    img{
-      transition: transform 0.3s !important;
-    }
-  }
-
-  .myCard{
-    position: relative;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    color: white;
-
-    @extend %center;
-
-    img{
-      @extend %allIN;
-      -webkit-user-drag: none;
-      user-select: none;
-    }
-    .description{
-      position: absolute;
-      bottom: 0;
-
-      padding: 10px;
-      text-align: center;
-      text-shadow: 1px 1px 1px black;
-      font-family: monospace;
-      p{
-        font-size: 0.7rem;
-      }
-    }
-
-  }
-}
-
-
-
-
-//v2
-.parent_v2{
-  button{
-    z-index: 2;
-  }
-  .myCard{
-    z-index: 1;
-    border: 5px solid black;
-    img{
-      transform: scale(0.8);
-    }
-  }
-}
-
-
-.parent_v2.maf{
-  .myCard{
+  &.maf .myCard {
     background-color:  rgb(127, 38, 38);
   }
-}
-.parent_v2.civ{
-  .myCard{
-    background-color:  yellow;
+  &.civ .myCard {
+    background-color: #86861f;
+  }
+  &.doc .myCard {
+    background-color: #388827;
+  }
+  &.det .myCard {
+    background-color: #2b628c;
   }
 }
 
+.button{
+  width: 150px;
+  aspect-ratio: 2/1;
+}
+
+
+.myCard{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border: 5px solid black;
+  @extend %center;
+
+  img{
+    @extend %allIN;
+    -webkit-user-drag: none;
+    user-select: none;
+    transform: scale(0.8);
+    position: relative;
+    bottom: 30px;
+  }
+  .description{
+    position: absolute;
+    bottom: 0;
+
+    padding: 10px;
+    text-align: center;
+    @extend %font;
+    font-weight: 700;
+  }
+}

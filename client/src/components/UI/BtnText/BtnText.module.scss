@@ -9,6 +9,11 @@
   @extend %font1;
   background-color: $color-red2;
   border: 3px solid #AF2A2A;
+
+  &:disabled {
+    background: #B9B9B9;
+    border: 3px solid #252525
+  }
 }
 
 .container.secondary {

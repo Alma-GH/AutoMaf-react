@@ -98,7 +98,6 @@ button{
   h1{
     position: relative;
     @extend %font;
-    font-size: 1.3rem;
     letter-spacing: -1px;
     color:black;
     -webkit-text-stroke: 0 black;
@@ -146,51 +145,31 @@ button{
             (lg:red,md:green,sm:blue));
   }
 
+  .btnCont{
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
+    width: 70vw;
 
-  //&>*{
-  //  position: absolute;
-  //}
-  //
-  //$leftMargin: 50px;
-  //.right{
-  //  height: 100vh;
-  //  width: 70%;
-  //  right: 0;
-  //  padding-left: $leftMargin;
-  //  @include media(width, (sm:$md), (sm:100%));
-  //}
-  //
-  //.btnCont{
-  //  position: absolute;
-  //  bottom: 15px;
-  //  left: $leftMargin;
-  //
-  //  display: flex;
-  //  height: 50px;
-  //
-  //  &>button:first-child{
-  //    position: relative;
-  //    z-index: 2;
-  //  }
-  //
-  //  //&>button:last-child{
-  //  //  position: relative;
-  //  //  z-index: 3;
-  //  //  font-size: 0.95rem;
-  //  //  line-height: 15px;
-  //  //}
-  //
-  //  &>*{
-  //    margin-right: 70px;
-  //  }
-  //}
-  //
-  //.gameBack{
-  //  top: 0;
-  //  height: 100vh;
-  //  width: 100vw;
-  //  background-color: rgba(0,0,0,0.7);
-  //}
+    display: flex;
+    gap: 70px
+  }
+
+  .attention {
+    animation-name: shadow;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  .gameBack{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.7);
+  }
 }
 
 

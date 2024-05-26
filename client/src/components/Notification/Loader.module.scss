@@ -11,12 +11,11 @@
   top: 0;
   width:100vw;
   height:100vh;
-
+  z-index: 100;
   display:grid;
   place-items:center;
 
-  @extend %font;
-  font-size: 8rem;
+  @extend %font4;
   color: yellow;
   text-shadow: 0 0 50px white;
 }

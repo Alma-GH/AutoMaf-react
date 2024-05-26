@@ -1,14 +1,5 @@
 import React, {useContext} from 'react';
-import {
-  AVATAR_DEAD,
-  AVATAR_JUDGED,
-  AVATAR_NORMAL,
-  AVATAR_SPEAK,
-  AVATAR_TIMER,
-  CARD_DETECTIVE,
-  CARD_MAFIA,
-  T_VOTE
-} from "../../../../tools/const"
+import {AVATAR_DEAD, AVATAR_NORMAL, AVATAR_SPEAK, CARD_DETECTIVE, CARD_MAFIA, T_VOTE} from "../../../../tools/const"
 import cn from "./GameTableCard.module.scss"
 import {RoomContext, ServerTimerContext} from "../../../../context/contexts";
 import Socket from "../../../../tools/Services/Socket";
@@ -75,14 +66,11 @@ const GameTableCardPlayer = ({player}) => {
     if(!player)
       return AVATAR_NORMAL
 
-    // if(!player.alive)
-    //   return AVATAR_DEAD
-    //
-    // if(player.speak)
-    //   return AVATAR_SPEAK
-    //
-    // if(timer === T_VOTE && GameService.getChoice(game) === pID && time !== 0)
-    //   return AVATAR_TIMER
+    if(!player.alive)
+      return AVATAR_DEAD
+
+    if(player.speak)
+      return AVATAR_SPEAK
 
     return AVATAR_NORMAL
   }
@@ -95,9 +83,7 @@ const GameTableCardPlayer = ({player}) => {
       GameService.getID(pl) === GameService.getID(me)
     ))
 
-    const notMyCard   = pID!==myID
-
-    return cardMatch && notMyCard && (myMatch || !amIAlive)
+    return cardMatch && (myMatch || !amIAlive)
   }
 
   function detectStyle(){
@@ -110,6 +96,11 @@ const GameTableCardPlayer = ({player}) => {
 
   const isDetected = detectStyle()
   const isTeamStyle = teamStyle()
+  const isPlayerReady = GameService
+    .getPlayersReady(game)
+    ?.some(readyPlayer => GameService.getID(readyPlayer) === GameService.getID(player))
+  const isCounterVotesVisible = (numVotes>0 || (nightVotes>0 && (GameService.isPlayerToMatchNightPhase(me,game))))
+  const isTimeToKick = (timer === T_VOTE && GameService.getChoice(game) === pID && time !== 0)
 
   return (
     <div
@@ -122,26 +113,30 @@ const GameTableCardPlayer = ({player}) => {
       )}
       onClick={getFunction(phase)}
     >
-
-      {
-        (numVotes>0 || (nightVotes>0 && (GameService.isPlayerToMatchNightPhase(me,game)))) &&
-        <div className={cn.counter}>{numVotes || nightVotes}</div>
+      {end && <img className={cn.imgRole} src={GameService.getImgByRole(playerRole)} alt={playerRole}/>}
+      {isCounterVotesVisible &&
+        <div className={clsx(cn.counterVotes, isTimeToKick && cn.shadow)}>
+          {numVotes || nightVotes}
+        </div>
       }
+      {isTimeToKick && <div className={cn.timer}>{time}</div>}
 
-      {!end
-        ? <CardType state={avatar} avatarIndex={3} />
-        : <img src={GameService.getImgByRole(playerRole)} alt={playerRole}/>
-      }
+      <CardType state={avatar} avatarIndex={3} />
 
       <div
+        title={name}
         className={clsx(
           cn.name,
+          isTimeToKick && cn.shadow,
           isDetected && playerRole === CARD_MAFIA && cn.detectMaf,
           isDetected && playerRole !== CARD_MAFIA && cn.detectCiv
         )}
       >
         {name}
       </div>
+
+
+      {isPlayerReady && <div className={cn.ready} />}
     </div>
   );
 };

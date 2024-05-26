@@ -22,8 +22,8 @@ class GameService {
 
   //DEP NIGHT PHASES 4
   IMG_MAP = {
-    [CARD_MAFIA]: !SECOND_STYLE ? imgMafia : imgMafia2,
-    [CARD_CIVIL]: !SECOND_STYLE ? imgCivil : imgCivil2,
+    [CARD_MAFIA]: imgMafia2,
+    [CARD_CIVIL]: imgCivil2,
 
     [CARD_DETECTIVE]: imgDetective,
     [CARD_DOCTOR]: imgDoctor,
@@ -125,7 +125,7 @@ class GameService {
     })
   }
   getPlayersReady(game){
-    return this.getPlayers(game).filter(player=>player.readiness)
+    return this.getPlayers(game)?.filter(player=>player.readiness)
   }
   getPlayersAlive(game){
     return this.getPlayers(game)?.filter(player=>player.alive)

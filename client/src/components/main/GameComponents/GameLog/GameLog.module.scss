@@ -27,7 +27,8 @@ $btnsWidth: 51px;
     width: 100%;
     padding: 10px;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
+    @extend %scroll;
   }
 
   .info{

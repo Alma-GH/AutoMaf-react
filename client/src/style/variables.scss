@@ -43,13 +43,6 @@ $color-black: #252525;
   background-color: rgba(51, 255, 0, 0.2);
 }
 
-%font{
-  color: white;
-  font-weight: 1000;
-  font-family: "Noto Serif", serif;
-  -webkit-text-stroke: 1px #000000;
-}
-
 %timerFont{
   font-size: 4rem;
   font-weight: 900;
@@ -96,6 +89,12 @@ $color-black: #252525;
     background-clip: content-box;
     background-color: $color-grey1;
   }
+}
+
+%font {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Noto Serif", serif;
 }
 
 %font1 {

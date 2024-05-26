@@ -1,23 +1,10 @@
-import {
-  AVATAR_DEAD,
-  AVATAR_JUDGED,
-  AVATAR_NORMAL,
-  AVATAR_SPEAK,
-  AVATAR_TIMER,
-  AVATAR_UNKNOWN
-} from "../../../../tools/const";
+import {AVATAR_DEAD, AVATAR_NORMAL, AVATAR_SPEAK} from "../../../../tools/const";
 import cn from "./CardType.module.scss";
 import imgCross from "../../../../assets/imgs/cancel.png";
-import imgBalance from "../../../../assets/imgs/balance.png";
-import React, {useContext} from "react";
-import {ServerTimerContext} from "../../../../context/contexts";
+import React from "react";
 import Avatar from "../../Avatar/Avatar";
 
 const CardType = ({state=AVATAR_NORMAL, avatarIndex=3})=>{
-
-  const tContext = useContext(ServerTimerContext)
-  const time = tContext?.timer?.time
-
   return (
     <div className={cn.container}>
       {[AVATAR_NORMAL,AVATAR_DEAD].includes(state)  &&
@@ -27,15 +14,10 @@ const CardType = ({state=AVATAR_NORMAL, avatarIndex=3})=>{
         </>
       }
       {state === AVATAR_SPEAK &&
-        <>
+        <div className={cn.excl}>
           <div className={cn.exclPointUp}/>
           <div className={cn.exclPointDown}/>
-        </>
-      }
-      {state === AVATAR_TIMER &&
-        <>
-          {time}
-        </>
+        </div>
       }
     </div>
   )

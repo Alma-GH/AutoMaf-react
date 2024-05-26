@@ -4,90 +4,7 @@ $colCard_hover: yellow;
 $colCard_you: black;
 $colCard_team: $color-red;
 $colCard_vote: #000381;
-
-.parent1 {
-
-  //$h: 150px;
-  //$w: 100px;
-  //$margin: 0;
-  //$margin: 50px;
-
-  height: 90%;
-  aspect-ratio: 2/3;
-  //margin: 0 $margin;
-  //@include media(margin, (sm:$md2,xsm:750px,xxsm:$sm),(sm:0 $margin*0.7,xsm:0 $margin*0.5,xxsm:0));
-
-  @extend %column;
-  align-items: center;
-  position: relative;
-
-  background-color: #00FFF0;
-  border: 3px solid #007A73;
-  cursor: pointer;
-  overflow: hidden;
-
-  //@include autoMedia(height, (gsm: 75px));
-  //@include autoMedia(width, (gsm: 50px));
-
-  &.invis{
-    visibility: hidden;
-  }
-
-  &.you{
-    border-color: $colCard_you;
-    border-width: 7px;
-  }
-  &.team{
-    border-color: $colCard_team;
-    border-width: 7px;
-  }
-  &.vote{
-    border-color: $colCard_vote;
-    border-width: 7px;
-  }
-  &:hover{
-    outline: $colCard_hover solid 7px;
-  }
-
-  &>img{
-    @extend %allIN;
-  }
-
-  .counter{
-    height: 10%;
-    aspect-ratio: 1/1;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    @extend %center;
-
-    color: $colBtn_red;
-    font-weight: 900;
-    font-size: 0.75rem;
-  }
-
-  .name{
-    height: 20%;
-    width: 100%;
-
-    @extend %center;
-    position: absolute;
-    bottom: 0;
-
-    @extend %font;
-    -webkit-text-stroke: 0 #000000;
-    font-size: 0.5rem;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
-
-    &.detectMaf{
-      color: red;
-    }
-    &.detectCiv{
-      color: #33FF00;
-    }
-  }
-}
+$colCard_ready: #00FF38;
 
 
 .container {
@@ -97,7 +14,7 @@ $colCard_vote: #000381;
   background: #D9D9D9;
   border: 3px solid #B9B9B9;
   cursor: pointer;
-
+  user-select: none;
   &:hover {
     border-width: 5px;
     border-color: $colCard_hover;
@@ -115,8 +32,97 @@ $colCard_vote: #000381;
 
 .cardPlayer {
   padding: 10px;
+  position: relative;
+  @extend %column;
+  justify-content: space-between;
 
+  &.you{
+    box-shadow: 0 0 0 12px $colCard_you
+  }
+  &.team{
+    box-shadow: 0 0 0 5px $colCard_team
+  }
+  &.you.team {
+    box-shadow: 0 0 0 5px $colCard_team, 0 0 0 12px $colCard_you
+  }
+  &.vote{
+    box-shadow: 0 0 0 5px $colCard_vote;
+  }
+
+  .ready{
+    @extend %allIN;
+    @extend %centerPos;
+    box-shadow: 0 0 50px 20px $colCard_ready;
+    z-index: -1;
+  }
   &:hover {
     padding: 8px;
+    .counterVotes {
+      top: 1px;
+      right: 1px;
+    }
+  }
+
+  .counterVotes{
+    height: 20px;
+    aspect-ratio: 1/1;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+
+    @extend %center;
+    @extend %font1;
+    color: $color-red2;
+
+    &.shadow {
+      z-index: 15;
+    }
+  }
+  .timer {
+    position: absolute;
+    @extend %allIN;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    @extend %center;
+    @extend %font3;
+    color: white;
+  }
+
+  &:has(.imgRole){
+    border: none;
+  }
+  .imgRole {
+    position: absolute;
+    @extend %allIN;
+    top: 0;
+    left: 0;
+
+    pointer-events: none;
+  }
+
+  .name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    max-height: 45px;
+
+    @extend %font1;
+    font-size: 16px;
+
+    &.detectMaf {
+      color: $color-red2;
+    }
+    &.detectCiv {
+      color: #28c400;
+    }
+    &.shadow {
+      &:not(.detectCiv, .detectMaf){
+        color: white;
+      }
+      z-index: 15;
+    }
   }
 }
