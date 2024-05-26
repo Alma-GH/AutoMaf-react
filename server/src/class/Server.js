@@ -19,19 +19,11 @@ class Server {
   getRooms(){
     return this.rooms
   }
-  getRoomsNames(){
-    return this.rooms.map(room=>room.getName())
-  }
 
   getRoomByID(id){
     Checker.check_getRoomByID(this,id)
 
     return this.getRooms().find(room=>room.getID()===id)
-  }
-  getRoomByName(name){
-    Checker.check_getRoomByName(this,name)
-
-    return this.getRooms().find(room => room.getName() === name)
   }
 
   addRoom(room){

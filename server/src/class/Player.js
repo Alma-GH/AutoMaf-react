@@ -4,7 +4,8 @@ const { v4: uuidv4 } = require('uuid');
 class Player {
   _id
   _name
-  constructor(name, id) {
+  avatarIndex
+  constructor(name, id, avatarIndex) {
     Checker.check_constructor(name)
 
     if(id)
@@ -12,6 +13,10 @@ class Player {
     else
       this.setID("guest_" + uuidv4())
     this._name = name
+
+    if(avatarIndex !== undefined) {
+      this.avatarIndex = avatarIndex
+    }
   }
 
   setID(id){
@@ -24,6 +29,9 @@ class Player {
   }
   getName(){
     return this._name
+  }
+  getAvatar() {
+    return this.avatarIndex
   }
 
   toString(){

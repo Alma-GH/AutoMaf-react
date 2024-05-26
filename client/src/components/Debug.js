@@ -53,8 +53,6 @@ const Debug = () => {
   const [username, setUsername] = useState("find1")
   const [password, setPassword] = useState("123")
 
-  const [create, setCreate] = useState("room")
-  const [find, setFind] = useState("room")
   const [votes, setVotes] = useState("")
 
   const [settingsJSON, setSettingsJSON] = useState("")
@@ -85,10 +83,8 @@ const Debug = () => {
 
     const message = MessageCreator.createRoom(
       "Leader",
-      create,
+      1,
       max,
-      false,
-      "",
       sContext.settings
     )
 
@@ -100,8 +96,8 @@ const Debug = () => {
 
     const message = MessageCreator.findRoom(
       "Finder" + new Date().getSeconds(),
-      find,
-      "",
+      1,
+      localStorage.getItem("DEBUG_ROOM_ID"),
     )
     Socket.send(JSON.stringify(message));
   }
@@ -277,6 +273,11 @@ const Debug = () => {
 
   }, [room])
 
+  useEffect(() => {
+    if(room)
+      localStorage.setItem("DEBUG_ROOM_ID", GameService.getRoomID(room))
+  }, [room])
+
   const roomDATA = getRoomData()
   const playerDATA = JSON.stringify(player)
   const timerDATA = JSON.stringify(timer,null,2)
@@ -345,15 +346,13 @@ const Debug = () => {
             <li>
               <button onClick={logout}>logout</button>
             </li>
-            <li>
-              <button onClick={getStatistic}>statistic</button>
+            <li style={{marginBottom: 10}}>
+              <button onClick={getStatistic}>get statistic</button>
             </li>
             <li>
-              <input type="text" value={create} onChange={e=>setCreate(e.target.value)}/>
               <button onClick={connect1}>create</button>
             </li>
-            <li>
-              <input type="text" value={find} onChange={e=>setFind(e.target.value)}/>
+            <li style={{marginBottom: 10}}>
               <button onClick={connect2}>find</button>
             </li>
             <li>

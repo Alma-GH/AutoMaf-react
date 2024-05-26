@@ -99,8 +99,21 @@ $colCard_ready: #00FF38;
     @extend %allIN;
     top: 0;
     left: 0;
-
+    z-index: 1;
     pointer-events: none;
+
+    &.maf {
+      background-color: $color-bg-maf-card;
+    }
+    &.civ {
+      background-color: $color-bg-civ-card;
+    }
+    &.doc {
+      background-color: $color-bg-doc-card;
+    }
+    &.det {
+      background-color: $color-bg-det-card;
+    }
   }
 
   .name{
@@ -123,6 +136,13 @@ $colCard_ready: #00FF38;
         color: white;
       }
       z-index: 15;
+    }
+
+    &.end {
+      position: relative;
+      top: 5px;
+      z-index: 10;
+      color: white;
     }
   }
 }

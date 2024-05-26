@@ -21,22 +21,17 @@ function set_settings(data){
 }
 
 function create_room(data, uid){
-  const dataCR = data
   const {
     nameCreator,
+    avatarCreator,
     numPlayers,
-    nameRoom,
-    existPassword,
-    password,
     gameOptions
-  } = dataCR
+  } = data
 
-  const leader = new Player(nameCreator, uid)
+  const leader = new Player(nameCreator, uid, avatarCreator)
   const newRoom = new Room(
     leader,
     numPlayers,
-    nameRoom,
-    existPassword ? password : null
   )
   newRoom.setOptions(gameOptions)
   Server.addRoom(newRoom)
@@ -45,21 +40,17 @@ function create_room(data, uid){
 }
 
 function find_room(data, uid){
-  const dataFR = data
   const {
     nameFinder,
-    nameRoom,
-    passRoom
-  } = dataFR
+    avatarFinder,
+    roomId
+  } = data
 
-  const finder        = new Player(nameFinder, uid)
-  const needRoom      = Server.getRoomByName(nameRoom)
-  //TODO: Room.tryConnect()
-  const rightPass = needRoom.getPass() ? needRoom.getPass() === passRoom : true
+  const finder        = new Player(nameFinder, uid, avatarFinder)
+  const needRoom      = Server.getRoomByID(roomId)
+
   const inGame = needRoom.getStatus() || needRoom.getTimerIdByKey(Room.TK_START)
 
-  if(!rightPass)
-    throw new Error(EM_WRONG_PASS)
   if(inGame)
     throw new Error(EM_GAME_PROCESS)
 

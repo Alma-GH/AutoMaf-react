@@ -9,7 +9,7 @@ $button_height: 50px;
   position: absolute;
   bottom: -$card_height;
   right: 50px;
-  z-index: 2;
+  z-index: 110;
 
   width: 380px;
   height: $card_height + $button_height;
@@ -33,16 +33,16 @@ $button_height: 50px;
     }
   }
   &.maf .myCard {
-    background-color:  rgb(127, 38, 38);
+    background-color:  $color-bg-maf-card;
   }
   &.civ .myCard {
-    background-color: #86861f;
+    background-color: $color-bg-civ-card;
   }
   &.doc .myCard {
-    background-color: #388827;
+    background-color: $color-bg-doc-card;
   }
   &.det .myCard {
-    background-color: #2b628c;
+    background-color: $color-bg-det-card;
   }
 }
 

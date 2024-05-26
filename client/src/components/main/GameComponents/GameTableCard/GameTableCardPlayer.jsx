@@ -1,5 +1,13 @@
 import React, {useContext} from 'react';
-import {AVATAR_DEAD, AVATAR_NORMAL, AVATAR_SPEAK, CARD_DETECTIVE, CARD_MAFIA, T_VOTE} from "../../../../tools/const"
+import {
+  AVATAR_DEAD,
+  AVATAR_NORMAL,
+  AVATAR_SPEAK,
+  CARD_CIVIL,
+  CARD_DETECTIVE, CARD_DOCTOR,
+  CARD_MAFIA,
+  T_VOTE
+} from "../../../../tools/const"
 import cn from "./GameTableCard.module.scss"
 import {RoomContext, ServerTimerContext} from "../../../../context/contexts";
 import Socket from "../../../../tools/Services/Socket";
@@ -29,6 +37,7 @@ const GameTableCardPlayer = ({player}) => {
   const avatar      = getAvatar(player)
   const name        = GameService.getName(player)
   const playerRole  = GameService.getRole(player,game)
+  const playerAvatar = GameService.getAvatar(player)
 
   const myVote = GameService.getPlayerVote(GameService.getPlayerByID(myID,game),game)
 
@@ -101,7 +110,7 @@ const GameTableCardPlayer = ({player}) => {
     ?.some(readyPlayer => GameService.getID(readyPlayer) === GameService.getID(player))
   const isCounterVotesVisible = (numVotes>0 || (nightVotes>0 && (GameService.isPlayerToMatchNightPhase(me,game))))
   const isTimeToKick = (timer === T_VOTE && GameService.getChoice(game) === pID && time !== 0)
-
+  console.log("ROOLE")
   return (
     <div
       className={clsx(
@@ -113,7 +122,18 @@ const GameTableCardPlayer = ({player}) => {
       )}
       onClick={getFunction(phase)}
     >
-      {end && <img className={cn.imgRole} src={GameService.getImgByRole(playerRole)} alt={playerRole}/>}
+
+
+      {end && <img
+        className={clsx(
+          cn.imgRole,
+          playerRole === CARD_MAFIA && cn.maf,
+          playerRole === CARD_CIVIL && cn.civ,
+          playerRole === CARD_DOCTOR && cn.doc,
+          playerRole === CARD_DETECTIVE && cn.det,
+        )}
+        src={GameService.getImgByRole(playerRole)} alt={playerRole}
+      />}
       {isCounterVotesVisible &&
         <div className={clsx(cn.counterVotes, isTimeToKick && cn.shadow)}>
           {numVotes || nightVotes}
@@ -121,12 +141,13 @@ const GameTableCardPlayer = ({player}) => {
       }
       {isTimeToKick && <div className={cn.timer}>{time}</div>}
 
-      <CardType state={avatar} avatarIndex={3} />
+      <CardType state={avatar} avatarIndex={playerAvatar} />
 
       <div
         title={name}
         className={clsx(
           cn.name,
+          end && cn.end,
           isTimeToKick && cn.shadow,
           isDetected && playerRole === CARD_MAFIA && cn.detectMaf,
           isDetected && playerRole !== CARD_MAFIA && cn.detectCiv

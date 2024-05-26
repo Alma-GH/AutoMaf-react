@@ -43,11 +43,12 @@ class MessageCreator{
       roomID
     }
   }
-  createRoom(creator, players, options={}){
+  createRoom(creator, avatar, players, options={}){
     return {
       event: this.E_CREATE_ROOM,
 
       nameCreator: creator,
+      avatarCreator: avatar,
       numPlayers: players,
 
       gameOptions: {
@@ -58,13 +59,13 @@ class MessageCreator{
       }
     }
   }
-  findRoom(finder, room, pass){
+  findRoom(finder, avatar, room){
     return {
       event: this.E_FIND_ROOM,
 
       nameFinder: finder,
-      nameRoom: room,
-      passRoom: pass
+      avatarFinder: avatar,
+      roomId: room
     }
   }
   chooseCard(roomID, playerID, index){

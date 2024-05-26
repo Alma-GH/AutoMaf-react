@@ -57,21 +57,19 @@ class GameService {
   getRoomStatus(room){
     return room?.inGame
   }
-  getNameRoom(room){
-    return room?.name
-  }
-  getPassword(room){
-    return room?.password
-  }
   getLog(room){
     return room?.log?.chat
   }
 
+  //player methods
   getName(player){
     return player?._name
   }
   getID(player){
     return player?._id
+  }
+  getAvatar(player) {
+    return player?.avatarIndex
   }
   isLeader(player,players){
     if(!players)

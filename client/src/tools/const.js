@@ -3,7 +3,7 @@
 export const PROD                   = false
 const SERVER_COMMANDS               = false
 const PANEL                         = true
-const REDIRECT                      = true
+const REDIRECT                      = false
 
 export const DEBUG_SERVER_COMMANDS = SERVER_COMMANDS && !PROD
 export const DEBUG_PANEL           = PANEL && !PROD

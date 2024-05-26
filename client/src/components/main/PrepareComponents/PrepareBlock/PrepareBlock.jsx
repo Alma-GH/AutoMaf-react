@@ -1,4 +1,3 @@
-import {useModal} from "../../../../hooks/useModal";
 import React, {useContext} from "react";
 import {RoomContext, ServerTimerContext} from "../../../../context/contexts";
 import GameService from "../../../../tools/Services/GameService";
@@ -7,11 +6,10 @@ import Socket from "../../../../tools/Services/Socket";
 import BtnTextIco from "../../../UI/BtnTextIco/BtnTextIco";
 import imgS from "../../../../assets/imgs/spanner.png";
 import BtnText from "../../../UI/BtnText/BtnText";
-import ModalQuit from "../../../UI/Modal/ModalQuit";
 import cn from "./PrepareBlock.module.scss"
 import PrepareCountPlayers from "../PrepareCountPlayers/PrepareCountPlayers";
 import PreparePlayerList from "../PreparePlayerList/PreparePlayerList";
-import {EM_NICK, LINK_INVITE, M_CLIPBOARD, T_CLIPBOARD, T_NICK} from "../../../../tools/const";
+import {LINK_INVITE, M_CLIPBOARD, T_CLIPBOARD} from "../../../../tools/const";
 import {toast} from "react-toastify";
 
 const PrepareBlock = ({setOpenSettings}) => {

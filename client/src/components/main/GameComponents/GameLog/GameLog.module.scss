@@ -8,7 +8,7 @@ $btnsWidth: 51px;
   height: 100%;
 
   position: relative;
-  z-index: 2;
+  z-index: 110;
 
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid black;
@@ -40,7 +40,7 @@ $btnsWidth: 51px;
   }
 
   .log{
-    font-size: 0.8rem;
+    @extend %font3;
     overflow-y: scroll;
     border-top: 4px solid black;
     @extend %scroll;

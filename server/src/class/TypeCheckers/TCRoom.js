@@ -65,46 +65,6 @@ class TypeChecker{
 
   }
 
-  checkArgs_setName(...args){
-    if(args.length!==1) return false
-
-    const name = args[0]
-
-    const isStr = (typeof name === "string")
-
-    return isStr
-  }
-  check_setName(...args){
-    if(!this.checkArgs_setName(...args))
-      throw new Error("incorrect set name room")
-
-    const name = args[0]
-
-    if(!name.length)
-      throw new Error(EM_NULL_NAME_ROOM)
-    //TODO: in Server
-    if(Server.getRoomsNames().includes(name))
-      throw new Error(EM_UNIQUE_NAME)
-  }
-
-  checkArgs_setPass(...args){
-    if(args.length!==1) return false
-
-    const pass = args[0]
-
-    const isStr = (typeof pass === "string")
-
-    return isStr
-  }
-  check_setPass(...args){
-    if(!this.checkArgs_setPass(...args))
-      throw new Error("incorrect set pass room")
-
-    const pass = args[0]
-
-    if(pass.length <= 2)
-      throw new Error(EM_PASS_ROOM)
-  }
 
   check_startGame(room){
     if(room.getPlayers().length < DEF_MIN_PLAYERS)

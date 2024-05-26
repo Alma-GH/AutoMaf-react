@@ -11,10 +11,6 @@ class Room {
   players
   maxPlayers
 
-  name
-  isSetPass
-  password
-
   inGame
   game
 
@@ -33,15 +29,11 @@ class Room {
 
   gameOptions
 
-  constructor(leader, maxP, name, pass) {
+  constructor(leader, maxP) {
     //init
     this.roomID = uuidv4()
     this.players = []
-    this.isSetPass = false
-    this.setName(name)
     this.setMaxPlayers(maxP)
-    if(pass !== null)
-      this.setPass(pass)
     this.inGame = false
 
     this.addPlayer(leader)
@@ -60,26 +52,6 @@ class Room {
 
   getID(){
     return this.roomID
-  }
-
-  getName(){
-    return this.name
-  }
-  setName(name){
-    Checker.check_setName(name)
-
-    this.name = name
-  }
-
-  getPass(){
-    if(this.isSetPass) return this.password
-    else               return null
-  }
-  setPass(pass){
-    Checker.check_setPass(pass)
-
-    this.password = pass
-    this.isSetPass = true
   }
 
   getMaxPlayers(){

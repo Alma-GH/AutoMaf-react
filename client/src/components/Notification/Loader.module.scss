@@ -11,9 +11,10 @@
   top: 0;
   width:100vw;
   height:100vh;
-  z-index: 100;
+  z-index: 1000;
   display:grid;
   place-items:center;
+  background-color: rgba(0,0,0,0.7);
 
   @extend %font4;
   color: yellow;

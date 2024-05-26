@@ -31,8 +31,7 @@ class Onside extends Player{
   voteNight
 
   constructor(player,role) {
-    //copy name and id
-    super(player.getName(), player.getID());
+    super(player.getName(), player.getID(), player.getAvatar());
 
     this.setRole(role)
 

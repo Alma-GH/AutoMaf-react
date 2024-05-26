@@ -7,7 +7,7 @@ const PlayerSlot = ({name, avatar, isLead, isYou}) => {
 
   return (
     <div className={clsx(cn.container, isYou && cn.you)}>
-      <Avatar index={avatar} withCrown addCls={cn.avatar} />
+      <Avatar index={avatar} withCrown={isLead} addCls={cn.avatar} />
 
       <div className={cn.name}>
         {name}

@@ -36,7 +36,7 @@ const WebSocketTest = () => {
   }
 
   function createRoom(){
-    const message = MessageCreator.createRoom(inp,"For my friends",4,false)
+    const message = MessageCreator.createRoom(inp,1,4)
 
     socket.current.send(JSON.stringify(message));
     setInp("")

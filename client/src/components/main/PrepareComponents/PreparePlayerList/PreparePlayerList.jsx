@@ -11,6 +11,7 @@ const PreparePlayerList = ({players, me}) => {
           name={GameService.getName(pl)}
           isLead={GameService.isLeader(pl,players)}
           isYou={GameService.getID(pl) === GameService.getID(me)}
+          avatar={GameService.getAvatar(pl)}
           key={GameService.getID(pl)}
         />
       )}
