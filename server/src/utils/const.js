@@ -1,5 +1,5 @@
 
-const PROD      = false
+const PROD      = process.env.PROD === "true"
 const DEBUG     = true
 const DEBUG_MOD = DEBUG && !PROD
 
