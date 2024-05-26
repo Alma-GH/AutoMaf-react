@@ -22,9 +22,9 @@ const {
   T_VOTE_NIGHT,
   TO_VOTE_NIGHT,
   E_VOTE,
-  T_ACCESS_VOTE_MAX,
-  T_ACCESS_VOTE_MIN,
-  TO_ACCESS_VOTE,
+  T_TAKE_VOTE_MAX,
+  T_TAKE_VOTE_MIN,
+  TO_TAKE_VOTE,
   T_VOTE,
   TO_VOTE,
   E_RECONNECT,
@@ -136,9 +136,9 @@ function connection (wss) {
               && game.getPhase() === enumGAME.PHASE_DAY_TOTAL){
 
               const time = vote?.getID() !== game.getSubtotalChoice()
-                ? T_ACCESS_VOTE_MAX
-                : T_ACCESS_VOTE_MIN
-              WSTimer.controlTimerToAccessVote(room, time,TO_ACCESS_VOTE)
+                ? T_TAKE_VOTE_MAX
+                : T_TAKE_VOTE_MIN
+              WSTimer.controlTimerToTakeVote(room, time,TO_TAKE_VOTE)
 
             }else{
               if(game.isEndVote())

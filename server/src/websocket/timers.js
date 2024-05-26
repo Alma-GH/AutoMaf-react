@@ -41,14 +41,14 @@ function startTimerToNextPhase(room,event,time,timeout, startLog,endLog,nextPhas
   room.setTimerID(func, timeout, Room.TK_PHASE)
 }
 
-function startTimerToAccessVote(room,time,timeout){
+function startTimerToTakeVote(room,time,timeout){
 
   function func(){
     if(time===0){
       room.clearTimer(Room.TK_RT_VOTE)
       startTimerToNextPhaseOnVote(room,T_VOTE,TO_VOTE)
     }
-    //TODO: change
+
     broadcast({event:E_TIMER, timer: {name:Room.TK_RT_VOTE, time}}, room.roomID)
     time-=1
   }
@@ -195,14 +195,14 @@ function startTimerToNextPhaseOnReadiness(room,time,timeout){
   startTimerToNextPhase(room,E_READINESS,time,timeout, startLog, endLog, nextPhase)
 }
 
-function controlTimerToAccessVote(room,time,timeout){
+function controlTimerToTakeVote(room,time,timeout){
 
   const game = room.getGame()
 
   //TODO: mb bag
   if(game.isEndVote()){
     if(!room.getTimerIdByKey(Room.TK_RT_VOTE))
-      startTimerToAccessVote(room, time, timeout)
+      startTimerToTakeVote(room, time, timeout)
   }else{
     room.clearTimer(Room.TK_RT_VOTE)
     broadcast({
@@ -219,5 +219,5 @@ module.exports = {
   startTimerToNextPhaseOnVote,
   startTimerToNextPhaseOnVoteNight,
   startTimerToNextPhaseOnReadiness,
-  controlTimerToAccessVote
+  controlTimerToTakeVote
 }
