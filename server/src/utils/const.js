@@ -4,7 +4,6 @@ const DEBUG     = true
 const DEBUG_MOD = DEBUG && !PROD
 
 const DEF_PLAYERS = {
-  //class Room
   DEF_MIN_PLAYERS : 4,
   DEF_MAX_PLAYERS : 15,
 }
@@ -60,7 +59,6 @@ module.exports = Object.freeze({
 
 
   //error messages to client
-  EM_WRONG_PASS        : "Неправильный пароль или название",
   EM_GAME_PROCESS      : "Игра уже начата",
   EM_ENTER_AGAIN       : "Вы уже находитесь в этой комнате",
   EM_UNEXPECTED_QUIT   : "Выход игрока",
@@ -70,20 +68,14 @@ module.exports = Object.freeze({
   EM_NULL_NAME_PLAYER  : "Пустое имя игрока",
 
   //Room
-  EM_NULL_NAME_ROOM    : "Пустое имя комнаты",
   EM_MAX_PLAYERS       : "Эта комната заполнена",
   EM_SET_PLAYERS_LOW   : `Слишком мало игроков(${DEF_PLAYERS.DEF_MIN_PLAYERS} мин.)`,
   EM_SET_PLAYERS_HIGH  : `Слишком много игроков(${DEF_PLAYERS.DEF_MAX_PLAYERS} макс.)`,
-  EM_UNIQUE_NAME       : "Такое название комнаты уже существует",
-  EM_PASS_ROOM         : "Слишком короткий пароль",
   EM_START_GAME        : `Не хватает игроков для игры(${DEF_PLAYERS.DEF_MIN_PLAYERS} мин.)`,
   EM_START_ALREADY     : "Нельзя начать во время таймера",
   EM_MANY_MAF          : "Слишком большое количество членов мафии",
   EM_MANY_SPEC         : "Слишком большое количество спец. ролей",
   EM_NO_MAF            : "Добавьте хотя бы одного члена мафии",
-
-  //Server
-  EM_FIND_ROOM         : "Такой комнаты нет",
 
   //Game
   EM_GAME_CHOOSE       : "Вы уже взяли карту",
@@ -93,5 +85,4 @@ module.exports = Object.freeze({
   EM_VOTE              : "Вы не можете голосовать",
   EM_VOTE_PHASE        : "В эту фазу нельзя голосовать",
   EM_VOTE_FOR          : "Вы не можете голосовать за этого игрока",
-  EM_VOTE_AGAIN        : "Вы уже проголосовали",
 });

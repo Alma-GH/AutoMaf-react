@@ -4,16 +4,12 @@ const {
   EM_SET_PLAYERS_LOW,
   DEF_MAX_PLAYERS,
   EM_SET_PLAYERS_HIGH,
-  EM_NULL_NAME_ROOM,
-  EM_UNIQUE_NAME,
-  EM_PASS_ROOM,
   EM_START_GAME,
   EM_START_ALREADY
 } = require("../../utils/const.js");
 const Player = require("../Player.js");
-const Server = require("../Server.js");
 const Game = require("../Game");
-const {EM_MANY_MAF, EM_MANY_SPEC, EM_NO_MAF, EM_ENTER_AGAIN} = require("../../utils/const"); //TODO: check on error
+const {EM_MANY_MAF, EM_MANY_SPEC, EM_NO_MAF, EM_ENTER_AGAIN} = require("../../utils/const");
 
 
 
@@ -172,9 +168,6 @@ class TypeChecker{
     if(!room.getPlayers().find(player=>player.getID()===id))
       throw new Error("this player not exist")
   }
-
-
-  //class methods
 }
 
 module.exports = new TypeChecker()

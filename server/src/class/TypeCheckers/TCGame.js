@@ -5,7 +5,6 @@ const {
   EM_VOTE,
   EM_PLAYER_DEAD,
   EM_VOTE_FOR,
-  EM_VOTE_AGAIN,
   EM_VOTE_PHASE
 } = require("../../utils/const.js");
 const Player = require("../Player.js");

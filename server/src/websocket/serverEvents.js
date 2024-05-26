@@ -1,7 +1,7 @@
 const {
   EM_GAME_PROCESS,
   EM_VOTE_ON_TIMER,
-  EM_WRONG_PASS } = require("../utils/const.js");
+} = require("../utils/const.js");
 const Player = require("../class/Player.js");
 const Room = require("../class/Room");
 const Server = require("../class/Server.js");
