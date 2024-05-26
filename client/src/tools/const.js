@@ -1,29 +1,25 @@
 
 //DEBUG
-export const PROD                   = false
+export const PROD                   = process.env.REACT_APP_PROD === "true"
 const SERVER_COMMANDS               = false
-const PANEL                         = true
+const PANEL                         = false
 const REDIRECT                      = false
 
 export const DEBUG_SERVER_COMMANDS = SERVER_COMMANDS && !PROD
 export const DEBUG_PANEL           = PANEL && !PROD
 export const DEBUG_REDIRECT        = REDIRECT && !PROD
 
-export const SECOND_STYLE          = false
-
 //SERVER
 //link
-export const LOCAL_BASE_URL = process.env.REACT_APP_LOCAL_BASE_URL
-export const LOCAL_WS_URL = process.env.REACT_APP_LOCAL_WS_URL
-export const SERVER_LINK = `wss://automaf-server.glitch.me`
-export const SERVER_BASE_URL = "https://automaf-server.glitch.me"
-export const TEST_SERVER_LINK = "wss://test-automaf.glitch.me/"
+const LOCAL_BASE_URL = process.env.REACT_APP_LOCAL_BASE_URL
+const LOCAL_WS_URL = process.env.REACT_APP_LOCAL_WS_URL
+const SERVER_WS_URL = process.env.REACT_APP_SERVER_WS_URL
+const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+export const BASE_URL = PROD ? SERVER_BASE_URL : LOCAL_BASE_URL
+export const WS_URL = PROD ? SERVER_WS_URL : LOCAL_WS_URL
 
 //default
 export const DEFAULT_NAME = "Unknown"
-
-// export const TIME_CALL_TO_SERVER = 2 * 60 * 1000
-export const TIME_CALL_TO_SERVER = 5000
 
 
 //PATHS

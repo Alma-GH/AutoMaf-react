@@ -1,4 +1,4 @@
-import {LOCAL_WS_URL, PROD, SERVER_LINK, TIME_CALL_TO_SERVER} from "../const";
+import { PROD, WS_URL} from "../const";
 
 const log = !PROD
 
@@ -9,7 +9,7 @@ class Socket{
   connect(onopen,onmessage,onclose,token){
     const params = new URLSearchParams()
     params.append("token", token)
-    const url = (PROD ? SERVER_LINK : LOCAL_WS_URL) + "?" + params.toString()
+    const url = WS_URL + "?" + params.toString()
     this.websocket = new WebSocket(url)
 
     this.websocket.onopen = () => {

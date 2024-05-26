@@ -1,4 +1,4 @@
-import {LOCAL_BASE_URL, PROD, S_ACCESS_TOKEN, SERVER_BASE_URL} from "../const";
+import {BASE_URL, S_ACCESS_TOKEN} from "../const";
 
 
 class API {
@@ -17,7 +17,7 @@ class API {
                 headers:{ "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })
             }
-            return fetch(`${PROD ? SERVER_BASE_URL : LOCAL_BASE_URL}/register`, options)
+            return fetch(`${BASE_URL}/register`, options)
         }catch (err){
             console.error(err)
         }
@@ -30,7 +30,7 @@ class API {
                 headers:{ "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })
             }
-            return fetch(`${PROD ? SERVER_BASE_URL : LOCAL_BASE_URL}/login`, options)
+            return fetch(`${BASE_URL}/login`, options)
         }catch (err){
             console.error(err)
         }
@@ -39,7 +39,7 @@ class API {
     async getMe(){
         try{
             const options = { headers: { ...this.getAuthHeaders() } }
-            return fetch(`${PROD ? SERVER_BASE_URL : LOCAL_BASE_URL}/me`, options)
+            return fetch(`${BASE_URL}/me`, options)
         }catch (err){
             console.error(err)
         }
@@ -48,7 +48,7 @@ class API {
     async getStatistic(){
         try{
             const options = { headers: { ...this.getAuthHeaders() } }
-            return fetch(`${PROD ? SERVER_BASE_URL : LOCAL_BASE_URL}/statistic`, options)
+            return fetch(`${BASE_URL}/statistic`, options)
         }catch (err){
             console.error(err)
         }
