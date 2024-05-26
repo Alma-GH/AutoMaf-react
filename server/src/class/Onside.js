@@ -8,7 +8,6 @@ class Onside extends Player{
 
   static CARD_DETECTIVE = "CARD_DETECTIVE"
   static CARD_DOCTOR = "CARD_DOCTOR"
-  static CARD_BUTTERFLY = "CARD_BUTTERFLY"
 
 
   //(CARD_MAFIA,CARD_CIVIL, ...) - card
@@ -52,7 +51,6 @@ class Onside extends Player{
       Onside.CARD_MAFIA,
       Onside.CARD_DETECTIVE,
       Onside.CARD_DOCTOR,
-      Onside.CARD_BUTTERFLY,
     ].includes(role))
       throw new Error("Type error: role in Onside")
     this.role = role

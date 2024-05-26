@@ -1,5 +1,4 @@
 import {
-  CARD_BUTTERFLY,
   CARD_CIVIL,
   CARD_DETECTIVE,
   CARD_DOCTOR,
@@ -7,7 +6,6 @@ import {
   PHASE_DAY_DISCUSSION,
   PHASE_DAY_SUBTOTAL,
   PHASE_DAY_TOTAL,
-  PHASE_NIGHT_BUTTERFLY,
   PHASE_NIGHT_DETECTIVE,
   PHASE_NIGHT_DOCTOR,
   PHASE_NIGHT_MAFIA,
@@ -17,7 +15,6 @@ import imgCivil from "../../assets/imgs/civil-card.png"
 import imgMafia from "../../assets/imgs/mafia-card.png"
 import imgDetective from "../../assets/imgs/detective-card.png"
 import imgDoctor from "../../assets/imgs/doctor-card.png"
-import imgButterfly from "../../assets/imgs/butterfly-card.png"
 
 
 class GameService {
@@ -29,21 +26,18 @@ class GameService {
 
     [CARD_DETECTIVE]: imgDetective,
     [CARD_DOCTOR]: imgDoctor,
-    [CARD_BUTTERFLY]: imgButterfly,
   }
 
   NIGHT_MAP = {
     [PHASE_NIGHT_MAFIA]: CARD_MAFIA,
     [PHASE_NIGHT_DETECTIVE]: CARD_DETECTIVE,
     [PHASE_NIGHT_DOCTOR]: CARD_DOCTOR,
-    [PHASE_NIGHT_BUTTERFLY]: CARD_BUTTERFLY,
   }
 
   NIGHT_PHASES = [
     PHASE_NIGHT_MAFIA,
     PHASE_NIGHT_DETECTIVE,
     PHASE_NIGHT_DOCTOR,
-    PHASE_NIGHT_BUTTERFLY,
   ]
 
   //room methods
@@ -98,7 +92,6 @@ class GameService {
       [PHASE_NIGHT_MAFIA]: "Ночь(Мафия)",
       [PHASE_NIGHT_DETECTIVE]: "Ночь(Детектив)",
       [PHASE_NIGHT_DOCTOR]: "Ночь(Доктор)",
-      [PHASE_NIGHT_BUTTERFLY]: "Ночь(Бабочка)",
       [PHASE_DAY_SUBTOTAL]: "День(Промежуточный итог)",
       [PHASE_DAY_TOTAL]: "День(Голосование)",
     }

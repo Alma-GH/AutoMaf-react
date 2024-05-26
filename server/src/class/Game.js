@@ -16,7 +16,6 @@ class Game {
   static PHASE_NIGHT_MAFIA    = "PHASE_NIGHT_MAFIA"
   static PHASE_NIGHT_DETECTIVE  = "PHASE_NIGHT_DETECTIVE"
   static PHASE_NIGHT_DOCTOR   = "PHASE_NIGHT_DOCTOR"
-  static PHASE_NIGHT_BUTTERFLY  = "PHASE_NIGHT_BUTTERFLY"
   static PHASE_DAY_SUBTOTAL   = "PHASE_DAY_SUBTOTAL"
   static PHASE_DAY_TOTAL      = "PHASE_DAY_TOTAL"
 
@@ -25,7 +24,6 @@ class Game {
     Game.PHASE_NIGHT_MAFIA,
     Game.PHASE_NIGHT_DETECTIVE,
     Game.PHASE_NIGHT_DOCTOR,
-    Game.PHASE_NIGHT_BUTTERFLY,
   ]
 
   //game path of phases
@@ -178,7 +176,6 @@ class Game {
     let numMaf = options.numMaf
     let numDoc = options.numDoc
     let numDet = options.numDet
-    let numBut = 0
 
     if(options.autoRole){
       //recommend -> 0
@@ -187,7 +184,6 @@ class Game {
       numMaf = 1
       numDoc = 0
       numDet = 0
-      numBut = 0
 
       //cards with mafia
       while(numPossibleVotes(numPlayers,numMaf)>2){
@@ -203,8 +199,6 @@ class Game {
       //cards with detective
       if(balance < -2)
         numDet += 1
-
-      //cards with butterfly
     }
 
 
@@ -239,8 +233,6 @@ class Game {
       this.possibleNightPhases.push(Game.PHASE_NIGHT_DETECTIVE)
     if(numDoc !== 0)
       this.possibleNightPhases.push(Game.PHASE_NIGHT_DOCTOR)
-    if(numBut !== 0)
-      this.possibleNightPhases.push(Game.PHASE_NIGHT_BUTTERFLY)
   }
 
   //create and return new created player

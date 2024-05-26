@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import BtnIco from "../../../UI/BtnIco/BtnIco";
 import imgUP from "../../../../assets/imgs/up-chevron.png";
 import cn from './CardViewer.module.scss'
-import {CARD_BUTTERFLY, CARD_CIVIL, CARD_DETECTIVE, CARD_DOCTOR, CARD_MAFIA} from "../../../../tools/const";
+import { CARD_CIVIL, CARD_DETECTIVE, CARD_DOCTOR, CARD_MAFIA} from "../../../../tools/const";
 import {CardContext} from "../../../../context/contexts";
 import GameService from "../../../../tools/Services/GameService";
 import clsx from "clsx";
@@ -43,15 +43,6 @@ function getImageByRole(role){
         <div className={cn.description}>
           <h4>ДОКТОР</h4>
           <p>Вы можете лечить других. Ваша задача найти мафию и посадить</p>
-        </div>
-      </>,
-
-    [CARD_BUTTERFLY]:
-      <>
-        <img src={GameService.getImgByRole(CARD_BUTTERFLY)} alt="CARD"/>
-        <div className={cn.description}>
-          <h4>БАБОЧКА</h4>
-          <p>Вы можете предоставить другим алиби. Ваша задача найти мафию и посадить</p>
         </div>
       </>,
   }

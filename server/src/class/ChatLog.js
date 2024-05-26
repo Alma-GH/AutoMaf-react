@@ -11,7 +11,6 @@ class ChatLog{
     [Game.PHASE_NIGHT_MAFIA]: "Город засыпает... Просыпается мафия. И делает свой выбор",
     [Game.PHASE_NIGHT_DETECTIVE]: "Просыпаются детективы. И делают свой выбор",
     [Game.PHASE_NIGHT_DOCTOR]: "Просыпаются доктора. И делают свой выбор",
-    [Game.PHASE_NIGHT_BUTTERFLY]: "Просыпаются ночные бабочки. И делают свой выбор",
     [Game.PHASE_DAY_SUBTOTAL]: "Начнем промежуточные итоги",
     [Game.PHASE_DAY_TOTAL]: "Начнем итоговое голосование",
   }
@@ -20,7 +19,6 @@ class ChatLog{
     [Game.PHASE_NIGHT_MAFIA]: "Мафия сделала свой выбор. Мафия засыпает",
     [Game.PHASE_NIGHT_DETECTIVE]: "Расследование окончено. Детективы засыпают",
     [Game.PHASE_NIGHT_DOCTOR]: "Лечение окончено. Доктора засыпают",
-    [Game.PHASE_NIGHT_BUTTERFLY]: "У кого-то была веселая ночка. Бабочки засыпают",
   }
 
   static MAP_PHRASES_RUS = {
@@ -28,7 +26,6 @@ class ChatLog{
     [Game.PHASE_NIGHT_MAFIA]: "Ночь(Мафия)",
     [Game.PHASE_NIGHT_DETECTIVE]: "Ночь(Детектив)",
     [Game.PHASE_NIGHT_DOCTOR]: "Ночь(Доктор)",
-    [Game.PHASE_NIGHT_BUTTERFLY]: "Ночь(Бабочка)",
     [Game.PHASE_DAY_SUBTOTAL]: "День(Промежуточный итог)",
     [Game.PHASE_DAY_TOTAL]: "День(Голосование)",
   }

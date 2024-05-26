@@ -5,7 +5,6 @@ import {
   PHASE_DAY_DISCUSSION,
   PHASE_DAY_SUBTOTAL,
   PHASE_DAY_TOTAL,
-  PHASE_NIGHT_BUTTERFLY,
   PHASE_NIGHT_DETECTIVE,
   PHASE_NIGHT_DOCTOR,
   PHASE_NIGHT_MAFIA,
@@ -25,7 +24,6 @@ const mapLabelByNightPhase = {
   [PHASE_NIGHT_MAFIA]: "Проголосовать за убийство",
   [PHASE_NIGHT_DETECTIVE]: "Проголосовать за расследование",
   [PHASE_NIGHT_DOCTOR]: "Проголосовать за лечение",
-  [PHASE_NIGHT_BUTTERFLY]: "Проголосовать за цель на ночь",
 }
 const civilLabel = "Дождитесь дня"
 
