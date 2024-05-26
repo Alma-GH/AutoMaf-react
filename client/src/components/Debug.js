@@ -156,8 +156,7 @@ const Debug = () => {
     const alive = GameService.getPlayersAlive(game)
 
     const voters = alive
-      .filter(pl=>(!pl.judged && pl.vote===null) || game.options.voteType === "VOTE_TYPE_REALTIME")
-    const sus = alive.find(pl=>pl.judged || game.options.voteType === "VOTE_TYPE_REALTIME")
+    const sus = alive.find(()=>game.options.voteType === "VOTE_TYPE_REALTIME")
     const nextSus = alive.find(pl=>pl._id!==sus._id)
 
     voters.forEach(voter=>{

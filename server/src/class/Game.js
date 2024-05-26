@@ -273,9 +273,6 @@ class Game {
   getPlayerSpeaker(){
     return this.getPlayers().find(player=>player.isSpeak())
   }
-  getPlayerJudged(){
-    return this.getPlayers().find(player=>player.isJudged())
-  }
   getPlayers(){
     return this.players
   }
@@ -460,41 +457,6 @@ class Game {
     if(this.getPhase() !== Game.PHASE_DAY_TOTAL) return
 
     this._initTable()
-
-    if(this.getVoteType() === Game.VOTE_TYPE_CLASSIC){
-      const first = this.getPlayerByID(this.pathIdVote[0])
-      first.judgedOn()
-    }
-  }
-  nextJudged(){
-    //TODO: TypeChecker
-    if(this.getPhase() !== Game.PHASE_DAY_TOTAL) return
-    //TODO: check judgedInd != -1
-
-    const path        = this.pathIdVote
-    const judgedInd   = path.findIndex(id=>this.getPlayerByID(id).isJudged())
-    const nextID      = path[judgedInd+1]
-    const next        = nextID!==undefined ? this.getPlayerByID(nextID) : null
-
-    const judgedPl    = this.getPlayerByID(path[judgedInd])
-    judgedPl.judgedOff()
-
-    //TODO: mb auto vote
-    if(next)
-      next.judgedOn()
-    else{
-      const unvotes = this.getPlayersAlive()
-        .filter(player=>player.getVote()===null)
-      // unvotes.forEach(player=>{
-      //   if(player!==judgedPl)
-      //     this.setVote(player,judgedPl)
-      // })
-      if(unvotes.length)
-        this.getPlayerByID(path[0]).judgedOn()
-    }
-
-    // if(judgedPl.getVote()===null &&  !next)
-    //   this.setVote(judgedPl, false)
   }
 
   setVote(player,val){
@@ -503,7 +465,6 @@ class Game {
     player.setVote(val)
     this.tableVotes.set(player,val)
     this._nextSpeaker()
-    //nextJudged by timer
 
     //TODO: check pathID
     if(this.isEndVote()){
@@ -554,7 +515,6 @@ class Game {
 
     //clear
     this.players.forEach(player=>{
-      player.judgedOff();
       player.speakOff()
     })
 
@@ -691,7 +651,6 @@ class Game {
     player.setVote(val)
     this.tableVotes.set(player,val)
     this._nextSpeaker()
-    //nextJudged by timer
 
     //TODO: mb replace in nextPhaseByVote()
     if(this.isEndVote()){

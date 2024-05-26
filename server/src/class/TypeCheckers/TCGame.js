@@ -142,7 +142,6 @@ class TypeChecker{
     const voter = args[0]
     const val = args[1]
 
-    const voteType = game.getVoteType()
     const enumGAME = game.constructor
 
     /*
@@ -150,11 +149,7 @@ class TypeChecker{
       voter should be speaker
       val shouldn't be speaker
 
-      phase: total && classic type
-      voter shouldn't be judged
-      val should be judged
-
-      speaker and judged only one player
+      speaker only one player
     */
 
 
@@ -167,9 +162,6 @@ class TypeChecker{
     if(val ? !game.getPlayersAlive().includes(val) : false)
       throw new Error(EM_PLAYER_DEAD)
 
-    if(voter.getVote() !== null && voteType !== enumGAME.VOTE_TYPE_REALTIME)
-      throw new Error(EM_VOTE_AGAIN)
-
 
     if(game.getPhase() === enumGAME.PHASE_DAY_SUBTOTAL){
       if(!voter.isSpeak())
@@ -177,12 +169,7 @@ class TypeChecker{
       if(val && val.isSpeak())
         throw new Error(EM_VOTE_FOR)
     }else if(game.getPhase() === enumGAME.PHASE_DAY_TOTAL){
-      if(voteType === enumGAME.VOTE_TYPE_CLASSIC ){
-        if(voter.isJudged())
-          throw new Error(EM_VOTE)
-        if(val && !val.isJudged())
-          throw new Error(EM_VOTE_FOR)
-      }
+
     }else{
       throw new Error(EM_VOTE_PHASE)
     }

@@ -17,7 +17,6 @@ class Onside extends Player{
   alive
   readiness
   speak
-  judged
 
   //temporary properties
   injure
@@ -37,7 +36,6 @@ class Onside extends Player{
     this.alive = true
     this.readiness = false
     this.speak = false
-    this.judged = false
 
     this.injure = false
     this.detected = false
@@ -90,15 +88,6 @@ class Onside extends Player{
     this.speak = false
   }
 
-  isJudged(){
-    return this.judged
-  }
-  judgedOn(){
-    this.judged = true
-  }
-  judgedOff(){
-    this.judged = false
-  }
 
   isInjured(){
     return this.injure

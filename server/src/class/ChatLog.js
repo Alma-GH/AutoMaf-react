@@ -81,9 +81,6 @@ class ChatLog{
   getHostPhraseBySpeaker(player){
     return `Игрок ${player.getName()} высказывается и голосует. Пожалуйста не перебивайте его.`
   }
-  getHostPhraseByJudged(player){
-    return `Кто считает, что ${player.getName()} мафия?`
-  }
   getHostPhraseByVote(voter, vote){
     //TODO: if vote not player return other phrase
     return `Игрок ${voter.getName()} проголосовал за ${vote.getName()}`

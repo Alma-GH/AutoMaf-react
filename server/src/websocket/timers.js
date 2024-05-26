@@ -1,11 +1,11 @@
 const {
-  E_NEXT_JUDGED,
   E_READINESS,
   E_START_GAME,
   E_TIMER,
   E_VOTE,
   E_VOTE_NIGHT,
-  TO_VOTE, T_VOTE, TO_JUDGED} = require("../utils/const.js");
+  TO_VOTE, T_VOTE
+} = require("../utils/const.js");
 const Room = require("../class/Room.js");
 const ChatLog = require("../class/ChatLog.js");
 const Game = require("../class/Game.js");
@@ -39,40 +39,6 @@ function startTimerToNextPhase(room,event,time,timeout, startLog,endLog,nextPhas
 
   func()
   room.setTimerID(func, timeout, Room.TK_PHASE)
-}
-
-function startTimerToJudgedPath(room){
-  const time = TO_JUDGED
-  const log = room.getLog()
-  const game = room.getGame()
-
-
-  function questionJudged(){
-    const newJudged = game.getPlayerJudged()
-    if(newJudged && !room.getTimerIdByKey(Room.TK_PHASE))
-      log.setLog(ChatLog.WHO_HOST, log.getHostPhraseByJudged(newJudged))
-    return newJudged
-  }
-
-  function func(){
-    const judged    = game.getPlayerJudged()
-    const numVotes  = game.getPlayersVoted().filter(player=>player.vote === judged).length
-    const all       = game.getPlayersAlive().length - 1
-    if(judged && !room.getTimerIdByKey(Room.TK_PHASE))
-      log.setLog(ChatLog.WHO_HOST, `${numVotes} из ${all}`)
-
-    game.nextJudged()
-
-    if(!questionJudged())
-      room.clearTimer(Room.TK_JUDGED)
-
-    if(!game.end)
-      broadcastClear({event:E_NEXT_JUDGED, room}, room.roomID)
-  }
-
-  questionJudged()
-
-  room.setTimerID(func,time,Room.TK_JUDGED)
 }
 
 function startTimerToAccessVote(room,time,timeout){
@@ -223,24 +189,7 @@ function startTimerToNextPhaseOnReadiness(room,time,timeout){
   const endLog = log=>{}
   const nextPhase = game=>{
     game.nextPhaseByReadyPlayers()
-    const phase = game.getPhase()
     newPhaseLog(room)
-    if(phase === Game.PHASE_DAY_TOTAL){
-
-      switch (game.getVoteType()){
-        case Game.VOTE_TYPE_CLASSIC:
-          startTimerToJudgedPath(room)
-          break;
-        case Game.VOTE_TYPE_FAIR:
-          //TODO: start speaker path
-          break;
-        case Game.VOTE_TYPE_REALTIME:
-          //nothing
-          break;
-      }
-
-    }
-
   }
 
   startTimerToNextPhase(room,E_READINESS,time,timeout, startLog, endLog, nextPhase)

@@ -19,7 +19,6 @@ class Room {
   timer
   static TK_START = "timer_key_start"
   static TK_PHASE = "timer_key_next_phase"
-  static TK_JUDGED = "timer_key_next_judged"
 
   static TK_RT_VOTE = "timer_key_realtime_vote"
 
@@ -153,7 +152,7 @@ class Room {
     this.timer[key] = setTimeout(cb, timeout)
   }
   clearTimer(key){
-    if(![Room.TK_START, Room.TK_PHASE, Room.TK_JUDGED, Room.TK_RT_VOTE].includes(key))
+    if(![Room.TK_START, Room.TK_PHASE, Room.TK_RT_VOTE].includes(key))
       return
     clearInterval(this.getTimerIdByKey(key))
     delete this.timer[key]
