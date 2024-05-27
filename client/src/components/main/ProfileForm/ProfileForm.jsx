@@ -7,7 +7,7 @@ import {EM_NICK, S_NICK, T_NICK} from "../../../tools/const";
 import {toast} from "react-toastify";
 
 const ProfileForm = ({continueCB}) => {
-  const [name, setName] = useState(localStorage.getItem(S_NICK))
+  const [name, setName] = useState(localStorage.getItem(S_NICK) || "")
 
   function enter(){
     if(!name.length){

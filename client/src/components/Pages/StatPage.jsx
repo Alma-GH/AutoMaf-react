@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import WindowInput from "../main/WindowInput/WindowInput";
 import API from "../../tools/Services/API";
 import Loader from "../Notification/Loader";
-import clsWin from "../main/WindowInput/WindowInput.module.scss";
 import BtnText from "../UI/BtnText/BtnText";
-import GameService from "../../tools/Services/GameService";
 import {useNavigate} from "react-router-dom";
 import {LINK_START} from "../../tools/const";
+import MainCard from "../main/MainCard/MainCard";
+import Header from "../main/Header/Header";
 
 const StatPage = () => {
   const nav = useNavigate()
@@ -33,48 +32,49 @@ const StatPage = () => {
 
   return (
     <div className='statPage'>
-      <h1>Статистика</h1>
-      <WindowInput>
-        <div className='statWindow'>
+      <Header />
+
+      <MainCard addCls="statBlock">
+        <h2>Статистика</h2>
+
+        <div className="info" >
           <div className='row'>
-            <h2>Всего игр</h2>
+            <h3>Всего игр</h3>
             <span>{stat?.games}</span>
           </div>
           <div className='row'>
-            <h2>Игр за мафию</h2>
+            <h3>Игр за мафию</h3>
             <span>{stat?.gamesMafia}</span>
           </div>
           <div className='row'>
-            <h2>Игр за детектива</h2>
+            <h3>Игр за детектива</h3>
             <span>{stat?.gamesDet}</span>
           </div>
           <div className='row'>
-            <h2>Игр за доктора</h2>
+            <h3>Игр за доктора</h3>
             <span>{stat?.gamesDoc}</span>
           </div>
-          <br/><br/><br/><br/><br/>
+          <br/><br/>
           <div className='row'>
-            <h2>Всего побед</h2>
+            <h3>Всего побед</h3>
             <span>{stat?.win}</span>
           </div>
           <div className='row'>
-            <h2>Побед за мафию</h2>
+            <h3>Побед за мафию</h3>
             <span>{stat?.winMafia}</span>
           </div>
           <div className='row'>
-            <h2>Побед за детектива</h2>
+            <h3>Побед за детектива</h3>
             <span>{stat?.winDet}</span>
           </div>
           <div className='row'>
-            <h2>Побед за доктора</h2>
+            <h3>Побед за доктора</h3>
             <span>{stat?.winDoc}</span>
           </div>
-
-          <div className={clsWin.btnCont}>
-            <BtnText text="Выйти" color="red" cb={() => nav(LINK_START)}/>
-          </div>
         </div>
-      </WindowInput>
+
+        <BtnText text="Выйти" color="red" cb={() => nav(LINK_START)}/>
+      </MainCard>
     </div>
   );
 };

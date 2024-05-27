@@ -9,12 +9,12 @@ import {toast} from "react-toastify";
 
 const RegisterPage = () => {
     const nav = useNavigate()
-    const {register} = useAuth()
+    const {register, logout} = useAuth()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const handleRegister = () => {
+    const handlerRegister = () => {
         setLoading(true)
         register(username, password)
             .then(res => {
@@ -23,8 +23,12 @@ const RegisterPage = () => {
                 setLoading(false)
             })
     }
-    const handleNavLogin = () => {
+    const handlerNavLogin = () => {
         nav("../../" + LINK_LOGIN)
+    }
+    const handlerGuestEnter = () => {
+        logout()
+        nav("../../" + LINK_ENTER)
     }
 
     if(loading)
@@ -45,8 +49,9 @@ const RegisterPage = () => {
                     val={password}
                     setVal={setPassword}
                 />
-                <BtnText text="Создать" cb={handleRegister} disabled={loading}/>
-                <BtnText text="Уже есть аккаунт" cb={handleNavLogin} disabled={loading} type="secondary" />
+                <BtnText text="Создать" cb={handlerRegister} disabled={loading}/>
+                <BtnText text="Уже есть аккаунт" cb={handlerNavLogin} disabled={loading} type="secondary" />
+                <BtnText text="Как гость" cb={handlerGuestEnter} disabled={loading} type="secondary"/>
             </div>
         </div>
     );
