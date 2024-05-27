@@ -137,12 +137,6 @@ button{
   position: relative;
   overflow: hidden;
 
-  @if($debug){
-    @include media(background-color,
-            (lg:$lg,md:$md,sm:$sm),
-            (lg:red,md:green,sm:blue));
-  }
-
   .btnCont{
     position: absolute;
     bottom: 15px;

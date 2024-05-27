@@ -20,7 +20,7 @@ $transTimeFast: 0.1s;
   img{
     height: $imgSize;
     aspect-ratio: 1/1;
-    @include transSize($transTimeLong);
+    transition: height $transTimeLong ease-in-out, width $transTimeLong ease-in-out;
     user-select: none;
     pointer-events: none;
   }

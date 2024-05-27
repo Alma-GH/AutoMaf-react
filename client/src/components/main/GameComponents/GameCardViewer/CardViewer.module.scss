@@ -18,10 +18,6 @@ $button_height: 50px;
   @extend %column;
   @extend %center;
 
-  @if($debug) {
-    border: 1px solid red;
-  }
-
   transition: bottom 0.5s, top 0.5s;
 
 
