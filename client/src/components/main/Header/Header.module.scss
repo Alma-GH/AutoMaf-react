@@ -5,7 +5,7 @@
   @extend %center;
 
   background-color: $color-grey1;
-  height: 78px;
+  height: $header_height1;
 
   p {
     font-family: Impact, serif;
@@ -18,5 +18,24 @@
 
   span {
     color: $color-red;
+  }
+
+  @include media-p3 {
+    height: $header_height2;
+    p {
+      font-size: 40px;
+    }
+  }
+  @include media-p4 {
+    height: $header_height3;
+    p {
+      font-size: 30px;
+    }
+  }
+  @include media-h2 {
+    height: $header_height3;
+    p {
+      font-size: 30px;
+    }
   }
 }

@@ -70,7 +70,7 @@ button{
   @extend %page;
 
   .inputCont {
-    height: calc(100% - 78px);
+    @extend %screenHeightWithoutHeader;
   }
 
 }
@@ -79,7 +79,7 @@ button{
   @extend %page;
 
   .buttonContainer{
-    height: calc(100% - 78px);
+    @extend %screenHeightWithoutHeader;
   }
 
   .buttonContainer>div {
@@ -92,7 +92,7 @@ button{
   @extend %page;
 
   .statBlock {
-    height: calc(100% - 78px);
+    @extend %screenHeightWithoutHeader;
 
     h2 {
       @extend %font3;
@@ -120,14 +120,28 @@ button{
     position: absolute;
     left: 10px;
     top: 88px;
-
+    @include media-p3 {
+      top: 60px;
+    }
+    @include media-p4 {
+      left: 0;
+      top: 35px;
+    }
   }
   .formBlock{
-    height: calc(100% - 78px);
+    @extend %screenHeightWithoutHeader;
+    &>div {
+      width: 100%
+    }
     h2 {
       @extend %font3;
       text-align: center;
       margin-bottom: 30px;
+
+      @include media-h1 {
+        margin-bottom: 15px;
+        font-size: 24px;
+      }
     }
   }
 }
@@ -168,7 +182,7 @@ button{
 
 
 .centerBodyPage {
-  height: calc(100% - 78px);
+  @extend %screenHeightWithoutHeader;
   display: flex;
   justify-content: center
 }

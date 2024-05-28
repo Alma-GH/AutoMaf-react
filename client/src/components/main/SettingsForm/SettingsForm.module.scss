@@ -11,9 +11,17 @@
   gap: 30px;
   align-items: center;
   width: 360px;
+
+  @include media-p4 {
+    width: 100%;
+  }
 }
 
 .buttons {
   display: flex;
   gap: 30px;
+
+  @include media-p3 {
+    flex-direction: column-reverse;
+  }
 }

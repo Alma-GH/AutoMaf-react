@@ -12,6 +12,9 @@
   @extend %font1;
   background-color: $color-red2;
   border: 3px solid #AF2A2A;
+  @include media-h1 {
+    height: 50px;
+  }
 }
 
 .imgCont{
@@ -23,4 +26,9 @@
   img{
     height: 90%;
   }
+}
+
+.container:disabled {
+  background: #B9B9B9;
+  border: 3px solid #252525
 }

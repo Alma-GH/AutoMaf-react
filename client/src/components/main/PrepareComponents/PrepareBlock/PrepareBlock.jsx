@@ -39,7 +39,10 @@ const PrepareBlock = ({setOpenSettings}) => {
     return time ? 6 - time : 0
   }
 
-  const openSettings = () => setOpenSettings(true)
+  const openSettings = () => {
+    setOpenSettings(true)
+    console.log("click")
+  }
 
   const handlerInviteClick = () => {
     navigator.clipboard.writeText(window.location.origin + LINK_INVITE + "?room=" + GameService.getRoomID(room))
@@ -61,8 +64,8 @@ const PrepareBlock = ({setOpenSettings}) => {
       </div>
 
       <div className={cn.buttons}>
-        <BtnText text="Пригласить"  cb={handlerInviteClick}/>
-        <BtnText text="Начать" cb={startGame} disabled={!GameService.isLeader(player,players)}/>
+        <BtnText addCls={cn.button} text="Пригласить"  cb={handlerInviteClick} />
+        <BtnText addCls={cn.button} text="Начать" cb={startGame} disabled={!GameService.isLeader(player,players)}/>
       </div>
     </div>
   )

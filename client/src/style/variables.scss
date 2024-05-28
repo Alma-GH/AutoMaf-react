@@ -25,6 +25,10 @@ $color-bg-det-card: #2b628c;
 $card_width1: 140px;
 $card_height1: 200px;
 
+$header_height1: 78px;
+$header_height2: 50px;
+$header_height3: 35px;
+
 
 
 %allIN{
@@ -120,7 +124,8 @@ $card_height1: 200px;
 
 
 //RESPONSIVE
-$min: 320px;
+$minW: 320px;
+$minH: 480px;
 $sm: 480px;
 $md2: 768px;
 $md: 1024px;
@@ -139,7 +144,7 @@ $lg: 1280px;
 }
 
 
-$as: $md / 2;
+$as: calc($md / 2);
 //$am: 0;
 //$al: 0;
 $ags: $as*2;
@@ -193,12 +198,60 @@ $sizes: (sm: $as, gsm: $ags);
   }
 }
 
+@mixin media-h1 {
+  @media (height <= 900px) {
+    @content
+  }
+}
+
+@mixin media-h2 {
+  @media (height <= 700px) {
+    @content
+  }
+}
+
+@mixin media-h2 {
+  @media (height <= 700px) {
+    @content
+  }
+}
+
+@mixin media-h3 {
+  @media (height <= 570px) {
+    @content
+  }
+}
+
 .test {
   @include media-p1 {
     background-color: green;
   }
   
-  @media (width <= 320px) {
+  @media (width < 320px) {
     background-color: red;
+  }
+  @media (height < 480px) {
+    background-color: red;
+  }
+}
+
+
+%screenHeightWithoutHeader {
+  height: calc(100vh - $header_height1);
+}
+
+@include media-p3 {
+  %screenHeightWithoutHeader {
+    height: calc(100vh - $header_height2);
+  }
+}
+@include media-p4 {
+  %screenHeightWithoutHeader {
+    height: calc(100vh - $header_height3);
+  }
+}
+@include media-h2 {
+  %screenHeightWithoutHeader {
+    height: calc(100vh - $header_height3);
   }
 }

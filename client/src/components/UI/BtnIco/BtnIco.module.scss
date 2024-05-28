@@ -12,6 +12,11 @@ $transTimeFast: 0.1s;
   width: $btnSize;
   height: $btnSize;
 
+  @include media-p4 {
+    width: $btnSize * 0.8;
+    height: $btnSize * 0.8;
+  }
+
   @extend %center;
 
   background-color: $color-red2;

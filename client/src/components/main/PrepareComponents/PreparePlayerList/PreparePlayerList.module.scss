@@ -16,4 +16,21 @@
   overflow-x: hidden;
 
   @extend %scroll;
+
+  @include media-p3 {
+    width: 100%;
+    grid-template-columns: 100%;
+    padding: 10px;
+    height: 100%;
+  }
+
+  @include media-h1 {
+    max-height: 340px;
+  }
+  @include media-h2 {
+    max-height: 280px;
+  }
+  @include media-h3 {
+    max-height: 200px;
+  }
 }

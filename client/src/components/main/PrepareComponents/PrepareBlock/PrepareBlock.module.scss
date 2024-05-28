@@ -3,16 +3,41 @@
 .block {
   @extend %column;
   align-items: center;
-  gap: 30px
+  gap: 30px;
+
+  @include media-h1 {
+    gap: 10px;
+  }
 }
 .body {
   @extend %column;
   gap: 30px;
   align-items: center;
   width: 360px;
+
+  @include media-p3 {
+    width: 100%;
+  }
+
+  @include media-h1 {
+    gap: 10px;
+  }
 }
 
 .buttons {
   display: flex;
+  justify-content: center;
   gap: 30px;
+  width: 100%;
+
+  @include media-p3 {
+    .button {
+      width: 100%;
+    }
+  }
+  @include media-h1 {
+    .button {
+      height: 50px;
+    }
+  }
 }

@@ -18,4 +18,8 @@
     background-color: $color-grey1;
     border: 3px solid #252525
   }
+
+  @include media-p4 {
+    width: 300px;
+  }
 }

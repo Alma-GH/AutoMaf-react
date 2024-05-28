@@ -11,4 +11,14 @@
   border-inline: $color-grey1 solid 2px;
 
   margin: auto;
+  padding: 20px;
+
+  @include media-p3 {
+    min-width: 400px;
+  }
+  @include media-p4 {
+    min-width: initial;
+    width: 100%;
+    border: none;
+  }
 }
