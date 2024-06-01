@@ -19,6 +19,16 @@ $colCard_ready: #00FF38;
     border-width: 5px;
     border-color: $colCard_hover;
   }
+
+  @include media-p2 {
+    width: $card_width2;
+  }
+  @include media-p3 {
+    width: $card_width3;
+    max-height: 80px;
+    min-height: 70px;
+    aspect-ratio: 300/70;
+  }
 }
 
 .cardRole {
@@ -27,6 +37,10 @@ $colCard_ready: #00FF38;
   user-select: none;
   &.invis {
     visibility: hidden;
+  }
+
+  @include media-p3 {
+    font-size: 64px;
   }
 }
 
@@ -114,6 +128,9 @@ $colCard_ready: #00FF38;
     &.det {
       background-color: $color-bg-det-card;
     }
+    img {
+      @extend %allIN;
+    }
   }
 
   .name{
@@ -143,6 +160,67 @@ $colCard_ready: #00FF38;
       top: 5px;
       z-index: 10;
       color: white;
+    }
+    .role {
+      display: none;
+      text-transform: uppercase;
+      font-size: 20px;
+    }
+  }
+
+
+  @include media-p3 {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 5px;
+
+    &:hover {
+      padding: 3px;
+      .timer span {
+        width: 70px;
+      }
+    }
+
+    &.you {
+      box-shadow: 0 0 0 6px $colCard_you
+    }
+    &.team{
+      box-shadow: 0 0 0 2px $colCard_team
+    }
+    &.you.team {
+      box-shadow: 0 0 0 2px $colCard_team, 0 0 0 6px $colCard_you
+    }
+    &.vote{
+      box-shadow: 0 0 0 3px $colCard_vote;
+    }
+    .ready{
+      box-shadow: 0 0 30px 10px $colCard_ready;
+    }
+    .timer {
+      display: block;
+      span {
+        height: 100%;
+        width: 74px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .imgRole img {
+      display: none;
+    }
+    .name.end {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+    }
+    .name .role {
+      display: block;
     }
   }
 }

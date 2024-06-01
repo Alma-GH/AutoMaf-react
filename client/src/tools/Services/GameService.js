@@ -28,6 +28,24 @@ class GameService {
     [CARD_DOCTOR]: imgDoctor,
   }
 
+  ROLE_RUS_MAP = {
+    [CARD_MAFIA]: "Мафия",
+    [CARD_CIVIL]: "Мирный"  ,
+
+    [CARD_DETECTIVE]: "Детектив",
+    [CARD_DOCTOR]: "Доктор",
+  }
+
+  PHASE_RUS_MAP = {
+    [PHASE_PREPARE]: "Подготовка",
+    [PHASE_DAY_DISCUSSION]: "День(Обсуждение)",
+    [PHASE_NIGHT_MAFIA]: "Ночь(Мафия)",
+    [PHASE_NIGHT_DETECTIVE]: "Ночь(Детектив)",
+    [PHASE_NIGHT_DOCTOR]: "Ночь(Доктор)",
+    [PHASE_DAY_SUBTOTAL]: "День(Промежуточный итог)",
+    [PHASE_DAY_TOTAL]: "День(Голосование)",
+  }
+
   NIGHT_MAP = {
     [PHASE_NIGHT_MAFIA]: CARD_MAFIA,
     [PHASE_NIGHT_DETECTIVE]: CARD_DETECTIVE,
@@ -85,18 +103,7 @@ class GameService {
     return (game ? game.phasePath[game.phaseIndex+1] : null)
   }
   getPhaseRus(game){
-    //DEP NIGHT PHASES 4
-    const map = {
-      [PHASE_PREPARE]: "Подготовка",
-      [PHASE_DAY_DISCUSSION]: "День(Обсуждение)",
-      [PHASE_NIGHT_MAFIA]: "Ночь(Мафия)",
-      [PHASE_NIGHT_DETECTIVE]: "Ночь(Детектив)",
-      [PHASE_NIGHT_DOCTOR]: "Ночь(Доктор)",
-      [PHASE_DAY_SUBTOTAL]: "День(Промежуточный итог)",
-      [PHASE_DAY_TOTAL]: "День(Голосование)",
-    }
-
-    return map[this.getPhase(game)]
+    return this.PHASE_RUS_MAP[this.getPhase(game)]
   }
   isNight(game){
     const phase = this.getPhase(game)
@@ -144,6 +151,10 @@ class GameService {
   getRole(player,game){
     const find = this.getPlayers(game)?.find(pl=>pl._id === this.getID(player))
     return find?.role
+  }
+  getRoleRus(player, game) {
+    const role = this.getRole(player, game)
+    return this.ROLE_RUS_MAP[role]
   }
   getPlayerVote(player,game){
     const find = this.getPlayers(game)?.find(pl=>pl._id === this.getID(player))

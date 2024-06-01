@@ -4,6 +4,11 @@
   width: 100%;
   aspect-ratio: 1/1;
   position: relative;
+
+  @include media-p3 {
+    height: 100%;
+    width: auto;
+  }
 }
 
 .avatar {
@@ -38,5 +43,9 @@
     border-radius: 50%;
     background-color: #D9D9D9;
     border: 1px solid black;
+  }
+
+  @include media-p3 {
+    top: 0;
   }
 }

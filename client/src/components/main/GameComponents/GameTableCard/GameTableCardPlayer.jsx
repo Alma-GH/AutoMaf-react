@@ -110,7 +110,7 @@ const GameTableCardPlayer = ({player}) => {
     ?.some(readyPlayer => GameService.getID(readyPlayer) === GameService.getID(player))
   const isCounterVotesVisible = (numVotes>0 || (nightVotes>0 && (GameService.isPlayerToMatchNightPhase(me,game))))
   const isTimeToKick = (timer === T_VOTE && GameService.getChoice(game) === pID && time !== 0)
-  console.log("ROOLE")
+
   return (
     <div
       className={clsx(
@@ -124,24 +124,25 @@ const GameTableCardPlayer = ({player}) => {
     >
 
 
-      {end && <img
-        className={clsx(
+      {end && (
+        <div className={clsx(
           cn.imgRole,
           playerRole === CARD_MAFIA && cn.maf,
           playerRole === CARD_CIVIL && cn.civ,
           playerRole === CARD_DOCTOR && cn.doc,
           playerRole === CARD_DETECTIVE && cn.det,
-        )}
-        src={GameService.getImgByRole(playerRole)} alt={playerRole}
-      />}
+        )}>
+          <img src={GameService.getImgByRole(playerRole)} alt={playerRole} />
+        </div>
+      )}
       {isCounterVotesVisible &&
         <div className={clsx(cn.counterVotes, isTimeToKick && cn.shadow)}>
           {numVotes || nightVotes}
         </div>
       }
-      {isTimeToKick && <div className={cn.timer}>{time}</div>}
+      {isTimeToKick && <div className={cn.timer}><span>{time}</span></div>}
 
-      <CardType state={avatar} avatarIndex={playerAvatar} />
+      <CardType state={avatar} avatarIndex={playerAvatar} addCls={clsx(cn.cardType, end && cn.end)} />
 
       <div
         title={name}
@@ -153,6 +154,7 @@ const GameTableCardPlayer = ({player}) => {
           isDetected && playerRole !== CARD_MAFIA && cn.detectCiv
         )}
       >
+        {end && <span className={cn.role}>{GameService.getRoleRus(player, game)}</span>}
         {name}
       </div>
 

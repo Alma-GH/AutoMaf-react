@@ -3,10 +3,11 @@ import cn from "./CardType.module.scss";
 import imgCross from "../../../../assets/imgs/cancel.png";
 import React from "react";
 import Avatar from "../../Avatar/Avatar";
+import clsx from "clsx";
 
-const CardType = ({state=AVATAR_NORMAL, avatarIndex=3})=>{
+const CardType = ({state=AVATAR_NORMAL, avatarIndex=3, addCls})=>{
   return (
-    <div className={cn.container}>
+    <div className={clsx(cn.container, addCls)}>
       {[AVATAR_NORMAL,AVATAR_DEAD].includes(state)  &&
         <>
           <Avatar index={avatarIndex} addCls={cn.avatar} />

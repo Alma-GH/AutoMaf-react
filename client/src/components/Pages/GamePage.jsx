@@ -84,7 +84,13 @@ const GamePage = () => {
 
   useRedirectCloseConnection()
 
-
+  // let players2 = Array.from({length: 20}, () => (
+  //   {
+  //     "_id": "guest_41285854-175e-4e98-8bc5-2c466d6c5a1b",
+  //     "_name": "Finder5",
+  //     "avatarIndex": 1
+  //   }
+  // ))
   return (
     <div className="gamePage">
 
@@ -118,7 +124,7 @@ const GamePage = () => {
       {end && <StartLoader stage={tContext.timer?.time}/>}
       {sleep && <div className="gameBack"/>}
       <ModalQuit isOpen={isModalQuitOpen} onClose={closeModal}/>
-      <ModalAlert/>
+      {/*<ModalAlert/>*/}
     </div>
   );
 };
