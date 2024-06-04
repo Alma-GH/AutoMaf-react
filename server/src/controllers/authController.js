@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const client = require("./dbClient.js")
+const client = require("../db/dbClient.js")
 
 const getNewStatistic = (playerId) => {
     return {

@@ -1,8 +1,7 @@
-const client = require("./dbClient.js")
+const client = require("../db/dbClient.js")
 const {ObjectId} = require("mongodb");
-const Server = require("./class/Server.js")
-const Game = require("./class/Game.js")
-const Onside = require("./class/Onside.js")
+const Game = require("../class/Game.js")
+const Onside = require("../class/Onside.js")
 
 
 class StatisticController {

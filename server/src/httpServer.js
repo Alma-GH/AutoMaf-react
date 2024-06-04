@@ -1,9 +1,9 @@
 const express = require("express");
 const http = require("http");
 const cors = require("cors")
-const AuthController = require("./authController")
-const StatisticController = require("./statisticController")
-const authMiddleware = require("./authMiddleware")
+const AuthController = require("./controllers/authController")
+const StatisticController = require("./controllers/statisticController")
+const authMiddleware = require("./middlewares/authMiddleware")
 
 const app = express();
 

@@ -11,7 +11,7 @@ const ChatLog = require("../class/ChatLog.js");
 const Game = require("../class/Game.js");
 const {broadcast, broadcastClear} = require("./send.js");
 const {getRandomIntInclusive} = require("../utils/func");
-const StatisticController = require("../statisticController.js")
+const StatisticController = require("../controllers/statisticController.js")
 
 
 

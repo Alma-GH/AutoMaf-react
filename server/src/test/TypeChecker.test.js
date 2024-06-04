@@ -17,9 +17,9 @@ const {
 class FabTester{
 
   block(title, body){
-    Tester.title(title)
+    this.title(title)
     body()
-    Tester.end()
+    this.end()
   }
 
   title(title){
@@ -42,9 +42,9 @@ class FabTester{
   fail(cb){
     try{
       cb()
-      console.log("\x1b[31m","- TEST FAILED","\x1b[0m")
+      console.log("\x1b[32m","+ TEST FAILED","\x1b[0m")
     }catch (e){
-      console.log("\x1b[32m",`- TEST PASSED(${e.message})`,"\x1b[0m")
+      console.log("\x1b[31m",`+ TEST PASSED(${e.message})`,"\x1b[0m")
     }finally {
       this.clear()
     }
@@ -53,7 +53,6 @@ class FabTester{
   clear(){
     //clear global
     Server.clear()
-    Room.newID = 0
   }
 }
 
